@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: $DOCKER_LIBRARY_REGISTRY/postgres:latest
+    container_name: postgres
+    hostname: postgres
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    command: ["postgres"]
+    networks:
+      default:
+        aliases:
+          - postgres.$PROJECT_NAME_SHORT.local
+
+networks:
+  default:
+    name: $DOCKER_NETWORK
