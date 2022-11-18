@@ -6,3 +6,10 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "main"
+
+  # Maintain dependencies for TypeScript
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "main"
