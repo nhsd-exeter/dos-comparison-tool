@@ -106,6 +106,19 @@ typescript-test: # Run TypeScript tests
 	yarn run test
 
 # ==============================================================================
+# Testing targets
+
+tester-build: # Build tester image which is used for end-to-end testing
+	cp $(APPLICATION_TEST_DIR)/requirements-test.txt $(DOCKER_DIR)/tester/assets/requirements.txt
+	make -s docker-build NAME=tester
+
+end-to-end-test:
+	make -s docker-run-python \
+	IMAGE=$(DOCKER_REGISTRY)/tester \
+	DIR=test/end_to_end \
+	CMD="pytest --gherkin-terminal-reporter"
+
+# ==============================================================================
 # Pipeline targets
 
 build-artefact:
