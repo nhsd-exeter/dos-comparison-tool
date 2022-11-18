@@ -116,6 +116,7 @@ end-to-end-test:
 	make -s docker-run-python \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
+	ARGS="-e TEST_BROWSER_URL=$(TEST_BROWSER_URL)" \
 	CMD="pytest --gherkin-terminal-reporter"
 
 # ==============================================================================

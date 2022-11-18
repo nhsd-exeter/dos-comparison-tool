@@ -1,15 +1,20 @@
 from selenium import webdriver
 from os import getenv
 
+driver = None
 
-def get_driver():
+
+def create_driver() -> None:
     global driver
-    if driver is None:
-        options = webdriver.ChromeOptions()
-        options.add_argument("--ignore-ssl-errors=yes")
-        options.add_argument("--ignore-certificate-errors")
-        test_browser_url = getenv("TEST_BROWSER_URL")
-        driver = webdriver.Remote(command_executor=test_browser_url, options=options)
+    options = webdriver.ChromeOptions()
+    options.add_argument("--ignore-ssl-errors=yes")
+    options.add_argument("--ignore-certificate-errors")
+    test_browser_url = getenv("TEST_BROWSER_URL")
+    driver = webdriver.Remote(command_executor=test_browser_url, options=options)
+
+
+def get_driver() -> webdriver:
+    return driver
 
 
 def close_driver():

@@ -1,6 +1,7 @@
-from dataclasses import dataclass
+from ..drivers.chrome_driver import get_driver
 
 
-@dataclass
 class page:
-    url = ""
+    """Base class to initialize the base webpage that will be called from all pages"""
+
+    url_subdirectory: str

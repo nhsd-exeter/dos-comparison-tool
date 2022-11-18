@@ -2,4 +2,6 @@ from .page import page
 
 
 class homepage(page):
-    url = "https://www.google.com"
+    """Actions and checks for the homepage"""
+
+    url_subdirectory = "https://www.google.com"
