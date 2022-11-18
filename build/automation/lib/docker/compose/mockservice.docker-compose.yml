@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  mockservice:
+    image: wiremock/wiremock:$DOCKER_WIREMOCK_VERSION
+    container_name: mockservice
+    volumes:
+      - $PROJECT_DIR/test/contract/mappings/:/home/wiremock/mappings/
+    ports:
+      - 8080:8080
+    command: ["--verbose"]
+    networks:
+      default:
+        aliases:
+          - mockservice.sf.test
+
+networks:
+  default:
+    name: $DOCKER_NETWORK
