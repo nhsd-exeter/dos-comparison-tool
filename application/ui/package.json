@@ -10,6 +10,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "ci-check": "yarn rome ci .",
     "eject": "react-scripts eject"
   },
   "packageManager": "yarn@3.3.0",

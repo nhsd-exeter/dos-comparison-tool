@@ -6,10 +6,10 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 
 setup: # Set up project
 	make project-config
-	# Set up local virtual environment and download dependencies
+# Set up local virtual environment and download dependencies
 
 build: project-config # Build project
-	make docker-build NAME=NAME_TEMPLATE_TO_REPLACE
+	make ui-build
 
 start: project-start # Start project
 
@@ -33,11 +33,62 @@ provision: # Provision environment - mandatory: PROFILE=[name]
 	make terraform-apply-auto-approve STACK=database PROFILE=$(PROFILE)
 
 clean: # Clean up project
+	make \
+		ui-clean \
+		terraform-clean
 
 # ==============================================================================
 # Supporting targets
 
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
+
+# ==============================================================================
+
+ui-build: # Build UI image
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install --production && yarn build"
+	cd $(APPLICATION_DIR)/ui
+	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz build
+	cd $(PROJECT_DIR)
+	make ssl-copy-certificate-project DIR=$(DOCKER_DIR)/ui/assets/certificate
+	make -s docker-build NAME=ui
+
+ui-start: # Start UI development server (Hot reload)
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	yarn run start
+
+ui-test:
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install"
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn run test"
+
+ui-clean: # Clean UI
+	make docker-image-clean NAME=ui
+	make ui-build-clean
+
+ui-build-clean: # Clean UI build artefacts
+	rm -rf $(APPLICATION_DIR)/ui/build
+	rm -rf $(APPLICATION_DIR)/ui/node_modules
+	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
+
+# ==============================================================================
+
+typescript-package-duplicate-check:
+	cd $(APPLICATION_DIR)/ui
+	yarn install && yarn dedupe --check
+
+typescript-format: # Format TypeScript code
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	yarn run format:fix
+
+typescript-lint: # Lint TypeScript code
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	yarn run lint:fix
+
+typescript-code-check:
+	cd $(APPLICATION_DIR)/ui
+	yarn run ci-check
 
 # ==============================================================================
 # Pipeline targets

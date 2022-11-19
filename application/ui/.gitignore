@@ -36,11 +36,7 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
-
-# ignore yarn.lock
-yarn.lock
-
-# yarn v2
-.yarn/*
-!.yarn/releases
 build
+
+# Yarn v2
+.yarn/cache/*.zip
