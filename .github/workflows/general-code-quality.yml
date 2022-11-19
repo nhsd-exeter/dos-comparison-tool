@@ -1,4 +1,4 @@
-name: "Check code format and quality"
+name: "General - Check code format and quality"
 on:
   push:
     branches: [main]
