@@ -34,6 +34,25 @@ provision: # Provision environment - mandatory: PROFILE=[name]
 
 clean: # Clean up project
 
+start-ui-development: # Start UI development
+	rm -rf node_modules
+	yarn install
+	cd $(APPLICATION_DIR)/ui
+	yarn run start:dev
+
+# make start PROFILE=yarn
+# docker stop ui
+# cd application/ui
+# rm -rf node_modules
+# yarn install
+# yarn run start
+
+format-package-json: # Format package.json to be consistent
+	make -s docker-run-node CMD="yarn format-package -w" DIR=$(APPLICATION_DIR_REL)/ui
+
+upgrade-all-dependencies: # Upgrade all dependencies to the latest version within package.json
+	make -s docker-run-node CMD="yarn install && yarn upgrade" DIR=$(APPLICATION_DIR_REL)/ui
+
 # ==============================================================================
 # Supporting targets
 

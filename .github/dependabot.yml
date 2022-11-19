@@ -8,7 +8,7 @@ updates:
     target-branch: "main"
 
   # Maintain dependencies for TypeScript
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"

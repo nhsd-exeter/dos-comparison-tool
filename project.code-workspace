@@ -84,7 +84,7 @@
     "workbench.editor.enablePreview": false,
     "workbench.tree.indent": 24,
     "[dockerfile]": {
-      "editor.formatOnSave": false,
+      "editor.formatOnSave": true,
       "editor.insertSpaces": true,
       "editor.tabSize": 4
     },
@@ -98,11 +98,27 @@
     },
     "[javascript]": {
       "editor.insertSpaces": true,
-      "editor.tabSize": 2
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "rome.rome"
     },
     "[javascriptreact]": {
       "editor.insertSpaces": true,
-      "editor.tabSize": 2
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "rome.rome"
+    },
+    "[typescript]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "rome.rome"
+    },
+    "[typescriptreact]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "rome.rome"
     },
     "[json]": {
       "editor.insertSpaces": true,
@@ -113,14 +129,6 @@
       "editor.insertSpaces": true
     },
     "[terraform]": {
-      "editor.insertSpaces": true,
-      "editor.tabSize": 2
-    },
-    "[typescript]": {
-      "editor.insertSpaces": true,
-      "editor.tabSize": 2
-    },
-    "[typescriptreact]": {
       "editor.insertSpaces": true,
       "editor.tabSize": 2
     },
