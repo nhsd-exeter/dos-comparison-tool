@@ -50,9 +50,6 @@ start-ui-development: # Start UI development
 format-package-json: # Format package.json to be consistent
 	make -s docker-run-node CMD="yarn format-package -w" DIR=$(APPLICATION_DIR_REL)/ui
 
-upgrade-all-dependencies: # Upgrade all dependencies to the latest version within package.json
-	make -s docker-run-node CMD="yarn install && yarn upgrade" DIR=$(APPLICATION_DIR_REL)/ui
-
 # ==============================================================================
 # Supporting targets
 

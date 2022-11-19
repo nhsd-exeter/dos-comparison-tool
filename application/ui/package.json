@@ -1,6 +1,7 @@
 {
   "name": "dos-comparison-tool",
   "license": "ISC",
+  "private": true,
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "format": "yarn rome format . ",
@@ -10,6 +11,7 @@
     "start": "yarn run build && node dist/index.js",
     "start:dev": "nodemon"
   },
+  "packageManager": "yarn@3.3.0",
   "dependencies": {
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",

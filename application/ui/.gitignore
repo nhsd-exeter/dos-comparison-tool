@@ -39,3 +39,7 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+
+# yarn v2
+.yarn/*
+!.yarn/releases
