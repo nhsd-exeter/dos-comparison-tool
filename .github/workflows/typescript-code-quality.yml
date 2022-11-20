@@ -23,4 +23,4 @@ jobs:
 
       - name: Typescript Code Format and Quality
         run: |
-          make typescript-check
+          make typescript-code-check
