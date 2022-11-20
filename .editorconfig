@@ -17,5 +17,5 @@ indent_style = tab
 [*.py]
 indent_size = 4
 
-[*.tsx]
+[*.{tsx,ts,js,jsx}]
 indent_style = tab

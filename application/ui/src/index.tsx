@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import DoSComparisonTool from "./main";
 
-const root = ReactDOM.createRoot(
-	document.getElementById("root") as HTMLElement,
-);
+const containerElement = document.querySelector("body > div");
+if (!containerElement) {
+	throw new Error("Failed to find the react-container element");
+}
+const root = ReactDOM.createRoot(containerElement);
+
 root.render(
 	<React.StrictMode>
-		<DoSComparisonTool />
+		<p>Hello World</p>
 	</React.StrictMode>,
 );
