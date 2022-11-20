@@ -6,6 +6,10 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 
 setup: # Set up project
 	make project-config
+# Yarn Setup
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	cd $(PROJECT_DIR)
 # Set up local virtual environment and download dependencies
 
 build: project-config # Build project
@@ -24,7 +28,7 @@ test: # Test project
 	make stop
 
 push: # Push project artefacts to the registry
-	make docker-push NAME=NAME_TEMPLATE_TO_REPLACE
+	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name]
 	make project-deploy STACK=application PROFILE=$(PROFILE)
@@ -45,9 +49,9 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 # ==============================================================================
 
 ui-build: # Build UI image
-	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install --production && yarn build"
-	cd $(APPLICATION_DIR)/ui
-	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz build
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn build"
+	cd $(APPLICATION_DIR)/ui/build
+	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
 	cd $(PROJECT_DIR)
 	make ssl-copy-certificate-project DIR=$(DOCKER_DIR)/ui/assets/certificate
 	make -s docker-build NAME=ui
@@ -188,7 +192,7 @@ pipeline-create-resources: ## Create all the pipeline deployment supporting reso
 	#make ssl-request-certificate-prod SSL_DOMAINS_PROD
 	# Centralised, i.e. `mgmt`
 	eval "$$(make aws-assume-role-export-variables AWS_ACCOUNT_ID=$(AWS_ACCOUNT_ID_MGMT))"
-	#make docker-create-repository NAME=NAME_TEMPLATE_TO_REPLACE
+	#make docker-create-repository NAME=ui
 	#make aws-codeartifact-setup REPOSITORY_NAME=$(PROJECT_GROUP_SHORT)
 
 # ==============================================================================

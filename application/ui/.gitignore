@@ -39,4 +39,4 @@ dist/**/*
 build
 
 # Yarn v2
-.yarn/cache/*.zip
+.yarn/cache/**
