@@ -12,11 +12,14 @@ TEAM_ID = $(PROJECT_NAME)
 ROLE_PREFIX = UECDoSCT
 PROJECT_TAG = $(PROJECT_NAME)
 SERVICE_TAG = $(PROJECT_GROUP_SHORT)
-SERVICE_TAG_COMMON = texas
 
-PROJECT_TECH_STACK_LIST = python,javascript,terraform,shell
+PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
+
+# --------------------------------------
+
+K8S_SERVICE_ACCOUNT_NAME = $(PROJECT_ID)-$(ENVIRONMENT)-k8s-service-account
 
 # ==============================================================================
 

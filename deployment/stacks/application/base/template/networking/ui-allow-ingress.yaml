@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ui-allow-ingress
+spec:
+  podSelector:
+    matchLabels:
+      app: ui
+  ingress:
+    - from: []
+      ports:
+        - protocol: TCP
+          port: 8081
+        - protocol: TCP
+          port: 443

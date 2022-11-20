@@ -23,7 +23,7 @@ updates:
 
   # Maintain dependencies for TypeScript
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/application/ui"
     schedule:
       interval: "daily"
     target-branch: "main"

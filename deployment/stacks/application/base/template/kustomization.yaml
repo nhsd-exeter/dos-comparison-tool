@@ -1,0 +1,8 @@
+resources:
+  - namespace.yaml
+  - networking/deny-ingress.yaml
+  - networking/allow-ingress.yaml
+  - ui/config-map.yaml
+  - ui/deployment.yaml
+  - ui/service.yaml
+  - ui/ingress.yaml

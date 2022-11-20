@@ -34,8 +34,9 @@ push: # Push project artefacts to the registry
 deploy: # Deploy artefacts - mandatory: PROFILE=[name]
 	make project-deploy STACK=application PROFILE=$(PROFILE)
 
-provision: # Provision environment - mandatory: PROFILE=[name]
-	make terraform-apply-auto-approve STACK=database PROFILE=$(PROFILE)
+build-and-deploy: # Build and deploy artefacts - mandatory: PROFILE=[name]
+	make build
+	make deploy
 
 clean: # Clean up project
 	make \
@@ -209,7 +210,7 @@ pipeline-create-resources: ## Create all the pipeline deployment supporting reso
 	# for each profile
 	#export PROFILE=$$profile
 	# TODO:
-	# Per AWS accoount, i.e. `nonprod` and `prod`
+	# Per AWS account, i.e. `nonprod` and `prod`
 	eval "$$(make aws-assume-role-export-variables)"
 	#make aws-dynamodb-create NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-deployment ATTRIBUTE_DEFINITIONS= KEY_SCHEMA=
 	#make secret-create NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment VARS=DB_PASSWORD,SMTP_PASSWORD,SLACK_WEBHOOK_URL
