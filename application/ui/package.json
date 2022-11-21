@@ -11,12 +11,13 @@
     "build": "craco build",
     "test": "craco test",
     "ci-check": "yarn rome ci .",
-    "eject": "react-scripts eject"
+    "dependency-check": "yarn depcheck .",
+    "eject": "react-scripts eject",
+    "interactive-dependency-update": "yarn upgrade-interactive"
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
-    "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/react-redux": "^7.1.24",
@@ -31,10 +32,13 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
+    "@yarnpkg/cli": "^4.0.0-rc.30",
+    "@yarnpkg/core": "^4.0.0-rc.30",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.30",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.30",
     "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.30",
-    "prettier": "^2.7.1",
+    "depcheck": "^1.4.3",
     "react-scripts": "^5.0.1",
-    "rimraf": "^3.0.2",
     "rome": "^10.0.1"
   },
   "browserslist": {

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
+import DoSComparisonTool from "./main";
 
 const containerElement = document.querySelector(".react-container");
 if (!containerElement) {
@@ -8,6 +9,10 @@ if (!containerElement) {
 }
 const root = ReactDOM.createRoot(containerElement);
 
-root.render(<React.StrictMode></React.StrictMode>);
+root.render(
+	<React.StrictMode>
+		<DoSComparisonTool />
+	</React.StrictMode>,
+);
 
 reportWebVitals();
