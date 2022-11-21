@@ -6,6 +6,7 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 
 setup: # Set up project
 	make project-config
+	make trust-certificate
 # Yarn Setup
 	cd $(APPLICATION_DIR)/ui
 	yarn install

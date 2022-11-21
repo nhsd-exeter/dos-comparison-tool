@@ -11,7 +11,8 @@
     "paulshen.paul-typescript-toolkit",
     "infeng.vscode-react-typescript",
     "dsznajder.es7-react-js-snippets",
-    "rome.rome"
+    "rome.rome",
+    "miclo.sort-typescript-imports"
   ],
   "unwantedRecommendations": [
     "googlecloudtools.cloudcode",

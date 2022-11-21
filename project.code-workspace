@@ -85,6 +85,7 @@
     "workbench.tree.indent": 24,
     "html.autoClosingTags": true,
     "html.format.enable": true,
+    "typescript.extension.sortImports.sortOnSave": true,
     "[dockerfile]": {
       "editor.formatOnSave": true,
       "editor.insertSpaces": true,

@@ -19,3 +19,6 @@ indent_size = 4
 
 [*.{tsx,ts,js,jsx}]
 indent_style = tab
+
+[*.min.css]
+insert_final_newline = false
