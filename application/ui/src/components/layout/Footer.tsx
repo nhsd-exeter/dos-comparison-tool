@@ -1,4 +1,4 @@
-import { Footer as NhsFooter } from 'nhsuk-react-components';
+import { Footer as NhsFooter } from "nhsuk-react-components";
 
 const Footer = () => {
 	return (

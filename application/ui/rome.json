@@ -1,12 +1,14 @@
 {
   "formatter": {
     "enabled": true,
-    "indentStyle": "tab"
+    "indentStyle": "tab",
+    "ignore": ["build"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true
-    }
+    },
+    "ignore": ["build"]
   }
 }

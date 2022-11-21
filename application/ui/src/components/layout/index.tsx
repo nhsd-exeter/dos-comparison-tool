@@ -1,8 +1,8 @@
-import Footer from './Footer';
-import Header from './Header';
-import Main from './Main';
-import React, { Fragment } from 'react';
-import { Container } from 'nhsuk-react-components';
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
+import React, { Fragment } from "react";
+import { Container } from "nhsuk-react-components";
 
 type Props = {
 	children: React.ReactNode;

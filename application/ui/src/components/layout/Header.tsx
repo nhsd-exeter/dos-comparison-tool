@@ -1,4 +1,4 @@
-import { Header as NhsHeader } from 'nhsuk-react-components';
+import { Header as NhsHeader } from "nhsuk-react-components";
 
 const Header = () => {
 	return (

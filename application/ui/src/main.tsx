@@ -1,4 +1,4 @@
-import App from "./components/app";
+import App from "./components/App";
 import { BrowserRouter } from "react-router-dom";
 import { getPageTitle, setPageTitle } from "./utils/pageTitles";
 import { pageMeta, siteTitle } from "./interfaces/pageMeta";
