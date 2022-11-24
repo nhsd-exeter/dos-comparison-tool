@@ -1,27 +1,27 @@
-import { Footer as NhsFooter } from "nhsuk-react-components";
+import { Footer as NHSFooter } from "nhsuk-react-components";
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
 	return (
-		<NhsFooter>
-			<NhsFooter.List>
-				<NhsFooter.ListItem href="https://www.nhs.uk/nhs-sites/">
+		<NHSFooter>
+			<NHSFooter.List>
+				<NHSFooter.ListItem href="https://www.nhs.uk/nhs-sites/">
 					NHS sites
-				</NhsFooter.ListItem>
-				<NhsFooter.ListItem href="https://www.nhs.uk/about-us/">
+				</NHSFooter.ListItem>
+				<NHSFooter.ListItem href="https://www.nhs.uk/about-us/">
 					About us
-				</NhsFooter.ListItem>
-				<NhsFooter.ListItem href="https://www.nhs.uk/contact-us/">
+				</NHSFooter.ListItem>
+				<NHSFooter.ListItem href="https://www.nhs.uk/contact-us/">
 					Contact us
-				</NhsFooter.ListItem>
-				<NhsFooter.ListItem href="https://www.nhs.uk/about-us/sitemap/">
+				</NHSFooter.ListItem>
+				<NHSFooter.ListItem href="https://www.nhs.uk/about-us/sitemap/">
 					Sitemap
-				</NhsFooter.ListItem>
-				<NhsFooter.ListItem href="https://www.nhs.uk/our-policies/">
+				</NHSFooter.ListItem>
+				<NHSFooter.ListItem href="https://www.nhs.uk/our-policies/">
 					Our policies
-				</NhsFooter.ListItem>
-			</NhsFooter.List>
-			<NhsFooter.Copyright>&copy; Crown copyright</NhsFooter.Copyright>
-		</NhsFooter>
+				</NHSFooter.ListItem>
+			</NHSFooter.List>
+			<NHSFooter.Copyright>&copy; Crown copyright</NHSFooter.Copyright>
+		</NHSFooter>
 	);
 };
 

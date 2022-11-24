@@ -1,2 +1,2 @@
-export const homePath: string = "/home";
-export const basePath: string = "/";
+export const loginPath = "/login";
+export const basePath = "/";

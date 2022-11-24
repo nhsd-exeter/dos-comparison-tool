@@ -1,18 +1,18 @@
-import { Header as NhsHeader } from "nhsuk-react-components";
+import { Header as NHSHeader } from "nhsuk-react-components";
 
-const Header = () => {
+const Header = (): JSX.Element => {
 	return (
-		<NhsHeader transactional={true}>
-			<NhsHeader.Container>
-				<NhsHeader.Logo href="/" />
-				<NhsHeader.ServiceName href="/">
+		<NHSHeader transactional={true}>
+			<NHSHeader.Container>
+				<NHSHeader.Logo href="/" />
+				<NHSHeader.ServiceName href="/">
 					DoS Comparison Tool
-				</NhsHeader.ServiceName>
-				<NhsHeader.Content>
-					<NhsHeader.MenuToggle />
-				</NhsHeader.Content>
-			</NhsHeader.Container>
-		</NhsHeader>
+				</NHSHeader.ServiceName>
+				<NHSHeader.Content>
+					<NHSHeader.MenuToggle />
+				</NHSHeader.Content>
+			</NHSHeader.Container>
+		</NHSHeader>
 	);
 };
 

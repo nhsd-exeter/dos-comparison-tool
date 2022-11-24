@@ -4,10 +4,10 @@ import Main from "./Main";
 import React, { Fragment } from "react";
 import { Container } from "nhsuk-react-components";
 
-type Props = {
+interface Props {
 	children: React.ReactNode;
-	hideFooter?: Boolean;
-};
+	hideFooter?: boolean;
+}
 
 const Layout = ({ children, hideFooter }: Props) => {
 	return (

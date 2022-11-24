@@ -15,8 +15,8 @@ export interface Action<T> {
 	type: string;
 	hideError?: boolean;
 	payload?: T;
-	requestParams?: any;
-	meta?: any;
+	requestParams?: unknown;
+	meta?: unknown;
 }
 
 export interface UserState extends Partial<User> {
@@ -31,7 +31,7 @@ export interface AxiosRequestObject {
 export interface AxiosRequestContent {
 	method: string;
 	partialUrl: string;
-	data?: any;
+	data?: unknown;
 
-	[propName: string]: any;
+	[propName: string]: unknown;
 }

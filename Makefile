@@ -77,23 +77,31 @@ ui-build-clean: # Clean UI build artefacts
 
 # ==============================================================================
 
+yarn-install: # Install Yarn dependencies
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+
 typescript-package-duplicate-check:
 	cd $(APPLICATION_DIR)/ui
-	yarn install && yarn dedupe --check
+	yarn dedupe --check
 
-typescript-format: # Format TypeScript code
+typescript-check-format: # Check TypeScript formatting
 	cd $(APPLICATION_DIR)/ui
-	yarn install
+	yarn run format:check
+
+typescript-fix-format: # Fix TypeScript formattting
+	cd $(APPLICATION_DIR)/ui
 	yarn run format:fix
 
-typescript-lint: # Lint TypeScript code
+typescript-check-lint: # Check TypeScript linting
 	cd $(APPLICATION_DIR)/ui
-	yarn install
+	yarn run lint:check
+
+typescript-fix-lint: # Fix TypeScript linting
+	cd $(APPLICATION_DIR)/ui
 	yarn run lint:fix
 
-typescript-code-check:
-	cd $(APPLICATION_DIR)/ui
-	yarn run ci-check
+
 
 # ==============================================================================
 # Pipeline targets

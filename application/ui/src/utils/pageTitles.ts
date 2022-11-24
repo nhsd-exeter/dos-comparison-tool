@@ -6,7 +6,7 @@ export interface PageMeta {
 export const getPageTitle = (
 	pages: PageMeta[],
 	url: string,
-	siteTitle: string,
+	siteTitle: string
 ) => {
 	const current = pages.find((page) => url.includes(page.url));
 	return current ? `${current.title} - ${siteTitle}` : siteTitle;

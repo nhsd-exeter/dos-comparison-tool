@@ -17,10 +17,14 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install dependencies
+        run:
+          make yarn-install
+
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
 
       - name: Typescript Code Format and Quality
         run: |
-          make typescript-code-check
+          make typescript-check-format typescript-check-lint
