@@ -12,11 +12,14 @@
     "lint:check": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
     "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
-    "test": "craco test"
+    "test": "craco test --coverage --watchAll=false",
+    "test:watch": "craco test --coverage --watchAll=true",
+    "test:debug": "craco --inspect-brk test --runInBand --no-cache"
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/react-redux": "^7.1.24",
@@ -33,6 +36,8 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.2.3",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "@yarnpkg/cli": "^4.0.0-rc.30",

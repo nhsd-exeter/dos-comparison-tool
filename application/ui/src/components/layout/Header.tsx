@@ -8,9 +8,6 @@ const Header = (): JSX.Element => {
 				<NHSHeader.ServiceName href="/">
 					DoS Comparison Tool
 				</NHSHeader.ServiceName>
-				<NHSHeader.Content>
-					<NHSHeader.MenuToggle />
-				</NHSHeader.Content>
 			</NHSHeader.Container>
 		</NHSHeader>
 	);

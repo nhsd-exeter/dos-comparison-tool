@@ -8,7 +8,7 @@ export class LoginPage extends React.Component<RouteComponentProps> {
 			<div>
 				<h1>Login</h1>
 				<p></p>
-				<Button href="/select-search">"Login in"</Button>
+				<Button href="/select-search">Login in</Button>
 			</div>
 		);
 	}
