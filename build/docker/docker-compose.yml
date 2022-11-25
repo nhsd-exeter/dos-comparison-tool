@@ -1,6 +1,15 @@
 version: "3.7"
 
 services:
+
+  ui:
+    image: $DOCKER_REGISTRY/ui:latest
+    container_name: ui
+    hostname: ui
+    ports:
+      - 8081:8081
+
+
   browser:
     image: selenium/standalone-chrome-debug:latest
     container_name: browser

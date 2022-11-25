@@ -21,3 +21,4 @@ DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 # ==============================================================================
 
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
+APPLICATION_URL := https://host.docker.internal:8081

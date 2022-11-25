@@ -50,7 +50,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 # ==============================================================================
 
 ui-build: # Build UI image
-	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn build"
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
 	cd $(PROJECT_DIR)
@@ -73,6 +73,7 @@ ui-clean: # Clean UI
 ui-build-clean: # Clean UI build artefacts
 	rm -rf $(APPLICATION_DIR)/ui/build
 	rm -rf $(APPLICATION_DIR)/ui/node_modules
+	rm -rf $(APPLICATION_DIR)/ui/coverage
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
 
 # ==============================================================================
@@ -116,7 +117,6 @@ end-to-end-test:
 	make -s docker-run-python \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	ARGS="-e TEST_BROWSER_URL=$(TEST_BROWSER_URL)" \
 	CMD="pytest --gherkin-terminal-reporter"
 
 # ==============================================================================

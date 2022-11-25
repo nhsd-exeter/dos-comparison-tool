@@ -1,5 +1,6 @@
-from selenium import webdriver
 from os import getenv
+
+from selenium import webdriver
 
 driver = None
 
@@ -14,6 +15,8 @@ def create_driver() -> None:
 
 
 def get_driver() -> webdriver:
+    if driver is None:
+        create_driver()
     return driver
 
 

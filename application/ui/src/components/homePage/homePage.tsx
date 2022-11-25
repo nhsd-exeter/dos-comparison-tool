@@ -1,11 +1,12 @@
 import React from "react";
 import { Button } from "nhsuk-react-components";
 import { RouteComponentProps } from "wouter";
+import { LOGIN_PATH } from "../../constants/paths";
 
 export class HomePage extends React.Component<RouteComponentProps> {
 	renderNextStepButton = (launched: boolean | null): JSX.Element => {
 		const text = launched ? "Start now" : "Log in";
-		return <Button href="/login">{text}</Button>;
+		return <Button href={LOGIN_PATH}>{text}</Button>;
 	};
 
 	render(): JSX.Element {
