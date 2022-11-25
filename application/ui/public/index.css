@@ -1,0 +1,136 @@
+html {
+  box-sizing: border-box;
+}
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+@font-face {
+  font-family: "Frutiger W01";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.eot#iefix);
+  src: url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.eot#iefix)
+      format("eot"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.woff2) format("woff2"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.woff) format("woff"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.ttf)
+      format("truetype"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.svg#7def0e34-f28d-434f-b2ec-472bde847115)
+      format("svg");
+}
+@font-face {
+  font-family: "Frutiger W01";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.eot#iefix);
+  src: url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.eot#iefix)
+      format("eot"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.woff2) format("woff2"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.woff) format("woff"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.ttf) format("truetype"),
+    url(https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.svg#eae74276-dd78-47e4-9b27-dac81c3411ca)
+      format("svg");
+}
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Frutiger W01", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.42857;
+  color: #212529;
+  background-color: #fff;
+}
+
+.dct-base-styles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-around;
+  height: 100vh;
+}
+
+.dct-base-styles header {
+  background-color: #005eb8;
+  flex-direction: row;
+}
+.dct-base-styles footer {
+  background-color: #d8dde0;
+  border-top: 4px solid #003087;
+  justify-content: flex-end;
+}
+.dct-base-styles header,
+.dct-base-styles footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dct-base-styles footer {
+  justify-content: flex-end;
+}
+
+.dct-base-styles svg {
+  width: 4rem;
+  height: 26px;
+}
+.dct-base-styles article {
+  margin: 0 auto;
+  padding: 0 1rem;
+  align-self: center;
+}
+.dct-base-styles h1 {
+  color: #fff;
+  display: block;
+  font-size: 1.1875rem;
+  font-weight: 400;
+  line-height: 1.625rem;
+  margin: 0 0.25rem;
+  padding: 0 0.25rem;
+  text-decoration: none;
+}
+.dct-base-styles h2 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1.4rem;
+}
+.dct-base-styles p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0.8rem 0;
+  text-align: left;
+}
+@media (min-width: 40.0625em) {
+  .dct-base-styles header,
+  .dct-base-styles footer {
+    padding: 1rem 2rem;
+  }
+  .dct-base-styles svg {
+    height: 40px;
+    width: 100px;
+  }
+  .dct-base-styles h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0.5rem;
+    padding: 0 0.5rem;
+  }
+  .dct-base-styles h2 {
+    font-size: 1.6rem;
+    line-height: 1.33333;
+    margin-bottom: 2rem;
+  }
+  .dct-base-styles p {
+    font-size: 1.1875rem;
+    line-height: 1.47368;
+    margin: 1.2rem 0;
+  }
+}

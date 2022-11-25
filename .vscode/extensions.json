@@ -7,7 +7,13 @@
     "streetsidesoftware.code-spell-checker",
     "vscode-icons-team.vscode-icons",
     "yzhang.dictionary-completion",
-    "yzhang.markdown-all-in-one"
+    "yzhang.markdown-all-in-one",
+    "paulshen.paul-typescript-toolkit",
+    "infeng.vscode-react-typescript",
+    "dsznajder.es7-react-js-snippets",
+    "miclo.sort-typescript-imports",
+    "rbbit.typescript-hero",
+    "NicholasHsiang.vscode-javascript-comment"
   ],
   "unwantedRecommendations": [
     "googlecloudtools.cloudcode",

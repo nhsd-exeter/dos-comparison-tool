@@ -1,0 +1,106 @@
+{
+  "name": "dos-comparison-tool",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "build": "craco build",
+    "dependency-check": "yarn depcheck .",
+    "eject": "react-scripts eject",
+    "format:check": "yarn prettier . --check",
+    "format:fix": "yarn prettier . --write",
+    "dependency-update": "yarn upgrade-interactive",
+    "lint:check": "yarn eslint .",
+    "lint:fix": "yarn eslint . --fix",
+    "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
+    "test": "craco test --coverage --watchAll=false",
+    "test:watch": "craco test --coverage --watchAll=true",
+    "test:debug": "craco --inspect-brk test --runInBand --no-cache"
+  },
+  "packageManager": "yarn@3.3.0",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@types/react-redux": "^7.1.24",
+    "nhsuk-frontend": "^6.1.2",
+    "nhsuk-react-components": "^2.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "redux": "^4.2.0",
+    "typescript": "^4.9.3",
+    "web-vitals": "^3.1.0",
+    "wouter": "^2.9.0"
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.0.0",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "@yarnpkg/cli": "^4.0.0-rc.31",
+    "@yarnpkg/core": "^4.0.0-rc.31",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.31",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.31",
+    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.31",
+    "depcheck": "^1.4.3",
+    "eslint": "^8.28.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "prettier": "^2.8.0",
+    "react-scripts": "^5.0.1",
+    "typedoc": "^0.23.21"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "nth-check": "2.1.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "root": true,
+    "ignorePatterns": [
+      "build",
+      "docs",
+      "craco.config.js"
+    ],
+    "rules": {
+      "@typescript-eslint/naming-convention": [
+        "warn",
+        {
+          "selector": "function",
+          "format": [
+            "PascalCase",
+            "camelCase"
+          ]
+        }
+      ]
+    },
+    "parserOptions": {
+      "project": [
+        "./tsconfig.json"
+      ]
+    }
+  }
+}

@@ -6,10 +6,15 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 
 setup: # Set up project
 	make project-config
-	# Set up local virtual environment and download dependencies
+	make trust-certificate
+# Yarn Setup
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	cd $(PROJECT_DIR)
+# Set up local virtual environment and download dependencies
 
 build: project-config # Build project
-	make docker-build NAME=NAME_TEMPLATE_TO_REPLACE
+	make ui-build
 
 start: project-start # Start project
 
@@ -24,7 +29,7 @@ test: # Test project
 	make stop
 
 push: # Push project artefacts to the registry
-	make docker-push NAME=NAME_TEMPLATE_TO_REPLACE
+	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name]
 	make project-deploy STACK=application PROFILE=$(PROFILE)
@@ -33,11 +38,72 @@ provision: # Provision environment - mandatory: PROFILE=[name]
 	make terraform-apply-auto-approve STACK=database PROFILE=$(PROFILE)
 
 clean: # Clean up project
+	make \
+		ui-clean \
+		terraform-clean
 
 # ==============================================================================
 # Supporting targets
 
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
+
+# ==============================================================================
+
+ui-build: # Build UI image
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn build"
+	cd $(APPLICATION_DIR)/ui/build
+	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
+	cd $(PROJECT_DIR)
+	make ssl-copy-certificate-project DIR=$(DOCKER_DIR)/ui/assets/certificate
+	make -s docker-build NAME=ui
+
+ui-start: # Start UI development server (Hot reload)
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+	yarn run start
+
+ui-test:
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install"
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn run test"
+
+ui-clean: # Clean UI
+	make docker-image-clean NAME=ui
+	make ui-build-clean
+
+ui-build-clean: # Clean UI build artefacts
+	rm -rf $(APPLICATION_DIR)/ui/build
+	rm -rf $(APPLICATION_DIR)/ui/node_modules
+	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
+
+# ==============================================================================
+
+yarn-install: # Install Yarn dependencies
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+
+typescript-package-duplicate-check:
+	cd $(APPLICATION_DIR)/ui
+	yarn dedupe --check
+
+typescript-check-format: # Check TypeScript formatting
+	cd $(APPLICATION_DIR)/ui
+	yarn run format:check
+
+typescript-fix-format: # Fix TypeScript formattting
+	cd $(APPLICATION_DIR)/ui
+	yarn run format:fix
+
+typescript-check-lint: # Check TypeScript linting
+	cd $(APPLICATION_DIR)/ui
+	yarn run lint:check
+
+typescript-fix-lint: # Fix TypeScript linting
+	cd $(APPLICATION_DIR)/ui
+	yarn run lint:fix
+
+typescript-test: # Run TypeScript tests
+	cd $(APPLICATION_DIR)/ui
+	yarn run test
 
 # ==============================================================================
 # Pipeline targets
@@ -137,7 +203,7 @@ pipeline-create-resources: ## Create all the pipeline deployment supporting reso
 	#make ssl-request-certificate-prod SSL_DOMAINS_PROD
 	# Centralised, i.e. `mgmt`
 	eval "$$(make aws-assume-role-export-variables AWS_ACCOUNT_ID=$(AWS_ACCOUNT_ID_MGMT))"
-	#make docker-create-repository NAME=NAME_TEMPLATE_TO_REPLACE
+	#make docker-create-repository NAME=ui
 	#make aws-codeartifact-setup REPOSITORY_NAME=$(PROJECT_GROUP_SHORT)
 
 # ==============================================================================

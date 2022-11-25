@@ -1,14 +1,14 @@
-name: "Check code format and quality"
+name: "General - Check code format and quality"
 on:
   push:
     branches: [main]
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, ready_for_review, synchronize, reopened]
 jobs:
   check-code-quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Check text files format
@@ -20,6 +20,12 @@ jobs:
       - name: Check Terraform files format
         run: |
           build/automation/etc/githooks/scripts/terraform-format-pre-commit.sh
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Run Typescript Unit Tests
+        run: make yarn-install typescript-test
+
       # - uses: sonarsource/sonarcloud-github-action@master
       #   # SEE: https://github.com/SonarSource/sonarcloud-github-action
       #   env:
@@ -29,4 +35,4 @@ jobs:
       #     projectBaseDir: ./application
       #     args: >
       #       -Dsonar.organization=nhsd-exeter
-      #       -Dsonar.projectKey=uec-tools-mdo
+      #       -Dsonar.projectKey=uec-dos-ct

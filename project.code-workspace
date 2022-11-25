@@ -17,9 +17,7 @@
     "editor.formatOnSave": true,
     "editor.guides.bracketPairs": "active",
     "editor.renderWhitespace": "all",
-    "editor.rulers": [
-      120
-    ],
+    "editor.rulers": [120],
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "explorer.autoReveal": true,
     "explorer.sortOrder": "type",
@@ -51,15 +49,10 @@
     "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home",
     "php.suggest.basic": false,
     "php.validate.executablePath": "/usr/bin/php",
-    "python.formatting.blackArgs": [
-      "--line-length",
-      "120"
-    ],
+    "python.formatting.blackArgs": ["--line-length", "120"],
     "python.formatting.provider": "black",
     "python.languageServer": "Pylance",
-    "python.linting.flake8Args": [
-      "--max-line-length=120"
-    ],
+    "python.linting.flake8Args": ["--max-line-length=120"],
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Path": "~/.pyenv/versions/3.10.2/bin/flake8",
     "python.linting.mypyArgs": [],
@@ -83,8 +76,15 @@
     "workbench.colorTheme": "Better Solarized Dark Italics",
     "workbench.editor.enablePreview": false,
     "workbench.tree.indent": 24,
+    "html.autoClosingTags": true,
+    "html.format.enable": true,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    },
     "[dockerfile]": {
-      "editor.formatOnSave": false,
+      "editor.formatOnSave": true,
       "editor.insertSpaces": true,
       "editor.tabSize": 4
     },
@@ -98,11 +98,27 @@
     },
     "[javascript]": {
       "editor.insertSpaces": true,
-      "editor.tabSize": 2
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascriptreact]": {
       "editor.insertSpaces": true,
-      "editor.tabSize": 2
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
       "editor.insertSpaces": true,
@@ -113,14 +129,6 @@
       "editor.insertSpaces": true
     },
     "[terraform]": {
-      "editor.insertSpaces": true,
-      "editor.tabSize": 2
-    },
-    "[typescript]": {
-      "editor.insertSpaces": true,
-      "editor.tabSize": 2
-    },
-    "[typescriptreact]": {
       "editor.insertSpaces": true,
       "editor.tabSize": 2
     },
