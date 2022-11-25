@@ -101,7 +101,9 @@ typescript-fix-lint: # Fix TypeScript linting
 	cd $(APPLICATION_DIR)/ui
 	yarn run lint:fix
 
-
+typescript-test: # Run TypeScript tests
+	cd $(APPLICATION_DIR)/ui
+	yarn run test
 
 # ==============================================================================
 # Pipeline targets

@@ -8,23 +8,18 @@ jobs:
   check-code-quality:
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
       - uses: actions/setup-node@v2
         with:
           node-version: 18
-
       - name: Install dependencies
         run:
           make yarn-install
-
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
-
       - name: Typescript Code Format and Quality
         run: |
           make typescript-check-format typescript-check-lint
