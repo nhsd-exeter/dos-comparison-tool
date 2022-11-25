@@ -1,6 +1,6 @@
 import React from "react";
 
-const Main = (props: React.HTMLProps<HTMLDivElement>) => {
+const Body = (props: React.HTMLProps<HTMLDivElement>) => {
 	return (
 		<main
 			{...props}
@@ -11,4 +11,4 @@ const Main = (props: React.HTMLProps<HTMLDivElement>) => {
 	);
 };
 
-export default Main;
+export default Body;
