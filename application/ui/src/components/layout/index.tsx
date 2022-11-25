@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import Body from "./Body";
+import Body from "./Main";
 import React, { Fragment } from "react";
 import { Container } from "nhsuk-react-components";
 

@@ -1,10 +1,12 @@
 import { Footer as NHSFooter } from "nhsuk-react-components";
+import { FOOTER_ID } from "../../constants/ids";
+import { BASE_PATH } from "../../constants/paths";
 
 const Footer = (): JSX.Element => {
 	return (
-		<NHSFooter>
+		<NHSFooter id={FOOTER_ID}>
 			<NHSFooter.List>
-				<NHSFooter.ListItem href="/">Homepage</NHSFooter.ListItem>
+				<NHSFooter.ListItem href={BASE_PATH}>Homepage</NHSFooter.ListItem>
 			</NHSFooter.List>
 			<NHSFooter.Copyright>&copy; Crown copyright</NHSFooter.Copyright>
 		</NHSFooter>
