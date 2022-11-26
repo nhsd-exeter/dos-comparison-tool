@@ -7,7 +7,6 @@ provider "aws" {
       "Product"         = var.project_id
       "Profile"         = var.profile
       "Programme"       = var.programme
-      "Project"         = var.project_display_name
       "ProviderRegion"  = var.aws_region
       "PublicFacing"    = "No"
       "Service"         = var.project_id

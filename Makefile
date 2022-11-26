@@ -94,8 +94,8 @@ ui-start: # Start UI development server (Hot reload) - mandatory: PROFILE=[name]
 	yarn run start
 
 ui-test:
-	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install"
-	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn run test"
+	make -s docker-run-yarn DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install"
+	make -s docker-run-yarn DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn run test"
 
 ui-clean: # Clean UI
 	make docker-image-clean NAME=ui
@@ -155,7 +155,7 @@ typescript-test-ci-setup: # Set up TypeScript test environment for CI
 	make yarn-install-locked
 	make ui-config
 
-typescript-test: # Run TypeScript tests
+typescript-test: # Run TypeScript unit tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
 
@@ -257,6 +257,25 @@ checkov-secret-scanning:
 
 terraform-security:
 	make docker-run-terraform-tfsec DIR=infrastructure CMD="tfsec"
+
+# ==============================================================================
+
+docker-run-yarn: ### Run node container - mandatory: CMD; optional: DIR,ARGS=[Docker args],VARS_FILE=[Makefile vars file],IMAGE=[image name],CONTAINER=[container name]
+	make docker-config > /dev/null 2>&1
+	image=$$([ -n "$(IMAGE)" ] && echo $(IMAGE) || echo node:$(DOCKER_NODE_VERSION))
+	container=$$([ -n "$(CONTAINER)" ] && echo $(CONTAINER) || echo node-$(BUILD_COMMIT_HASH)-$(BUILD_ID)-$$(date --date=$$(date -u +"%Y-%m-%dT%H:%M:%S%z") -u +"%Y%m%d%H%M%S" 2> /dev/null)-$$(make secret-random LENGTH=8))
+	docker run --interactive $(_TTY) --rm \
+		--name $$container \
+		--env-file <(make _list-variables PATTERN="^(AWS|TX|TEXAS|NHSD|TERRAFORM)") \
+		--env-file <(make _list-variables PATTERN="^(DB|DATABASE|SMTP|APP|APPLICATION|UI|API|SERVER|HOST|URL)") \
+		--env-file <(make _list-variables PATTERN="^(PROFILE|ENVIRONMENT|BUILD|PROGRAMME|ORG|SERVICE|PROJECT)") \
+		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VARS_FILE)) \
+		--volume $(PROJECT_DIR):/project \
+		--network $(DOCKER_NETWORK) \
+		--workdir /project/$(shell echo $(abspath $(DIR)) | sed "s;$(PROJECT_DIR);;g") \
+		$(ARGS) \
+		$$image \
+		$(CMD)
 
 # ==============================================================================
 

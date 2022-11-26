@@ -18,6 +18,18 @@ PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 
 TF_VAR_role_prefix := $(ROLE_PREFIX)
+# --------------------------------------
+# Pipeline
+
+TF_VAR_github_repository = $(ORG_NAME)/$(PROJECT_NAME)
+TF_VAR_development_pipeline_integration_branch = main
+TF_VAR_development_pipeline = $(PROJECT_ID)-$(PROFILE)-development-pipeline
+TF_VAR_development_pipeline_bucket = $(PROJECT_ID)-$(PROFILE)-development-pipeline-bucket
+TF_VAR_unit_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-unit-tests
+TF_VAR_build_codebuild_project = $(PROJECT_ID)-$(PROFILE)-build
+TF_VAR_deploy_codebuild_project = $(PROJECT_ID)-$(PROFILE)-deploy
+TF_VAR_end_to_end_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-end-to-end-tests
+
 # ==============================================================================
 # Splunk
 TF_VAR_splunk_firehose_subscription := $(PROJECT_ID)-cw-logs-firehose
