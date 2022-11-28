@@ -35,3 +35,6 @@ spec:
               cpu: "1"
               memory: "1024M"
           imagePullPolicy: Always
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault

@@ -25,7 +25,7 @@ DOCKER_POSTGRES_VERSION = $(POSTGRES_VERSION)-alpine
 DOCKER_POSTMAN_NEWMAN_VERSION = $(POSTMAN_NEWMAN_VERSION)-alpine
 DOCKER_PYTHON_VERSION = $(PYTHON_VERSION)-alpine
 DOCKER_SONAR_SCANNER_CLI_VERSION = $(SONAR_SCANNER_CLI_VERSION)
-DOCKER_CHECKOV_VERSION = 2.0.1222
+DOCKER_CHECKOV_VERSION = 2.2.101
 DOCKER_TERRAFORM_COMPLIANCE_VERSION = 1.3.33
 DOCKER_TERRAFORM_TFSEC_VERSION = v1.26.0
 DOCKER_TERRAFORM_VERSION = $(TERRAFORM_VERSION)
@@ -634,7 +634,8 @@ docker-run-checkov: ### Run checkov container - optional: DIR,ARGS=[Docker args]
 		--workdir /project/$(shell echo $(abspath $(DIR)) | sed "s;$(PROJECT_DIR);;g") \
 		$(ARGS) \
 		$$image \
-			--directory /project/$(shell echo $(abspath $(DIR)) | sed "s;$(PROJECT_DIR);;g")
+			--directory /project/$(shell echo $(abspath $(DIR)) | sed "s;$(PROJECT_DIR);;g") \
+			$(CHECKOV_OPTS)
 
 docker-run-terraform-compliance: ### Run terraform compliance container - mandatory: CMD=[-p file -f repo]; optional: DIR,ARGS=[Docker args],VARS_FILE=[Makefile vars file],IMAGE=[image name],CONTAINER=[container name]; SEE: https://github.com/terraform-compliance/cli
 	make docker-config > /dev/null 2>&1

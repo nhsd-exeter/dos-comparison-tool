@@ -24,7 +24,7 @@ EOF
 }
 
 resource "aws_iam_policy" "kubernetes_service_account_role_policy" {
-  name        = local.postcode_service_account_policy_name
+  name        = var.kubernetes_service_account_role_policy_name
   path        = "/"
   description = "Policy for the Kubernetes service account role for the application to allow access to AWS services"
 

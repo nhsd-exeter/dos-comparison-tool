@@ -31,12 +31,15 @@ test: # Test project
 push: # Push project artefacts to the registry
 	make docker-push NAME=ui
 
-deploy: # Deploy artefacts - mandatory: PROFILE=[name]
-	make project-deploy STACK=application PROFILE=$(PROFILE)
+deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make terraform-apply-auto-approve STACKS=application
+	make k8s-deploy STACK=application
 
-build-and-deploy: # Build and deploy artefacts - mandatory: PROFILE=[name]
-	make build
-	make deploy
+build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
+	make build-and-push deploy VERSION=$(BUILD_TAG)
+
+build-and-push: # Build and push docker images
+	make build push
 
 clean: # Clean up project
 	make \
@@ -220,6 +223,25 @@ pipeline-create-resources: ## Create all the pipeline deployment supporting reso
 	eval "$$(make aws-assume-role-export-variables AWS_ACCOUNT_ID=$(AWS_ACCOUNT_ID_MGMT))"
 	#make docker-create-repository NAME=ui
 	#make aws-codeartifact-setup REPOSITORY_NAME=$(PROJECT_GROUP_SHORT)
+
+
+# ==============================================================================
+# Checkov (Code Security Best Practices)
+
+docker-best-practices:
+	make docker-run-checkov DIR=/build/docker CHECKOV_OPTS="--framework dockerfile --skip-check CKV_DOCKER_2,CKV_DOCKER_3,CKV_DOCKER_4"
+
+terraform-best-practices:
+	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV2_AWS_29"
+
+kubernetes-best-practices:
+	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_22,CKV_K8S_43"
+
+github-actions-best-practices:
+	make docker-run-checkov DIR=/.github CHECKOV_OPTS="--skip-check CKV_GHA_2"
+
+checkov-secret-scanning:
+	make docker-run-checkov CHECKOV_OPTS="--framework secrets"
 
 # ==============================================================================
 

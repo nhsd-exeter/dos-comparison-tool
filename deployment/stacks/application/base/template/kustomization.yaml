@@ -1,5 +1,6 @@
 resources:
   - namespace.yaml
+  - service-account.yaml
   - networking/deny-ingress.yaml
   - networking/allow-ingress.yaml
   - ui/config-map.yaml
