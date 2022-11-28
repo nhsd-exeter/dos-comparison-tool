@@ -9,6 +9,10 @@
   - [Contributing](#contributing)
   - [Development](#development)
   - [Testing](#testing)
+    - [Unit tests](#unit-tests)
+      - [Typescript Unit tests](#typescript-unit-tests)
+    - [Mutation tests](#mutation-tests)
+    - [End to End tests](#end-to-end-tests)
     - [Test data and mock services](#test-data-and-mock-services)
     - [Manual check](#manual-check)
   - [Deployment](#deployment)
@@ -120,6 +124,37 @@ List all the type of test suites included and provide instructions how to execut
 - Smoke
 
 How to run test suite in the pipeline
+
+### Unit tests
+
+Unit testing is a software testing method by which individual units of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures, are tested to determine whether they are fit for use.
+
+#### Typescript Unit tests
+
+Unit Tests are written in Typescript and run using Jest. They are located in the `__test__` subdirectory of the code it's testing.
+
+    make ui-test
+
+### Mutation tests
+
+Mutation testing is a way to measure your tests' effectiveness. It will modify your code, run your tests, and then measure the code coverage of your tests. The idea is that if your tests don't cover the changes made by the mutation, then your tests are not effective.
+
+This testing is ran using Stryker. The `stryker.conf.js` file is located at `application/ui/stryker.conf.json`
+For more documentation on Stryker, please visit <https://stryker-mutator.io/docs/stryker-js/introduction/>
+
+    make typescript-mutation-test
+
+### End to End tests
+
+End to end testing is a software testing method that tests a software application from start to finish. It is a technique used to test whether the flow of an application is performing as designed from start to end.
+
+These tests are written in python and run with pytest and pytest bdd. These tests are located in the `test/end_to_end` directory.
+
+    make end-to-end-test PROFILE= ENVIRONMENT=
+
+Example:
+
+    make end-to-end-test PROFILE=dev ENVIRONMENT=dev
 
 ### Test data and mock services
 
