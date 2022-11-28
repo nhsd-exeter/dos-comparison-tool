@@ -1,6 +1,7 @@
 resource "aws_iam_role" "kubernetes_service_account_role" {
-  path = "/"
-  name = var.kubernetes_service_account_role_name
+  path        = "/"
+  name        = var.kubernetes_service_account_role_name
+  description = "Role for DoS Comparison Tool Kubernetes Service Account"
 
   assume_role_policy = <<EOF
 {
@@ -28,19 +29,14 @@ resource "aws_iam_policy" "kubernetes_service_account_role_policy" {
   path        = "/"
   description = "Policy for the Kubernetes service account role for the application to allow access to AWS services"
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ecr:*",
-          "lambda:*"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+
+  ]
+}
+EOF
 }
 
 resource "aws_iam_role_policy_attachment" "kubernetes_service_account_role_policy_attachment" {

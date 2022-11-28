@@ -205,7 +205,8 @@ terraform-best-practices:
 	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV2_AWS_29"
 
 kubernetes-best-practices:
-	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_22,CKV_K8S_43"
+	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_8,CKV_K8S_20,CKV_K8S_22,CKV_K8S_23,CKV_K8S_28,CKV_K8S_37,CKV_K8S_38,CKV_K8S_40,CKV_K8S_43,CKV_K8S_30"
+# TODO: Remove ignores: CKV_K8S_38,CKV_K8S_40,CKV_K8S_28,CKV_K8S_23,CKV_K8S_20,CKV_K8S_37,CKV_K8S_8,CKV_K8S_30
 
 github-actions-best-practices:
 	make docker-run-checkov DIR=/.github CHECKOV_OPTS="--skip-check CKV_GHA_2"
