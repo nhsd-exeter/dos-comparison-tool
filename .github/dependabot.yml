@@ -27,3 +27,11 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "main"
+    versioning-strategy: "increase-if-necessary"
+
+  # Maintain dependencies for Terraform
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure/stacks/application"
+    schedule:
+      interval: "monthly"
+    target-branch: "main"

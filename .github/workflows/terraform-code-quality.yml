@@ -1,4 +1,4 @@
-name: "Typescript - Check code format and quality"
+name: "Terraform - Check code format and quality"
 on:
   push:
     branches: [main]
@@ -11,14 +11,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: make yarn-install
-      - name: Typescript Check Package
+      - name: Check Terraform files format
         run: |
-          make typescript-package-duplicate-check
-      - name: Typescript Code Format and Quality
+          build/automation/etc/githooks/scripts/terraform-format-pre-commit.sh
+      - name: Checkov Terraform Best Practices
         run: |
-          make typescript-check-format typescript-check-lint
+          make terraform-best-practices
+      - name: TFSec Terraform Security Scanning
+        run: |
+          make terraform-security

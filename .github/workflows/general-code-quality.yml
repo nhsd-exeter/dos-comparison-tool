@@ -20,6 +20,12 @@ jobs:
       - name: GitHub Actions - Check best practices
         run: |
           make github-actions-best-practices
+      - name: Kubernetes - Check best practices
+        run: |
+          make kubernetes-best-practices
+      - name: Docker - Check best practices
+        run: |
+          make docker-best-practices
       - uses: actions/setup-node@v3
         with:
           node-version: 18
