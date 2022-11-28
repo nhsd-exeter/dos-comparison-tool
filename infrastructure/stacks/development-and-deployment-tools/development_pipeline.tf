@@ -21,7 +21,7 @@ resource "aws_codepipeline" "development_pipeline" {
       configuration = {
         ConnectionArn    = aws_codestarconnections_connection.github.arn
         FullRepositoryId = var.github_repository
-        BranchName       = var.development_pipeline_branch_name
+        BranchName       = var.development_pipeline_integration_branch
         DetectChanges    = true
       }
     }
@@ -44,7 +44,7 @@ resource "aws_codepipeline" "development_pipeline" {
   stage {
     name = "Build"
     dynamic "action" {
-      for_each = local.to_build
+      for_each = local.build
       content {
         name            = "Build_${action.key}"
         category        = "Build"
@@ -57,7 +57,7 @@ resource "aws_codepipeline" "development_pipeline" {
           EnvironmentVariables = jsonencode([
             {
               name  = "BUILD_ITEM_NAME"
-              value = "${action.key}"
+              value = action.key
               type  = "PLAINTEXT"
             }
           ])
@@ -67,19 +67,30 @@ resource "aws_codepipeline" "development_pipeline" {
   }
   stage {
     name = "Deploy_Nonprod_Environments"
-    dynamic "action" {
-      for_each = local.development_nonprod_environments
-      content {
-        name            = "Deploy_${action.value["ENVIRONMENT"]}"
-        category        = "Build"
-        owner           = "AWS"
-        run_order       = 1
-        provider        = "CodeBuild"
-        input_artifacts = ["source_output"]
-        version         = "1"
-        configuration = {
-          ProjectName = var.deploy_codebuild_project
-        }
+    action {
+
+      name            = "Deploy_Dev"
+      category        = "Build"
+      owner           = "AWS"
+      run_order       = 1
+      provider        = "CodeBuild"
+      input_artifacts = ["source_output"]
+      version         = "1"
+      configuration = {
+        ProjectName = var.deploy_codebuild_project
+        EnvironmentVariables = jsonencode([
+          {
+            name  = "PROFILE"
+            value = "dev"
+            type  = "PLAINTEXT"
+          },
+          {
+            name  = "ENVIRONMENT"
+            value = "dev"
+            type  = "PLAINTEXT"
+          }
+        ])
+
       }
     }
   }

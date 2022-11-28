@@ -1,7 +1,7 @@
 module "development_pipeline_artefact_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
-  bucket  = var.development_pipeline_artefact_bucket
+  bucket  = var.development_pipeline_bucket
 
   // S3 bucket-level Public Access Block configuration
   block_public_acls                     = true
