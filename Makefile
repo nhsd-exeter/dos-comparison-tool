@@ -50,7 +50,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 # ==============================================================================
 
 ui-build: # Build UI image
-	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn build"
+	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
 	cd $(PROJECT_DIR)
@@ -73,6 +73,7 @@ ui-clean: # Clean UI
 ui-build-clean: # Clean UI build artefacts
 	rm -rf $(APPLICATION_DIR)/ui/build
 	rm -rf $(APPLICATION_DIR)/ui/node_modules
+	rm -rf $(APPLICATION_DIR)/ui/coverage
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
 
 # ==============================================================================
@@ -104,6 +105,19 @@ typescript-fix-lint: # Fix TypeScript linting
 typescript-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
+
+# ==============================================================================
+# Testing targets
+
+tester-build: # Build tester image which is used for end-to-end testing
+	cp $(APPLICATION_TEST_DIR)/requirements-test.txt $(DOCKER_DIR)/tester/assets/requirements.txt
+	make -s docker-build NAME=tester
+
+end-to-end-test:
+	make -s docker-run-python \
+	IMAGE=$(DOCKER_REGISTRY)/tester \
+	DIR=test/end_to_end \
+	CMD="pytest --gherkin-terminal-reporter"
 
 # ==============================================================================
 # Pipeline targets

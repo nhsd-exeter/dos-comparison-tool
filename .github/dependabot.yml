@@ -7,6 +7,20 @@ updates:
       interval: "daily"
     target-branch: "main"
 
+  # Maintain dependencies for Python
+  - package-ecosystem: "pip"
+    directory: "/test"
+    schedule:
+      interval: "daily"
+    target-branch: "main"
+
+  # Docker Dependencies
+  - package-ecosystem: "docker"
+    directory: "/build/docker/tester"
+    schedule:
+      interval: "daily"
+    target-branch: "main"
+
   # Maintain dependencies for TypeScript
   - package-ecosystem: "npm"
     directory: "/"
