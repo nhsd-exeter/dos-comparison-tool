@@ -35,6 +35,10 @@ deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[n
 	make terraform-apply-auto-approve STACKS=application
 	make k8s-deploy STACK=application
 
+undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make k8s-undeploy STACK=application
+	make terraform-destroy-auto-approve STACKS=application
+
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
 	make build-and-push deploy VERSION=$(BUILD_TAG)
 
