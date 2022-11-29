@@ -12,11 +12,14 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
     alb.ingress.kubernetes.io/tags: Service=SERVICE_TAG_TO_REPLACE
+    alb.ingress.kubernetes.io/waf-acl-id: TEXAS_WAF_ACL_ID_TO_REPLACE
+    alb.ingress.kubernetes.io/certificate-arn: TEXAS_CERTIFICATE_ARN_TO_REPLACE
 spec:
   rules:
     - http:
         paths:
           - path: /*
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: ui-service
