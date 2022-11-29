@@ -18,5 +18,7 @@ spec:
         paths:
           - path: /*
             backend:
-              serviceName: ui-service
-              servicePort: 443
+              service:
+                name: ui-service
+                port:
+                  number: 443

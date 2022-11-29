@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: ui-allow-ingress
+  namespace: K8S_APP_NAMESPACE_TO_REPLACE
 spec:
   podSelector:
     matchLabels:

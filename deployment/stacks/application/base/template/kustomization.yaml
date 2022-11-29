@@ -2,7 +2,9 @@ resources:
   - namespace.yaml
   - service-account.yaml
   - networking/deny-ingress.yaml
-  - networking/allow-ingress.yaml
+  - networking/ui-allow-ingress.yaml
+  - rbac/rbac-binding.yaml
+  - rbac/rbac-role.yaml
   - ui/config-map.yaml
   - ui/deployment.yaml
   - ui/service.yaml
