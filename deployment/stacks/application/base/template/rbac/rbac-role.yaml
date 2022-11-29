@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: ${PROJECT_ID_TO_REPLACE}_readwrite
+  namespace: K8S_APP_NAMESPACE_TO_REPLACE
 rules:
   - apiGroups: [""]
     resources:

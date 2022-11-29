@@ -1,3 +1,4 @@
+# Lines in this file have been minified to allow Checkov scanning
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,8 +18,10 @@ spec:
       labels:
         app: ui
     spec:
+      automountServiceAccountToken: false
       serviceAccountName: K8S_SERVICE_ACCOUNT_NAME_TO_REPLACE
       serviceAccount: K8S_SERVICE_ACCOUNT_NAME_TO_REPLACE
+      securityContext: { seccompProfile: { type: RuntimeDefault } }
       containers:
         - name: ui
           image: DOCKER_REGISTRY_TO_REPLACE/ui:VERSION_TO_REPLACE
@@ -29,10 +32,12 @@ spec:
             - containerPort: 8081
               protocol: TCP
           resources:
-            requests:
-              memory: "0Mi"
-              cpu: "0m"
-            limits:
-              memory: "2048Mi"
-              cpu: "1000m"
+            requests: { memory: "0Mi", cpu: "0m" }
+            limits: { memory: "2048Mi", cpu: "1000m" }
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet: { path: /nginx_status, port: 8081, scheme: HTTPS }
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet: { path: /nginx_status, port: 8081, scheme: HTTPS }
+            initialDelaySeconds: 30

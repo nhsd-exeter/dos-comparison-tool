@@ -9,7 +9,6 @@ services:
     ports:
       - 8081:8081
 
-
   browser:
     image: selenium/standalone-chrome-debug:latest
     container_name: browser

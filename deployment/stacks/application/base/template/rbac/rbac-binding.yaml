@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: ${PROJECT_ID_TO_REPLACE}_readwrite_rolebinding
+  namespace: K8S_APP_NAMESPACE_TO_REPLACE
 subjects:
   - kind: Group
     name: texas:uecdosct-service-developer
