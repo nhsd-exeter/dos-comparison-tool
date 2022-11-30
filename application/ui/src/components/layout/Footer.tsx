@@ -1,5 +1,5 @@
 import { Footer as NHSFooter } from "nhsuk-react-components";
-import { FOOTER_ID } from "../../constants/ids";
+import { FOOTER_ID } from "../../constants/componentIds";
 import { BASE_PATH } from "../../constants/paths";
 
 const Footer = (): JSX.Element => {

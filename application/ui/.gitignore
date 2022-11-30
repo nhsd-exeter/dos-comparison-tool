@@ -40,3 +40,7 @@ build
 
 # Yarn v2
 .yarn/cache/**
+
+# Stryker
+reports
+.stryker-tmp

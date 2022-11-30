@@ -29,6 +29,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: "yarn"
+          cache-dependency-path: application/ui/yarn.lock
       - name: Run Typescript Unit Tests
         run: make yarn-install typescript-test
 

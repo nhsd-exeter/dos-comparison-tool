@@ -1,4 +1,4 @@
-import { FOOTER_ID, MAIN_ID, HEADER_ID } from "../ids";
+import { FOOTER_ID, MAIN_ID, HEADER_ID } from "../componentIds";
 import { expect, test } from "@jest/globals";
 
 const expectedHeaderId = "DoSComparisonToolHeader";

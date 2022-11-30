@@ -6,7 +6,7 @@ import Application from "./components/application";
 const DoSComparisonTool = () => (
 	<Provider store={store}>
 		<BrowserRouter>
-			<Application />
+			<Application authenticated={false} />
 		</BrowserRouter>
 	</Provider>
 );

@@ -114,6 +114,10 @@ typescript-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
 
+typescript-mutation-test: # Run TypeScript mutation tests
+	cd $(APPLICATION_DIR)/ui
+	yarn run test:mutation
+
 # ==============================================================================
 # Testing targets
 

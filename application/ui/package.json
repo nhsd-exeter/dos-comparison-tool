@@ -14,7 +14,8 @@
     "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
     "test": "craco test --coverage --watchAll=false",
     "test:watch": "craco test --coverage --watchAll=true",
-    "test:debug": "craco --inspect-brk test --runInBand --no-cache"
+    "test:debug": "craco --inspect-brk test --runInBand --no-cache",
+    "test:mutation": "yarn stryker run"
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {
@@ -36,6 +37,9 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
+    "@stryker-mutator/core": "^6.3.0",
+    "@stryker-mutator/jest-runner": "^6.3.0",
+    "@stryker-mutator/typescript-checker": "^6.3.0",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
@@ -83,7 +87,8 @@
     "ignorePatterns": [
       "build",
       "docs",
-      "craco.config.js"
+      "craco.config.js",
+      "reports"
     ],
     "rules": {
       "@typescript-eslint/naming-convention": [

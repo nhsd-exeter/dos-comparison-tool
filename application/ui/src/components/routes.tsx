@@ -1,20 +1,32 @@
-// import { Suspense } from "react";
-import { Route, Switch } from "wouter";
+import ErrorPage from "./errorPage/errorPage";
 import HomePage from "./homePage/homePage";
 import LoginPage from "./loginPage/loginPage";
-import { BASE_PATH, LOGIN_PATH } from "../constants/paths";
+import MenuPage from "./menuPage/menuPage";
+import { Route, Switch } from "wouter";
+// import { Suspense } from "react";
 
-const UnAuthenticatedRoutes = () => {
+export const UnAuthenticatedRoutes = () => {
 	return (
 		// <Suspense fallback={}>
 		<Switch>
-			<Route path={BASE_PATH} component={HomePage} />
-			<Route path={LOGIN_PATH} component={LoginPage}></Route>
-			<Route>Page Not Found</Route>
+			<Route path="/" component={HomePage} />
+			<Route path="/login" component={LoginPage} />
+			<Route path="/menu" component={MenuPage} />
+			{/* Move /menu route to AuthenticatedRoutes */}
+			<Route component={ErrorPage} />
 		</Switch>
 		// </Suspense>
 		// TODO: Add loading spinner
 	);
 };
 
-export default UnAuthenticatedRoutes;
+export const AuthenticatedRoutes = () => {
+	return (
+		// <Suspense fallback={}>
+		<Switch>
+			<Route component={ErrorPage} />
+		</Switch>
+		// </Suspense>
+		// TODO: Add loading spinner
+	);
+};

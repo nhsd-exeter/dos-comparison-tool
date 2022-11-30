@@ -1,8 +1,11 @@
-import Layout from "./layout";
-import UnAuthenticatedRoutes from "./routes";
+import { AuthenticatedRoutes, UnAuthenticatedRoutes } from "./routes";
 
-function Application() {
-	return <Layout>{UnAuthenticatedRoutes()}</Layout>;
+export interface ApplicationProps {
+	authenticated: boolean;
+}
+
+function Application(props: ApplicationProps): JSX.Element {
+	return props.authenticated ? AuthenticatedRoutes() : UnAuthenticatedRoutes();
 }
 
 export default Application;

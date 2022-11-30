@@ -1,5 +1,5 @@
 import { Header as NHSHeader } from "nhsuk-react-components";
-import { HEADER_ID } from "../../constants/ids";
+import { HEADER_ID } from "../../constants/componentIds";
 import { BASE_PATH } from "../../constants/paths";
 
 const Header = (): JSX.Element => {

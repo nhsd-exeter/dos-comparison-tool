@@ -1,3 +1,4 @@
+import Layout from "../layout";
 import React from "react";
 import { Button } from "nhsuk-react-components";
 import { RouteComponentProps } from "wouter";
@@ -11,11 +12,15 @@ export class HomePage extends React.Component<RouteComponentProps> {
 
 	render(): JSX.Element {
 		return (
-			<div>
-				<h1>Welcome</h1>
-				<p>The DoS Comparison Tool is available here</p>
-				{this.renderNextStepButton(false)}
-			</div>
+			<Layout>
+				<div>
+					<h1 id="pageTitle">DoS Comparison Tool</h1>
+					<h3>
+						Compare results from between NHS Directory of Services searches
+					</h3>
+					{this.renderNextStepButton(false)}
+				</div>
+			</Layout>
 		);
 	}
 }
