@@ -12,3 +12,6 @@ jobs:
           make \
             git-config \
             git-secrets-scan-repo-files
+      - name: Checkov Secret Scan
+        run: |
+          make checkov-secret-scanning

@@ -1,0 +1,22 @@
+name: "Terraform - Check code format and quality"
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, ready_for_review, synchronize, reopened]
+jobs:
+  check-code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check Terraform files format
+        run: |
+          build/automation/etc/githooks/scripts/terraform-format-pre-commit.sh
+      - name: Checkov Terraform Best Practices
+        run: |
+          make terraform-best-practices
+      - name: TFSec Terraform Security Scanning
+        run: |
+          make terraform-security

@@ -31,11 +31,19 @@ test: # Test project
 push: # Push project artefacts to the registry
 	make docker-push NAME=ui
 
-deploy: # Deploy artefacts - mandatory: PROFILE=[name]
-	make project-deploy STACK=application PROFILE=$(PROFILE)
+deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make terraform-apply-auto-approve STACKS=application
+	make k8s-deploy STACK=application
 
-provision: # Provision environment - mandatory: PROFILE=[name]
-	make terraform-apply-auto-approve STACK=database PROFILE=$(PROFILE)
+undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make k8s-undeploy STACK=application
+	make terraform-destroy-auto-approve STACKS=application
+
+build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
+	make build-and-push deploy VERSION=$(BUILD_TAG)
+
+build-and-push: # Build and push docker images
+	make build push
 
 clean: # Clean up project
 	make \
@@ -191,34 +199,26 @@ pipeline-send-notification: ## Send Slack notification with the pipeline status
 	eval "$$(make secret-fetch-and-export-variables NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment)"
 	make slack-it
 
-# --------------------------------------
+# ==============================================================================
+# Checkov (Code Security Best Practices)
 
-pipeline-check-resources: ## Check all the pipeline deployment supporting resources - optional: PROFILE=[name]
-	profiles="$$(make project-list-profiles)"
-	# for each profile
-	#export PROFILE=$$profile
-	# TODO:
-	# table: $(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-deployment
-	# secret: $(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment
-	# bucket: $(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)-deployment
-	# certificate: SSL_DOMAINS_PROD
-	# repos: DOCKER_REPOSITORIES
+docker-best-practices:
+	make docker-run-checkov DIR=/build/docker CHECKOV_OPTS="--framework dockerfile --skip-check CKV_DOCKER_2,CKV_DOCKER_3,CKV_DOCKER_4"
 
-pipeline-create-resources: ## Create all the pipeline deployment supporting resources - optional: PROFILE=[name]
-	profiles="$$(make project-list-profiles)"
-	# for each profile
-	#export PROFILE=$$profile
-	# TODO:
-	# Per AWS accoount, i.e. `nonprod` and `prod`
-	eval "$$(make aws-assume-role-export-variables)"
-	#make aws-dynamodb-create NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-deployment ATTRIBUTE_DEFINITIONS= KEY_SCHEMA=
-	#make secret-create NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment VARS=DB_PASSWORD,SMTP_PASSWORD,SLACK_WEBHOOK_URL
-	#make aws-s3-create NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)-deployment
-	#make ssl-request-certificate-prod SSL_DOMAINS_PROD
-	# Centralised, i.e. `mgmt`
-	eval "$$(make aws-assume-role-export-variables AWS_ACCOUNT_ID=$(AWS_ACCOUNT_ID_MGMT))"
-	#make docker-create-repository NAME=ui
-	#make aws-codeartifact-setup REPOSITORY_NAME=$(PROJECT_GROUP_SHORT)
+terraform-best-practices:
+	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV2_AWS_29"
+
+kubernetes-best-practices:
+	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_20,CKV_K8S_22,CKV_K8S_23,CKV_K8S_28,CKV_K8S_30,CKV_K8S_37,CKV_K8S_40,CKV_K8S_43"
+
+github-actions-best-practices:
+	make docker-run-checkov DIR=/.github CHECKOV_OPTS="--skip-check CKV_GHA_2"
+
+checkov-secret-scanning:
+	make docker-run-checkov CHECKOV_OPTS="--framework secrets"
+
+terraform-security:
+	make docker-run-terraform-tfsec DIR=infrastructure CMD="tfsec"
 
 # ==============================================================================
 

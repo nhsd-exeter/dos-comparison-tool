@@ -17,10 +17,16 @@ jobs:
       - name: Check Python files format
         run: |
           build/automation/etc/githooks/scripts/python-code-pre-commit.sh
-      - name: Check Terraform files format
+      - name: GitHub Actions - Check best practices
         run: |
-          build/automation/etc/githooks/scripts/terraform-format-pre-commit.sh
-      - uses: actions/setup-node@v2
+          make github-actions-best-practices
+      - name: Kubernetes - Check best practices
+        run: |
+          make kubernetes-best-practices
+      - name: Docker - Check best practices
+        run: |
+          make docker-best-practices
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Run Typescript Unit Tests

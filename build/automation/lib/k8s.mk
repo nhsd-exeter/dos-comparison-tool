@@ -30,6 +30,9 @@ k8s-create-overlay-from-template: ### Create Kubernetes overlay deployment from 
 
 # ==============================================================================
 
+k8s-get-token: ### Gets token for Kubernetes cluster dashboard
+	aws eks get-token --cluster-name=live-leks-cluster | jq '.status.token' | sed 's/^\"//' | sed 's/\"$$//'
+
 k8s-deploy: ### Deploy application to the Kubernetes cluster - mandatory: STACK|STACKS|DEPLOYMENT_STACKS=[comma-separated names],PROFILE=[name]
 	# set up
 	eval "$$(make aws-assume-role-export-variables)"
@@ -395,4 +398,5 @@ k8s-job: ### Show status of jobs - mandatory: PROFILE=[name]
 	k8s-kubeconfig-export-variables \
 	k8s-log \
 	k8s-pod-get-status-phase \
-	k8s-sts
+	k8s-sts \
+	k8s-get-token
