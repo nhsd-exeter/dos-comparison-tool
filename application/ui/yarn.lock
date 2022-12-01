@@ -3762,6 +3762,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/libui@npm:^3.0.0-rc.32":
+  version: 3.0.0-rc.32
+  resolution: "@yarnpkg/libui@npm:3.0.0-rc.32"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    ink: ^3.0.8
+    react: ^16.8.4
+  checksum: 7c3ee0291fd590147e0e3ce5ab577df17aa8b9372607550822e017dd4d435337805ab51bd36a980a93c0f72cbdb8b88b936cedd7a41188871231b6826a5ba717
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libzip@npm:^3.0.0-rc.31":
   version: 3.0.0-rc.31
   resolution: "@yarnpkg/libzip@npm:3.0.0-rc.31"
@@ -3941,10 +3953,10 @@ __metadata:
   linkType: hard
 
 "@yarnpkg/plugin-interactive-tools@npm:^4.0.0-rc.31":
-  version: 4.0.0-rc.31
-  resolution: "@yarnpkg/plugin-interactive-tools@npm:4.0.0-rc.31"
+  version: 4.0.0-rc.32
+  resolution: "@yarnpkg/plugin-interactive-tools@npm:4.0.0-rc.32"
   dependencies:
-    "@yarnpkg/libui": ^3.0.0-rc.31
+    "@yarnpkg/libui": ^3.0.0-rc.32
     algoliasearch: ^4.2.0
     clipanion: ^3.2.0-rc.10
     diff: ^5.1.0
@@ -3954,10 +3966,10 @@ __metadata:
     semver: ^7.1.2
     tslib: ^2.4.0
   peerDependencies:
-    "@yarnpkg/cli": ^4.0.0-rc.31
-    "@yarnpkg/core": ^4.0.0-rc.31
-    "@yarnpkg/plugin-essentials": ^4.0.0-rc.31
-  checksum: 7088e2a5dacf04b71b3406c88ceae261de137985412f26e68e4f517f392fb490b6e8e49f5d3d336bc515764f34b3a006be2d27b5297bdaed195a54be01bc4f2f
+    "@yarnpkg/cli": ^4.0.0-rc.32
+    "@yarnpkg/core": ^4.0.0-rc.32
+    "@yarnpkg/plugin-essentials": ^4.0.0-rc.32
+  checksum: c926719c7a344fbc2bbb9b55a90f8b7d4497309bf03058c3a28189a4c438b3ce3f52c723f031addfeb5369bdc2ea33826d3584378bc2e327aa70188023c3725b
   languageName: node
   linkType: hard
 
