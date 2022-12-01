@@ -3750,6 +3750,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.32":
+  version: 3.0.0-rc.32
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.32"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 9cf7dc8a65ebe7f7c923af0e318ba3d12c2215e9e4b545e6b81605d0213c709418c14c6f34f1c5d81203732c1452c930cbc2868feed18565d38fe354c03cce13
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.31":
   version: 3.0.0-rc.31
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.31"
@@ -3886,19 +3895,19 @@ __metadata:
   linkType: hard
 
 "@yarnpkg/plugin-git@npm:^3.0.0-rc.31":
-  version: 3.0.0-rc.31
-  resolution: "@yarnpkg/plugin-git@npm:3.0.0-rc.31"
+  version: 3.0.0-rc.32
+  resolution: "@yarnpkg/plugin-git@npm:3.0.0-rc.32"
   dependencies:
     "@types/semver": ^7.1.0
-    "@yarnpkg/fslib": ^3.0.0-rc.31
+    "@yarnpkg/fslib": ^3.0.0-rc.32
     clipanion: ^3.2.0-rc.10
     git-url-parse: ^13.1.0
     lodash: ^4.17.15
     semver: ^7.1.2
     tslib: ^2.4.0
   peerDependencies:
-    "@yarnpkg/core": ^4.0.0-rc.31
-  checksum: f1ac14110b9521d4a4b6f9f0d7095ab07659bd4ff0b1b5b38370b17d9dce43db54337719bae1a4042c04584b3d5554be75d54bea0cad0c326a4c784552ec2a43
+    "@yarnpkg/core": ^4.0.0-rc.32
+  checksum: 17ad51d66dbaa0aa29412b0f5f70b1c48a382df028566fdce1d83ccf44c0279b6101c88a5ef0043ca1f032acb8074fe599044a62371bd7a9a0ede2ff73b24da4
   languageName: node
   linkType: hard
 
