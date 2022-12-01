@@ -3750,6 +3750,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.32":
+  version: 3.0.0-rc.32
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.32"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 9cf7dc8a65ebe7f7c923af0e318ba3d12c2215e9e4b545e6b81605d0213c709418c14c6f34f1c5d81203732c1452c930cbc2868feed18565d38fe354c03cce13
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.31":
   version: 3.0.0-rc.31
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.31"
@@ -3796,6 +3805,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/parsers@npm:^3.0.0-rc.32":
+  version: 3.0.0-rc.32
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.32"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: b02796d019bb73ef024426cb0055a14f148696b19c5addf2fe4c9a1fc056efd7cb055023b4f3f4aff07bf01a5c2f52d5def1f779cb9b02b7e7a6b6e940d7bd57
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/plugin-compat@npm:^4.0.0-rc.31":
   version: 4.0.0-rc.31
   resolution: "@yarnpkg/plugin-compat@npm:4.0.0-rc.31"
@@ -3839,11 +3858,11 @@ __metadata:
   linkType: hard
 
 "@yarnpkg/plugin-essentials@npm:^4.0.0-rc.31":
-  version: 4.0.0-rc.31
-  resolution: "@yarnpkg/plugin-essentials@npm:4.0.0-rc.31"
+  version: 4.0.0-rc.32
+  resolution: "@yarnpkg/plugin-essentials@npm:4.0.0-rc.32"
   dependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.31
-    "@yarnpkg/parsers": ^3.0.0-rc.31
+    "@yarnpkg/fslib": ^3.0.0-rc.32
+    "@yarnpkg/parsers": ^3.0.0-rc.32
     ci-info: ^3.2.0
     clipanion: ^3.2.0-rc.10
     enquirer: ^2.3.6
@@ -3853,10 +3872,10 @@ __metadata:
     tslib: ^2.4.0
     typanion: ^3.3.0
   peerDependencies:
-    "@yarnpkg/cli": ^4.0.0-rc.31
-    "@yarnpkg/core": ^4.0.0-rc.31
-    "@yarnpkg/plugin-git": ^3.0.0-rc.31
-  checksum: 5763d923de08297baf1e0ac711d38b6abd45ffbb92057b0276d28b8aa9714fa868f169ede13cda9a41611930548e7cf2f76e88060996cb2baf5b56c8835aa907
+    "@yarnpkg/cli": ^4.0.0-rc.32
+    "@yarnpkg/core": ^4.0.0-rc.32
+    "@yarnpkg/plugin-git": ^3.0.0-rc.32
+  checksum: 158fe6cc859b82f6e2e0330845f359bd886b789714c431fc408d77cfa5abaf5c959730cdf04eca493610fc08eebb0af2d31691375f4f5427819d3bc32a6de312
   languageName: node
   linkType: hard
 
