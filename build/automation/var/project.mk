@@ -18,7 +18,7 @@ PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 
 TF_VAR_role_prefix := $(ROLE_PREFIX)
-# --------------------------------------
+# ==============================================================================
 # Pipeline
 
 TF_VAR_github_repository = $(ORG_NAME)/$(PROJECT_NAME)

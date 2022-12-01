@@ -24,27 +24,19 @@ resource "aws_codebuild_project" "codebuild_project" {
     environment_variable {
       name  = "CB_PROJECT_NAME"
       value = var.codebuild_project_name
+      type  = "PLAINTEXT"
     }
-    environment_variable {
-      name  = "AWS_ACCOUNT_ID_LIVE_PARENT"
-      value = var.aws_account_id_live_parent
+
+    dynamic "environment_variable" {
+      for_each = var.codebuild_environment_variables
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+        type  = environment_variable.value.type
+      }
     }
-    environment_variable {
-      name  = "AWS_ACCOUNT_ID_MGMT"
-      value = var.aws_account_id_mgmt
-    }
-    environment_variable {
-      name  = "AWS_ACCOUNT_ID_NONPROD"
-      value = var.aws_account_id_nonprod
-    }
-    environment_variable {
-      name  = "AWS_ACCOUNT_ID_PROD"
-      value = var.aws_account_id_prod
-    }
-    environment_variable {
-      name  = "AWS_ACCOUNT_ID_IDENTITIES"
-      value = var.aws_account_id_identities
-    }
+
+
   }
   logs_config {
     cloudwatch_logs {

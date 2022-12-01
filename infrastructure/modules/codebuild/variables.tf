@@ -1,25 +1,3 @@
-# TO BE CONVERTED TO MAP
-
-variable "aws_account_id_live_parent" {
-  type = string
-}
-
-variable "aws_account_id_mgmt" {
-  type = string
-}
-
-variable "aws_account_id_nonprod" {
-  type = string
-}
-
-variable "aws_account_id_prod" {
-  type = string
-}
-
-variable "aws_account_id_identities" {
-  type = string
-}
-
 # KEEP
 
 variable "codebuild_project_name" {
@@ -70,4 +48,14 @@ variable "github_repsitory_url" {
 variable "buildspec_rendered" {
   type        = string
   description = "The buildspec file rendered from the template"
+}
+
+variable "codebuild_environment_variables" {
+  type = list(object(
+    {
+      name  = string
+      value = string
+      type  = string
+  }))
+  description = "The environment variables for the CodeBuild project"
 }
