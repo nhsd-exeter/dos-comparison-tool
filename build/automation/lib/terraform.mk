@@ -51,6 +51,7 @@ terraform-destroy-auto-approve: ### Tear down infrastructure - mandatory: STACK|
 		STACKS="$(or $(STACK), $(or $(STACKS), $(INFRASTRUCTURE_STACKS)))" \
 		CMD="destroy" \
 		OPTS="-auto-approve $(OPTS)"
+	make terraform-delete-state STACKS="$(or $(STACK), $(or $(STACKS), $(INFRASTRUCTURE_STACKS)))"
 
 terraform-destroy: ### Tear down infrastructure - mandatory: STACK|STACKS|INFRASTRUCTURE_STACKS=[comma-separated names]; optional: PROFILE=[name],OPTS=[Terraform options]
 	make _terraform-stacks \

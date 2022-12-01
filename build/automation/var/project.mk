@@ -29,6 +29,7 @@ TF_VAR_unit_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-unit-tests
 TF_VAR_build_codebuild_project = $(PROJECT_ID)-$(PROFILE)-build
 TF_VAR_deploy_codebuild_project = $(PROJECT_ID)-$(PROFILE)-deploy
 TF_VAR_end_to_end_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-end-to-end-tests
+TF_VAR_clean_up_resources_codebuild_project = $(PROJECT_ID)-$(PROFILE)-clean-up-resources
 
 # ==============================================================================
 # Splunk

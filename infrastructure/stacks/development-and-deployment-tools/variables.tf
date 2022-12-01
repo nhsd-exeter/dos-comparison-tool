@@ -45,6 +45,11 @@ variable "end_to_end_tests_codebuild_project" {
   description = "The name of the end to end tests codebuild project"
 }
 
+variable "clean_up_resources_codebuild_project" {
+  type        = string
+  description = "The name of the clean up resources codebuild project"
+}
+
 # ############################
 # S3
 # ############################

@@ -238,6 +238,26 @@ pipeline-send-notification: ## Send Slack notification with the pipeline status
 	make slack-it
 
 # ==============================================================================
+# Environment Clean up
+
+get-environment-list: # Gets a full list of all DCT environments - mandatory: PROFILE=[name]
+	eval "$$(make aws-assume-role-export-variables)"
+	list=$$(aws dynamodb scan --table-name $(TEXAS_TERRAFORM_STATE_LOCK) | jq -r '.Items[].LockID[]')
+	for item in $$list; do
+		if [[ "$$item" =~ "$(PROJECT_ID)" ]]; then
+			ENV_LIST+=$$(echo $$item | sed -n -e 's/^.*$(PROJECT_ID)\///p'|cut -f1 -d"/" | sed '$$s/$$/,/')
+		fi
+	done
+	echo $$ENV_LIST | sed 's/,$$//'
+
+clean-up-environments: # Cleans up all DCT environments - mandatory: PROFILE=[name]
+	ENV_LIST=$$(make -s get-environment-list)
+	for env in $$(echo $$ENV_LIST | sed "s/,/ /g"); do
+		make terraform-clean
+		make undeploy ENVIRONMENT=$$env
+	done
+
+# ==============================================================================
 # Checkov (Code Security Best Practices)
 
 docker-best-practices:
