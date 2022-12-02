@@ -25,6 +25,8 @@ TF_VAR_kubernetes_service_account_role_name := $(K8S_SERVICE_ACCOUNT_NAME)-role
 TF_VAR_kubernetes_service_account_role_policy_name := $(K8S_SERVICE_ACCOUNT_NAME)-policy
 TEXAS_CERTIFICATE_ARN := arn:aws:acm:$(AWS_REGION):$(AWS_ACCOUNT_ID):certificate/$(TEXAS_CERTIFICATE_ID)
 
+TF_VAR_user_pool_name := $(PROJECT_ID)-$(ENVIRONMENT)-user-pool
+
 # ==============================================================================
 
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub

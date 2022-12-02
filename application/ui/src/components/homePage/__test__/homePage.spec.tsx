@@ -2,7 +2,8 @@ import Homepage from "../homePage";
 import React from "react";
 import { expect, test } from "@jest/globals";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
-import { render, screen } from "@testing-library/react";
+import { renderWithProviders } from "../../../__test__/utils-for-tests";
+import { screen } from "@testing-library/react";
 
 export const expectedHeader = "DoS Comparison Tool";
 export const expectedPageText =
@@ -11,7 +12,7 @@ export const expectedButtonText = "Log in";
 
 test("It renders the expected HomePage layout", () => {
 	// Arrange: prepare the environment, render the component.
-	render(<Homepage />);
+	renderWithProviders(<Homepage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
 	const footer = document.getElementById(FOOTER_ID);
@@ -22,7 +23,7 @@ test("It renders the expected HomePage layout", () => {
 
 test("It renders the HomePage content", () => {
 	// Arrange: prepare the environment, render the component.
-	render(<Homepage />);
+	renderWithProviders(<Homepage />);
 	// Act: Get the elements.
 	const headerValue = document.getElementById("pageTitle").textContent;
 	const pageTextValue = screen.getByText(expectedPageText).textContent;

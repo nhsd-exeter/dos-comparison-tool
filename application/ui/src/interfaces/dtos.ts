@@ -1,14 +1,5 @@
 export interface ApplicationState {
-	user: Partial<UserState>;
-}
-
-export interface UserPayload {
-	data: Partial<User>;
-}
-
-export interface User {
-	emailAddress: string;
-	name: string;
+	user: Partial<AuthState>;
 }
 
 export interface Action<T> {
@@ -19,19 +10,25 @@ export interface Action<T> {
 	meta?: unknown;
 }
 
-export interface UserState extends Partial<User> {
+export interface Data<T> {
+	data: T;
+}
+
+export interface Auth {
+	emailAddress: string;
+	name: string;
+}
+
+export interface AuthPayload {
+	data: Partial<Auth>;
+}
+
+export interface AuthCredentials {
+	emailAddress: string;
+	password: string;
+}
+
+export interface AuthState extends Partial<Auth> {
 	failedLogin: boolean;
 	loggedIn: boolean;
-}
-
-export interface AxiosRequestObject {
-	axiosRequest: AxiosRequestContent;
-}
-
-export interface AxiosRequestContent {
-	method: string;
-	partialUrl: string;
-	data?: unknown;
-
-	[propName: string]: unknown;
 }

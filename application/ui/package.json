@@ -5,10 +5,10 @@
   "scripts": {
     "build": "craco build",
     "dependency-check": "yarn depcheck .",
+    "dependency-update": "yarn upgrade-interactive",
     "eject": "react-scripts eject",
     "format:check": "yarn prettier . --check",
     "format:fix": "yarn prettier . --write",
-    "dependency-update": "yarn upgrade-interactive",
     "lint:check": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
     "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
@@ -19,36 +19,33 @@
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.0",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
-    "@types/react-redux": "^7.1.24",
     "nhsuk-frontend": "^6.1.2",
     "nhsuk-react-components": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^6.4.4",
     "redux": "^4.2.0",
-    "typescript": "^4.9.3",
-    "web-vitals": "^3.1.0",
-    "wouter": "^2.9.0"
+    "typescript": "^4.9.3"
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "@stryker-mutator/core": "^6.3.0",
     "@stryker-mutator/jest-runner": "^6.3.0",
     "@stryker-mutator/typescript-checker": "^6.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "@yarnpkg/cli": "^4.0.0-rc.31",
-    "@yarnpkg/core": "^4.0.0-rc.31",
-    "@yarnpkg/plugin-essentials": "^4.0.0-rc.31",
-    "@yarnpkg/plugin-git": "^3.0.0-rc.31",
-    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.31",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@yarnpkg/cli": "^4.0.0-rc.32",
+    "@yarnpkg/core": "^4.0.0-rc.32",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.32",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.32",
+    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.32",
     "depcheck": "^1.4.3",
     "eslint": "^8.28.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -70,7 +67,8 @@
     ]
   },
   "resolutions": {
-    "nth-check": "2.1.1"
+    "nth-check": "2.1.1",
+    "react": "18.2.0"
   },
   "eslintConfig": {
     "extends": [
@@ -100,7 +98,8 @@
             "camelCase"
           ]
         }
-      ]
+      ],
+      "typescript-eslint/no-unsafe-member-access": "off"
     },
     "parserOptions": {
       "project": [

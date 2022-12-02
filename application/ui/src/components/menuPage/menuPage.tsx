@@ -1,9 +1,8 @@
 import Layout from "../layout";
 import React from "react";
-import { RouteComponentProps } from "wouter";
 import MenuCards from "./menuCards";
 
-export class MenuPage extends React.Component<RouteComponentProps> {
+export class MenuPage extends React.Component {
 	render(): JSX.Element {
 		return (
 			<Layout>

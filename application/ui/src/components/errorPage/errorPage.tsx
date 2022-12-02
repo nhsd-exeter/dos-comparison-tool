@@ -1,9 +1,8 @@
 import Layout from "../layout";
 import React from "react";
 import { BASE_PATH } from "../../constants/paths";
-import { RouteComponentProps } from "wouter";
 
-export class ErrorPage extends React.Component<RouteComponentProps> {
+export class ErrorPage extends React.Component {
 	render(): JSX.Element {
 		return (
 			<Layout hideFooter={true}>

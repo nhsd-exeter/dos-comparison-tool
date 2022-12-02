@@ -18,6 +18,15 @@ variable "kubernetes_service_account_role_policy_name" {
 }
 
 # ############################
+# COGNITO
+# ############################
+
+variable "user_pool_name" {
+  type        = string
+  description = "The name of the Cognito user pool"
+}
+
+# ############################
 # OTHER
 # ############################
 

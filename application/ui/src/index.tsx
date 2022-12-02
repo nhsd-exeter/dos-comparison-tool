@@ -1,6 +1,9 @@
-import DoSComparisonTool from "./main";
+import App from "./components/App";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store";
 import "nhsuk-frontend/packages/nhsuk.scss";
 
 const containerElement = document.querySelector(".react-container");
@@ -13,7 +16,14 @@ const root = ReactDOM.createRoot(containerElement);
 
 root.render(
 	<React.StrictMode>
-		<DoSComparisonTool />
+		{/* Redux Provider */}
+		<Provider store={store}>
+			{/* React Router DOM */}
+			<BrowserRouter>
+				{/* Application */}
+				<App />
+			</BrowserRouter>
+		</Provider>
 	</React.StrictMode>
 );
 
