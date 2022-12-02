@@ -18,6 +18,10 @@
   - [Deployment](#deployment)
     - [Artifact Versioning](#artifact-versioning)
     - [CI/CD Pipelines](#cicd-pipelines)
+      - [Development Pipeline](#development-pipeline)
+    - [Stand alone CodeBuild Projects](#stand-alone-codebuild-projects)
+      - [Clean up CodeBuild](#clean-up-codebuild)
+    - [Pipeline Image](#pipeline-image)
     - [Deployment From the Command-line](#deployment-from-the-command-line)
     - [Secrets](#secrets)
     - [AWS Access](#aws-access)
@@ -178,13 +182,22 @@ E.g. semantic versioning vs. timestamp-based
 List all the pipelines and their purpose
 
 - Development
-- Test
-- Cleanup
-- Production (deployment)
 
-Reference the [jenkins/README.md](build/automation/lib/jenkins/README.md) file
+#### Development Pipeline
 
-<img src="./documentation/diagrams/DevOps-Pipelines.png" width="1024" /><br /><br />
+The development pipeline is triggered by a push to the main branch. It will run the unit tests, build the docker images and push them to the AWS ECR repository. It will then deploy the application to the dev environment and run the end to end tests.
+
+### Stand alone CodeBuild Projects
+
+- Clean up
+
+#### Clean up CodeBuild
+
+The clean up code build project removes all environments in non prod that aren't dev.
+
+### Pipeline Image
+
+<img src="./documentation/diagrams/DoS-Comparison-Tool-DevOps-Pipelines.drawio.png" width="1024" /><br /><br />
 
 ### Deployment From the Command-line
 
