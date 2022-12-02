@@ -35,8 +35,6 @@ resource "aws_codebuild_project" "codebuild_project" {
         type  = environment_variable.value.type
       }
     }
-
-
   }
   logs_config {
     cloudwatch_logs {

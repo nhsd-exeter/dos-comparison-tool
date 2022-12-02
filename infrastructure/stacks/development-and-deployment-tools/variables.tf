@@ -7,6 +7,11 @@ variable "github_repository" {
   description = "The name of the GitHub repository"
 }
 
+variable "github_repository_url" {
+  type        = string
+  description = "The URL of the GitHub repository"
+}
+
 variable "development_pipeline_integration_branch" {
   type        = string
   description = "The name of the git branch to use/trigger for the development pipeline integration branch"

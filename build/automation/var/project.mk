@@ -22,6 +22,7 @@ TF_VAR_role_prefix := $(ROLE_PREFIX)
 # Pipeline
 
 TF_VAR_github_repository = $(ORG_NAME)/$(PROJECT_NAME)
+TF_VAR_github_repository_url = https://github.com/$(TF_VAR_github_repository).git
 TF_VAR_development_pipeline_integration_branch = main
 TF_VAR_development_pipeline = $(PROJECT_ID)-$(PROFILE)-development-pipeline
 TF_VAR_development_pipeline_bucket = $(PROJECT_ID)-$(PROFILE)-development-pipeline-bucket

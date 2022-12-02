@@ -1,15 +1,9 @@
 locals {
   unit_tests = {
-    ui = {
-      name        = "ui"
-      make_target = "ui-test"
-    }
+    typescript = "typescript"
   }
   build = {
-    ui = {
-      name        = "ui"
-      make_target = "ui-build"
-    }
+    ui = "ui"
   }
 
   codebuild_standard_environment_variables = [

@@ -5,4 +5,4 @@ phases:
   build:
     commands:
       # Run unit tests
-      - make $MAKE_TARGET
+      - make $UNIT_TEST_MAKE_TARGET
