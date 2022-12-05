@@ -32,7 +32,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Run Typescript Unit Tests
-        run: make yarn-install typescript-test
+        run: make yarn-install-locked typescript-test
 
       - uses: sonarsource/sonarcloud-github-action@master
         # SEE: https://github.com/SonarSource/sonarcloud-github-action
@@ -45,7 +45,7 @@ jobs:
             -Dsonar.sources=application,deployment,infrastructure
             -Dsonar.organization=nhsd-exeter
             -Dsonar.projectKey=uec-dos-ct
-            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure
+            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx
             -Dsonar.tests=test
             -Dsonar.terraform.provider.aws.version=4.44.0
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info

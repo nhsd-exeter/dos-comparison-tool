@@ -86,7 +86,11 @@ ui-build-clean: # Clean UI build artefacts
 
 # ==============================================================================
 
-yarn-install: # Install Yarn dependencies
+yarn-install: # Install yarn dependencies
+	cd $(APPLICATION_DIR)/ui
+	yarn install
+
+yarn-install-locked: # Install Yarn dependencies
 	cd $(APPLICATION_DIR)/ui
 	yarn install
 

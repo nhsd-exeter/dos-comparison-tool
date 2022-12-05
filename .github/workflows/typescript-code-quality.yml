@@ -17,7 +17,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Install dependencies
-        run: make yarn-install
+        run: make yarn-install-locked
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
@@ -36,7 +36,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Install dependencies
-        run: make yarn-install
+        run: make yarn-install-locked
       - name: Typescript Mutation Test
         run: |
           make typescript-mutation-test
