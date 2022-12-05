@@ -8,7 +8,6 @@ import { screen } from "@testing-library/react";
 export const expectedHeader = "DoS Comparison Tool";
 export const expectedPageText =
 	"Compare results from between NHS Directory of Services searches";
-export const expectedButtonText = "Log in";
 
 test("It renders the expected HomePage layout", () => {
 	// Arrange: prepare the environment, render the component.
@@ -21,16 +20,34 @@ test("It renders the expected HomePage layout", () => {
 	expect(header).toBeTruthy();
 });
 
-test("It renders the HomePage content", () => {
+test("It renders the HomePage content while not being logged in", () => {
 	// Arrange: prepare the environment, render the component.
+	const expectedButtonText = "Log in";
 	renderWithProviders(<Homepage />);
 	// Act: Get the elements.
-	const headerValue = document.getElementById("pageTitle").textContent;
+	const headerValue = document.getElementById("pageTitle")?.textContent;
 	const pageTextValue = screen.getByText(expectedPageText).textContent;
 	const nextButton = screen.getByRole("button");
 	// Assert: Elements are present.
 	expect(headerValue).toStrictEqual(expectedHeader);
 	expect(pageTextValue).toStrictEqual(expectedPageText);
 	expect(nextButton).toHaveProperty("href", "http://localhost/login");
+	expect(nextButton).toHaveProperty("text", expectedButtonText);
+});
+
+test("It renders the HomePage content while not being logged in", () => {
+	// Arrange: prepare the environment, render the component.
+	const expectedButtonText = "Start now";
+	renderWithProviders(<Homepage />, {
+		preloadedState: { auth: { isLoggedIn: true } },
+	});
+	// Act: Get the elements.
+	const headerValue = document.getElementById("pageTitle")?.textContent;
+	const pageTextValue = screen.getByText(expectedPageText).textContent;
+	const nextButton = screen.getByRole("button");
+	// Assert: Elements are present.
+	expect(headerValue).toStrictEqual(expectedHeader);
+	expect(pageTextValue).toStrictEqual(expectedPageText);
+	expect(nextButton).toHaveProperty("href", "http://localhost/menu");
 	expect(nextButton).toHaveProperty("text", expectedButtonText);
 });

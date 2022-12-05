@@ -1,6 +1,6 @@
 import Layout from "../layout";
 import { Button } from "nhsuk-react-components";
-import { LOGIN_PATH } from "../../constants/paths";
+import { LOGIN_PATH, MENU_PATH } from "../../constants/paths";
 import { selectLoggedIn } from "../../slices/authSlice";
 import { useAppSelector } from "../../hooks";
 
@@ -20,7 +20,8 @@ const HomePage = () => {
 
 function renderNextStepButton(launched: boolean | null) {
 	const text = launched ? "Start now" : "Log in";
-	return <Button href={LOGIN_PATH}>{text}</Button>;
+	const path = launched ? MENU_PATH : LOGIN_PATH;
+	return <Button href={path}>{text}</Button>;
 }
 
 export default HomePage;

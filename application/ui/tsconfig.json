@@ -23,14 +23,7 @@
     // "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "noFallthroughCasesInSwitch": true // Report errors for fallthrough cases in switch statement
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "build",
-    "**/__test__/**",
-    "reports",
-    "coverage",
-    "src/test-utils"
-  ],
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "build", "**/__test__/**", "reports", "coverage"],
   "compileOnSave": true // Compile the project on save
 }

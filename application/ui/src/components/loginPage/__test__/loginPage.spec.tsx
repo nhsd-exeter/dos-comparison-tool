@@ -1,13 +1,13 @@
 import LoginPage from "../loginPage";
 import React from "react";
+import { AUTH_SUBMIT_BUTTON } from "../../../constants/componentIds";
 import { expect, test } from "@jest/globals";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
-import { renderWithProviders } from "../../../__test__/utils-for-tests";
-import { screen } from "@testing-library/react";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 
 test("It renders the expected LoginPage layout", () => {
 	// Arrange: prepare the environment, render the component.
-	renderWithProviders(<LoginPage />);
+	renderWithProvidersAndRouter(<LoginPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
 	const footer = document.getElementById(FOOTER_ID);
@@ -18,11 +18,9 @@ test("It renders the expected LoginPage layout", () => {
 
 test("It renders the LoginPage Content", () => {
 	// Arrange: prepare the environment, render the component.
-	renderWithProviders(<LoginPage />);
+	renderWithProvidersAndRouter(<LoginPage />);
 	// Act: try to find the expected links.
-	const nextButton = screen.getByRole("button");
+	const nextButton = document.getElementById(AUTH_SUBMIT_BUTTON)?.textContent;
 	// Assert: check that required links are indeed links.
-	// TODO: Fix this test.
-	// expect(nextButton).toHaveProperty("href", "http://localhost/menu");
-	// expect(nextButton).toHaveProperty("text", "Log in");
+	expect(nextButton).toEqual("Log in");
 });

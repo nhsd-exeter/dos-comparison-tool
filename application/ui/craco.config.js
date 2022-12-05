@@ -12,4 +12,8 @@ module.exports = {
 			},
 		},
 	},
+	typescript: {
+		enableTypeChecking: true,
+	},
+	jest: {},
 };
