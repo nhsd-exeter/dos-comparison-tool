@@ -65,6 +65,11 @@ ui-build: # Build UI image
 	make ssl-copy-certificate-project DIR=$(DOCKER_DIR)/ui/assets/certificate
 	make -s docker-build NAME=ui
 
+ui-config: # Create UI config file  - mandatory: PROFILE=[name]
+	make file-copy-and-replace \
+		SRC=$(APPLICATION_DIR_REL)/ui/config/config.json \
+		DEST=$(APPLICATION_DIR_REL)/ui/src/config.json
+
 ui-start: # Start UI development server (Hot reload)
 	cd $(APPLICATION_DIR)/ui
 	yarn install
@@ -114,9 +119,13 @@ typescript-fix-lint: # Fix TypeScript linting
 	cd $(APPLICATION_DIR)/ui
 	yarn run lint:fix
 
-typescript-code-check:
+typescript-code-check: # Check TypeScript code for linting and formatting
 	make typescript-check-format
-# make typescript-check-lint
+	make typescript-check-lint
+
+typescript-test-ci-setup: # Set up TypeScript test environment for CI
+	make yarn-install-locked
+	make ui-config
 
 typescript-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui

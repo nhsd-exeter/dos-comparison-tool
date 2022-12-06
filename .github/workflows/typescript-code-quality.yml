@@ -16,8 +16,8 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
-      - name: Install dependencies
-        run: make yarn-install-locked
+      - name: Test Setup
+        run: make typescript-test-ci-setup
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
@@ -35,8 +35,8 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
-      - name: Install dependencies
-        run: make yarn-install-locked
+      - name: Test Setup
+        run: make typescript-test-ci-setup
       - name: Typescript Mutation Test
         run: |
           make typescript-mutation-test
