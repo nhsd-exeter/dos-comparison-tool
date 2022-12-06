@@ -2,11 +2,11 @@ import MenuPage from "../menuPage";
 import React from "react";
 import { expect, test } from "@jest/globals";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
-import { renderWithProviders } from "../../../__test__/utils-for-tests";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 
 test("It renders the expected MenuPage layout", () => {
 	// Arrange: prepare the environment, render the component.
-	renderWithProviders(<MenuPage />);
+	renderWithProvidersAndRouter(<MenuPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
 	const footer = document.getElementById(FOOTER_ID);
@@ -17,7 +17,7 @@ test("It renders the expected MenuPage layout", () => {
 
 test("It renders the MenuPage Content", () => {
 	// Arrange: prepare the environment, render the component.
-	renderWithProviders(<MenuPage />);
+	renderWithProvidersAndRouter(<MenuPage />);
 	// Act: try to find the expected links.
 	const ccsSearchCardHeading = document
 		.getElementById("ccsSearchCardHeading")

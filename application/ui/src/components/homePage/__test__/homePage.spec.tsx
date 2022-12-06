@@ -2,7 +2,7 @@ import Homepage from "../homePage";
 import React from "react";
 import { expect, test } from "@jest/globals";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
-import { renderWithProviders } from "../../../__test__/utils-for-tests";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import { screen } from "@testing-library/react";
 
 export const expectedHeader = "DoS Comparison Tool";
@@ -11,7 +11,7 @@ export const expectedPageText =
 
 test("It renders the expected HomePage layout", () => {
 	// Arrange: prepare the environment, render the component.
-	renderWithProviders(<Homepage />);
+	renderWithProvidersAndRouter(<Homepage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
 	const footer = document.getElementById(FOOTER_ID);
@@ -23,7 +23,7 @@ test("It renders the expected HomePage layout", () => {
 test("It renders the HomePage content while not being logged in", () => {
 	// Arrange: prepare the environment, render the component.
 	const expectedButtonText = "Log in";
-	renderWithProviders(<Homepage />);
+	renderWithProvidersAndRouter(<Homepage />);
 	// Act: Get the elements.
 	const headerValue = document.getElementById("pageTitle")?.textContent;
 	const pageTextValue = screen.getByText(expectedPageText).textContent;
@@ -35,10 +35,10 @@ test("It renders the HomePage content while not being logged in", () => {
 	expect(nextButton).toHaveProperty("text", expectedButtonText);
 });
 
-test("It renders the HomePage content while not being logged in", () => {
+test("It renders the HomePage content while being logged in", () => {
 	// Arrange: prepare the environment, render the component.
 	const expectedButtonText = "Start now";
-	renderWithProviders(<Homepage />, {
+	renderWithProvidersAndRouter(<Homepage />, {
 		preloadedState: { auth: { isLoggedIn: true } },
 	});
 	// Act: Get the elements.
