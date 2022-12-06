@@ -1,8 +1,8 @@
 import Layout from "..";
 import React from "react";
-import { expect, test, describe } from "@jest/globals";
-import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
+import { describe, expect, test } from "@jest/globals";
 import { fireEvent, screen } from "@testing-library/react";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 
 const baseUrl = "http://localhost";
 

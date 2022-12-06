@@ -4,7 +4,7 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 # ==============================================================================
 # Development workflow targets
 
-setup: # Set up project
+setup: # Set up project for development - mandatory: PROFILE=[name]
 	make project-config
 	make trust-certificate
 # Yarn Setup

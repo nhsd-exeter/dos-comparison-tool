@@ -1,3 +1,4 @@
 build
 **/__test__
 coverage
+src/setupTests.ts

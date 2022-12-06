@@ -43,6 +43,7 @@
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.4",
     "@types/jsdom": "^20.0.1",
+    "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
     "@yarnpkg/cli": "^4.0.0-rc.32",
@@ -50,6 +51,7 @@
     "@yarnpkg/plugin-essentials": "^4.0.0-rc.32",
     "@yarnpkg/plugin-git": "^3.0.0-rc.32",
     "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.32",
+    "aws-sdk-mock": "^5.8.0",
     "depcheck": "^1.4.3",
     "eslint": "^8.29.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -57,6 +59,7 @@
     "jsdom": "^20.0.3",
     "prettier": "^2.8.0",
     "react-scripts": "^5.0.1",
+    "sinon": "^15.0.0",
     "typedoc": "^0.23.21"
   },
   "browserslist": {

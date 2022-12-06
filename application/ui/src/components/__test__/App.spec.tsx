@@ -1,6 +1,6 @@
 import React from "react";
 import { App } from "../App";
-import { expect, test, describe } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 import { expectedPageText } from "../homePage/__test__/homePage.spec";
 import { renderWithProvidersAndRouter } from "../../__test__/utils-for-tests";
 import { screen } from "@testing-library/react";

@@ -54,7 +54,7 @@ function LoginForm(): JSX.Element {
 		user.authenticateUser(authDetails, {
 			onSuccess: (result) => {
 				console.log("login success", result);
-				dispatch(dispatch(signIn()));
+				dispatch(signIn());
 				navigate(MENU_PATH);
 			},
 			onFailure: (err) => {
