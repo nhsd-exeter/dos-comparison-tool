@@ -5,9 +5,7 @@ export interface AuthState {
 	isLoggedIn: boolean;
 }
 
-export const signIn = createAction<{ email: string; password: string }>(
-	"signIn"
-);
+export const signIn = createAction("signIn");
 export const signOut = createAction("signOut");
 
 export const initialState = { isLoggedIn: false } as AuthState;

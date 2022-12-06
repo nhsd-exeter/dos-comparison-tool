@@ -44,3 +44,5 @@ build
 # Stryker
 reports
 .stryker-tmp
+
+config.json

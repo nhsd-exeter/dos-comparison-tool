@@ -1,5 +1,5 @@
 import {
-	AUTH_EMAIL_INPUT,
+	AUTH_USERNAME_INPUT,
 	AUTH_PASSWORD_INPUT,
 	AUTH_SUBMIT_BUTTON,
 	FOOTER_ID,
@@ -11,7 +11,7 @@ import { expect, test } from "@jest/globals";
 const expectedHeaderId = "DoSComparisonToolHeader";
 const expectedFooterId = "DoSComparisonToolFooter";
 const expectedMainId = "DoSComparisonToolMain";
-const expectedAuthEmailInput = "authEmailInput";
+const expectedAuthUsernameInput = "authUsernameInput";
 const expectedAuthPasswordInput = "authPasswordInput";
 const expectedAuthSubmitButton = "authSubmitButton";
 
@@ -21,7 +21,7 @@ test("Component ids are as expected", () => {
 	expect(MAIN_ID).toBe(expectedMainId);
 	expect(HEADER_ID).toBe(expectedHeaderId);
 	// Assert: Auth component ids are as expected
-	expect(AUTH_EMAIL_INPUT).toBe(expectedAuthEmailInput);
+	expect(AUTH_USERNAME_INPUT).toBe(expectedAuthUsernameInput);
 	expect(AUTH_PASSWORD_INPUT).toBe(expectedAuthPasswordInput);
 	expect(AUTH_SUBMIT_BUTTON).toBe(expectedAuthSubmitButton);
 });
