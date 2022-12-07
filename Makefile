@@ -13,10 +13,12 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 	cd $(PROJECT_DIR)
 # Set up local virtual environment and download dependencies
 
-build: project-config # Build project
+build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
 	make ui-build
 
-start: project-start # Start project
+start: # Start project
+	eval "$$(make -s populate-application-variables)"
+	make project-start
 
 stop: project-stop # Stop project
 
@@ -57,7 +59,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 
 # ==============================================================================
 
-ui-build: # Build UI image
+ui-build: # Build UI image - mandatory: PROFILE=[name], ENVIRONMENT=[name]
 	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
@@ -149,67 +151,14 @@ end-to-end-test:
 	CMD="pytest --gherkin-terminal-reporter"
 
 # ==============================================================================
-# Pipeline targets
+# Deployment variables
 
-build-artefact:
-	echo TODO: $(@)
+populate-application-variables: ## Populate application variables required for ui to run
+	COGNITO_SECRETS=$$(make -s secret-get-existing-value NAME=$(COGNITO_SECRETS_NAME))
+	echo "export AUTH_USER_POOL_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
+	echo "export AUTH_USER_POOL_WEB_CLIENT_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
 
-publish-artefact:
-	echo TODO: $(@)
-
-backup-data:
-	echo TODO: $(@)
-
-provision-infractructure:
-	echo TODO: $(@)
-
-deploy-artefact:
-	echo TODO: $(@)
-
-apply-data-changes:
-	echo TODO: $(@)
-
-# --------------------------------------
-
-run-static-analisys:
-	echo TODO: $(@)
-
-run-unit-test:
-	echo TODO: $(@)
-
-run-smoke-test:
-	echo TODO: $(@)
-
-run-integration-test:
-	echo TODO: $(@)
-
-run-contract-test:
-	echo TODO: $(@)
-
-run-functional-test:
-	[ $$(make project-branch-func-test) != true ] && exit 0
-	echo TODO: $(@)
-
-run-performance-test:
-	[ $$(make project-branch-perf-test) != true ] && exit 0
-	echo TODO: $(@)
-
-run-security-test:
-	[ $$(make project-branch-sec-test) != true ] && exit 0
-	echo TODO: $(@)
-
-# --------------------------------------
-
-remove-unused-environments:
-	echo TODO: $(@)
-
-remove-old-artefacts:
-	echo TODO: $(@)
-
-remove-old-backups:
-	echo TODO: $(@)
-
-# --------------------------------------
+# ==============================================================================
 
 pipeline-finalise: ## Finalise pipeline execution - mandatory: PIPELINE_NAME,BUILD_STATUS
 	# Check if BUILD_STATUS is SUCCESS or FAILURE
