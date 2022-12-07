@@ -5,52 +5,61 @@
   "scripts": {
     "build": "craco build",
     "dependency-check": "yarn depcheck .",
+    "dependency-update": "yarn upgrade-interactive",
     "eject": "react-scripts eject",
     "format:check": "yarn prettier . --check",
     "format:fix": "yarn prettier . --write",
-    "dependency-update": "yarn upgrade-interactive",
     "lint:check": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
     "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
     "test": "craco test --coverage --watchAll=false",
     "test:watch": "craco test --coverage --watchAll=true",
-    "test:debug": "craco --inspect-brk test --runInBand --no-cache"
+    "test:debug": "craco --inspect-brk test --runInBand --no-cache",
+    "test:mutation": "yarn stryker run"
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@types/react": "^18.0.25",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
-    "@types/react-redux": "^7.1.24",
+    "amazon-cognito-identity-js": "^6.0.1",
+    "aws-sdk": "^2.1269.0",
+    "babel": "^6.23.0",
     "nhsuk-frontend": "^6.1.2",
     "nhsuk-react-components": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^6.4.4",
     "redux": "^4.2.0",
-    "typescript": "^4.9.3",
-    "web-vitals": "^3.1.0",
-    "wouter": "^2.9.0"
+    "typescript": "^4.9.3"
   },
   "devDependencies": {
     "@craco/craco": "^7.0.0",
+    "@stryker-mutator/core": "^6.3.0",
+    "@stryker-mutator/jest-runner": "^6.3.0",
+    "@stryker-mutator/typescript-checker": "^6.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.3",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "@yarnpkg/cli": "^4.0.0-rc.31",
-    "@yarnpkg/core": "^4.0.0-rc.31",
-    "@yarnpkg/plugin-essentials": "^4.0.0-rc.31",
-    "@yarnpkg/plugin-git": "^3.0.0-rc.31",
-    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.31",
+    "@types/jest": "^29.2.4",
+    "@types/jsdom": "^20.0.1",
+    "@types/sinon": "^10.0.13",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
+    "@yarnpkg/cli": "^4.0.0-rc.32",
+    "@yarnpkg/core": "^4.0.0-rc.32",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.32",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.32",
+    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.32",
+    "aws-sdk-mock": "^5.8.0",
     "depcheck": "^1.4.3",
-    "eslint": "^8.28.0",
+    "eslint": "^8.29.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.17",
+    "jsdom": "^20.0.3",
     "prettier": "^2.8.0",
     "react-scripts": "^5.0.1",
+    "sinon": "^15.0.0",
     "typedoc": "^0.23.21"
   },
   "browserslist": {
@@ -66,7 +75,8 @@
     ]
   },
   "resolutions": {
-    "nth-check": "2.1.1"
+    "nth-check": "2.1.1",
+    "react": "18.2.0"
   },
   "eslintConfig": {
     "extends": [
@@ -83,7 +93,8 @@
     "ignorePatterns": [
       "build",
       "docs",
-      "craco.config.js"
+      "craco.config.js",
+      "reports"
     ],
     "rules": {
       "@typescript-eslint/naming-convention": [
@@ -95,12 +106,18 @@
             "camelCase"
           ]
         }
-      ]
+      ],
+      "typescript-eslint/no-unsafe-member-access": "off"
     },
     "parserOptions": {
       "project": [
         "./tsconfig.json"
       ]
     }
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/index.tsx"
+    ]
   }
 }

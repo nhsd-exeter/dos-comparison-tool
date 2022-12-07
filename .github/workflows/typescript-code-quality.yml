@@ -14,11 +14,29 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install dependencies
-        run: make yarn-install
+          cache: "yarn"
+          cache-dependency-path: application/ui/yarn.lock
+      - name: Test Setup
+        run: make typescript-test-ci-setup
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
       - name: Typescript Code Format and Quality
         run: |
           make typescript-check-format typescript-check-lint
+  mutation-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+          cache-dependency-path: application/ui/yarn.lock
+      - name: Test Setup
+        run: make typescript-test-ci-setup
+      - name: Typescript Mutation Test
+        run: |
+          make typescript-mutation-test

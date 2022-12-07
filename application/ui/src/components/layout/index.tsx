@@ -1,6 +1,6 @@
+import Main from "./Main";
 import Footer from "./Footer";
 import Header from "./Header";
-import Body from "./Main";
 import React, { Fragment } from "react";
 import { Container } from "nhsuk-react-components";
 
@@ -13,9 +13,9 @@ const Layout = ({ children, hideFooter }: Props) => {
 	return (
 		<Fragment>
 			<Header />
-			<Body>
+			<Main>
 				<Container>{children}</Container>
-			</Body>
+			</Main>
 			{!hideFooter && <Footer />}
 		</Fragment>
 	);
