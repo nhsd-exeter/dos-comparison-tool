@@ -1,13 +1,12 @@
-from time import sleep
-
 from pytest_bdd import given, scenarios
 
-from ..utils.pages.homepage import HomePage
+from ..utils.pages.home_page import HomePage
+from ..utils.utils import login_as_authorised_user
 
 scenarios("../features/smoke.feature")
 
 
 @given("I an authorised user")
-def login():
+def given_login_as_authorised_user():
     """Login to the application."""
-    HomePage().navigate_to_next_page()
+    login_as_authorised_user()

@@ -36,6 +36,31 @@ variable "cognito_admin_user" {
   description = "The name of the Cognito admin user"
 }
 
+variable "cognito_secrets_name" {
+  type        = string
+  description = "The name of the Cognito secrets"
+}
+
+variable "cognito_secrets_admin_username_key" {
+  type        = string
+  description = "The key for the admin username in the Cognito secrets"
+}
+
+variable "cognito_secrets_admin_password_key" {
+  type        = string
+  description = "The key for the admin password in the Cognito secrets"
+}
+
+variable "cognito_secrets_user_pool_id_key" {
+  type        = string
+  description = "The key for the user pool ID in the Cognito secrets"
+}
+
+variable "cognito_secrets_user_pool_client_id_key" {
+  type        = string
+  description = "The key for the user pool client ID in the Cognito secrets"
+}
+
 # ############################
 # OTHER
 # ############################

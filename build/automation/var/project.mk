@@ -28,6 +28,17 @@ TEXAS_CERTIFICATE_ARN := arn:aws:acm:$(AWS_REGION):$(AWS_ACCOUNT_ID):certificate
 TF_VAR_cognito_user_pool_name := $(PROJECT_ID)-$(ENVIRONMENT)-user-pool
 TF_VAR_cognito_user_pool_client_name := $(PROJECT_ID)-$(ENVIRONMENT)-user-pool-client
 TF_VAR_cognito_admin_user := admin
+COGNITO_SECRETS_NAME := $(PROJECT_ID)-$(ENVIRONMENT)-cognito-secrets
+TF_VAR_cognito_secrets_name := $(COGNITO_SECRETS_NAME)
+COGNITO_SECRETS_ADMIN_USERNAME_KEY := ADMIN_USERNAME
+COGNITO_SECRETS_ADMIN_PASSWORD_KEY := ADMIN_PASSWORD
+COGNITO_SECRETS_USER_POOL_ID_KEY := USER_POOL_ID
+COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY := USER_POOL_CLIENT_ID
+TF_VAR_cognito_secrets_admin_username_key := $(COGNITO_SECRETS_ADMIN_USERNAME_KEY)
+TF_VAR_cognito_secrets_admin_password_key := $(COGNITO_SECRETS_ADMIN_PASSWORD_KEY)
+TF_VAR_cognito_secrets_user_pool_id_key := $(COGNITO_SECRETS_USER_POOL_ID_KEY)
+TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)
+
 # ==============================================================================
 
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
