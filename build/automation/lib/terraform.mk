@@ -78,6 +78,7 @@ terraform-unlock: ### Remove state lock - mandatory: STACK|STACKS|INFRASTRUCTURE
 		CMD="force-unlock $(ID) $(OPTS)"
 
 terraform-fmt: docker-config ### Format Terraform code - optional: DIR,OPTS=[Terraform options]
+	DIR=$(or $(DIR), $(TERRAFORM_DIR))
 	make docker-run-terraform \
 		CMD="fmt -recursive $(OPTS)"
 
