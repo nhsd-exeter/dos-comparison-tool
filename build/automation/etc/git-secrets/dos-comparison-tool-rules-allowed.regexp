@@ -1,1 +1,2 @@
 *.svg
+build/automation/var/project.mk
