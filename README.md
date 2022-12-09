@@ -27,10 +27,8 @@
     - [AWS Access](#aws-access)
   - [Architecture](#architecture)
     - [Diagrams](#diagrams)
-      - [System Context Diagram](#system-context-diagram)
-      - [Container Diagram](#container-diagram)
-      - [Component Diagram](#component-diagram)
       - [Processes and Data Flow](#processes-and-data-flow)
+        - [Individual Processes Diagrams](#individual-processes-diagrams)
       - [Infrastructure](#infrastructure)
       - [Networking](#networking)
     - [Integration](#integration)
@@ -197,7 +195,7 @@ The clean up code build project removes all environments in non prod that aren't
 
 ### Pipeline Image
 
-<img src="./documentation/diagrams/DoS-Comparison-Tool-DevOps-Pipelines.drawio.png" width="1024" /><br /><br />
+![Pipeline Image](./documentation/diagrams/DoS-Comparison-Tool-DevOps-Pipelines.drawio.png)
 
 ### Deployment From the Command-line
 
@@ -218,33 +216,21 @@ MFA to the right AWS account using the following command
 
 ### Diagrams
 
-#### System Context Diagram
-
-Include an image of the [C4 model](https://c4model.com/) System Context diagram exported as a `.png` file from the draw.io application.
-
-<img src="./documentation/diagrams/C4model-SystemContext.png" width="1024" /><br /><br />
-
-#### Container Diagram
-
-Include an image of the [C4 model](https://c4model.com/) Container diagram exported as a `.png` file from the draw.io application.
-
-<img src="./documentation/diagrams/C4model-Container.png" width="1024" /><br /><br />
-
-#### Component Diagram
-
-Include an image of the [C4 model](https://c4model.com/) Component diagram exported as a `.png` file from the draw.io application.
-
-<img src="./documentation/diagrams/C4model-Component.png" width="1024" /><br /><br />
+![Architecture Diagram](./documentation/diagrams/DoS-Comparison-Tool-Architecture.drawio.png)
 
 #### Processes and Data Flow
 
-Include an image of the Processes and Data Flow diagram
+![Flow Diagram](./documentation/diagrams/DoS-Comparison-Tool-Flow-Diagram.drawio.png)
+
+##### Individual Processes Diagrams
+
+Individual processes diagrams are located in the [processes](./documentation/diagrams/processes/) directory.
 
 #### Infrastructure
 
 Include an image of the Infrastructure diagram. Please, be aware that any sensitive information that can be potentially misused either directly or indirectly must not be stored and accessible publicly. This could be IP addresses, domain names or detailed infrastructure information.
 
-<img src="./documentation/diagrams/Infrastructure-Component.png" width="1024" /><br /><br />
+![System Component Diagram](./documentation/diagrams/DoS-Comparison-Tool-Components.drawio.png)
 
 #### Networking
 
