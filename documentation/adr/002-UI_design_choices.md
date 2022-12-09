@@ -20,4 +20,4 @@ As the DoS suite have experience with React and Redux these were going to be my 
 
 ### Consequences
 
-For my initial implementation of Redux Toolkit I found it easier and quicker to build using slices rather than having separate files for action and reducers. This means all related code is within the same file.
+For my initial implementation of Redux Toolkit I found it easier and quicker to build using slices rather than having separate files for action and reducers. This means all related code is within the same file similar to the Redux Ducks format.
