@@ -272,7 +272,7 @@ What sort of data system operates on and processes
 
 ### Authentication and authorization
 
-- Authentication and authorixation documentation can be found here -> <https://nhsd-confluence.digital.nhs.uk/display/DETS/DoS+Comparison+Tool>
+- Authentication and authorisation documentation can be found here -> <https://nhsd-confluence.digital.nhs.uk/display/DETS/DoS+Comparison+Tool>
 
 ### Technology Stack
 
