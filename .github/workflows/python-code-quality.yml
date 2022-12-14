@@ -21,12 +21,20 @@ jobs:
       - name: Python Install Requirements
         run: |
           make pip-install
+      - name: Check Python Code Quality and Format
+        run: |
+          make -s python-code-check \
+            FILES="." \
+            EXCLUDE="application/ui,build"
       - name: Python Import Format Check
         run: |
           make python-imports-check
       - name: Python Dead Code Check
         run: |
           make python-dead-code-check
+      - name: Python Security Check
+        run: |
+          make python-security-check
 
   mutation-test:
     runs-on: ubuntu-latest
@@ -46,3 +54,7 @@ jobs:
       - name: Python Mutation Test
         run: |
           make python-mutation-test
+      - name: Archive Test Results
+        if: failure()
+        run: |
+          make python-mutation-test-report

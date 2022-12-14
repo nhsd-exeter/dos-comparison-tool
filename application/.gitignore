@@ -158,3 +158,5 @@ cython_debug/
 
 # Compiled Dev Requirements
 development-requirements.txt
+# MutMut
+.mutmut-cache

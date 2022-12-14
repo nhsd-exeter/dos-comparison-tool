@@ -14,9 +14,6 @@ jobs:
       - name: Check text files format
         run: |
           build/automation/etc/githooks/scripts/editorconfig-pre-commit.sh
-      - name: Check Python files format
-        run: |
-          build/automation/etc/githooks/scripts/python-code-pre-commit.sh
       - name: GitHub Actions - Check best practices
         run: |
           make github-actions-best-practices

@@ -42,6 +42,7 @@ TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CL
 TF_VAR_authentication_lambda_name := $(PROJECT_ID)-$(ENVIRONMENT)-authentication
 TF_VAR_authenication_lambda_image_repository := $(AWS_ECR)/authentication
 TF_VAR_authenication_lambda_image_tag := $(or $(AUTH_IMAGE_TAG), $(VERSION))
+
 # ==============================================================================
 
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub

@@ -98,11 +98,11 @@ ui-build-clean: # Clean UI build artefacts
 # ==============================================================================
 # Authenication targets (lambda docker image)
 
-auth-build: # Build authentication lambda image - optional: VERSION=[any]
-	make -s docker-build NAME=auth
+authentication-build: # Build authentication lambda image - optional: VERSION=[any]
+	make build-lambda NAME=authentication
 
-auth-clean: # Clean authentication lambda
-	make docker-image-clean NAME=auth
+authentication-clean: # Clean authentication lambda
+	make docker-image-clean NAME=authentication
 
 # ==============================================================================
 # TypeScript Development, Linting and Testing targets
@@ -159,7 +159,8 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-test: # Run Python tests
-	cd $(APPLICATION_DIR_REL) && python -m pytest .
+	cd $(APPLICATION_DIR_REL)
+	python -m pytest .
 
 python-dead-code-check:
 	python -m vulture $(APPLICATION_DIR) --exclude $(APPLICATION_DIR)/ui
@@ -172,8 +173,33 @@ python-imports-format:
 	python -m isort . -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections --known-local-folder=common
 
+python-security-check:
+	cd $(APPLICATION_DIR_REL)
+	python -m bandit -r . -c pyproject.toml
+
 python-mutation-test:
-	python -m mutmut run --paths-to-mutate $(APPLICATION_DIR)
+	cd $(APPLICATION_DIR_REL)
+	python -m mutmut run \
+		--paths-to-mutate . \
+		--paths-to-exclude ui \
+		--tests-dir authentication/tests \
+
+python-mutation-test-report:
+	cd $(APPLICATION_DIR_REL)
+	python -m mutmut results
+
+# ==============================================================================
+# Development targets
+
+build-lambda: ### Build lambda docker image - mandatory: NAME
+	UNDERSCORE_LAMBDA_NAME=$$(echo $(NAME) | tr '-' '_')
+	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
+	cd $(APPLICATION_DIR)
+	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME > /dev/null 2>&1
+	cd $(PROJECT_DIR)
+	make -s docker-image NAME=$(NAME)
+	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt
 
 # ==============================================================================
 # Testing targets

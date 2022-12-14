@@ -1,2 +1,2 @@
 aws-embedded-metrics
-aws-lambda-powertools
+aws-lambda-powertools[logger,tracer]

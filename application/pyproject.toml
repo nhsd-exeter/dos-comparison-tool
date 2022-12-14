@@ -1,4 +1,17 @@
 [tool.coverage.run]
-
 omit = ["__init__.py", "**/__init__.py", "**/tests/*"]
 branch = true
+
+[tool.bandit]
+exclude_dirs = ["/tests", "ui"]
+
+[tool.vulture]
+make_whitelist = true
+paths=["."]
+exclude = ["/tests"]
+sort_by_size = true
+ignore_names = ["lambda_handler"]
+
+[tool.pytest.ini_options]
+addopts = "--ignore=ui --cov=. --cov-report xml --cov-report term-missing"
+norecursedirs = "ui"
