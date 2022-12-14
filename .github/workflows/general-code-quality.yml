@@ -31,10 +31,21 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
-      - name: Test Setup
+      - name: Typescript Test Setup
         run: make typescript-test-ci-setup
       - name: Run Typescript Unit Tests
         run: make typescript-test
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+          cache: "pip"
+          cache-dependency-path: |
+            application/requirements-dev.txt
+            application/*/requirements.txt
+      - name: Python Install Requirements
+        run: make pip-install
+      - name: Run Python Unit Tests
+        run: make python-test
       - uses: sonarsource/sonarcloud-github-action@master
         # SEE: https://github.com/SonarSource/sonarcloud-github-action
         env:
@@ -50,3 +61,5 @@ jobs:
             -Dsonar.tests=test
             -Dsonar.terraform.provider.aws.version=4.44.0
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info
+            -Dsonar.python.version=3.9
+            -Dsonar.python.coverage.reportPaths=application/coverage.xml

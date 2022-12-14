@@ -16,7 +16,7 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
-      - name: Test Setup
+      - name: Typescript Test Setup
         run: make typescript-test-ci-setup
       - name: Typescript Check Package
         run: |
@@ -35,7 +35,7 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
-      - name: Test Setup
+      - name: Typescript Test Setup
         run: make typescript-test-ci-setup
       - name: Typescript Mutation Test
         run: |

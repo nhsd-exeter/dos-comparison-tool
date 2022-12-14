@@ -1,0 +1,4 @@
+[tool.coverage.run]
+
+omit = ["__init__.py", "**/__init__.py", "**/tests/*"]
+branch = true

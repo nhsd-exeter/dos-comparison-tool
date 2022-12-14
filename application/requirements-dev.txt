@@ -1,0 +1,9 @@
+bandit
+black
+coverage[toml]
+flake8
+isort
+mutmut
+pytest
+pytest-cov
+vulture

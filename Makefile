@@ -13,7 +13,8 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 	cd $(PROJECT_DIR)
 # Set up local virtual environment and download dependencies
 
-build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
+build: project-config # Build project - optional: VERSION=[any]
+
 	make ui-build
 
 start: # Start project
@@ -31,6 +32,7 @@ test: # Test project
 	make stop
 
 push: # Push project artefacts to the registry
+	make docker-push NAME=authentication
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
@@ -44,11 +46,12 @@ undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMEN
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
 	make build-and-push deploy VERSION=$(BUILD_TAG)
 
-build-and-push: # Build and push docker images
+build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
 
 clean: # Clean up project
 	make \
+		auth-clean \
 		ui-clean \
 		terraform-clean
 
@@ -58,8 +61,9 @@ clean: # Clean up project
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
 
 # ==============================================================================
+# User Interface (UI) targets (k8s docker image)
 
-ui-build: # Build UI image - mandatory: PROFILE=[name], ENVIRONMENT=[name]
+ui-build: # Build UI image - optional: VERSION=[any]
 	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
@@ -92,6 +96,16 @@ ui-build-clean: # Clean UI build artefacts
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
 
 # ==============================================================================
+# Authenication targets (lambda docker image)
+
+auth-build: # Build authentication lambda image - optional: VERSION=[any]
+	make -s docker-build NAME=auth
+
+auth-clean: # Clean authentication lambda
+	make docker-image-clean NAME=auth
+
+# ==============================================================================
+# TypeScript Development, Linting and Testing targets
 
 yarn-install: # Install yarn dependencies
 	cd $(APPLICATION_DIR)/ui
@@ -136,6 +150,30 @@ typescript-test: # Run TypeScript tests
 typescript-mutation-test: # Run TypeScript mutation tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test:mutation
+
+# ==============================================================================
+# Python Development, Linting and Testing targets
+
+pip-install: # Install Python dependencies
+	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
+	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
+
+python-test: # Run Python tests
+	cd $(APPLICATION_DIR_REL) && python -m pytest .
+
+python-dead-code-check:
+	python -m vulture $(APPLICATION_DIR) --exclude $(APPLICATION_DIR)/ui
+
+python-imports-check:
+	python -m isort . -l=120 --check-only --profile=black \
+		--force-alphabetical-sort-within-sections --known-local-folder=common
+
+python-imports-format:
+	python -m isort . -l=120 --profile=black \
+		--force-alphabetical-sort-within-sections --known-local-folder=common
+
+python-mutation-test:
+	python -m mutmut run --paths-to-mutate $(APPLICATION_DIR)
 
 # ==============================================================================
 # Testing targets
