@@ -53,6 +53,7 @@ resource "aws_iam_role" "lambda_role" {
 EOF
 }
 
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_role_policy" "lambda_role_policy" {
   name   = "${var.function_name}-role-policy"
   role   = aws_iam_role.lambda_role.name
@@ -94,6 +95,7 @@ resource "aws_iam_role_policy" "lambda_role_policy" {
 POLICY
 }
 
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "/aws/lambda/${var.function_name}"
   retention_in_days = var.log_retention

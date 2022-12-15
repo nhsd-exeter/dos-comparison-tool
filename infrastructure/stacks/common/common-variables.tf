@@ -71,6 +71,11 @@ variable "project_id" {
   description = "Project ID"
 }
 
+variable "role_prefix" {
+  type        = string
+  description = "Role prefix"
+}
+
 variable "environment" {
   type        = string
   description = "Environment name (don't use if application stack)"

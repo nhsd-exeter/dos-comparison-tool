@@ -14,9 +14,9 @@ PROJECT_TAG = $(PROJECT_NAME)
 SERVICE_TAG = $(PROJECT_ID)
 
 PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
-
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 
+TF_VAR_role_prefix := $(ROLE_PREFIX)
 # ==============================================================================
 # Splunk
 TF_VAR_splunk_firehose_subscription := $(PROJECT_ID)-cw-logs-firehose

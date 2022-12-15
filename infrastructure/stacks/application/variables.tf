@@ -71,7 +71,7 @@ variable "api_gateway_name" {
 }
 
 # ############################
-# Lambda
+# LAMBDA
 # ############################
 
 variable "authentication_lambda_function_name" {
@@ -84,9 +84,9 @@ variable "authentication_lambda_image_uri" {
   description = "The URI of the authentication lambda image"
 }
 
-# ##############
-# # Splunk
-# ##############
+# ############################
+# SPLUNK
+# ############################
 
 variable "splunk_firehose_subscription" {
   description = "Name of splunk firehose subscription"
