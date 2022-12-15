@@ -1,4 +1,4 @@
-bandit
+bandit[toml]
 black
 coverage[toml]
 flake8

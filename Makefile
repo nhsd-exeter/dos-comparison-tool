@@ -160,11 +160,10 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-test: # Run Python unit tests
-	cd $(APPLICATION_DIR_REL)
-	python -m pytest .
+	python -m pytest application
 
 python-dead-code-check: # Check for dead Python code
-	python -m vulture $(APPLICATION_DIR) --exclude $(APPLICATION_DIR)/ui
+	python -m vulture $(APPLICATION_DIR)
 
 python-imports-check: # Check Python imports are formatted correctly
 	python -m isort . -l=120 --check-only --profile=black \
@@ -175,8 +174,7 @@ python-imports-format: # Format Python imports
 		--force-alphabetical-sort-within-sections --known-local-folder=common
 
 python-security-check: # Run Python security checks
-	cd $(APPLICATION_DIR_REL)
-	python -m bandit -r . -c pyproject.toml
+	python -m bandit -r application -c pyproject.toml
 
 python-mutation-test: # Run Python mutation tests
 	cd $(APPLICATION_DIR_REL)

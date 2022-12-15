@@ -8,6 +8,7 @@ logger = Logger()
 tracer = Tracer()
 
 
+@logger.inject_lambda_context()  # type: ignore
 def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> None:
     """Entrypoint handler for the orchestrator lambda
     Args:
