@@ -62,6 +62,41 @@ variable "cognito_secrets_user_pool_client_id_key" {
 }
 
 # ############################
+# API GATEWAY
+# ############################
+
+variable "api_gateway_name" {
+  type        = string
+  description = "The name of the API Gateway"
+}
+
+# ############################
+# Lambda
+# ############################
+
+variable "authentication_lambda_function_name" {
+  type        = string
+  description = "The name of the authentication lambda"
+}
+
+variable "authentication_lambda_image_uri" {
+  type        = string
+  description = "The URI of the authentication lambda image"
+}
+
+# ##############
+# # Splunk
+# ##############
+
+variable "splunk_firehose_subscription" {
+  description = "Name of splunk firehose subscription"
+}
+
+variable "splunk_firehose_role" {
+  description = "Name of splunk firehose IAM role"
+}
+
+# ############################
 # OTHER
 # ############################
 

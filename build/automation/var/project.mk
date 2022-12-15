@@ -18,6 +18,9 @@ PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 
 # ==============================================================================
+# Splunk
+TF_VAR_splunk_firehose_subscription := $(PROJECT_ID)-cw-logs-firehose
+TF_VAR_splunk_firehose_role := $(PROJECT_ID)_cw_firehose_access_role
 # Kubernetes
 K8S_SERVICE_ACCOUNT_NAME = $(PROJECT_ID)-$(ENVIRONMENT)-k8s-service-account
 TF_VAR_application_service_account_name := $(K8S_SERVICE_ACCOUNT_NAME)
@@ -38,10 +41,13 @@ TF_VAR_cognito_secrets_admin_username_key := $(COGNITO_SECRETS_ADMIN_USERNAME_KE
 TF_VAR_cognito_secrets_admin_password_key := $(COGNITO_SECRETS_ADMIN_PASSWORD_KEY)
 TF_VAR_cognito_secrets_user_pool_id_key := $(COGNITO_SECRETS_USER_POOL_ID_KEY)
 TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)
+# API Gateway
+TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 # Authentication Lambda
-TF_VAR_authentication_lambda_name := $(PROJECT_ID)-$(ENVIRONMENT)-authentication
-TF_VAR_authenication_lambda_image_repository := $(AWS_ECR)/authentication
+TF_VAR_authentication_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-authentication
+TF_VAR_authenication_lambda_image_repository := $(DOCKER_REGISTRY)/authentication
 TF_VAR_authenication_lambda_image_tag := $(or $(AUTH_IMAGE_TAG), $(VERSION))
+TF_VAR_authentication_lambda_image_uri := $(TF_VAR_authenication_lambda_image_repository):$(TF_VAR_authenication_lambda_image_tag)
 
 # ==============================================================================
 

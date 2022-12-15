@@ -15,4 +15,4 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> None:
         context (LambdaContext): Lambda function context object
     Event: The event payload should contain an Update Request
     """
-    pass
+    print("Hello World")

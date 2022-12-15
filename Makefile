@@ -14,11 +14,10 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 # Set up local virtual environment and download dependencies
 
 build: project-config # Build project - optional: VERSION=[any]
-
+	make authentication-build
 	make ui-build
 
 start: # Start project
-	eval "$$(make -s populate-application-variables)"
 	make project-start
 
 stop: project-stop # Stop project
@@ -37,7 +36,7 @@ push: # Push project artefacts to the registry
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
-	make k8s-deploy STACK=application
+# make k8s-deploy STACK=application
 
 undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make k8s-undeploy STACK=application
@@ -50,15 +49,26 @@ build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
 
 clean: # Clean up project
-	make \
-		auth-clean \
-		ui-clean \
-		terraform-clean
+	make authentication-clean
+	make ui-clean
+	make terraform-clean
+	make python-clean
+	make docker-clean
+	make k8s-clean STACK=application
 
 # ==============================================================================
 # Supporting targets
 
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
+
+# ==============================================================================
+# Authenication targets (lambda docker image)
+
+authentication-build: # Build authentication lambda image - optional: VERSION=[any]
+	make build-lambda NAME=authentication
+
+authentication-clean: # Clean authentication lambda
+	make docker-image-clean NAME=authentication
 
 # ==============================================================================
 # User Interface (UI) targets (k8s docker image)
@@ -94,15 +104,6 @@ ui-build-clean: # Clean UI build artefacts
 	rm -rf $(APPLICATION_DIR)/ui/node_modules
 	rm -rf $(APPLICATION_DIR)/ui/coverage
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
-
-# ==============================================================================
-# Authenication targets (lambda docker image)
-
-authentication-build: # Build authentication lambda image - optional: VERSION=[any]
-	make build-lambda NAME=authentication
-
-authentication-clean: # Clean authentication lambda
-	make docker-image-clean NAME=authentication
 
 # ==============================================================================
 # TypeScript Development, Linting and Testing targets
@@ -158,33 +159,37 @@ pip-install: # Install Python dependencies
 	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
-python-test: # Run Python tests
+python-test: # Run Python unit tests
 	cd $(APPLICATION_DIR_REL)
 	python -m pytest .
 
-python-dead-code-check:
+python-dead-code-check: # Check for dead Python code
 	python -m vulture $(APPLICATION_DIR) --exclude $(APPLICATION_DIR)/ui
 
-python-imports-check:
+python-imports-check: # Check Python imports are formatted correctly
 	python -m isort . -l=120 --check-only --profile=black \
 		--force-alphabetical-sort-within-sections --known-local-folder=common
 
-python-imports-format:
+python-imports-format: # Format Python imports
 	python -m isort . -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections --known-local-folder=common
 
-python-security-check:
+python-security-check: # Run Python security checks
 	cd $(APPLICATION_DIR_REL)
 	python -m bandit -r . -c pyproject.toml
 
-python-mutation-test:
+python-mutation-test: # Run Python mutation tests
 	cd $(APPLICATION_DIR_REL)
 	python -m mutmut run \
 		--paths-to-mutate . \
 		--paths-to-exclude ui \
 		--tests-dir authentication/tests \
 
-python-mutation-test-report:
+python-mutation-test-html-report: # Get Python mutation html test
+	cd $(APPLICATION_DIR_REL)
+	python -m mutmut html
+
+python-mutation-test-report: # Get Python mutation test
 	cd $(APPLICATION_DIR_REL)
 	python -m mutmut results
 
@@ -196,7 +201,7 @@ build-lambda: ### Build lambda docker image - mandatory: NAME
 	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
 	cd $(APPLICATION_DIR)
 	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
-		--exclude=tests $$UNDERSCORE_LAMBDA_NAME > /dev/null 2>&1
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py > /dev/null 2>&1
 	cd $(PROJECT_DIR)
 	make -s docker-image NAME=$(NAME)
 	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt
@@ -216,11 +221,6 @@ end-to-end-test:
 
 # ==============================================================================
 # Deployment variables
-
-populate-application-variables: ## Populate application variables required for ui to run
-	COGNITO_SECRETS=$$(make -s secret-get-existing-value NAME=$(COGNITO_SECRETS_NAME))
-	echo "export AUTH_USER_POOL_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
-	echo "export AUTH_USER_POOL_WEB_CLIENT_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
 
 # ==============================================================================
 

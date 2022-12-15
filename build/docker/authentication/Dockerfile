@@ -10,4 +10,4 @@ RUN pip install -r /requirements.txt --upgrade
 # Copy function code
 ADD assets/app.tar.gz "/var/task"
 # Set the CMD to your handler
-CMD [ "authentication.authentication" ]
+CMD [ "authentication.authentication.lambda_handler" ]
