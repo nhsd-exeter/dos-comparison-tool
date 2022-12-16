@@ -1,4 +1,4 @@
-import AppConfig from "../../config.json";
+import { AuthConfig } from "../../config";
 import Layout from "../layout";
 import React from "react";
 import { Button, Form, Input } from "nhsuk-react-components";
@@ -38,9 +38,12 @@ function LoginForm(): JSX.Element {
 		const password = event.currentTarget.elements.namedItem(
 			"password"
 		) as HTMLInputElement;
+		console.log("ClientId", AuthConfig.ClientId);
+		console.log("UserPoolId", AuthConfig.UserPoolId);
+
 		const poolData = {
-			UserPoolId: AppConfig.AUTH_USER_POOL_ID,
-			ClientId: AppConfig.AUTH_USER_POOL_WEB_CLIENT_ID,
+			UserPoolId: AuthConfig.UserPoolId,
+			ClientId: AuthConfig.ClientId,
 		};
 		const userPool = new CognitoUserPool(poolData);
 		const user = new CognitoUser({
@@ -52,15 +55,15 @@ function LoginForm(): JSX.Element {
 			Password: password.value,
 		});
 		user.authenticateUser(authDetails, {
-			onSuccess: (result) => {
+			onSuccess: (result: unknown) => {
 				console.log("login success", result);
 				dispatch(signIn());
 				navigate(MENU_PATH);
 			},
-			onFailure: (err) => {
+			onFailure: (err: unknown) => {
 				console.log("login failure", err);
 			},
-			newPasswordRequired: (data) => {
+			newPasswordRequired: (data: unknown) => {
 				console.log("new password required", data);
 			},
 		});
