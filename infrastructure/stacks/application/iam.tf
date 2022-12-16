@@ -34,10 +34,10 @@ resource "aws_iam_policy" "kubernetes_service_account_role_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "FirstStatement",
+      "Sid": "",
       "Effect": "Allow",
-      "Action": ["secretsmanager:Get*"],
-      "Resource": "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:uec-dos-ct-*"
+      "Action": "execute-api:Invoke",
+      "Resource": "*"
     }
   ]
 }

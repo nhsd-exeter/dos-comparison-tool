@@ -18,7 +18,7 @@ resource "aws_lambda_permission" "allow_api_gateway_to_invoke" {
   action        = "lambda:InvokeFunction"
   function_name = var.authentication_lambda_function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${aws_apigatewayv2_api.dos_comparison_tool_api_gateway.id}/*/*/*"
+  source_arn    = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id}/*/*/*"
 
   depends_on = [module.authentication_lambda]
 }

@@ -70,6 +70,11 @@ authentication-build: # Build authentication lambda image - optional: VERSION=[a
 authentication-clean: # Clean authentication lambda
 	make docker-image-clean NAME=authentication
 
+authentication-build-and-deploy: # Build, push and deploy authentication lambda - mandatory: PROFILE=[name]
+	make authentication-build VERSION=$(BUILD_TAG)
+	make docker-push NAME=authentication VERSION=$(BUILD_TAG)
+	make terraform-apply-auto-approve STACKS=application VERSION=$(BUILD_TAG)
+
 # ==============================================================================
 # User Interface (UI) targets (k8s docker image)
 
