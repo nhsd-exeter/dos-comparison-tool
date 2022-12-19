@@ -1,6 +1,6 @@
-import Layout from "../layout";
 import React from "react";
 import { BASE_PATH } from "../../constants/paths";
+import Layout from "../layout";
 
 export class ErrorPage extends React.Component {
 	render(): JSX.Element {

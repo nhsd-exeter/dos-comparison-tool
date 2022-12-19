@@ -1,9 +1,5 @@
-import {
-	AuthenticationDetails,
-	CognitoUser,
-	CognitoUserPool,
-} from "amazon-cognito-identity-js";
-import { Button, Form, Input } from "nhsuk-react-components";
+import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
+import { ActionLink, Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthConfig } from "../../config";
@@ -11,10 +7,12 @@ import {
 	AUTH_PASSWORD_INPUT,
 	AUTH_SUBMIT_BUTTON,
 	AUTH_USERNAME_INPUT,
+	NEXT_BUTTON,
 } from "../../constants/componentIds";
-import { MENU_PATH } from "../../constants/paths";
+import { MENU_PATH, REGISTER_PATH } from "../../constants/paths";
 import { useAppDispatch } from "../../hooks";
 import { signIn } from "../../slices/authSlice";
+import { userPool } from "../../utils/auth";
 import Layout from "../layout";
 
 export class LoginPage extends React.Component {
@@ -39,11 +37,6 @@ function LoginForm(): JSX.Element {
 			"password"
 		) as HTMLInputElement;
 
-		const poolData = {
-			UserPoolId: AuthConfig.UserPoolId,
-			ClientId: AuthConfig.ClientId,
-		};
-		const userPool = new CognitoUserPool(poolData);
 		const user = new CognitoUser({
 			Username: username.value,
 			Pool: userPool,
@@ -72,12 +65,26 @@ function LoginForm(): JSX.Element {
 			<h1>Login</h1>
 			<p>Log in to the DoS Comparison Tool</p>
 			<Form onSubmit={handleFormSubmit}>
-				<Input name="username" id={AUTH_USERNAME_INPUT} />
-				<Input name="password" type="password" id={AUTH_PASSWORD_INPUT} />
-				<Button type="submit" id={AUTH_SUBMIT_BUTTON}>
+				<Input
+					id={AUTH_USERNAME_INPUT}
+					label="Username"
+					name="username"
+					autoComplete="username"
+					width="20"
+				/>
+				<Input
+					id={AUTH_PASSWORD_INPUT}
+					label="Password"
+					name="password"
+					type="password"
+					autoComplete="current-password"
+					width="20"
+				/>
+				<Button type="submit" id={NEXT_BUTTON}>
 					Log in
 				</Button>
 			</Form>
+			<ActionLink href={REGISTER_PATH}>Create an account</ActionLink>
 		</div>
 	);
 }

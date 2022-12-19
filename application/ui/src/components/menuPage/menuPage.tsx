@@ -1,5 +1,5 @@
-import Layout from "../layout";
 import React from "react";
+import Layout from "../layout";
 import MenuCards from "./menuCards";
 
 export class MenuPage extends React.Component {

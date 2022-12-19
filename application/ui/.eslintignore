@@ -1,4 +1,5 @@
-build
 **/__test__
+build
 coverage
+jest.config.js
 src/setupTests.ts

@@ -1,7 +1,7 @@
-import { BASE_PATH } from "../../constants/paths";
 import { Header as NHSHeader } from "nhsuk-react-components";
-import { HEADER_ID } from "../../constants/componentIds";
 import { useNavigate } from "react-router-dom";
+import { HEADER_ID } from "../../constants/componentIds";
+import { BASE_PATH } from "../../constants/paths";
 
 function Header() {
 	const navigate = useNavigate();

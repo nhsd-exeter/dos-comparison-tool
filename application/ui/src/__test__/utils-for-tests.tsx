@@ -1,9 +1,8 @@
-import React from "react";
-import { authSlice } from "../slices/authSlice";
-import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { authSlice } from "../slices/authSlice";
 
 export function renderWithProvidersAndRouter(
 	ui,

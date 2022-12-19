@@ -1,10 +1,10 @@
-import App from "./components/App";
+import "nhsuk-frontend/packages/nhsuk.scss";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import App from "./components/App";
 import { store } from "./store";
-import "nhsuk-frontend/packages/nhsuk.scss";
 
 // Stryker disable all
 export const containerElement = document.querySelector(".react-container");

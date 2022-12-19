@@ -46,7 +46,7 @@ jobs:
             -Dsonar.sources=application,deployment,infrastructure
             -Dsonar.organization=nhsd-exeter
             -Dsonar.projectKey=uec-dos-ct
-            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx
+            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js
             -Dsonar.tests=test
-            -Dsonar.terraform.provider.aws.version=4.44.0
+            -Dsonar.terraform.provider.aws.version=4.45.0
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info
