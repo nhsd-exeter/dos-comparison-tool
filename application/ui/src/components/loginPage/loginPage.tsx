@@ -2,7 +2,6 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { ActionLink, Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthConfig } from "../../config";
 import {
 	AUTH_PASSWORD_INPUT,
 	AUTH_SUBMIT_BUTTON,
@@ -30,13 +29,9 @@ function LoginForm(): JSX.Element {
 	const navigate = useNavigate();
 	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const username = event.currentTarget.elements.namedItem(
-			"username"
-		) as HTMLInputElement;
-		const password = event.currentTarget.elements.namedItem(
-			"password"
-		) as HTMLInputElement;
-
+		const formElements = event.currentTarget.elements;
+		const username = formElements.namedItem("username") as HTMLInputElement;
+		const password = formElements.namedItem("password") as HTMLInputElement;
 		const user = new CognitoUser({
 			Username: username.value,
 			Pool: userPool,

@@ -1,15 +1,17 @@
 import {
+	CognitoUserAttribute,
+	ISignUpResult,
+} from "amazon-cognito-identity-js";
+import { Button, Form, Input } from "nhsuk-react-components";
+import React from "react";
+import {
 	AUTH_REGISTER_EMAIL_INPUT,
 	AUTH_REGISTER_PASSWORD_INPUT,
 	AUTH_REGISTER_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
+import { userPool } from "../../utils/auth";
 import Layout from "../layout";
-import { Button, Form, Input } from "nhsuk-react-components";
-import React from "react";
-
-// import { CognitoUserAttribute } from "amazon-cognito-identity-js";
-// import { userPool } from "../../utils/auth";
 export class RegisterPage extends React.Component {
 	render(): JSX.Element {
 		return (
@@ -23,22 +25,33 @@ export class RegisterPage extends React.Component {
 function RegisterForm(): JSX.Element {
 	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		// const username = event.currentTarget.elements.namedItem(
-		// 	"username"
-		// ) as HTMLInputElement;
-		// const email = event.currentTarget.elements.namedItem(
-		// 	"email"
-		// ) as HTMLInputElement;
-		// const password = event.currentTarget.elements.namedItem(
-		// 	"password"
-		// ) as HTMLInputElement;
-		// userPool.signUp(
-		// 	email.value,
-		// 	password.value,
-		// 	[],
-		// 	[],
-		// 	(err: unknown, result: unknown) => {}
-		// );
+		const formElements = event.currentTarget.elements;
+		const username = formElements.namedItem("username") as HTMLInputElement;
+		const email = formElements.namedItem("email") as HTMLInputElement;
+		const password = formElements.namedItem("password") as HTMLInputElement;
+		const attributeEmail = new CognitoUserAttribute({
+			Name: "email",
+			Value: email.value,
+		});
+		const attributeUserName = new CognitoUserAttribute({
+			Name: "nickname",
+			Value: username.value,
+		});
+		userPool.signUp(
+			email.value,
+			password.value,
+			[attributeEmail, attributeUserName],
+			[],
+			(err: Error | undefined, result: ISignUpResult | undefined) => {
+				if (err) {
+					console.log(err);
+					return;
+				}
+				const signUpResult = result as ISignUpResult;
+				const cognitoUser = signUpResult.user;
+				console.log("user name is " + cognitoUser.getUsername());
+			}
+		);
 	};
 
 	return (

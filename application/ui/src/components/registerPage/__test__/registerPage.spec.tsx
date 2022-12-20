@@ -1,4 +1,4 @@
-import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
+import { expect, test } from "@jest/globals";
 import {
 	AUTH_REGISTER_EMAIL_INPUT,
 	AUTH_REGISTER_PASSWORD_INPUT,
@@ -7,9 +7,8 @@ import {
 	HEADER_ID,
 	NEXT_BUTTON,
 } from "../../../constants/componentIds";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import RegisterPage from "../registerPage";
-import { expect, test } from "@jest/globals";
-import React from "react";
 
 test("It renders the expected RegisterPage layout", () => {
 	// Arrange: prepare the environment, render the component.
