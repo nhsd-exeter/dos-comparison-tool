@@ -1,21 +1,21 @@
-import { AuthConfig } from "../../config";
-import Layout from "../layout";
-import React from "react";
+import {
+	AuthenticationDetails,
+	CognitoUser,
+	CognitoUserPool,
+} from "amazon-cognito-identity-js";
 import { Button, Form, Input } from "nhsuk-react-components";
-import { MENU_PATH } from "../../constants/paths";
-import { signIn } from "../../slices/authSlice";
-import { useAppDispatch } from "../../hooks";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthConfig } from "../../config";
 import {
 	AUTH_PASSWORD_INPUT,
-	AUTH_USERNAME_INPUT,
 	AUTH_SUBMIT_BUTTON,
+	AUTH_USERNAME_INPUT,
 } from "../../constants/componentIds";
-import {
-	CognitoUserPool,
-	CognitoUser,
-	AuthenticationDetails,
-} from "amazon-cognito-identity-js";
+import { MENU_PATH } from "../../constants/paths";
+import { useAppDispatch } from "../../hooks";
+import { signIn } from "../../slices/authSlice";
+import Layout from "../layout";
 
 export class LoginPage extends React.Component {
 	render(): JSX.Element {
@@ -38,8 +38,6 @@ function LoginForm(): JSX.Element {
 		const password = event.currentTarget.elements.namedItem(
 			"password"
 		) as HTMLInputElement;
-		console.log("ClientId", AuthConfig.ClientId);
-		console.log("UserPoolId", AuthConfig.UserPoolId);
 
 		const poolData = {
 			UserPoolId: AuthConfig.UserPoolId,
