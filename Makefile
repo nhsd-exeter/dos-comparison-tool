@@ -35,6 +35,7 @@ push: # Push project artefacts to the registry
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
+	eval "$$(make -s populate-application-variables)"
 	make k8s-deploy STACK=application
 
 undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
@@ -59,7 +60,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 
 # ==============================================================================
 
-ui-build: # Build UI image - mandatory: PROFILE=[name], ENVIRONMENT=[name]
+ui-build: # Build UI image
 	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
@@ -67,12 +68,13 @@ ui-build: # Build UI image - mandatory: PROFILE=[name], ENVIRONMENT=[name]
 	make ssl-copy-certificate-project DIR=$(DOCKER_DIR)/ui/assets/certificate
 	make -s docker-build NAME=ui
 
-ui-config: # Create UI config file  - mandatory: PROFILE=[name]
-	make file-copy-and-replace \
-		SRC=$(APPLICATION_DIR_REL)/ui/config/config.json \
-		DEST=$(APPLICATION_DIR_REL)/ui/src/config.json
+ui-config: # Create UI config file for running the UI locally
+	cp $(APPLICATION_DIR_REL)/ui/config/template.env $(APPLICATION_DIR_REL)/ui/.env
+	make -s file-replace-variables FILE=$(APPLICATION_DIR_REL)/ui/.env
 
-ui-start: # Start UI development server (Hot reload)
+ui-start: # Start UI development server (Hot reload) - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	eval "$$(make -s populate-application-variables)"
+	make ui-config
 	cd $(APPLICATION_DIR)/ui
 	yarn install
 	yarn run start
@@ -155,8 +157,8 @@ end-to-end-test:
 
 populate-application-variables: ## Populate application variables required for ui to run
 	COGNITO_SECRETS=$$(make -s secret-get-existing-value NAME=$(COGNITO_SECRETS_NAME))
-	echo "export AUTH_USER_POOL_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
-	echo "export AUTH_USER_POOL_WEB_CLIENT_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
+	echo "export USER_POOL_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
+	echo "export CLIENT_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
 
 # ==============================================================================
 
