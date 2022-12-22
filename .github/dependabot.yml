@@ -4,28 +4,28 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     target-branch: "main"
 
   # Maintain dependencies for Python
   - package-ecosystem: "pip"
     directory: "/test"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     target-branch: "main"
 
   # Docker Dependencies
   - package-ecosystem: "docker"
     directory: "/build/docker/tester"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     target-branch: "main"
 
   # Maintain dependencies for TypeScript
   - package-ecosystem: "npm"
     directory: "/application/ui"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     target-branch: "main"
 
   # Maintain dependencies for Terraform
