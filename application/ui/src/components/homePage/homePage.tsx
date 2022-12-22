@@ -2,7 +2,7 @@ import { Button } from "nhsuk-react-components";
 import { LOGIN_PATH, MENU_PATH } from "../../constants/paths";
 import { useAppSelector } from "../../hooks";
 import { selectLoggedIn } from "../../slices/authSlice";
-import Layout from "../layout";
+import Layout from "../common/Layout";
 
 const HomePage = () => {
 	const loggedIn = useAppSelector(selectLoggedIn);

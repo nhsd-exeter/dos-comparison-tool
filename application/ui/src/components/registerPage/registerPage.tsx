@@ -11,19 +11,26 @@ import {
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
 import { userPool } from "../../utils/auth";
-import Layout from "../layout";
-export class RegisterPage extends React.Component {
-	render(): JSX.Element {
-		return (
-			<Layout>
-				<RegisterForm />
-			</Layout>
-		);
-	}
-}
+import { Layout } from "../common";
 
-function RegisterForm(): JSX.Element {
-	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+type RegisterPageProps = Record<string, never>;
+type RegisterPageState = {
+	error?: JSX.Element;
+};
+
+class RegisterPage extends React.Component<
+	RegisterPageProps,
+	RegisterPageState
+> {
+	constructor(props: RegisterPageProps) {
+		super(props);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
+	}
+	state: RegisterPageState = {
+		error: undefined,
+	};
+
+	private handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const formElements = event.currentTarget.elements;
 		const username = formElements.namedItem("username") as HTMLInputElement;
@@ -37,6 +44,7 @@ function RegisterForm(): JSX.Element {
 			Name: "nickname",
 			Value: username.value,
 		});
+
 		userPool.signUp(
 			email.value,
 			password.value,
@@ -45,6 +53,8 @@ function RegisterForm(): JSX.Element {
 			(err: Error | undefined, result: ISignUpResult | undefined) => {
 				if (err) {
 					console.log(err);
+
+					this.setState({ error: <p>{err.message}</p> });
 					return;
 				}
 				const signUpResult = result as ISignUpResult;
@@ -52,42 +62,49 @@ function RegisterForm(): JSX.Element {
 				console.log("user name is " + cognitoUser.getUsername());
 			}
 		);
-	};
+	}
 
-	return (
-		<div>
-			<h1>Register an account</h1>
-			<p>Register an account for the DoS Comparison Tool</p>
-			<Form onSubmit={handleFormSubmit}>
-				<Input
-					id={AUTH_REGISTER_USERNAME_INPUT}
-					label="Username"
-					name="username"
-					autoComplete="username"
-					width="20"
-				/>
-				<Input
-					id={AUTH_REGISTER_EMAIL_INPUT}
-					label="Email"
-					name="email"
-					type="email"
-					autoComplete="email"
-					width="20"
-				/>
-				<Input
-					id={AUTH_REGISTER_PASSWORD_INPUT}
-					label="Password"
-					name="password"
-					type="password"
-					autoComplete="new-password"
-					width="20"
-				/>
-				<Button type="submit" id={NEXT_BUTTON}>
-					Register
-				</Button>
-			</Form>
-		</div>
-	);
+	render() {
+		return (
+			<Layout>
+				<div>
+					<h1>Register an account</h1>
+					<p>Register an account for the DoS Comparison Tool</p>
+					<Form onSubmit={this.handleFormSubmit}>
+						<Input
+							id={AUTH_REGISTER_USERNAME_INPUT}
+							label="Username"
+							name="username"
+							autoComplete="username"
+							width="20"
+							hint="Please enter a username"
+						/>
+						<Input
+							id={AUTH_REGISTER_EMAIL_INPUT}
+							label="Email"
+							name="email"
+							type="email"
+							autoComplete="email"
+							width="20"
+							hint="Please enter a valid email address"
+						/>
+						<Input
+							id={AUTH_REGISTER_PASSWORD_INPUT}
+							label="Password"
+							name="password"
+							type="password"
+							autoComplete="new-password"
+							width="20"
+							hint="Please enter a password"
+						/>
+
+						<Button type="submit" id={NEXT_BUTTON}>
+							Register
+						</Button>
+					</Form>
+				</div>
+			</Layout>
+		);
+	}
 }
-
 export default RegisterPage;

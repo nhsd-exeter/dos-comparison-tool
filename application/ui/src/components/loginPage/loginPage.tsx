@@ -4,7 +4,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
 	AUTH_PASSWORD_INPUT,
-	AUTH_SUBMIT_BUTTON,
 	AUTH_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
@@ -12,7 +11,7 @@ import { MENU_PATH, REGISTER_PATH } from "../../constants/paths";
 import { useAppDispatch } from "../../hooks";
 import { signIn } from "../../slices/authSlice";
 import { userPool } from "../../utils/auth";
-import Layout from "../layout";
+import Layout from "../common/Layout";
 
 export class LoginPage extends React.Component {
 	render(): JSX.Element {
