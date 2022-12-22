@@ -11,7 +11,7 @@ import {
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
 import { userPool } from "../../utils/auth";
-import { Layout } from "../common";
+import { Error, Layout } from "../common";
 
 type RegisterPageProps = Record<string, never>;
 type RegisterPageState = {
@@ -44,7 +44,6 @@ class RegisterPage extends React.Component<
 			Name: "nickname",
 			Value: username.value,
 		});
-
 		userPool.signUp(
 			email.value,
 			password.value,
@@ -52,9 +51,9 @@ class RegisterPage extends React.Component<
 			[],
 			(err: Error | undefined, result: ISignUpResult | undefined) => {
 				if (err) {
-					console.log(err);
-
-					this.setState({ error: <p>{err.message}</p> });
+					this.setState({
+						error: Error(err.message, "Sign Up Error"),
+					});
 					return;
 				}
 				const signUpResult = result as ISignUpResult;
@@ -70,6 +69,7 @@ class RegisterPage extends React.Component<
 				<div>
 					<h1>Register an account</h1>
 					<p>Register an account for the DoS Comparison Tool</p>
+					{this.state.error}
 					<Form onSubmit={this.handleFormSubmit}>
 						<Input
 							id={AUTH_REGISTER_USERNAME_INPUT}

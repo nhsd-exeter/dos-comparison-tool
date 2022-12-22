@@ -62,6 +62,15 @@ variable "cognito_secrets_user_pool_client_id_key" {
 }
 
 # ############################
+# CLOUDWATCH
+# ############################
+
+variable "cloudwatch_monitoring_dashboard_name" {
+  type        = string
+  description = "The name of the CloudWatch monitoring dashboard"
+}
+
+# ############################
 # OTHER
 # ############################
 

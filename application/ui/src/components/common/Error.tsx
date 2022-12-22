@@ -1,18 +1,14 @@
 import { ErrorSummary } from "nhsuk-react-components";
 
-const Error = (): JSX.Element => {
+const Error = (message: string, title = "There is a problem"): JSX.Element => {
 	return (
 		<ErrorSummary
 			aria-labelledby="error-summary-title"
 			role="alert"
 			tabIndex={-1}
 		>
-			<ErrorSummary.Title id="error-summary-title">
-				There is a problem
-			</ErrorSummary.Title>
-			<ErrorSummary.Body>
-				<p>Optional description of the errors and how to correct them</p>
-			</ErrorSummary.Body>
+			<ErrorSummary.Title id="error-summary-title">{title}</ErrorSummary.Title>
+			<ErrorSummary.Body>{message}</ErrorSummary.Body>
 		</ErrorSummary>
 	);
 };
