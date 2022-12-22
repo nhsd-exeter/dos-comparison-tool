@@ -4,19 +4,19 @@ import {
 } from "amazon-cognito-identity-js";
 import { Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
+import { Navigate } from "react-router-dom";
 import {
 	AUTH_REGISTER_EMAIL_INPUT,
 	AUTH_REGISTER_PASSWORD_INPUT,
 	AUTH_REGISTER_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
+import { LOGIN_PATH } from "../../constants/paths";
 import { userPool } from "../../utils/auth";
 import { Error, Layout } from "../common";
 
 type RegisterPageProps = Record<string, never>;
-type RegisterPageState = {
-	error?: JSX.Element;
-};
+type RegisterPageState = { error?: JSX.Element; registered?: boolean };
 
 class RegisterPage extends React.Component<
 	RegisterPageProps,
@@ -26,12 +26,11 @@ class RegisterPage extends React.Component<
 		super(props);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
-	state: RegisterPageState = {
-		error: undefined,
-	};
+	state: RegisterPageState = { error: undefined };
 
 	private handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+
 		const formElements = event.currentTarget.elements;
 		const username = formElements.namedItem("username") as HTMLInputElement;
 		const email = formElements.namedItem("email") as HTMLInputElement;
@@ -44,21 +43,18 @@ class RegisterPage extends React.Component<
 			Name: "nickname",
 			Value: username.value,
 		});
+
 		userPool.signUp(
 			email.value,
 			password.value,
 			[attributeEmail, attributeUserName],
 			[],
-			(err: Error | undefined, result: ISignUpResult | undefined) => {
+			(err: Error | undefined, _result: ISignUpResult | undefined) => {
 				if (err) {
-					this.setState({
-						error: Error(err.message, "Sign Up Error"),
-					});
+					this.setState({ error: Error(err.message, "Sign Up Error") });
 					return;
 				}
-				const signUpResult = result as ISignUpResult;
-				const cognitoUser = signUpResult.user;
-				console.log("user name is " + cognitoUser.getUsername());
+				this.setState({ registered: true });
 			}
 		);
 	}
@@ -66,6 +62,7 @@ class RegisterPage extends React.Component<
 	render() {
 		return (
 			<Layout>
+				{this.state.registered && <Navigate to={LOGIN_PATH} replace={true} />}
 				<div>
 					<h1>Register an account</h1>
 					<p>Register an account for the DoS Comparison Tool</p>
