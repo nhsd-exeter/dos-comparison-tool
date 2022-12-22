@@ -1,4 +1,4 @@
-import { expect, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 import {
 	AUTH_REGISTER_EMAIL_INPUT,
 	AUTH_REGISTER_PASSWORD_INPUT,
@@ -21,17 +21,19 @@ test("It renders the expected RegisterPage layout", () => {
 	expect(header).toBeTruthy();
 });
 
-test("It renders the RegisterPage Content", () => {
-	// Arrange: prepare the environment, render the component.
-	renderWithProvidersAndRouter(<RegisterPage />);
-	// Act: try to find the expected links.
-	const usernameInput = document.getElementById(AUTH_REGISTER_USERNAME_INPUT);
-	const emailInput = document.getElementById(AUTH_REGISTER_EMAIL_INPUT);
-	const passwordInput = document.getElementById(AUTH_REGISTER_PASSWORD_INPUT);
-	const registerButton = document.getElementById(NEXT_BUTTON);
-	// Assert: check that required links are indeed links.
-	expect(usernameInput).toBeTruthy();
-	expect(emailInput).toBeTruthy();
-	expect(passwordInput).toBeTruthy();
-	expect(registerButton).toBeTruthy();
+describe("It renders the RegisterPage Content", () => {
+	test("By default it renders the register form", () => {
+		// Arrange: prepare the environment, render the component.
+		renderWithProvidersAndRouter(<RegisterPage />);
+		// Act: try to find the expected links.
+		const usernameInput = document.getElementById(AUTH_REGISTER_USERNAME_INPUT);
+		const emailInput = document.getElementById(AUTH_REGISTER_EMAIL_INPUT);
+		const passwordInput = document.getElementById(AUTH_REGISTER_PASSWORD_INPUT);
+		const registerButton = document.getElementById(NEXT_BUTTON);
+		// Assert: check that required links are indeed links.
+		expect(usernameInput).toBeTruthy();
+		expect(emailInput).toBeTruthy();
+		expect(passwordInput).toBeTruthy();
+		expect(registerButton).toBeTruthy();
+	});
 });

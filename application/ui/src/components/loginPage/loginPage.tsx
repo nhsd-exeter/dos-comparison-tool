@@ -64,6 +64,7 @@ function LoginForm(): JSX.Element {
 					label="Username"
 					name="username"
 					autoComplete="username"
+					required={true}
 					width="20"
 				/>
 				<Input
@@ -72,6 +73,7 @@ function LoginForm(): JSX.Element {
 					name="password"
 					type="password"
 					autoComplete="current-password"
+					required={true}
 					width="20"
 				/>
 				<Button type="submit" id={NEXT_BUTTON}>

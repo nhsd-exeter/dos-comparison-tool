@@ -26,12 +26,12 @@ class RegisterPage extends React.Component<
 > {
 	constructor(props: RegisterPageProps) {
 		super(props);
-		this.handleLoginForm = this.handleLoginForm.bind(this);
+		this.handleSignUpFormForm = this.handleSignUpFormForm.bind(this);
 		this.handleConfirmCodeForm = this.handleConfirmCodeForm.bind(this);
 	}
 	state: RegisterPageState = {};
 
-	private handleLoginForm(event: React.FormEvent<HTMLFormElement>) {
+	private handleSignUpFormForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const formElements = event.currentTarget.elements;
 		const username = formElements.namedItem("username") as HTMLInputElement;
@@ -65,15 +65,16 @@ class RegisterPage extends React.Component<
 		);
 	}
 
-	private LoginForm() {
+	private SignUpForm() {
 		return (
-			<Form onSubmit={this.handleLoginForm}>
+			<Form onSubmit={this.handleSignUpFormForm}>
 				<Input
 					id={AUTH_REGISTER_USERNAME_INPUT}
 					label="Username"
 					name="username"
 					autoComplete="username"
 					width="20"
+					required={true}
 					hint="Please enter a username"
 				/>
 				<Input
@@ -83,6 +84,7 @@ class RegisterPage extends React.Component<
 					type="email"
 					autoComplete="email"
 					width="20"
+					required={true}
 					hint="Please enter a valid email address"
 				/>
 				<Input
@@ -92,12 +94,11 @@ class RegisterPage extends React.Component<
 					type="password"
 					autoComplete="new-password"
 					width="20"
+					required={true}
 					hint="Please enter a password"
 				/>
 
-				<Button type="submit" id={NEXT_BUTTON}>
-					Register
-				</Button>
+				<Button type="submit">Register</Button>
 			</Form>
 		);
 	}
@@ -128,16 +129,16 @@ class RegisterPage extends React.Component<
 		);
 	}
 
-	private ConfirmCode() {
+	private ConfirmCodeForm() {
 		return (
 			<Form onSubmit={this.handleConfirmCodeForm}>
 				<Input
 					label="Confirm Code"
 					name="confirmCode"
 					width="20"
+					required={true}
 					hint="Please enter the confirmation code sent to your email address"
 				/>
-
 				<Button type="submit" id={NEXT_BUTTON}>
 					Confirm
 				</Button>
@@ -156,7 +157,7 @@ class RegisterPage extends React.Component<
 					<p>Register an account for the DoS Comparison Tool</p>
 					{this.state.error}
 					{/* If not registered an account create user, otherwise confirm account */}
-					{this.state.registered ? this.ConfirmCode() : this.LoginForm()}
+					{this.state.registered ? this.ConfirmCodeForm() : this.SignUpForm()}
 				</div>
 			</Layout>
 		);
