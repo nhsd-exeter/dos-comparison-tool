@@ -1,8 +1,7 @@
-import ErrorPage from "../errorPage";
-import React from "react";
 import { expect, test } from "@jest/globals";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
+import ErrorPage from "../errorPage";
 
 test("It renders the expected ErrorPage layout", () => {
 	// Arrange: prepare the environment, render the component.

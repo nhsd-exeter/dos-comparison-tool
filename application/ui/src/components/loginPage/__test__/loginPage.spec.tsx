@@ -1,14 +1,17 @@
-import LoginPage from "../loginPage";
-import React from "react";
-import { AUTH_SUBMIT_BUTTON } from "../../../constants/componentIds";
 import { describe, expect, test } from "@jest/globals";
-import { fireEvent } from "@testing-library/react";
-import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
+import { fireEvent, screen } from "@testing-library/react";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import sinon from "sinon";
+import {
+	FOOTER_ID,
+	HEADER_ID,
+	NEXT_BUTTON,
+} from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
-import AWS from "aws-sdk-mock";
+import LoginPage from "../loginPage";
 
-import { stub } from "sinon";
-import * as Cognito from "amazon-cognito-identity-js";
+const testUsername = "test";
+const testPassword = "testPassword";
 
 test("It renders the expected LoginPage layout", () => {
 	// Arrange: prepare the environment, render the component.
@@ -26,30 +29,29 @@ describe("All LoginPage Content is covered", () => {
 		// Arrange: prepare the environment, render the component.
 		renderWithProvidersAndRouter(<LoginPage />);
 		// Act: try to find the expected links.
-		const nextButtonValue =
-			document.getElementById(AUTH_SUBMIT_BUTTON)?.textContent;
-		const nextButton = document.getElementById(AUTH_SUBMIT_BUTTON);
+		const nextButtonValue = document.getElementById(NEXT_BUTTON)?.textContent;
+		const nextButton = document.getElementById(NEXT_BUTTON);
 		// Assert: check that required links are indeed links.
 		expect(nextButtonValue).toEqual("Log in");
 		expect(nextButton).toBeTruthy();
 	});
 
 	test("The login process is initiated when the login button is clicked", () => {
-		// Arrange: prepare the environment, render the component.
-		AWS.mock(
-			"CognitoIdentityServiceProvider",
-			"initiateAuth",
-			(params, callback) => {
-				callback(null, "success");
-			}
-		);
+		// Arrange
+		sinon
+			.stub(CognitoUser.prototype, "authenticateUser")
+			.callsFake((authDetails, callbacks) => {
+				callbacks.onSuccess();
+			});
 		renderWithProvidersAndRouter(<LoginPage />);
-		// Act: try to find the expected links.
-		const nextButton = document.getElementById(AUTH_SUBMIT_BUTTON);
-		fireEvent(nextButton, new MouseEvent("click"));
-		// Assert: check that required links are indeed links.
-
-		// Clean up.
-		AWS.restore("CognitoIdentityServiceProvider");
+		const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+		const passwordInput = screen.getByLabelText("Password") as HTMLInputElement;
+		const form = screen.getByRole("form") as HTMLButtonElement;
+		// Act
+		fireEvent.change(usernameInput, { target: { value: testUsername } });
+		fireEvent.change(passwordInput, { target: { value: testPassword } });
+		fireEvent.submit(form);
+		// Assert
+		expect(CognitoUser.prototype.authenticateUser.calledOnce).toBe(true);
 	});
 });

@@ -1,9 +1,8 @@
-import Homepage from "../homePage";
-import React from "react";
 import { expect, test } from "@jest/globals";
+import { screen } from "@testing-library/react";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
-import { screen } from "@testing-library/react";
+import Homepage from "../homePage";
 
 export const expectedHeader = "DoS Comparison Tool";
 export const expectedPageText =

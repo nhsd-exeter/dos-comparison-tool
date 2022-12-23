@@ -73,6 +73,7 @@ ui-config: # Create UI config file for running the UI locally
 	make -s file-replace-variables FILE=$(APPLICATION_DIR_REL)/ui/.env
 
 ui-start: # Start UI development server (Hot reload) - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	export PROFILE=$(or $(PROFILE), dev)
 	eval "$$(make -s populate-application-variables)"
 	make ui-config
 	cd $(APPLICATION_DIR)/ui

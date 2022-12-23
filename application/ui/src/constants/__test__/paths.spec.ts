@@ -1,5 +1,5 @@
-import { BASE_PATH, LOGIN_PATH, MENU_PATH } from "../paths";
 import { expect, test } from "@jest/globals";
+import { BASE_PATH, LOGIN_PATH, MENU_PATH } from "../paths";
 
 const expectedBasePath = "/";
 const expectedLoginPath = "/login";

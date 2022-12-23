@@ -1,5 +1,5 @@
-import { authSlice, initialState } from "../authSlice";
 import { describe, expect, test } from "@jest/globals";
+import { authSlice, initialState } from "../authSlice";
 
 describe("tests for authSlice", () => {
 	test("User signs in", () => {
