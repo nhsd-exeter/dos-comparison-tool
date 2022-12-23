@@ -18,5 +18,5 @@
     "logTests": true,
     "maxTestsToLog": 3
   },
-  "thresholds": { "high": 80, "low": 60, "break": 70 }
+  "thresholds": { "high": 80, "low": 60 }
 }

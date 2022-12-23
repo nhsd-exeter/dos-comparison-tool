@@ -58,7 +58,7 @@ function LoginForm(): JSX.Element {
 		<div>
 			<h1>Login</h1>
 			<p>Log in to the DoS Comparison Tool</p>
-			<Form onSubmit={handleFormSubmit}>
+			<Form role="form" onSubmit={handleFormSubmit}>
 				<Input
 					id={AUTH_USERNAME_INPUT}
 					label="Username"

@@ -67,7 +67,7 @@ class RegisterPage extends React.Component<
 
 	private SignUpForm() {
 		return (
-			<Form onSubmit={this.handleSignUpFormForm}>
+			<Form role="form" onSubmit={this.handleSignUpFormForm}>
 				<Input
 					id={AUTH_REGISTER_USERNAME_INPUT}
 					label="Username"
@@ -98,7 +98,9 @@ class RegisterPage extends React.Component<
 					hint="Please enter a password"
 				/>
 
-				<Button type="submit">Register</Button>
+				<Button type="submit" id={NEXT_BUTTON}>
+					Register
+				</Button>
 			</Form>
 		);
 	}
@@ -131,7 +133,7 @@ class RegisterPage extends React.Component<
 
 	private ConfirmCodeForm() {
 		return (
-			<Form onSubmit={this.handleConfirmCodeForm}>
+			<Form role="form" onSubmit={this.handleConfirmCodeForm}>
 				<Input
 					label="Confirm Code"
 					name="confirmCode"

@@ -1,4 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
+import { fireEvent, screen } from "@testing-library/react";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import sinon from "sinon";
 import {
 	FOOTER_ID,
 	HEADER_ID,
@@ -6,6 +9,9 @@ import {
 } from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import LoginPage from "../loginPage";
+
+const testUsername = "test";
+const testPassword = "testPassword";
 
 test("It renders the expected LoginPage layout", () => {
 	// Arrange: prepare the environment, render the component.
@@ -30,22 +36,22 @@ describe("All LoginPage Content is covered", () => {
 		expect(nextButton).toBeTruthy();
 	});
 
-	// test("The login process is initiated when the login button is clicked", () => {
-	// 	// Arrange: prepare the environment, render the component.
-	// 	AWS.mock(
-	// 		"CognitoIdentityServiceProvider",
-	// 		"initiateAuth",
-	// 		(params, callback) => {
-	// 			callback(null, "success");
-	// 		}
-	// 	);
-	// 	renderWithProvidersAndRouter(<LoginPage />);
-	// 	// Act: try to find the expected links.
-	// 	const nextButton = document.getElementById(NEXT_BUTTON);
-	// 	fireEvent(nextButton, new MouseEvent("click"));
-	// 	// Assert: check that required links are indeed links.
-
-	// 	// Clean up.
-	// 	AWS.restore("CognitoIdentityServiceProvider");
-	// });
+	test("The login process is initiated when the login button is clicked", () => {
+		// Arrange
+		sinon
+			.stub(CognitoUser.prototype, "authenticateUser")
+			.callsFake((authDetails, callbacks) => {
+				callbacks.onSuccess();
+			});
+		renderWithProvidersAndRouter(<LoginPage />);
+		const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+		const passwordInput = screen.getByLabelText("Password") as HTMLInputElement;
+		const form = screen.getByRole("form") as HTMLButtonElement;
+		// Act
+		fireEvent.change(usernameInput, { target: { value: testUsername } });
+		fireEvent.change(passwordInput, { target: { value: testPassword } });
+		fireEvent.submit(form);
+		// Assert
+		expect(CognitoUser.prototype.authenticateUser.calledOnce).toBe(true);
+	});
 });
