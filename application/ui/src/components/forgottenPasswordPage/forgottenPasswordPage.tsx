@@ -118,7 +118,7 @@ class ForgottenPasswordPage extends React.Component<
 				/>
 				<Input
 					id={AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT}
-					label="Confirm Code"
+					label="Confirmation Code"
 					name="confirmCode"
 					width="20"
 					required={true}

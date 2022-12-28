@@ -57,5 +57,75 @@ describe("It renders the ForgottenPasswordPage Content", () => {
 		// Assert
 		expect(newPasswordInput).toBeTruthy();
 		expect(resetPasswordButton).toBeTruthy();
+		// Cleanup
+		sinon.restore();
+	});
+});
+
+describe("It renders the ForgottenPasswordForm Errors", () => {
+	test("Error renders when the forgottenPassword request occurs", () => {
+		// Arrange
+		sinon
+			.stub(CognitoUser.prototype, "forgotPassword")
+			.callsFake(({ onFailure }) => {
+				onFailure(Error("Failure"));
+			});
+		renderWithProvidersAndRouter(<ForgottenPasswordPage />);
+		// Act
+		const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+		fireEvent.change(usernameInput, { target: { value: "test" } });
+		const form = screen.getByRole("form") as HTMLButtonElement;
+		act(() => fireEvent.submit(form));
+		const error = screen.getByText(
+			"An unknown error occurred while requesting a password reset: Error"
+		);
+		// Assert
+		expect(error).toBeDefined();
+		// Cleanup
+		sinon.restore();
+	});
+
+	test("InvalidParameterException renders when the forgottenPassword request occurs", () => {
+		// Arrange
+		const responseError = new Error("Error");
+		responseError.name = "InvalidParameterException";
+		sinon
+			.stub(CognitoUser.prototype, "forgotPassword")
+			.callsFake(({ onFailure }) => {
+				onFailure(responseError);
+			});
+		renderWithProvidersAndRouter(<ForgottenPasswordPage />);
+		// Act
+		const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+		fireEvent.change(usernameInput, { target: { value: "test" } });
+		const form = screen.getByRole("form") as HTMLButtonElement;
+		act(() => fireEvent.submit(form));
+		const error = screen.getByText("Invalid username");
+		// Assert
+		expect(error).toBeDefined();
+		// Cleanup
+		sinon.restore();
+	});
+
+	test("UserNotFoundException renders when the forgottenPassword request occurs", () => {
+		// Arrange
+		const responseError = new Error("Error");
+		responseError.name = "UserNotFoundException";
+		sinon
+			.stub(CognitoUser.prototype, "forgotPassword")
+			.callsFake(({ onFailure }) => {
+				onFailure(responseError);
+			});
+		renderWithProvidersAndRouter(<ForgottenPasswordPage />);
+		// Act
+		const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+		fireEvent.change(usernameInput, { target: { value: "test" } });
+		const form = screen.getByRole("form") as HTMLButtonElement;
+		act(() => fireEvent.submit(form));
+		const error = screen.getByText("User not found");
+		// Assert
+		expect(error).toBeDefined();
+		// Cleanup
+		sinon.restore();
 	});
 });
