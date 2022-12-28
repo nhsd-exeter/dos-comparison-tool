@@ -1,8 +1,8 @@
-from .page import Page
-from ..drivers.chrome_driver import get_driver
-from boto3 import client
 from os import getenv
-from json import loads
+
+from ..aws import get_secret
+from ..drivers.chrome_driver import get_driver
+from .page import Page
 
 
 class LoginPage(Page):
@@ -11,10 +11,13 @@ class LoginPage(Page):
     url_subdirectory = "/login"
     page_number = 2
 
-    def login(self):
+    def login(self, username: str = "", password: str = ""):
         """Login to the application. User will be left on menu page."""
-        assert self.url_subdirectory in get_driver().current_url
-        username, password = self.get_username_and_password()
+        assert (
+            self.url_subdirectory in get_driver().current_url
+        ), f"Expected to be on {self.url_subdirectory} page but was on {get_driver().current_url}"
+        if not username and not password:
+            username, password = self.get_username_and_password()
         self.input_username(username)
         self.input_password(password)
         self.navigate_to_next_page()
@@ -33,9 +36,11 @@ class LoginPage(Page):
         Returns:
             tuple[str, str]: Username and password in that order.
         """
-        secret_name = getenv("COGNITO_SECRETS_NAME")
-        secret = client("secretsmanager").get_secret_value(SecretId=secret_name)
-        secret_value = loads(secret["SecretString"])
+        secret_value = get_secret(secret_name=getenv("COGNITO_SECRETS_NAME"))
         username = secret_value[getenv("COGNITO_SECRETS_ADMIN_USERNAME_KEY")]
         password = secret_value[getenv("COGNITO_SECRETS_ADMIN_PASSWORD_KEY")]
         return username, password
+
+    def navigate_to_page(self):
+        """Navigate to the homepage"""
+        return get_driver().get(f'{getenv("APPLICATION_URL")}{self.url_subdirectory}')

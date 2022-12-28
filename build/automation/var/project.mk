@@ -41,6 +41,9 @@ TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CL
 # Cloudwatch
 TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-monitoring-dashboard
 # ==============================================================================
-
+# End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
 APPLICATION_URL := https://host.docker.internal:8081
+SETUP_USER_USERNAME_KEY := INTEGRATION_TEST_SETUP_USER_USERNAME
+SETUP_USER_PASSWORD_KEY := INTEGRATION_TEST_SETUP_USER_PASSWORD
+SETUP_USER_EMAIL_KEY := INTEGRATION_TEST_SETUP_USER_EMAIL

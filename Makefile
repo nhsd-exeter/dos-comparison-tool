@@ -34,7 +34,7 @@ push: # Push project artefacts to the registry
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
-	make terraform-apply-auto-approve STACKS=application
+	make provision-infrastructure
 	eval "$$(make -s populate-application-variables)"
 	make k8s-deploy STACK=application
 
@@ -44,6 +44,12 @@ undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMEN
 
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
 	make build-and-push deploy VERSION=$(BUILD_TAG)
+
+build-and-start: # Build and start application - mandatory: PROFILE=[name]
+	make build provision-infrastructure start
+
+provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make terraform-apply-auto-approve STACKS=application
 
 build-and-push: # Build and push docker images
 	make build push
@@ -61,6 +67,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 # ==============================================================================
 
 ui-build: # Build UI image
+	make -s ui-config PROFILE=PROFILE_TO_REPLACE ENVIRONMENT=ENVIRONMENT_TO_REPLACE
 	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
@@ -141,11 +148,27 @@ typescript-mutation-test: # Run TypeScript mutation tests
 	yarn run test:mutation
 
 # ==============================================================================
+# Python targets
+
+python-imports-check: # Check Python imports - optional: DIR=[path]
+	DIR=$(or $(DIR), .)
+	python -m isort $(DIR) -l=120 --check-only --profile=black \
+		--force-alphabetical-sort-within-sections
+
+python-imports-format: # Format Python imports - optional: DIR=[path]
+	DIR=$(or $(DIR), .)
+	python -m isort $(DIR) -l=120 --profile=black \
+		--force-alphabetical-sort-within-sections
+
+# ==============================================================================
 # Testing targets
 
 tester-build: # Build tester image which is used for end-to-end testing
 	cp $(APPLICATION_TEST_DIR)/requirements-test.txt $(DOCKER_DIR)/tester/assets/requirements.txt
 	make -s docker-build NAME=tester
+
+test-install: # Install test dependencies
+	python -m pip install -r test/requirements-test.txt
 
 end-to-end-test:
 	make -s docker-run-python \
