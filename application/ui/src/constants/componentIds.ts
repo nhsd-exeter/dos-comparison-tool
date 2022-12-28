@@ -11,3 +11,7 @@ export const AUTH_PASSWORD_INPUT = "authPasswordInput";
 export const AUTH_REGISTER_USERNAME_INPUT = "authRegisterUsernameInput";
 export const AUTH_REGISTER_EMAIL_INPUT = "authRegisterEmailInput";
 export const AUTH_REGISTER_PASSWORD_INPUT = "authRegisterPasswordInput";
+// Auth Forgotten Password Elements
+export const AUTH_FORGOTTEN_PASSWORD_USERNAME_INPUT =
+	"authForgottenPasswordUsernameInput";
+// Auth Reset Password Elements

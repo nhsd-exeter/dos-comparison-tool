@@ -1,6 +1,6 @@
 resource "aws_cognito_user_pool" "dos_comparison_tool_user_pool" {
   name                     = var.cognito_user_pool_name
-  auto_verified_attributes = var.profile == "dev" ? [] : ["email"]
+  auto_verified_attributes = ["email"]
 
   password_policy {
     minimum_length    = 8
