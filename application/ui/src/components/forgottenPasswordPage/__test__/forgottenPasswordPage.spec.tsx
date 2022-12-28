@@ -129,3 +129,40 @@ describe("It renders the ForgottenPasswordForm Errors", () => {
 		sinon.restore();
 	});
 });
+
+test("Error from newPasswordForm renders correctly", async () => {
+	// Arrange
+	sinon
+		.stub(CognitoUser.prototype, "forgotPassword")
+		.callsFake(({ onSuccess }) => {
+			onSuccess({ name: "Success" });
+		});
+	sinon
+		.stub(CognitoUser.prototype, "confirmPassword")
+		.callsFake((_confirmCode, _newPassword, callback) => {
+			callback.onFailure(Error("Failure"));
+		});
+	renderWithProvidersAndRouter(<ForgottenPasswordPage />);
+	// Act
+	const usernameInput = screen.getByLabelText("Username") as HTMLInputElement;
+	fireEvent.change(usernameInput, { target: { value: "test" } });
+	const form = screen.getByRole("form") as HTMLButtonElement;
+	fireEvent.submit(form);
+	const confirmCodeInput = screen.getByLabelText(
+		"Confirmation Code"
+	) as HTMLInputElement;
+	fireEvent.change(confirmCodeInput, { target: { value: "test" } });
+	const newPasswordInput = screen.getByLabelText(
+		"New Password"
+	) as HTMLInputElement;
+	fireEvent.change(newPasswordInput, { target: { value: "test" } });
+	const resetButton = screen.getByText("Reset");
+	fireEvent.click(resetButton);
+	// Assert
+	const errorHeading = await screen.findByText("New Password Error");
+	const error = screen.getByText("Failure");
+	expect(errorHeading).toBeDefined();
+	expect(error).toBeDefined();
+	// Cleanup
+	sinon.restore();
+});

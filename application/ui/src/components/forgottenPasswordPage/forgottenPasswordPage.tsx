@@ -84,14 +84,16 @@ class ForgottenPasswordPage extends React.Component<
 
 	private handleNewPasswordForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const confirmCode = event.currentTarget.elements.namedItem(
+		const formElements = event.currentTarget.elements;
+		const confirmCode = formElements.namedItem(
 			"confirmCode"
 		) as HTMLInputElement;
-		const newPassword = event.currentTarget.elements.namedItem(
+		const username = formElements.namedItem("username") as HTMLInputElement;
+		const newPassword = formElements.namedItem(
 			"newPassword"
 		) as HTMLInputElement;
 		const cognitoUser = new CognitoUser({
-			Username: this.state.username as string,
+			Username: username.value,
 			Pool: userPool,
 		});
 		cognitoUser.confirmPassword(confirmCode.value, newPassword.value, {
