@@ -1,6 +1,7 @@
-from boto3 import client
 from json import loads
 from os import getenv
+
+from boto3 import client
 
 
 def get_secret(secret_name: str) -> dict[str, str]:

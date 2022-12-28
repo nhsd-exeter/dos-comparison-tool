@@ -1,11 +1,10 @@
 from os import getenv
 from typing import Self
 
-from ..drivers.chrome_driver import get_driver
-from .page import Page
-from ..elements import input_textbox
 from ..aws import confirm_user
-from time import sleep
+from ..drivers.chrome_driver import get_driver
+from ..elements import input_textbox
+from .page import Page
 
 
 class RegisterPage(Page):
@@ -14,10 +13,6 @@ class RegisterPage(Page):
     """
 
     url_subdirectory = "/register"
-
-    def navigate_to_page(self: Self) -> None:
-        """Navigate to the sign up page"""
-        get_driver().get(f'{getenv("APPLICATION_URL")}{self.url_subdirectory}')
 
     def sign_up(self: Self, username: str, email: str, password: str) -> None:
         """Sign up"""

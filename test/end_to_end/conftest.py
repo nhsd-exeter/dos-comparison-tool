@@ -1,12 +1,12 @@
+from pytest import fixture
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from .utils.constants import HOMEPAGE_WAIT_TIMEOUT
 from .utils.drivers.chrome_driver import close_driver, create_driver
 from .utils.pages.home_page import HomePage
-from pytest import fixture
-from .utils.constants import HOMEPAGE_WAIT_TIMEOUT
 
 
 @fixture()

@@ -148,11 +148,27 @@ typescript-mutation-test: # Run TypeScript mutation tests
 	yarn run test:mutation
 
 # ==============================================================================
+# Python targets
+
+python-imports-check: # Check Python imports - optional: DIR=[path]
+	DIR=$(or $(DIR), .)
+	python -m isort $(DIR) -l=120 --check-only --profile=black \
+		--force-alphabetical-sort-within-sections
+
+python-imports-format: # Format Python imports - optional: DIR=[path]
+	DIR=$(or $(DIR), .)
+	python -m isort $(DIR) -l=120 --profile=black \
+		--force-alphabetical-sort-within-sections
+
+# ==============================================================================
 # Testing targets
 
 tester-build: # Build tester image which is used for end-to-end testing
 	cp $(APPLICATION_TEST_DIR)/requirements-test.txt $(DOCKER_DIR)/tester/assets/requirements.txt
 	make -s docker-build NAME=tester
+
+test-install: # Install test dependencies
+	python -m pip install -r test/requirements-test.txt
 
 end-to-end-test:
 	make -s docker-run-python \

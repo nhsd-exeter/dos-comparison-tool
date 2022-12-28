@@ -1,11 +1,12 @@
-from pytest_bdd import given, scenarios, when, then
+from os import getenv
+
+from pytest_bdd import given, scenarios, then, when
 from selenium import webdriver
 
-from ..utils.utils import login_as_user
+from ..utils.aws import delete_user, get_secret
 from ..utils.pages.register_page import RegisterPage
 from ..utils.types import SignUpContext
-from ..utils.aws import get_secret, delete_user
-from os import getenv
+from ..utils.utils import login_as_user
 
 scenarios("../features/authentication.feature")
 

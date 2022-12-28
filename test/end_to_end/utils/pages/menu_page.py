@@ -1,6 +1,3 @@
-from os import getenv
-
-from ..drivers.chrome_driver import get_driver
 from .page import Page
 
 

@@ -1,8 +1,8 @@
-from .page import Page
-from ..drivers.chrome_driver import get_driver
-
 from os import getenv
+
 from ..aws import get_secret
+from ..drivers.chrome_driver import get_driver
+from .page import Page
 
 
 class LoginPage(Page):
