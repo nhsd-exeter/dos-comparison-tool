@@ -34,7 +34,7 @@ push: # Push project artefacts to the registry
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
-	make terraform-apply-auto-approve STACKS=application
+	make provision-infrastructure
 	eval "$$(make -s populate-application-variables)"
 	make k8s-deploy STACK=application
 
@@ -44,6 +44,12 @@ undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMEN
 
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
 	make build-and-push deploy VERSION=$(BUILD_TAG)
+
+build-and-start: # Build and start application - mandatory: PROFILE=[name]
+	make build provision-infrastructure start
+
+provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make terraform-apply-auto-approve STACKS=application
 
 build-and-push: # Build and push docker images
 	make build push
