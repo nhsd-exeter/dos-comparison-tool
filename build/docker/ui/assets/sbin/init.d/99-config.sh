@@ -1,6 +1,9 @@
 #!/bin/sh
 
-export REACT_APP_PROFILE="$PROFILE"
-export REACT_APP_ENVIRONMENT="$ENVIRONMENT"
-export REACT_APP_USER_POOL_ID="$USER_POOL_ID"
-export REACT_APP_CLIENT_ID="$CLIENT_ID"
+cd static/js || exit
+sed -i "s/PROFILE_TO_REPLACE/$PROFILE/" main.*.js
+sed -i "s/ENVIRONMENT_TO_REPLACE/$ENVIRONMENT/" main.*.js
+sed -i "s/CLIENT_ID_TO_REPLACE/$CLIENT_ID/" main.*.js
+sed -i "s/USER_POOL_ID_TO_REPLACE/$USER_POOL_ID/" main.*.js
+
+echo Environment variables replaced

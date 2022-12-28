@@ -61,6 +61,7 @@ trust-certificate: ssl-trust-certificate-project ## Trust the SSL development ce
 # ==============================================================================
 
 ui-build: # Build UI image
+	make -s ui-config PROFILE=PROFILE_TO_REPLACE ENVIRONMENT=ENVIRONMENT_TO_REPLACE
 	make -s docker-run-node DIR=$(APPLICATION_DIR_REL)/ui CMD="yarn install && yarn build"
 	cd $(APPLICATION_DIR)/ui/build
 	tar -czf $(PROJECT_DIR)/build/docker/ui/assets/ui-app.tar.gz .
