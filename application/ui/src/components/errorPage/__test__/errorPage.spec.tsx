@@ -4,7 +4,7 @@ import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests"
 import ErrorPage from "../errorPage";
 
 test("It renders the expected ErrorPage layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<ErrorPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);

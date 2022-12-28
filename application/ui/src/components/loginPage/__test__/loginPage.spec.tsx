@@ -14,7 +14,7 @@ const testUsername = "test";
 const testPassword = "testPassword";
 
 test("It renders the expected LoginPage layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<LoginPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
@@ -26,12 +26,12 @@ test("It renders the expected LoginPage layout", () => {
 
 describe("All LoginPage Content is covered", () => {
 	test("It renders the default LoginPage Content", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		renderWithProvidersAndRouter(<LoginPage />);
-		// Act: try to find the expected links.
+		// Act
 		const nextButtonValue = document.getElementById(NEXT_BUTTON)?.textContent;
 		const nextButton = document.getElementById(NEXT_BUTTON);
-		// Assert: check that required links are indeed links.
+		// Assert
 		expect(nextButtonValue).toEqual("Log in");
 		expect(nextButton).toBeTruthy();
 	});

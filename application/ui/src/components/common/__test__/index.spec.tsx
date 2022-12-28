@@ -7,54 +7,54 @@ const baseUrl = "http://localhost";
 
 describe("Header looks and works correctly", () => {
 	test("It renders the Header as part of the default layout", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		renderWithProvidersAndRouter(<Layout children={undefined} />);
-		// Act: try to find the expected links.
+		// Act
 		const nameLinkElement = screen.getByText("DoS Comparison Tool");
-		// Assert: check that required links are indeed links.
+		// Assert
 		expect(nameLinkElement).toBeDefined();
 	});
 
 	test("Header Button links back to homepage", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		window.history.pushState({}, "", "/login");
 		const preloadedState = { auth: { isLoggedIn: true } };
 		renderWithProvidersAndRouter(<Layout children={undefined} />, {
 			preloadedState: preloadedState,
 		});
-		// Act: try to find the expected links.
+		// Act
 		const logoButtonElement = screen.getByRole("img");
 		fireEvent.click(logoButtonElement);
-		// Assert: check that required links are indeed links.
+		// Assert
 		expect(window.location.href).toEqual(baseUrl + "/");
 	});
 
 	test("Header 'DoS Comparison Tool' links back to homepage", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		window.history.pushState({}, "", "/login");
 		const preloadedState = { auth: { isLoggedIn: true } };
 		renderWithProvidersAndRouter(<Layout children={undefined} />, {
 			preloadedState: preloadedState,
 		});
-		// Act: try to find the expected links.
+		// Act
 		const HeaderTextButtonElement = screen.getByText("DoS Comparison Tool");
 		fireEvent.click(HeaderTextButtonElement);
-		// Assert: check that required links are indeed links.
+		// Assert
 		expect(window.location.href).toEqual(baseUrl + "/");
 	});
 });
 
 test("It renders the Footer as part of the default layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<Layout children={undefined} />);
-	// Act: try to find the expected links.
+	// Act
 	const homepageLinkElement = screen.getByText("Homepage");
-	// Assert: check that required links are indeed links.
+	// Assert
 	expect(homepageLinkElement).toHaveProperty("href", baseUrl + "/");
 });
 
 test("Children elements render inside Body as part of the default layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	const children = <div>Test</div>;
 	renderWithProvidersAndRouter(<Layout children={children} />);
 	// Act: Get the main element.

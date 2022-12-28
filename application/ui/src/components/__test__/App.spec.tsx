@@ -6,7 +6,7 @@ import { expectedPageText } from "../homePage/__test__/homePage.spec";
 
 describe("App Public Routes Tests", () => {
 	test("Application by default renders homepage", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		renderWithProvidersAndRouter(<App />);
 		// Act: Get the elements.
 		const pageTextValue = screen.getByText(expectedPageText).textContent;
@@ -15,7 +15,7 @@ describe("App Public Routes Tests", () => {
 	});
 
 	test("/login loads the login page", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		window.history.pushState({}, "", "/login");
 		// Act: Get the elements.
 		const expectedLoginText = "Login";
@@ -28,7 +28,7 @@ describe("App Public Routes Tests", () => {
 
 describe("App Private Routes Tests", () => {
 	test("/menu loads the menu page", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		const preloadedState = { auth: { isLoggedIn: true } };
 		const expectedMenuPageText = "Select a search to compare";
 		window.history.pushState({}, "", "/menu");
@@ -42,7 +42,7 @@ describe("App Private Routes Tests", () => {
 
 describe("App Public Routes doesn't load Private Routes Tests", () => {
 	test("/menu loads the error page when not signed in", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		const preloadedState = { auth: { isLoggedIn: false } };
 		renderWithProvidersAndRouter(<App />, { preloadedState: preloadedState });
 		window.history.pushState({}, "", "/menu");
@@ -53,7 +53,7 @@ describe("App Public Routes doesn't load Private Routes Tests", () => {
 
 describe("App Private Routes doesn't load Public Routes Tests", () => {
 	test("/menu loads the error page when not signed in", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		const preloadedState = { auth: { isLoggedIn: false } };
 		renderWithProvidersAndRouter(<App />, { preloadedState: preloadedState });
 		window.history.pushState({}, "", "/menu");

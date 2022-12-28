@@ -9,7 +9,7 @@ export const expectedPageText =
 	"Compare results from between NHS Directory of Services searches";
 
 test("It renders the expected HomePage layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<Homepage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
@@ -20,7 +20,7 @@ test("It renders the expected HomePage layout", () => {
 });
 
 test("It renders the HomePage content while not being logged in", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	const expectedButtonText = "Log in";
 	renderWithProvidersAndRouter(<Homepage />);
 	// Act: Get the elements.
@@ -35,7 +35,7 @@ test("It renders the HomePage content while not being logged in", () => {
 });
 
 test("It renders the HomePage content while being logged in", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	const expectedButtonText = "Start now";
 	renderWithProvidersAndRouter(<Homepage />, {
 		preloadedState: { auth: { isLoggedIn: true } },

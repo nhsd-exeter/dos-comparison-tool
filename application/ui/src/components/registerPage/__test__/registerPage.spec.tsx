@@ -18,7 +18,7 @@ const testEmail = "test@test.com";
 const testPassword = "testPassword";
 
 test("It renders the expected RegisterPage layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<RegisterPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
@@ -30,14 +30,14 @@ test("It renders the expected RegisterPage layout", () => {
 
 describe("It renders the RegisterPage Content", () => {
 	test("By default it renders the register form", () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		renderWithProvidersAndRouter(<RegisterPage />);
-		// Act: try to find the expected links.
+		// Act
 		const usernameInput = document.getElementById(AUTH_REGISTER_USERNAME_INPUT);
 		const emailInput = document.getElementById(AUTH_REGISTER_EMAIL_INPUT);
 		const passwordInput = document.getElementById(AUTH_REGISTER_PASSWORD_INPUT);
 		const registerButton = document.getElementById(NEXT_BUTTON);
-		// Assert: check that required links are indeed links.
+		// Assert
 		expect(usernameInput).toBeTruthy();
 		expect(emailInput).toBeTruthy();
 		expect(passwordInput).toBeTruthy();
@@ -45,7 +45,7 @@ describe("It renders the RegisterPage Content", () => {
 	});
 
 	test("When the user has registered it renders the confirm code form", async () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		sinon
 			.stub(CognitoUserPool.prototype, "signUp")
 			.callsFake(
@@ -71,7 +71,7 @@ describe("It renders the RegisterPage Content", () => {
 	});
 
 	test("Error renders when register user fails", async () => {
-		// Arrange: prepare the environment, render the component.
+		// Arrange
 		const expectedErrorText = "Error has occurred";
 		sinon
 			.stub(CognitoUserPool.prototype, "signUp")

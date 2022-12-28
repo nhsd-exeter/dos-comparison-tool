@@ -45,5 +45,6 @@ jobs:
             -Dsonar.projectKey=uec-dos-ct
             -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js
             -Dsonar.tests=test
-            -Dsonar.terraform.provider.aws.version=4.45.0
+            -Dsonar.terraform.provider.aws.version=4.48.0
+            -Dsonar.python.version=3.9
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info

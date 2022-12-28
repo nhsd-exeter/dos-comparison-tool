@@ -3,7 +3,10 @@ import { Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import {
-	AUTH_REGISTER_USERNAME_INPUT,
+	AUTH_FORGOTTEN_PASSWORD_USERNAME_INPUT,
+	AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT,
+	AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT,
+	AUTH_RESET_PASSWORD_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
 import { LOGIN_PATH } from "../../constants/paths";
@@ -35,7 +38,6 @@ class ForgottenPasswordPage extends React.Component<
 		const username = event.currentTarget.elements.namedItem(
 			"username"
 		) as HTMLInputElement;
-
 		const cognitoUser = new CognitoUser({
 			Username: username.value,
 			Pool: userPool,
@@ -65,7 +67,7 @@ class ForgottenPasswordPage extends React.Component<
 		return (
 			<Form role="form" onSubmit={this.handleForgottenPasswordForm}>
 				<Input
-					id={AUTH_REGISTER_USERNAME_INPUT}
+					id={AUTH_FORGOTTEN_PASSWORD_USERNAME_INPUT}
 					label="Username"
 					name="username"
 					autoComplete="username"
@@ -73,7 +75,6 @@ class ForgottenPasswordPage extends React.Component<
 					required={true}
 					hint="Please enter your username"
 				/>
-
 				<Button type="submit" id={NEXT_BUTTON}>
 					Reset
 				</Button>
@@ -107,6 +108,7 @@ class ForgottenPasswordPage extends React.Component<
 		return (
 			<Form role="form" onSubmit={this.handleNewPasswordForm}>
 				<Input
+					id={AUTH_RESET_PASSWORD_USERNAME_INPUT}
 					name="username"
 					width="20"
 					required={true}
@@ -115,6 +117,7 @@ class ForgottenPasswordPage extends React.Component<
 					autoComplete="username"
 				/>
 				<Input
+					id={AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT}
 					label="Confirm Code"
 					name="confirmCode"
 					width="20"
@@ -122,6 +125,7 @@ class ForgottenPasswordPage extends React.Component<
 					hint="Please enter the confirmation code sent to your email address"
 				/>
 				<Input
+					id={AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT}
 					label="New Password"
 					name="newPassword"
 					width="20"
@@ -147,7 +151,6 @@ class ForgottenPasswordPage extends React.Component<
 					<h1>Forgotten Password</h1>
 					<p>Reset your password</p>
 					{this.state.error}
-					{/* If not registered an account create user, otherwise confirm account */}
 					{this.state.requested_reset
 						? this.NewPasswordForm()
 						: this.ForgottenPasswordForm()}
