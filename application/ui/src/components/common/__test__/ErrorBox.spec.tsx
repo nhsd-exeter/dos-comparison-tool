@@ -1,13 +1,13 @@
 import { expect, test } from "@jest/globals";
 import { screen } from "@testing-library/react";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
-import Error from "../Error";
+import ErrorBox from "../ErrorBox";
 
 test("Error box displays correctly", () => {
 	// Arrange
 	const testErrorMessage = "TestErrorMessage";
 	const testErrorHeader = "TestErrorHeader";
-	renderWithProvidersAndRouter(Error(testErrorMessage, testErrorHeader));
+	renderWithProvidersAndRouter(ErrorBox(testErrorMessage, testErrorHeader));
 	// Act
 	const testErrorMessageElement = screen.getByText(testErrorMessage);
 	const testErrorHeaderElement = screen.getByText(testErrorHeader);
@@ -20,7 +20,7 @@ test("Error box displays correctly with default header", () => {
 	// Arrange
 	const testErrorMessage = "TestErrorMessage";
 	const expectedDefaultErrorHeader = "There is a problem";
-	renderWithProvidersAndRouter(Error(testErrorMessage));
+	renderWithProvidersAndRouter(ErrorBox(testErrorMessage));
 	// Act
 	const testErrorMessageElement = screen.getByText(testErrorMessage);
 	const testErrorHeaderElement = screen.getByText(expectedDefaultErrorHeader);

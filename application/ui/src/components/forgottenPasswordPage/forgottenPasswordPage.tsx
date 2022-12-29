@@ -11,7 +11,7 @@ import {
 } from "../../constants/componentIds";
 import { LOGIN_PATH } from "../../constants/paths";
 import { userPool } from "../../utils/auth";
-import { Error, Layout } from "../common";
+import { ErrorBox, Layout } from "../common";
 
 type ForgottenPasswordPageProps = Record<string, never>;
 type ForgottenPasswordPageState = {
@@ -57,7 +57,7 @@ class ForgottenPasswordPage extends React.Component<
 				}
 
 				this.setState({
-					error: Error(error_message, "Forgotten Password Error"),
+					error: ErrorBox(error_message, "Forgotten Password Error"),
 				});
 			},
 		});
@@ -101,7 +101,7 @@ class ForgottenPasswordPage extends React.Component<
 				this.setState({ password_reset: true });
 			},
 			onFailure: (err: Error) => {
-				this.setState({ error: Error(err.message, "New Password Error") });
+				this.setState({ error: ErrorBox(err.message, "New Password Error") });
 			},
 		});
 	}
