@@ -4,7 +4,7 @@ import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests"
 import MenuPage from "../menuPage";
 
 test("It renders the expected MenuPage layout", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<MenuPage />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
@@ -15,9 +15,9 @@ test("It renders the expected MenuPage layout", () => {
 });
 
 test("It renders the MenuPage Content", () => {
-	// Arrange: prepare the environment, render the component.
+	// Arrange
 	renderWithProvidersAndRouter(<MenuPage />);
-	// Act: try to find the expected links.
+	// Act
 	const ccsSearchCardHeading = document
 		.getElementById("ccsSearchCardHeading")
 		?.getElementsByClassName("nhsuk-card__link")[0];
@@ -27,7 +27,7 @@ test("It renders the MenuPage Content", () => {
 	const ccsSearchCardDescriptionText = document.getElementById(
 		"ccsSearchCardDescription"
 	)?.textContent;
-	// Assert: check that required links are indeed links.
+	// Assert
 	expect(ccsSearchCardHeading).toHaveProperty("href", "http://localhost/");
 	expect(ccsSearchCardHeadingText).toStrictEqual(
 		"Check Capacity Summary Search"

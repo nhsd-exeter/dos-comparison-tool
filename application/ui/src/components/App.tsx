@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
 	BASE_PATH,
+	FORGOTTEN_PASSWORD_PATH,
 	LOGIN_PATH,
 	MENU_PATH,
 	REGISTER_PATH,
@@ -10,6 +11,7 @@ import { useAppSelector } from "../hooks";
 import { selectLoggedIn } from "../slices/authSlice";
 import {
 	ErrorPage,
+	ForgottenPasswordPage,
 	HomePage,
 	LoginPage,
 	MenuPage,
@@ -29,6 +31,10 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={BASE_PATH} element={<HomePage />} />
 			<Route path={LOGIN_PATH} element={<LoginPage />} />
 			<Route path={REGISTER_PATH} element={<RegisterPage />} />
+			<Route
+				path={FORGOTTEN_PASSWORD_PATH}
+				element={<ForgottenPasswordPage />}
+			/>
 			<Route path="*" element={<ErrorPage />} />
 		</Routes>
 	);

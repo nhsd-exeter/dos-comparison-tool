@@ -7,7 +7,11 @@ import {
 	AUTH_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
-import { MENU_PATH, REGISTER_PATH } from "../../constants/paths";
+import {
+	FORGOTTEN_PASSWORD_PATH,
+	MENU_PATH,
+	REGISTER_PATH,
+} from "../../constants/paths";
 import { useAppDispatch } from "../../hooks";
 import { signIn } from "../../slices/authSlice";
 import { userPool } from "../../utils/auth";
@@ -81,6 +85,9 @@ function LoginForm(): JSX.Element {
 				</Button>
 			</Form>
 			<ActionLink href={REGISTER_PATH}>Create an account</ActionLink>
+			<ActionLink href={FORGOTTEN_PASSWORD_PATH}>
+				Forgotten your password?
+			</ActionLink>
 		</div>
 	);
 }
