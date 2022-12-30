@@ -1,5 +1,7 @@
 from os import getenv
 
+from ..elements import wait_and_get_element
+
 from ..aws import get_secret
 from ..drivers.chrome_driver import get_driver
 from .page import Page
@@ -41,6 +43,15 @@ class LoginPage(Page):
         password = secret_value[getenv("COGNITO_SECRETS_ADMIN_PASSWORD_KEY")]
         return username, password
 
-    def navigate_to_page(self):
+    def navigate_to_page(self) -> None:
         """Navigate to the homepage"""
-        return get_driver().get(f'{getenv("APPLICATION_URL")}{self.url_subdirectory}')
+        get_driver().get(f'{getenv("APPLICATION_URL")}{self.url_subdirectory}')
+
+    def is_login_error_displayed(self) -> bool:
+        """Check if the login error is displayed.
+
+        Returns:
+            bool: True if the login error is displayed, False otherwise.
+        """
+        element = wait_and_get_element("error-summary")
+        return bool(element.is_displayed() and "Login failed" in element.text)
