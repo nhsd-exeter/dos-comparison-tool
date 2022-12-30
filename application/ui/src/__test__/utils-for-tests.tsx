@@ -13,6 +13,10 @@ export function renderWithProvidersAndRouter(
 		store = configureStore({
 			reducer: { auth: authSlice.reducer, loginError: loginErrorSlice.reducer },
 			preloadedState,
+			middleware: (getDefaultMiddleware) =>
+				getDefaultMiddleware({
+					serializableCheck: false,
+				}),
 		}),
 		...renderOptions
 	} = {}
