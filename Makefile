@@ -174,7 +174,7 @@ end-to-end-test:
 	make -s docker-run-python \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest --gherkin-terminal-reporter"
+	CMD="pytest"
 
 # ==============================================================================
 # Deployment variables

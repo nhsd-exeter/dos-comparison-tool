@@ -1,4 +1,4 @@
-Feature: Authenication tests
+Feature: Authentication tests
 
   @Complete
   Scenario: User can sign up
