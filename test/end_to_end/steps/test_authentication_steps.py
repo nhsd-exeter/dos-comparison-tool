@@ -1,5 +1,4 @@
 from os import getenv
-from time import sleep
 
 from pytest_bdd import given, scenarios, then, when
 from selenium import webdriver
@@ -82,6 +81,7 @@ def the_user_signs_in_with_invalid_credentials(context: SignInContext) -> None:
         context (SignInContext): Context of the test.
     """
     LoginPage().login(**context)
+
 
 @then("the user is not able to login")
 def the_user_is_not_able_to_login() -> None:
