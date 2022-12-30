@@ -2,13 +2,13 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 import {
 	AUTH_PASSWORD_INPUT,
 	AUTH_USERNAME_INPUT,
 	NEXT_BUTTON,
 } from "../../constants/componentIds";
 import { MENU_PATH } from "../../constants/paths";
-import { useAppDispatch } from "../../hooks";
 import { signIn } from "../../slices/authSlice";
 import { setError } from "../../slices/loginErrorSlice";
 import { userPool } from "../../utils/auth";

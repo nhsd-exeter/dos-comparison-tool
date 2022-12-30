@@ -70,10 +70,6 @@ body {
   align-items: center;
 }
 
-.dct-base-styles footer {
-  justify-content: flex-end;
-}
-
 .dct-base-styles svg {
   width: 4rem;
   height: 26px;

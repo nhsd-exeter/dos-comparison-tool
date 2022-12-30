@@ -122,7 +122,7 @@ jobs:
             -Dsonar.sources=application,deployment,infrastructure
             -Dsonar.organization=nhsd-exeter
             -Dsonar.projectKey=uec-dos-ct
-            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js
+            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js,application/ui/src/reportWebVitals.ts,application/ui/src/setupTests.ts
             -Dsonar.tests=test
             -Dsonar.terraform.provider.aws.version=4.48.0
             -Dsonar.python.version=3.9
