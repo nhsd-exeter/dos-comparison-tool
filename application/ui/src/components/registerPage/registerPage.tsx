@@ -10,7 +10,7 @@ import {
 } from "../../constants/componentIds";
 import { LOGIN_PATH } from "../../constants/paths";
 import { userPool } from "../../utils/auth";
-import { Error, Layout } from "../common";
+import { ErrorBox, Layout } from "../common";
 
 type RegisterPageProps = Record<string, never>;
 type RegisterPageState = {
@@ -26,12 +26,12 @@ class RegisterPage extends React.Component<
 > {
 	constructor(props: RegisterPageProps) {
 		super(props);
-		this.handleSignUpFormForm = this.handleSignUpFormForm.bind(this);
+		this.handleSignUpForm = this.handleSignUpForm.bind(this);
 		this.handleConfirmCodeForm = this.handleConfirmCodeForm.bind(this);
 	}
 	state: RegisterPageState = {};
 
-	private handleSignUpFormForm(event: React.FormEvent<HTMLFormElement>) {
+	private handleSignUpForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const formElements = event.currentTarget.elements;
 		const username = formElements.namedItem("username") as HTMLInputElement;
@@ -53,7 +53,7 @@ class RegisterPage extends React.Component<
 			[],
 			(err: Error | undefined) => {
 				if (err) {
-					this.setState({ error: Error(err.message, "Sign Up Error") });
+					this.setState({ error: ErrorBox(err.message, "Sign Up Error") });
 					return;
 				}
 				this.setState({
@@ -67,7 +67,7 @@ class RegisterPage extends React.Component<
 
 	private SignUpForm() {
 		return (
-			<Form role="form" onSubmit={this.handleSignUpFormForm}>
+			<Form role="form" onSubmit={this.handleSignUpForm}>
 				<Input
 					id={AUTH_REGISTER_USERNAME_INPUT}
 					label="Username"
@@ -119,7 +119,7 @@ class RegisterPage extends React.Component<
 			true,
 			(error: Error | undefined) => {
 				if (error) {
-					this.setState({ error: Error(error.message) });
+					this.setState({ error: ErrorBox(error.message) });
 					return;
 				}
 				this.setState({

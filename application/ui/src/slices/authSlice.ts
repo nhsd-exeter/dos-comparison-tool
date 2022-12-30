@@ -10,16 +10,17 @@ export const signOut = createAction("signOut");
 
 export const initialState = { isLoggedIn: false } as AuthState;
 
+// Slice to handle user authentication
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(signIn, (state) => {
+		builder.addCase(signIn, (state: AuthState) => {
 			state.isLoggedIn = true;
 			return state;
 		});
-		builder.addCase(signOut, (state) => {
+		builder.addCase(signOut, (state: AuthState) => {
 			state.isLoggedIn = false;
 			return state;
 		});

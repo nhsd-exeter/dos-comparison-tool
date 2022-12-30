@@ -1,6 +1,9 @@
 import { ErrorSummary } from "nhsuk-react-components";
 
-const Error = (message: string, title = "There is a problem"): JSX.Element => {
+const ErrorBox = (
+	message: string,
+	title = "There is a problem"
+): JSX.Element => {
 	return (
 		<ErrorSummary
 			aria-labelledby="error-summary-title"
@@ -13,4 +16,4 @@ const Error = (message: string, title = "There is a problem"): JSX.Element => {
 	);
 };
 
-export default Error;
+export default ErrorBox;

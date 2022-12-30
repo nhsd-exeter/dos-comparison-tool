@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { authSlice } from "../slices/authSlice";
+import { loginErrorSlice } from "../slices/loginErrorSlice";
 
 export function renderWithProvidersAndRouter(
 	ui,
@@ -10,8 +11,12 @@ export function renderWithProvidersAndRouter(
 		preloadedState = {},
 		// Automatically create a store instance if no store was passed in
 		store = configureStore({
-			reducer: { auth: authSlice.reducer },
+			reducer: { auth: authSlice.reducer, loginError: loginErrorSlice.reducer },
 			preloadedState,
+			middleware: (getDefaultMiddleware) =>
+				getDefaultMiddleware({
+					serializableCheck: false,
+				}),
 		}),
 		...renderOptions
 	} = {}
