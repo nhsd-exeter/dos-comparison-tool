@@ -14,8 +14,7 @@
     "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
     "test": "craco test --coverage --watchAll=false",
     "test:watch": "craco test --coverage --watchAll=true",
-    "test:debug": "craco --inspect-brk test --runInBand --no-cache",
-    "test:mutation": "yarn stryker run"
+    "test:debug": "craco --inspect-brk test --runInBand --no-cache"
   },
   "packageManager": "yarn@3.3.0",
   "dependencies": {

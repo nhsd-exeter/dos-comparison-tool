@@ -12,7 +12,6 @@
   - [Testing](#testing)
     - [Unit tests](#unit-tests)
       - [Typescript Unit tests](#typescript-unit-tests)
-    - [Mutation tests](#mutation-tests)
     - [End to End tests](#end-to-end-tests)
     - [Test data and mock services](#test-data-and-mock-services)
     - [Manual check](#manual-check)
@@ -143,15 +142,6 @@ Unit testing is a software testing method by which individual units of source co
 Unit Tests are written in Typescript and run using Jest. They are located in the `__test__` subdirectory of the code it's testing.
 
     make ui-test
-
-### Mutation tests
-
-Mutation testing is a way to measure your tests' effectiveness. It will modify your code, run your tests, and then measure the code coverage of your tests. The idea is that if your tests don't cover the changes made by the mutation, then your tests are not effective.
-
-This testing is ran using Stryker. The `stryker.conf.js` file is located at `application/ui/stryker.conf.json`
-For more documentation on Stryker, please visit <https://stryker-mutator.io/docs/stryker-js/introduction/>
-
-    make typescript-mutation-test
 
 ### End to End tests
 
