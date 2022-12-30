@@ -8,6 +8,7 @@
     - [Local Project Setup](#local-project-setup)
   - [Contributing](#contributing)
   - [Development](#development)
+    - [Local UI Development](#local-ui-development)
   - [Testing](#testing)
     - [Unit tests](#unit-tests)
       - [Typescript Unit tests](#typescript-unit-tests)
@@ -85,10 +86,10 @@ Generate and trust a self-signed certificate that will be used locally to enable
 
 ### Local Project Setup
 
-    make [? python|java]-virtualenv
+    make setup
     make build
     make start log
-    open https://ui.project.local:8443
+    open https://localhost:8081
 
 ## Contributing
 
@@ -112,6 +113,12 @@ Before starting any work, please read [Contributing.md](documentation/Contributi
 - Code quality
 - Reference the [TODO.md](documentation/TODO.md) file
 - Provide guidance on how to use feature toggles and branching by abstraction
+
+### Local UI Development
+
+To start the UI in development mode, run the following command. It assumes that you have already `tx-mfa` authenticated into the nonprod AWS account.
+
+    make ui-start PROFILE=dev
 
 ## Testing
 

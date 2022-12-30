@@ -57,7 +57,6 @@ describe("All LoginPage Content is covered", () => {
 
 	test("New Password Required error message is stored when the login process fails", () => {
 		// Arrange
-
 		sinon
 			.stub(CognitoUser.prototype, "authenticateUser")
 			.callsFake((authDetails, callbacks) => {
