@@ -1,9 +1,8 @@
 from os import getenv
 
-from ..elements import wait_and_get_element
-
 from ..aws import get_secret
 from ..drivers.chrome_driver import get_driver
+from ..elements import wait_and_get_element
 from .page import Page
 
 

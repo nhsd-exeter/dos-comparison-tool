@@ -1,12 +1,12 @@
 from os import getenv
+from time import sleep
 
 from pytest_bdd import given, scenarios, then, when
 from selenium import webdriver
 
-from time import sleep
 from ..utils.aws import delete_user, get_secret
-from ..utils.pages.register_page import RegisterPage
 from ..utils.pages.login_page import LoginPage
+from ..utils.pages.register_page import RegisterPage
 from ..utils.types import SignInContext, SignUpContext
 from ..utils.utils import login_as_user
 

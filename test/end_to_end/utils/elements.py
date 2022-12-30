@@ -1,9 +1,10 @@
-from .drivers.chrome_driver import get_driver
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.remote.webelement import WebElement
+
+from .drivers.chrome_driver import get_driver
 
 
 def wait_for_element_to_be_visible(element_id: str, timeout=10) -> None:

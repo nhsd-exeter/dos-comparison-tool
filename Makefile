@@ -151,13 +151,13 @@ typescript-mutation-test: # Run TypeScript mutation tests
 # Python targets
 
 python-imports-check: # Check Python imports - optional: DIR=[path]
-	DIR=$(or $(DIR), .)
-	python -m isort $(DIR) -l=120 --check-only --profile=black \
+	if [ -z "$(DIR)" ]; then DIR="."; fi
+	python -m isort $$DIR -l=120 --check-only --profile=black \
 		--force-alphabetical-sort-within-sections
 
 python-imports-format: # Format Python imports - optional: DIR=[path]
-	DIR=$(or $(DIR), .)
-	python -m isort $(DIR) -l=120 --profile=black \
+	if [ -z "$(DIR)" ]; then DIR="."; fi
+	python -m isort $$DIR -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections
 
 # ==============================================================================
