@@ -151,13 +151,13 @@ typescript-mutation-test: # Run TypeScript mutation tests
 # Python targets
 
 python-imports-check: # Check Python imports - optional: DIR=[path]
-	DIR=$(or $(DIR), .)
-	python -m isort $(DIR) -l=120 --check-only --profile=black \
+	if [ -z "$(DIR)" ]; then DIR="."; fi
+	python -m isort $$DIR -l=120 --check-only --profile=black \
 		--force-alphabetical-sort-within-sections
 
 python-imports-format: # Format Python imports - optional: DIR=[path]
-	DIR=$(or $(DIR), .)
-	python -m isort $(DIR) -l=120 --profile=black \
+	if [ -z "$(DIR)" ]; then DIR="."; fi
+	python -m isort $$DIR -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections
 
 # ==============================================================================
@@ -174,7 +174,7 @@ end-to-end-test:
 	make -s docker-run-python \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest --gherkin-terminal-reporter"
+	CMD="pytest"
 
 # ==============================================================================
 # Deployment variables

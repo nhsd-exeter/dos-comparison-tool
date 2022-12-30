@@ -2,10 +2,12 @@ import { ErrorSummary } from "nhsuk-react-components";
 
 const ErrorBox = (
 	message: string,
-	title = "There is a problem"
+	title = "There is a problem",
+	id = "error-summary"
 ): JSX.Element => {
 	return (
 		<ErrorSummary
+			id={id}
 			aria-labelledby="error-summary-title"
 			role="alert"
 			tabIndex={-1}

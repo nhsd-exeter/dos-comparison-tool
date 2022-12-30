@@ -159,11 +159,22 @@ End to end testing is a software testing method that tests a software applicatio
 
 These tests are written in python and run with pytest and pytest bdd. These tests are located in the `test/end_to_end` directory.
 
+The prerequisites for running these tests are:
+
+- AWS Cognito is setup and configured using `make provision-infrastructure PROFILE= ENVIRONMENT=`
+- The UI is running locally or deployed to a nonprod environment. To run the UI locally, run `make ui-build start PROFILE= ENVIRONMENT=`
+
+To run the end to end tests, run the following command:
+
     make end-to-end-test PROFILE= ENVIRONMENT=
 
 Example:
 
     make end-to-end-test PROFILE=dev ENVIRONMENT=dev
+
+To view the tests running in a browser, run the following command:
+
+    make test-browser
 
 ### Test data and mock services
 
