@@ -1,4 +1,8 @@
 import { ActionLink } from "nhsuk-react-components";
+import {
+	AUTH_FORGOTTEN_PASSWORD_ACTION_LINK,
+	AUTH_SIGN_UP_ACTION_LINK,
+} from "../../constants/componentIds";
 import { FORGOTTEN_PASSWORD_PATH, REGISTER_PATH } from "../../constants/paths";
 import { useAppSelector } from "../../hooks";
 import { selectError } from "../../slices/loginErrorSlice";
@@ -14,8 +18,13 @@ function LoginPage(): JSX.Element {
 				<p>Log in to the DoS Comparison Tool</p>
 				{error ? error : null}
 				<LoginForm />
-				<ActionLink href={REGISTER_PATH}>Create an account</ActionLink>
-				<ActionLink href={FORGOTTEN_PASSWORD_PATH}>
+				<ActionLink id={AUTH_SIGN_UP_ACTION_LINK} href={REGISTER_PATH}>
+					Create an account
+				</ActionLink>
+				<ActionLink
+					id={AUTH_FORGOTTEN_PASSWORD_ACTION_LINK}
+					href={FORGOTTEN_PASSWORD_PATH}
+				>
 					Forgotten your password?
 				</ActionLink>
 			</div>
