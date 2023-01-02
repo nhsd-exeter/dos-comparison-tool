@@ -42,7 +42,7 @@
     "@swc/jest": "^0.2.24",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.4",
+    "@types/jest": "^29.2.5",
     "@types/jsdom": "^20.0.1",
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
