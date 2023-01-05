@@ -102,6 +102,7 @@ ui-build-clean: # Clean UI build artefacts
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
 
 # ==============================================================================
+# TypeScript Development, Linting and Testing targets
 
 yarn-install: # Install yarn dependencies
 	cd $(APPLICATION_DIR)/ui
@@ -148,7 +149,17 @@ typescript-mutation-test: # Run TypeScript mutation tests
 	yarn run test:mutation
 
 # ==============================================================================
-# Python targets
+# Python Development, Linting and Testing targets
+
+pip-install: # Install Python dependencies
+	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
+	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
+
+python-test: # Run Python unit tests
+	python -m pytest application
+
+python-dead-code-check: # Check for dead Python code
+	python -m vulture $(APPLICATION_DIR)
 
 python-imports-check: # Check Python imports - optional: DIR=[path]
 	if [ -z "$(DIR)" ]; then DIR="."; fi
@@ -159,6 +170,22 @@ python-imports-format: # Format Python imports - optional: DIR=[path]
 	if [ -z "$(DIR)" ]; then DIR="."; fi
 	python -m isort $$DIR -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections
+
+python-security-check: # Run Python security checks
+	python -m bandit -r application -c pyproject.toml
+
+# ==============================================================================
+# Development targets
+
+build-lambda: ### Build lambda docker image - mandatory: NAME
+	UNDERSCORE_LAMBDA_NAME=$$(echo $(NAME) | tr '-' '_')
+	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
+	cd $(APPLICATION_DIR)
+	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py > /dev/null 2>&1
+	cd $(PROJECT_DIR)
+	make -s docker-image NAME=$(NAME)
+	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt
 
 # ==============================================================================
 # Testing targets
