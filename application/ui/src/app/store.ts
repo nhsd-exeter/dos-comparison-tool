@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
-import loginErrorReducer from "./slices/loginErrorSlice";
+import authReducer from "../slices/authSlice";
+import loginErrorReducer from "../slices/loginErrorSlice";
 
 export function devTools(): boolean {
 	return process.env.NODE_ENV === "development" ? true : false;

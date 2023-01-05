@@ -1,14 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import {
-	BASE_PATH,
-	FORGOTTEN_PASSWORD_PATH,
-	LOGIN_PATH,
-	MENU_PATH,
-	REGISTER_PATH,
-} from "../constants/paths";
-import { useAppSelector } from "../hooks";
-import { selectLoggedIn } from "../slices/authSlice";
+import { useAppSelector } from "./app/hooks";
 import {
 	ErrorPage,
 	ForgottenPasswordPage,
@@ -16,7 +8,15 @@ import {
 	LoginPage,
 	MenuPage,
 	RegisterPage,
-} from "./index";
+} from "./components";
+import {
+	BASE_PATH,
+	FORGOTTEN_PASSWORD_PATH,
+	LOGIN_PATH,
+	MENU_PATH,
+	REGISTER_PATH,
+} from "./constants/paths";
+import { selectLoggedIn } from "./slices/authSlice";
 
 export class App extends React.Component {
 	render(): JSX.Element {

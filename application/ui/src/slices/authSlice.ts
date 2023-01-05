@@ -1,5 +1,5 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState } from "../app/store";
 
 export interface AuthState {
 	isLoggedIn: boolean;

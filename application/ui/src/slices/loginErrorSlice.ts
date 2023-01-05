@@ -1,7 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../app/store";
 import { ErrorBox } from "../components/common";
-import { RootState } from "../store";
 
 export interface LoginErrorState {
 	error?: JSX.Element;

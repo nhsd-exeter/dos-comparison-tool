@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import { screen } from "@testing-library/react";
-import { renderWithProvidersAndRouter } from "../../__test__/utils-for-tests";
 import { App } from "../App";
-import { expectedPageText } from "../homePage/__test__/homePage.spec";
+import { expectedPageText } from "../components/homePage/__test__/homePage.spec";
+import { renderWithProvidersAndRouter } from "./utils-for-tests";
 
 describe("App Public Routes Tests", () => {
 	test("Application by default renders homepage", () => {

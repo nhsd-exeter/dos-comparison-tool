@@ -1,0 +1,129 @@
+name: "Check code format and quality"
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, ready_for_review, synchronize, reopened]
+jobs:
+  check-code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check text files format
+        run: |
+          build/automation/etc/githooks/scripts/editorconfig-pre-commit.sh
+      - name: GitHub Actions - Check best practices
+        run: |
+          make github-actions-best-practices
+      - name: Kubernetes - Check best practices
+        run: |
+          make kubernetes-best-practices
+      - name: Docker - Check best practices
+        run: |
+          make docker-best-practices
+
+  typescript-check-code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+          cache-dependency-path: application/ui/yarn.lock
+      - name: Test Setup
+        run: make typescript-test-ci-setup
+      - name: Typescript Check Package
+        run: |
+          make typescript-package-duplicate-check
+      - name: Typescript Code Format and Quality
+        run: |
+          make typescript-check-format typescript-check-lint
+
+  terraform-check-code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check Terraform files format
+        run: |
+          build/automation/etc/githooks/scripts/terraform-format-pre-commit.sh
+      - name: Checkov Terraform Best Practices
+        run: |
+          make terraform-best-practices
+      - name: TFSec Terraform Security Scanning
+        run: |
+          make terraform-security
+
+  python-tests-check-code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: |
+            test/requirements-test.txt
+      - name: Install Python Dependencies
+        run: |
+          make test-install
+      - name: Python Import Format Check
+        run: |
+          make -s python-imports-check DIR="test"
+      - name: Check Python Code Quality and Format
+        run: |
+          make -s python-code-check FILES="test"
+
+  CodeQL-Analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: typescript, python
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+  sonarcloud-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+          cache-dependency-path: application/ui/yarn.lock
+      - name: Test Setup
+        run: make typescript-test-ci-setup
+      - name: Run Typescript Unit Tests
+        run: make typescript-test
+      - uses: sonarsource/sonarcloud-github-action@master
+        # SEE: https://github.com/SonarSource/sonarcloud-github-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.sources=application,deployment,infrastructure
+            -Dsonar.organization=nhsd-exeter
+            -Dsonar.projectKey=uec-dos-ct
+            -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js,application/ui/src/reportWebVitals.ts,application/ui/src/setupTests.ts
+            -Dsonar.tests=test
+            -Dsonar.terraform.provider.aws.version=4.48.0
+            -Dsonar.python.version=3.9
+            -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info
