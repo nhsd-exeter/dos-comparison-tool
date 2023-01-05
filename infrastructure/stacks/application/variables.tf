@@ -79,6 +79,11 @@ variable "api_gateway_name" {
   description = "The name of the API Gateway"
 }
 
+variable "cognito_authorizer_name" {
+  type        = string
+  description = "The name of the Cognito authorizer"
+}
+
 # ############################
 # LAMBDA
 # ############################

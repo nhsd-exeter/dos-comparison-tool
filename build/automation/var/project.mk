@@ -46,6 +46,7 @@ TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CL
 TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-monitoring-dashboard
 # API Gateway
 TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
+TF_VAR_cognito_authorizer_name := $(PROJECT_ID)-$(ENVIRONMENT)-cognito-authorizer
 # Search Lambda
 TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
 TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search

@@ -57,6 +57,19 @@ resource "aws_api_gateway_stage" "dos_comparison_tool_api_gateway_stage" {
   }
 }
 
+resource "aws_api_gateway_authorizer" "cognito_authorizer" {
+  name        = var.cognito_authorizer_name
+  rest_api_id = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
+  type        = "COGNITO_USER_POOLS"
+
+  provider_arns = ["arn:aws:cognito-idp:${var.aws_region}:${var.aws_account_id}:userpool/${aws_cognito_user_pool.dos_comparison_tool_user_pool.id}"]
+
+  depends_on = [
+    aws_cognito_user_pool.dos_comparison_tool_user_pool,
+    aws_cognito_user_pool_client.dos_comparison_tool_user_pool_client,
+  ]
+}
+
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "di_endpoint_access_logs" {
   name              = "/aws/api-gateway/${var.api_gateway_name}"

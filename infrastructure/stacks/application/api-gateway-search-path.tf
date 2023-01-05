@@ -17,7 +17,12 @@ resource "aws_api_gateway_method" "search_path_method" {
   http_method   = "POST"
   resource_id   = aws_api_gateway_resource.search_path.id
   rest_api_id   = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
-  authorization = "AWS_IAM"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
+
+  depends_on = [
+    aws_api_gateway_authorizer.cognito_authorizer,
+  ]
 }
 
 resource "aws_api_gateway_method_settings" "search_path_method_settings" {
