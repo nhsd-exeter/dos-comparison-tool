@@ -27,6 +27,38 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
       {
         height : 6,
         width : 6,
+        y : 0,
+        x : 12,
+        type : "metric",
+        properties : {
+          metrics : [
+            ["AWS/ApiGateway", "4XXError", "ApiName", aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.name],
+            [".", "5XXError", ".", "."]
+          ],
+          period : 60,
+          region : var.aws_region,
+          stacked : false,
+          stat : "Sum",
+          title : "API Error Responses",
+          view : "gauge",
+          yAxis : {
+            left : {
+              min : 0,
+              max : 100
+            }
+          },
+          legend : {
+            position : "bottom"
+          },
+          liveData : false,
+          setPeriodToTimeRange : false,
+          sparkline : true,
+          trend : true
+        }
+      },
+      {
+        height : 6,
+        width : 6,
         y : 12,
         x : 18,
         type : "metric",
@@ -51,6 +83,7 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
 
   depends_on = [
     aws_cognito_user_pool.dos_comparison_tool_user_pool,
-    aws_cognito_user_pool_client.dos_comparison_tool_user_pool_client
+    aws_cognito_user_pool_client.dos_comparison_tool_user_pool_client,
+    aws_api_gateway_rest_api.dos_comparison_tool_api_gateway,
   ]
 }
