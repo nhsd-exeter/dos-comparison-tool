@@ -31,6 +31,7 @@ test: # Test project
 	make stop
 
 push: # Push project artefacts to the registry
+	make docker-push NAME=search
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
@@ -51,13 +52,16 @@ build-and-start: # Build and start application - mandatory: PROFILE=[name]
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
 
-build-and-push: # Build and push docker images
+build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
 
 clean: # Clean up project
-	make \
-		ui-clean \
-		terraform-clean
+	make search-clean
+	make ui-clean
+	make terraform-clean
+	make python-clean
+	make docker-clean
+	make k8s-clean STACK=application
 
 # ==============================================================================
 # Supporting targets
@@ -65,6 +69,7 @@ clean: # Clean up project
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
 
 # ==============================================================================
+# User Interface targets (UI Docker Image and UI Development Server)
 
 ui-build: # Build UI image
 	make -s ui-config PROFILE=PROFILE_TO_REPLACE ENVIRONMENT=ENVIRONMENT_TO_REPLACE
@@ -100,6 +105,15 @@ ui-build-clean: # Clean UI build artefacts
 	rm -rf $(APPLICATION_DIR)/ui/node_modules
 	rm -rf $(APPLICATION_DIR)/ui/coverage
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
+
+# ==============================================================================
+# Search targets (Search Lambda Docker Image)
+
+search-build: # Build Search image
+	make -s docker-build NAME=search
+
+search-clean: # Clean Search
+	make docker-image-clean NAME=search
 
 # ==============================================================================
 # TypeScript Development, Linting and Testing targets
