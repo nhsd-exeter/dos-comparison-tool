@@ -1,5 +1,6 @@
 bandit[toml]
 black
+boto3
 coverage[toml]
 flake8
 isort
