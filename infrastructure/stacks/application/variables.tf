@@ -71,6 +71,41 @@ variable "cloudwatch_monitoring_dashboard_name" {
 }
 
 # ############################
+# API GATEWAY
+# ############################
+
+variable "api_gateway_name" {
+  type        = string
+  description = "The name of the API Gateway"
+}
+
+# ############################
+# LAMBDA
+# ############################
+
+variable "search_lambda_function_name" {
+  type        = string
+  description = "The name of the search lambda"
+}
+
+variable "search_lambda_image_uri" {
+  type        = string
+  description = "The URI of the search lambda image"
+}
+
+# ############################
+# SPLUNK
+# ############################
+
+variable "splunk_firehose_subscription" {
+  description = "Name of splunk firehose subscription"
+}
+
+variable "splunk_firehose_role" {
+  description = "Name of splunk firehose IAM role"
+}
+
+# ############################
 # OTHER
 # ############################
 

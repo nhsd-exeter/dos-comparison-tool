@@ -17,7 +17,11 @@ PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 
+TF_VAR_role_prefix := $(ROLE_PREFIX)
 # ==============================================================================
+# Splunk
+TF_VAR_splunk_firehose_subscription := $(PROJECT_ID)-cw-logs-firehose
+TF_VAR_splunk_firehose_role := $(PROJECT_ID)_cw_firehose_access_role
 # Kubernetes
 K8S_SERVICE_ACCOUNT_NAME = $(PROJECT_ID)-$(ENVIRONMENT)-k8s-service-account
 TF_VAR_application_service_account_name := $(K8S_SERVICE_ACCOUNT_NAME)
@@ -40,6 +44,13 @@ TF_VAR_cognito_secrets_user_pool_id_key := $(COGNITO_SECRETS_USER_POOL_ID_KEY)
 TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)
 # Cloudwatch
 TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-monitoring-dashboard
+# API Gateway
+TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
+# Search Lambda
+TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
+TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search
+TF_VAR_search_lambda_image_tag := $(or $(SEARCH_IMAGE_TAG), $(VERSION))
+TF_VAR_search_lambda_image_uri := $(TF_VAR_search_lambda_image_repository):$(TF_VAR_search_lambda_image_tag)
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
