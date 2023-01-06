@@ -8,8 +8,6 @@ resource "aws_cognito_user_pool" "dos_comparison_tool_user_pool" {
     require_numbers   = true
     require_symbols   = true
     require_uppercase = true
-    # TODO: Add temporary password validity
-    # temporary_password_validity_days = 1
   }
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"

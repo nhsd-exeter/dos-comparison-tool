@@ -14,6 +14,7 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 # Set up local virtual environment and download dependencies
 
 build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
+	make search-build
 	make ui-build
 
 start: # Start project
@@ -31,6 +32,7 @@ test: # Test project
 	make stop
 
 push: # Push project artefacts to the registry
+	make docker-push NAME=search
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
@@ -51,13 +53,16 @@ build-and-start: # Build and start application - mandatory: PROFILE=[name]
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
 
-build-and-push: # Build and push docker images
+build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
 
 clean: # Clean up project
-	make \
-		ui-clean \
-		terraform-clean
+	make search-clean
+	make ui-clean
+	make terraform-clean
+	make python-clean
+	make docker-clean
+	make k8s-clean STACK=application
 
 # ==============================================================================
 # Supporting targets
@@ -65,6 +70,7 @@ clean: # Clean up project
 trust-certificate: ssl-trust-certificate-project ## Trust the SSL development certificate
 
 # ==============================================================================
+# User Interface targets (UI Docker Image and UI Development Server)
 
 ui-build: # Build UI image
 	make -s ui-config PROFILE=PROFILE_TO_REPLACE ENVIRONMENT=ENVIRONMENT_TO_REPLACE
@@ -102,6 +108,16 @@ ui-build-clean: # Clean UI build artefacts
 	rm -f $(APPLICATION_DIR)/ui/ui-app.tar.gz
 
 # ==============================================================================
+# Search targets (Search Lambda Docker Image)
+
+search-build: # Build Search image
+	make -s build-lambda NAME=search
+
+search-clean: # Clean Search
+	make docker-image-clean NAME=search
+
+# ==============================================================================
+# TypeScript Development, Linting and Testing targets
 
 yarn-install: # Install yarn dependencies
 	cd $(APPLICATION_DIR)/ui
@@ -148,7 +164,17 @@ typescript-mutation-test: # Run TypeScript mutation tests
 	yarn run test:mutation
 
 # ==============================================================================
-# Python targets
+# Python Development, Linting and Testing targets
+
+pip-install: # Install Python dependencies
+	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
+	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
+
+python-test: # Run Python unit tests
+	python -m pytest application
+
+python-dead-code-check: # Check for dead Python code
+	python -m vulture $(APPLICATION_DIR)
 
 python-imports-check: # Check Python imports - optional: DIR=[path]
 	if [ -z "$(DIR)" ]; then DIR="."; fi
@@ -159,6 +185,22 @@ python-imports-format: # Format Python imports - optional: DIR=[path]
 	if [ -z "$(DIR)" ]; then DIR="."; fi
 	python -m isort $$DIR -l=120 --profile=black \
 		--force-alphabetical-sort-within-sections
+
+python-security-check: # Run Python security checks
+	python -m bandit -r application -c pyproject.toml
+
+# ==============================================================================
+# Development targets
+
+build-lambda: ### Build lambda docker image - mandatory: NAME
+	UNDERSCORE_LAMBDA_NAME=$$(echo $(NAME) | tr '-' '_')
+	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
+	cd $(APPLICATION_DIR)
+	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py > /dev/null 2>&1
+	cd $(PROJECT_DIR)
+	make -s docker-image NAME=$(NAME)
+	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt
 
 # ==============================================================================
 # Testing targets
@@ -202,7 +244,7 @@ docker-best-practices:
 	make docker-run-checkov DIR=/build/docker CHECKOV_OPTS="--framework dockerfile --skip-check CKV_DOCKER_2,CKV_DOCKER_3,CKV_DOCKER_4"
 
 terraform-best-practices:
-	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV2_AWS_29"
+	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV_AWS_272,CKV2_AWS_29"
 
 kubernetes-best-practices:
 	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_20,CKV_K8S_22,CKV_K8S_23,CKV_K8S_28,CKV_K8S_30,CKV_K8S_37,CKV_K8S_40,CKV_K8S_43"

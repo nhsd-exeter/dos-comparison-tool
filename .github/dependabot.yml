@@ -9,6 +9,12 @@ updates:
 
   # Maintain dependencies for Python
   - package-ecosystem: "pip"
+    directory: "/application/search"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+
+  - package-ecosystem: "pip"
     directory: "/test"
     schedule:
       interval: "weekly"
@@ -29,6 +35,12 @@ updates:
     target-branch: "main"
 
   # Maintain dependencies for Terraform
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure/modules/lambda"
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
+
   - package-ecosystem: "terraform"
     directory: "/infrastructure/stacks/application"
     schedule:
