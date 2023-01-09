@@ -4365,6 +4365,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.35":
+  version: 3.0.0-rc.35
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.35"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 70ea573e87ef27a1861622d9de66490dc3b12606c33fadc6ab1e7ac8dbd0009421ff8c342049947b45fb6a8f281d15268fb280e8e49f0114929aa8386297df68
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.34":
   version: 3.0.0-rc.34
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.34"
@@ -4514,6 +4523,23 @@ __metadata:
   peerDependencies:
     "@yarnpkg/core": ^4.0.0-rc.34
   checksum: 8d80e87a104503895111d40006a0b177f3f72e77f45d79ac7d8f1a9cd0fa8a3f79d6a206f4b3f5dfeb1902c4f685c7248a0e2d5f2c6e060bd2915b26822d1cab
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-git@npm:^3.0.0-rc.35":
+  version: 3.0.0-rc.35
+  resolution: "@yarnpkg/plugin-git@npm:3.0.0-rc.35"
+  dependencies:
+    "@types/semver": ^7.1.0
+    "@yarnpkg/fslib": ^3.0.0-rc.35
+    clipanion: ^3.2.0-rc.10
+    git-url-parse: ^13.1.0
+    lodash: ^4.17.15
+    semver: ^7.1.2
+    tslib: ^2.4.0
+  peerDependencies:
+    "@yarnpkg/core": ^4.0.0-rc.35
+  checksum: 6fec6a2a69d299b3ca672757d164e9690ef38e2dfa9cc740bcca33d292e7749ca1953a75d3f415b0f5584472c4a8683ca1441196598d722c3b8598c0b7d25a05
   languageName: node
   linkType: hard
 
@@ -7431,7 +7457,7 @@ __metadata:
     "@yarnpkg/cli": ^4.0.0-rc.34
     "@yarnpkg/core": ^4.0.0-rc.34
     "@yarnpkg/plugin-essentials": ^4.0.0-rc.34
-    "@yarnpkg/plugin-git": ^3.0.0-rc.34
+    "@yarnpkg/plugin-git": ^3.0.0-rc.35
     "@yarnpkg/plugin-interactive-tools": ^4.0.0-rc.34
     amazon-cognito-identity-js: ^6.1.2
     aws-sdk-mock: ^5.8.0
