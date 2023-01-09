@@ -4,7 +4,7 @@
 
 Design the new DoS Comparison Tool.
 
-- Date: **12/20/2022**
+- Date: **20/12/2022**
 - Status: **Decided**
 - Deciders: **Jack Plowman, Jonathan Pearce**
 
