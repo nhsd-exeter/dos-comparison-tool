@@ -4377,6 +4377,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/libui@npm:^3.0.0-rc.35":
+  version: 3.0.0-rc.35
+  resolution: "@yarnpkg/libui@npm:3.0.0-rc.35"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    ink: ^3.0.8
+    react: ^16.8.4
+  checksum: 4f38fbac56bd4d10c5209619bdd80bbfec2439ace3e71c62a396b2e308356f3463c09af15580c892f5b6d1a1a31bf24125d3116cd4b78f992841f5758c1d4b0e
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libzip@npm:^3.0.0-rc.34":
   version: 3.0.0-rc.34
   resolution: "@yarnpkg/libzip@npm:3.0.0-rc.34"
@@ -4573,6 +4585,27 @@ __metadata:
     "@yarnpkg/core": ^4.0.0-rc.34
     "@yarnpkg/plugin-essentials": ^4.0.0-rc.34
   checksum: e2b0230341a1bc10c59da6bc9452e5e8c5f1a440c8a70a8a096df550f9496a8debc3924af55590a3ae8c215ae6b32c106a8451bd9a5b85e7eff4cd8d4b75482a
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-interactive-tools@npm:^4.0.0-rc.35":
+  version: 4.0.0-rc.35
+  resolution: "@yarnpkg/plugin-interactive-tools@npm:4.0.0-rc.35"
+  dependencies:
+    "@yarnpkg/libui": ^3.0.0-rc.35
+    algoliasearch: ^4.2.0
+    clipanion: ^3.2.0-rc.10
+    diff: ^5.1.0
+    ink: ^3.0.8
+    ink-text-input: ^4.0.1
+    react: ^16.13.1
+    semver: ^7.1.2
+    tslib: ^2.4.0
+  peerDependencies:
+    "@yarnpkg/cli": ^4.0.0-rc.35
+    "@yarnpkg/core": ^4.0.0-rc.35
+    "@yarnpkg/plugin-essentials": ^4.0.0-rc.35
+  checksum: a5a6f30073cf34aef0cac0d3b33e6b5d9be971ae79111076f69ccad08b5382f70f41f786e8b965bc691fa083f82b053a8cb0b3268a8471e71ffdbbd49a17df2c
   languageName: node
   linkType: hard
 
@@ -7432,7 +7465,7 @@ __metadata:
     "@yarnpkg/core": ^4.0.0-rc.34
     "@yarnpkg/plugin-essentials": ^4.0.0-rc.34
     "@yarnpkg/plugin-git": ^3.0.0-rc.34
-    "@yarnpkg/plugin-interactive-tools": ^4.0.0-rc.34
+    "@yarnpkg/plugin-interactive-tools": ^4.0.0-rc.35
     amazon-cognito-identity-js: ^6.1.2
     aws-sdk-mock: ^5.8.0
     babel: ^6.23.0
