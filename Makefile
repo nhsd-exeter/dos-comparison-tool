@@ -56,6 +56,10 @@ provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name]
 build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
 
+build-and-push-without-ui: # Build and push docker images - optional: VERSION=[name]
+	make search-build
+	make docker-push NAME=search
+
 clean: # Clean up project
 	make search-clean
 	make ui-clean
@@ -86,7 +90,8 @@ ui-config: # Create UI config file for running the UI locally
 	make -s file-replace-variables FILE=$(APPLICATION_DIR_REL)/ui/.env
 
 ui-start: # Start UI development server (Hot reload) - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
-	make provision-infrastructure
+	make build-and-push-without-ui VERSION=$(BUILD_TAG)
+	make provision-infrastructure VERSION=$(BUILD_TAG)
 	eval "$$(make -s populate-application-variables)"
 	make ui-config
 	cd $(APPLICATION_DIR)/ui
