@@ -65,7 +65,7 @@
     "react-scripts": "^5.0.1",
     "sinon": "^15.0.1",
     "source-map-explorer": "^2.5.3",
-    "typedoc": "^0.23.23"
+    "typedoc": "^0.23.24"
   },
   "browserslist": {
     "production": [
