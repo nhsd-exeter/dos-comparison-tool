@@ -46,7 +46,7 @@
     "@types/jest": "^29.2.5",
     "@types/jsdom": "^20.0.1",
     "@types/sinon": "^10.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.0",
     "@yarnpkg/cli": "^4.0.0-rc.34",
     "@yarnpkg/core": "^4.0.0-rc.34",
