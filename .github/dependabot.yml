@@ -27,6 +27,18 @@ updates:
       interval: "weekly"
     target-branch: "main"
 
+  - package-ecosystem: "docker"
+    directory: "/build/docker/search"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+
+  - package-ecosystem: "docker"
+    directory: "/build/docker/ui"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+
   # Maintain dependencies for TypeScript
   - package-ecosystem: "npm"
     directory: "/application/ui"

@@ -1,4 +1,4 @@
-FROM nginx:1.19.2
+FROM nginx:1.23.3
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     TZ="Europe/London" \
