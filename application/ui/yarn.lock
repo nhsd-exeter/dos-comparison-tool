@@ -4352,6 +4352,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/core@npm:^4.0.0-rc.37":
+  version: 4.0.0-rc.37
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.37"
+  dependencies:
+    "@arcanis/slice-ansi": ^1.1.1
+    "@types/semver": ^7.1.0
+    "@types/treeify": ^1.0.0
+    "@yarnpkg/fslib": ^3.0.0-rc.37
+    "@yarnpkg/libzip": ^3.0.0-rc.37
+    "@yarnpkg/parsers": ^3.0.0-rc.37
+    "@yarnpkg/shell": ^4.0.0-rc.37
+    camelcase: ^5.3.1
+    chalk: ^3.0.0
+    ci-info: ^3.2.0
+    clipanion: ^3.2.0-rc.10
+    cross-spawn: 7.0.3
+    diff: ^5.1.0
+    globby: ^11.0.1
+    got: ^11.7.0
+    lodash: ^4.17.15
+    micromatch: ^4.0.2
+    p-limit: ^2.2.0
+    semver: ^7.1.2
+    strip-ansi: ^6.0.0
+    tar: ^6.0.5
+    tinylogic: ^2.0.0
+    treeify: ^1.1.0
+    tslib: ^2.4.0
+    tunnel: ^0.0.6
+  checksum: 5f29fc02aa580bf9ea1a15c4fb6ca994b6a8380420cfd2f7f9a46cab102e8d1ab9cb6646ac636f10fa003f090a54a1cf3bae58dbe48263aee4d1a19ae1e193e0
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/extensions@npm:^2.0.0-rc.18":
   version: 2.0.0-rc.18
   resolution: "@yarnpkg/extensions@npm:2.0.0-rc.18"
@@ -4367,6 +4400,15 @@ __metadata:
   dependencies:
     tslib: ^2.4.0
   checksum: b7cee54ddaadc0e7c97da50e304ebb3b47183c33c9a5ae9ef87ac66b049c5158c71f6579eff9498ea5d9c6732fef2421a3c40bd076571c064e5948105aeb4885
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/fslib@npm:^3.0.0-rc.37":
+  version: 3.0.0-rc.37
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.37"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 5903704673424d629d9e561f1a22f9ee0509c63563a10838425ae3e4a78fc56225a33f3c3c638d9fe789b698c6a5b126622c473d69e07e954db9acdf21dccb60
   languageName: node
   linkType: hard
 
@@ -4395,6 +4437,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/libzip@npm:^3.0.0-rc.37":
+  version: 3.0.0-rc.37
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.37"
+  dependencies:
+    "@types/emscripten": ^1.39.6
+    "@yarnpkg/fslib": ^3.0.0-rc.37
+    tslib: ^2.4.0
+  peerDependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.37
+  checksum: 7692d73cb95517111e15d50bfc3d9c992e727710ee6ce8027ee0825f39bde4274f36f7b9d0890874e7b2744c077563815708c3ffb76588cd9f88d4d7f127acd7
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/nm@npm:^4.0.0-rc.36":
   version: 4.0.0-rc.36
   resolution: "@yarnpkg/nm@npm:4.0.0-rc.36"
@@ -4413,6 +4468,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: cfaf0d13589f0e8b11d8474dac053a5490c4339f6bda1f45f531afd47d1da6dbb58f98eb4829802eec21da823d63bb6d8d5966ce3e7c181ea18e58b853756ddc
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.37":
+  version: 3.0.0-rc.37
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.37"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: a6d351fbfd6f14c46f48779594b1015709605310629fae9fdeaf2e58ba87b48222a668c4b656926c2c960495491d6e465d25de7d076fa3dfe3f7f321013d80c1
   languageName: node
   linkType: hard
 
@@ -4811,6 +4876,24 @@ __metadata:
   bin:
     shell: ./lib/cli.js
   checksum: 8edac6321b63720e520a7d00e8935b8514615866716e12f0f3080673aa39feeb32623f71e1c5b6d1f34738d4af1bc9dce446c3f598413cccea31473c9b286c87
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/shell@npm:^4.0.0-rc.37":
+  version: 4.0.0-rc.37
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.37"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.37
+    "@yarnpkg/parsers": ^3.0.0-rc.37
+    chalk: ^3.0.0
+    clipanion: ^3.2.0-rc.10
+    cross-spawn: 7.0.3
+    fast-glob: ^3.2.2
+    micromatch: ^4.0.2
+    tslib: ^2.4.0
+  bin:
+    shell: ./lib/cli.js
+  checksum: 95dc57e81cd55695991fac804b1611b5cb0eeb360a736745dabadf51a91431f09ad561c878e83b624018bfb3986ef9b4b060b079e73cc4bbe3c7d793313bcb7d
   languageName: node
   linkType: hard
 
@@ -7434,7 +7517,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.49.0
     "@typescript-eslint/parser": ^5.49.0
     "@yarnpkg/cli": ^4.0.0-rc.36
-    "@yarnpkg/core": ^4.0.0-rc.36
+    "@yarnpkg/core": ^4.0.0-rc.37
     "@yarnpkg/plugin-essentials": ^4.0.0-rc.36
     "@yarnpkg/plugin-git": ^3.0.0-rc.36
     "@yarnpkg/plugin-interactive-tools": ^4.0.0-rc.36

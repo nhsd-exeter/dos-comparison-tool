@@ -49,7 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "@yarnpkg/cli": "^4.0.0-rc.36",
-    "@yarnpkg/core": "^4.0.0-rc.36",
+    "@yarnpkg/core": "^4.0.0-rc.37",
     "@yarnpkg/plugin-essentials": "^4.0.0-rc.36",
     "@yarnpkg/plugin-git": "^3.0.0-rc.36",
     "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.36",
