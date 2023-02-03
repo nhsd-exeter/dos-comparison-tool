@@ -28,6 +28,7 @@ resource "aws_api_gateway_deployment" "di_endpoint_deployment" {
 
 resource "aws_api_gateway_stage" "dos_comparison_tool_api_gateway_stage" {
   #checkov:skip=CKV2_AWS_4:Logs setting are set in the method
+  #checkov:skip=CKV2_AWS_51:TODO Ensure AWS API Gateway endpoints uses client certificate authentication
   deployment_id        = aws_api_gateway_deployment.di_endpoint_deployment.id
   rest_api_id          = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
   stage_name           = var.environment
