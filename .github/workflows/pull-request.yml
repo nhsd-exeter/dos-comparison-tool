@@ -1,7 +1,24 @@
 name: "Check pull request title, branch name and commit message"
+
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+
+permissions:
+  actions: none
+  checks: write
+  contents: read
+  deployments: none
+  id-token: none
+  issues: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: write
+  repository-projects: none
+  security-events: none
+  statuses: write
+
 jobs:
   check-pull-request:
     runs-on: ubuntu-latest
