@@ -118,3 +118,17 @@ variable "eks_terraform_state_key" {
   type        = string
   description = "The name of the Terraform state key for the EKS cluster"
 }
+
+# ############################
+# Route53
+# ############################
+
+variable "dos_comparison_tool_api_gateway_subdomain_name" {
+  type        = string
+  description = "The subdomain name for the API Gateway"
+}
+
+variable "texas_hosted_zone" {
+  type        = string
+  description = "The name of the Texas hosted zone"
+}
