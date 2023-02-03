@@ -1,5 +1,13 @@
 name: "Check code for secrets"
+
 on: push
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+  statuses: write
+
 jobs:
   check-code-security:
     runs-on: ubuntu-latest

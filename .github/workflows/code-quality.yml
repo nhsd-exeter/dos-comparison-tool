@@ -1,9 +1,17 @@
 name: "Check code format and quality"
+
 on:
   push:
     branches: [main]
   pull_request:
     types: [opened, ready_for_review, synchronize, reopened]
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+  statuses: write
+
 jobs:
   check-code-quality:
     runs-on: ubuntu-latest
