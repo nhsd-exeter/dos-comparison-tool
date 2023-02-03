@@ -52,6 +52,8 @@ TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
 TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search
 TF_VAR_search_lambda_image_tag := $(or $(SEARCH_IMAGE_TAG), $(VERSION))
 TF_VAR_search_lambda_image_uri := $(TF_VAR_search_lambda_image_repository):$(TF_VAR_search_lambda_image_tag)
+# Route53
+TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub

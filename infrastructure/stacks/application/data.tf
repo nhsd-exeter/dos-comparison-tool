@@ -6,3 +6,12 @@ data "terraform_remote_state" "eks" {
     region = var.aws_region
   }
 }
+
+data "aws_route53_zone" "texas_hosted_zone" {
+  name = var.texas_hosted_zone
+}
+
+data "aws_acm_certificate" "issued" {
+  domain   = "*.${var.texas_hosted_zone}"
+  statuses = ["ISSUED"]
+}
