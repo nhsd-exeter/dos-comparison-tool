@@ -4371,6 +4371,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.38":
+  version: 3.0.0-rc.38
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.38"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 25e467d752469440f3eb9775e1b45ee66f4aaf008d78c4244e5947cd7db9b92475939c92731c07d5839fe9e67b4e094e3d559bafa5a6968e14953f6ebfffc789
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.37":
   version: 3.0.0-rc.37
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.37"
@@ -4414,6 +4423,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: a6d351fbfd6f14c46f48779594b1015709605310629fae9fdeaf2e58ba87b48222a668c4b656926c2c960495491d6e465d25de7d076fa3dfe3f7f321013d80c1
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.38":
+  version: 3.0.0-rc.38
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.38"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: 947c9828ff18b797eae88ea43fc6a6d290528b2304a146d12cae67fee07334e61548a11f362fe34c13257e18724d11bf87d5e4eeff40ff8c8f84b71fdc19261a
   languageName: node
   linkType: hard
 
@@ -4478,6 +4497,28 @@ __metadata:
     "@yarnpkg/core": ^4.0.0-rc.37
     "@yarnpkg/plugin-git": ^3.0.0-rc.37
   checksum: e574b45a5d7c96ec7f58a29e7165dc27d38f08070a4d3b20b87f3348b636623a25fa1f7ff819e37c22e8b3ae277ec8767a2769d415eacd7b9462d692b41e80fe
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-essentials@npm:^4.0.0-rc.38":
+  version: 4.0.0-rc.38
+  resolution: "@yarnpkg/plugin-essentials@npm:4.0.0-rc.38"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.38
+    "@yarnpkg/parsers": ^3.0.0-rc.38
+    ci-info: ^3.2.0
+    clipanion: ^3.2.0-rc.10
+    enquirer: ^2.3.6
+    lodash: ^4.17.15
+    micromatch: ^4.0.2
+    semver: ^7.1.2
+    tslib: ^2.4.0
+    typanion: ^3.3.0
+  peerDependencies:
+    "@yarnpkg/cli": ^4.0.0-rc.38
+    "@yarnpkg/core": ^4.0.0-rc.38
+    "@yarnpkg/plugin-git": ^3.0.0-rc.38
+  checksum: 05486c0daebdef19209b6e49ebd8746c186bc499767ca3f09e4bd702efb8e0dc4a552a1691ecc1cf89b3b2f81dce463c232f25ec27427e55b49ea0b1c87def6c
   languageName: node
   linkType: hard
 
@@ -7436,7 +7477,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.50.0
     "@yarnpkg/cli": ^4.0.0-rc.37
     "@yarnpkg/core": ^4.0.0-rc.37
-    "@yarnpkg/plugin-essentials": ^4.0.0-rc.37
+    "@yarnpkg/plugin-essentials": ^4.0.0-rc.38
     "@yarnpkg/plugin-git": ^3.0.0-rc.37
     "@yarnpkg/plugin-interactive-tools": ^4.0.0-rc.37
     amazon-cognito-identity-js: ^6.1.2
