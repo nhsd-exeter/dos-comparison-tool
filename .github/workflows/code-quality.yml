@@ -169,7 +169,7 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.sources=application,deployment,infrastructure
+            -Dsonar.sources=application,deployment,infrastructure,build/docker
             -Dsonar.organization=nhsd-exeter
             -Dsonar.projectKey=uec-dos-ct
             -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js,application/ui/src/reportWebVitals.ts,application/ui/src/setupTests.ts,application/conftest.py,application/*/tests/**.py
