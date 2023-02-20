@@ -2850,6 +2850,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stryker-mutator/api@npm:6.4.1":
+  version: 6.4.1
+  resolution: "@stryker-mutator/api@npm:6.4.1"
+  dependencies:
+    mutation-testing-metrics: 1.7.14
+    mutation-testing-report-schema: 1.7.14
+    tslib: ~2.5.0
+  checksum: 86992b6c57f6fee04834f2916ef43b64f16ae5d57a0377caa73f143d461c323448f351b305b558cfb08ec0a9930a10a92b40167a3f2f8639818ae1f0834047a6
+  languageName: node
+  linkType: hard
+
 "@stryker-mutator/core@npm:^6.3.1":
   version: 6.3.1
   resolution: "@stryker-mutator/core@npm:6.3.1"
@@ -2924,17 +2935,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stryker-mutator/typescript-checker@npm:^6.3.1":
-  version: 6.3.1
-  resolution: "@stryker-mutator/typescript-checker@npm:6.3.1"
+"@stryker-mutator/typescript-checker@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "@stryker-mutator/typescript-checker@npm:6.4.1"
   dependencies:
-    "@stryker-mutator/api": 6.3.1
-    "@stryker-mutator/util": 6.3.1
+    "@stryker-mutator/api": 6.4.1
+    "@stryker-mutator/util": 6.4.1
     semver: ~7.3.2
   peerDependencies:
-    "@stryker-mutator/core": ~6.3.0
+    "@stryker-mutator/core": ^6.4.0
     typescript: ">=3.6"
-  checksum: fdfbf5502fd65b394f0b16ab08ddc4c3a92b534c4bf3682fb09e49a087e8b5685fd332bf12b4c72165858626a570321fcb006d3176d414253a83de2cb1e98bd5
+  checksum: b7fd0f977e50dc6d9ecf0f6ca0bd8ce181078e7d8e6fba9792a8d2dfb686f3ad1e619131122dc1c3376470462de43213949abb5b73e375b2241906c67b5b71ee
   languageName: node
   linkType: hard
 
@@ -2944,6 +2955,15 @@ __metadata:
   dependencies:
     lodash.flatmap: ~4.5.0
   checksum: c079d560df0c258002e0d111dc80478c76c88871806e79c5cfa6ea92034be3f25b17e9ad557f986adaa5e7e21e27a026daf1844bddcbaaa7358be26a8fb70825
+  languageName: node
+  linkType: hard
+
+"@stryker-mutator/util@npm:6.4.1":
+  version: 6.4.1
+  resolution: "@stryker-mutator/util@npm:6.4.1"
+  dependencies:
+    lodash.flatmap: ~4.5.0
+  checksum: 8c91eacf62d2f49a748cef4b5bb3d695e338d699ae28a025bdceb5355de3946365382293b7e0ade2efd07652df58e6b180399a7debfe8c00f34c34f8cf3d38bc
   languageName: node
   linkType: hard
 
@@ -7422,7 +7442,7 @@ __metadata:
     "@reduxjs/toolkit": ^1.9.2
     "@stryker-mutator/core": ^6.3.1
     "@stryker-mutator/jest-runner": ^6.3.1
-    "@stryker-mutator/typescript-checker": ^6.3.1
+    "@stryker-mutator/typescript-checker": ^6.4.1
     "@swc/core": ^1.3.34
     "@swc/jest": ^0.2.24
     "@testing-library/jest-dom": ^5.16.5
@@ -12042,10 +12062,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mutation-testing-metrics@npm:1.7.14":
+  version: 1.7.14
+  resolution: "mutation-testing-metrics@npm:1.7.14"
+  dependencies:
+    mutation-testing-report-schema: 1.7.14
+  checksum: 9afebd372c9c2e0fa3fa084ca8bf5a9306b686b7f9c4d3067fa2f40df0deb71f606f6157ce0e789c3edd98e9cdf25f045331577b665e4dac97301ecfbb85dfd3
+  languageName: node
+  linkType: hard
+
 "mutation-testing-report-schema@npm:1.7.10":
   version: 1.7.10
   resolution: "mutation-testing-report-schema@npm:1.7.10"
   checksum: a08047d8ac79f0bc1bedb6d1b7a3dfdb06deb2156a50d557ac142698202e89c73484c3e0644af6ccd81c6f566dad9319870dcfd123394f01598fc32a62f0bb03
+  languageName: node
+  linkType: hard
+
+"mutation-testing-report-schema@npm:1.7.14":
+  version: 1.7.14
+  resolution: "mutation-testing-report-schema@npm:1.7.14"
+  checksum: df0ff1a5d6db259e6273c2d58054322cd04397ed7e8baa99f21fc94384eb17cfa026807b460089447206689ad57f252b7d0bb0be55a7eb19b9be4e4106f0073d
   languageName: node
   linkType: hard
 
@@ -16064,6 +16100,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:~2.5.0":
+  version: 2.5.0
+  resolution: "tslib@npm:2.5.0"
+  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
   languageName: node
   linkType: hard
 
