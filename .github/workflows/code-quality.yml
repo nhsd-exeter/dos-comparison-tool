@@ -132,6 +132,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: typescript, python
+          queries: security-and-quality
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
