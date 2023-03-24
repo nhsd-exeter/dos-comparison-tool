@@ -1,17 +1,15 @@
 import { expect, test } from "@jest/globals";
-import { screen } from "@testing-library/react";
+import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
-import SearchForm from "../searchForm";
+import SearchPage from "../SearchPage";
 
-test("It renders the expected SearchForm layout", () => {
+test("It renders the expected SearchPage layout", () => {
 	// Arrange
-	renderWithProvidersAndRouter(<SearchForm />);
+	renderWithProvidersAndRouter(<SearchPage />);
 	// Act: Get the elements.
-	const roleDropDown = screen.getByLabelText("Role");
-	const ageUnitsDropDown = screen.getByLabelText("AgeUnits");
-	const ageInput = screen.getByLabelText("Age");
+	const header = document.getElementById(HEADER_ID);
+	const footer = document.getElementById(FOOTER_ID);
 	// Assert: Elements are present.
-	expect(roleDropDown).toBeTruthy();
-	expect(ageUnitsDropDown).toBeTruthy();
-	expect(ageInput).toBeTruthy();
+	expect(footer).toBeTruthy();
+	expect(header).toBeTruthy();
 });

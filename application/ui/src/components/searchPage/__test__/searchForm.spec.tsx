@@ -11,7 +11,7 @@ test("It renders the expected SearchForm layout", () => {
 	const ageUnitsDropDown = screen.getByLabelText("AgeUnits");
 	const ageInput = screen.getByLabelText("Age");
 	// Assert: Elements are present.
-	expect(roleDropDown).toBeTruthy();
-	expect(ageUnitsDropDown).toBeTruthy();
-	expect(ageInput).toBeTruthy();
+	expect(roleDropDown).toBeDefined();
+	expect(ageUnitsDropDown).toBeDefined();
+	expect(ageInput).toBeDefined();
 });

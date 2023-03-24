@@ -19,10 +19,6 @@ function SharedSearchForm() {
 			<SymptomDiscriminatorDropDown />
 			<DispositionDropDown />
 			<SexDropDown />
-
-			{/* <Button type="submit" id={NEXT_BUTTON}>
-				Search
-			</Button> */}
 		</Form>
 	);
 }
