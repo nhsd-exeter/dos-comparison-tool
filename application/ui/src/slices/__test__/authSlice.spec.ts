@@ -1,12 +1,12 @@
 import { describe, expect, test } from "@jest/globals";
-import { authSlice, initialState } from "../authSlice";
+import { authSlice, initialState, signIn, signOut } from "../authSlice";
 
 describe("tests for authSlice", () => {
 	test("User signs in", () => {
 		// Arrange - set up the initial state
 		const newInitialState = initialState;
 		const action = {
-			type: "signIn",
+			type: signIn,
 			payload: { email: "test", password: "test" },
 		};
 		// Act - run the reducer
@@ -17,9 +17,9 @@ describe("tests for authSlice", () => {
 
 	test("User signs out", () => {
 		// Arrange - set up the initial state
-		const newInitialState = { isLoggedIn: true };
+		const newInitialState = { isLoggedIn: true, session: null };
 		const action = {
-			type: "signOut",
+			type: signOut,
 			payload: { email: "test", password: "test" },
 		};
 		// Act - run the reducer

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import api from "../utils/api";
 
 export interface SearchState {
-	results: unknown;
+	results: null | [];
 }
 
 export const initialState = { results: [] } as SearchState;

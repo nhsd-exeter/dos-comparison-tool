@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../slices/authSlice";
-import compareSearchesReducer from "../slices/compareSearchesSlice";
 import loginErrorReducer from "../slices/loginErrorSlice";
 
 export function devTools(): boolean {
@@ -11,7 +10,7 @@ export const store = configureStore({
 	reducer: {
 		auth: authReducer,
 		loginError: loginErrorReducer,
-		compareSearches: compareSearchesReducer,
+		// compareSearches: compareSearchesReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({

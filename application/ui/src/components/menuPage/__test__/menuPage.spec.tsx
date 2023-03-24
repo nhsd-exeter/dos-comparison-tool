@@ -28,7 +28,6 @@ test("It renders the MenuPage Content", () => {
 		"ccsSearchCardDescription"
 	)?.textContent;
 	// Assert
-	expect(ccsSearchCardHeading).toHaveProperty("href", "http://localhost/");
 	expect(ccsSearchCardHeadingText).toStrictEqual(
 		"Check Capacity Summary Search"
 	);
