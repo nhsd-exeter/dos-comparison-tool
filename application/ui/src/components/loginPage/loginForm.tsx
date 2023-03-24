@@ -1,4 +1,8 @@
-import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
+import {
+	AuthenticationDetails,
+	CognitoUser,
+	CognitoUserSession,
+} from "amazon-cognito-identity-js";
 import { Button, Form, Input } from "nhsuk-react-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,8 +35,8 @@ function LoginForm() {
 			Password: password.value,
 		});
 		user.authenticateUser(authDetails, {
-			onSuccess: () => {
-				dispatch(signIn());
+			onSuccess: (session: CognitoUserSession) => {
+				dispatch(signIn(session));
 				navigate(MENU_PATH);
 			},
 			onFailure: (error: Error) => {

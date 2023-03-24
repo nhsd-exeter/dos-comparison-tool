@@ -43,7 +43,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/application/ui"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     target-branch: "main"
 
   # Maintain dependencies for Terraform

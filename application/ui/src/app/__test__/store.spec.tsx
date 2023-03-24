@@ -25,5 +25,8 @@ test("DevTools is not setup in production", () => {
 
 test("Store contains expected state", () => {
 	// Assert
-	expect(store.getState().auth).toStrictEqual({ isLoggedIn: false });
+	expect(store.getState().auth).toStrictEqual({
+		isLoggedIn: false,
+		session: null,
+	});
 });

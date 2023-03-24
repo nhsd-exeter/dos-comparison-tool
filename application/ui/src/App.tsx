@@ -8,6 +8,8 @@ import {
 	LoginPage,
 	MenuPage,
 	RegisterPage,
+	ResultsPage,
+	SearchPage,
 } from "./components";
 import {
 	BASE_PATH,
@@ -15,6 +17,8 @@ import {
 	LOGIN_PATH,
 	MENU_PATH,
 	REGISTER_PATH,
+	SEARCH_PATH,
+	SEARCH_RESULTS_PATH,
 } from "./constants/paths";
 import { selectLoggedIn } from "./slices/authSlice";
 
@@ -35,6 +39,8 @@ function ApplicationRouting(): JSX.Element {
 				path={FORGOTTEN_PASSWORD_PATH}
 				element={<ForgottenPasswordPage />}
 			/>
+			<Route path={SEARCH_PATH} element={<SearchPage />} />
+			<Route path={SEARCH_RESULTS_PATH} element={<ResultsPage />} />
 			<Route path="*" element={<ErrorPage />} />
 		</Routes>
 	);
@@ -43,6 +49,7 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={BASE_PATH} element={<HomePage />} />
 			<Route path={LOGIN_PATH} element={<MenuPage />} />
 			<Route path={MENU_PATH} element={<MenuPage />} />
+
 			<Route path="*" element={<ErrorPage />} />
 		</Routes>
 	);

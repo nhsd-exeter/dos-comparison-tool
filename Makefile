@@ -227,9 +227,10 @@ end-to-end-test:
 # Deployment variables
 
 populate-application-variables: ## Populate application variables required for ui to run
-	COGNITO_SECRETS=$$(make -s secret-get-existing-value NAME=$(COGNITO_SECRETS_NAME))
-	echo "export USER_POOL_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
-	echo "export CLIENT_ID=$$(echo $$COGNITO_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
+	DEPLOYMENT_SECRETS=$$(make -s secret-get-existing-value NAME=$(COGNITO_SECRETS_NAME))
+	echo "export USER_POOL_ID=$$(echo $$DEPLOYMENT_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_ID_KEY)')"
+	echo "export CLIENT_ID=$$(echo $$DEPLOYMENT_SECRETS | jq -r '.$(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)')"
+	echo "export API_ENDPOINT=$$(echo $$DEPLOYMENT_SECRETS | jq -r '.$(API_GATEWAY_ENDPOINT_KEY)')"
 
 # ==============================================================================
 
