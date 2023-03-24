@@ -1,3 +1,5 @@
+# ==============================================================================
+# Project specific variables
 ORG_NAME = nhsd-exeter
 PROGRAMME = uec
 PROJECT_GROUP = uec/dos
@@ -8,17 +10,19 @@ PROJECT_DISPLAY_NAME = DoS Comparison Tool
 PROJECT_ID = $(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)
 
 TEAM_ID = $(PROJECT_NAME)
-
 ROLE_PREFIX = UECDoSCT
 PROJECT_TAG = $(PROJECT_NAME)
 SERVICE_TAG = $(PROJECT_ID)
 
 PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
-
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
-
 TF_VAR_role_prefix := $(ROLE_PREFIX)
+
 # ==============================================================================
+# Service Variables
+
+# ==============================================================================
+# IaC Variables (Infrastructure as Code)
 # Splunk
 TF_VAR_splunk_firehose_subscription := $(PROJECT_ID)-cw-logs-firehose
 TF_VAR_splunk_firehose_role := $(PROJECT_ID)_cw_firehose_access_role
@@ -47,6 +51,8 @@ TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-moni
 # API Gateway
 TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 TF_VAR_cognito_authorizer_name := $(PROJECT_ID)-$(ENVIRONMENT)-cognito-authorizer
+API_GATEWAY_ENDPOINT_KEY := API_GATEWAY_ENDPOINT
+TF_VAR_api_gateway_endpoint_key := $(API_GATEWAY_ENDPOINT_KEY)
 # Search Lambda
 TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
 TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search

@@ -12,6 +12,7 @@ resource "aws_secretsmanager_secret_version" "cognito_secrets_version" {
     "${var.cognito_secrets_admin_password_key}"      = aws_cognito_user.admin_user.password,
     "${var.cognito_secrets_user_pool_id_key}"        = aws_cognito_user_pool.dos_comparison_tool_user_pool.id,
     "${var.cognito_secrets_user_pool_client_id_key}" = aws_cognito_user_pool_client.dos_comparison_tool_user_pool_client.id,
+    "${var.api_gateway_endpoint_key}"                = "https://${aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id}.execute-api.${var.aws_region}.amazonaws.com/${var.environment}"
   })
 
   depends_on = [

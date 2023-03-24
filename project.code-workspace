@@ -185,6 +185,7 @@
         }
       ]
     },
+    "eslint.options": { "configFile": "./application/ui/tsconfig.json" },
     "workbench.colorCustomizations": {
       "activityBar.background": "#febc41",
       "activityBar.activeBackground": "#febc41",

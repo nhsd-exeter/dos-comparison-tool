@@ -41,26 +41,6 @@ variable "cognito_secrets_name" {
   description = "The name of the Cognito secrets"
 }
 
-variable "cognito_secrets_admin_username_key" {
-  type        = string
-  description = "The key for the admin username in the Cognito secrets"
-}
-
-variable "cognito_secrets_admin_password_key" {
-  type        = string
-  description = "The key for the admin password in the Cognito secrets"
-}
-
-variable "cognito_secrets_user_pool_id_key" {
-  type        = string
-  description = "The key for the user pool ID in the Cognito secrets"
-}
-
-variable "cognito_secrets_user_pool_client_id_key" {
-  type        = string
-  description = "The key for the user pool client ID in the Cognito secrets"
-}
-
 # ############################
 # CLOUDWATCH
 # ############################
@@ -131,4 +111,34 @@ variable "dos_comparison_tool_api_gateway_subdomain_name" {
 variable "texas_hosted_zone" {
   type        = string
   description = "The name of the Texas hosted zone"
+}
+
+# ############################
+# SECRETS
+# ############################
+
+variable "api_gateway_endpoint_key" {
+  type        = string
+  description = "The key for the API Gateway endpoint in the Cognito secrets"
+}
+
+
+variable "cognito_secrets_admin_username_key" {
+  type        = string
+  description = "The key for the admin username in the Cognito secrets"
+}
+
+variable "cognito_secrets_admin_password_key" {
+  type        = string
+  description = "The key for the admin password in the Cognito secrets"
+}
+
+variable "cognito_secrets_user_pool_id_key" {
+  type        = string
+  description = "The key for the user pool ID in the Cognito secrets"
+}
+
+variable "cognito_secrets_user_pool_client_id_key" {
+  type        = string
+  description = "The key for the user pool client ID in the Cognito secrets"
 }

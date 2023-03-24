@@ -12,6 +12,7 @@ services:
       ENVIRONMENT: $ENVIRONMENT
       PROFILE: $PROFILE
       USER_POOL_ID: $USER_POOL_ID
+      API_ENDPOINT: $API_ENDPOINT
     ports:
       - 8081:8081
 

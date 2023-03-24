@@ -1,14 +1,18 @@
 import { Card } from "nhsuk-react-components";
+import { useNavigate } from "react-router-dom";
+import { SEARCH_PATH } from "../../constants/paths";
 
 const MenuCards = (): JSX.Element => {
+	const navigate = useNavigate();
 	return (
 		<Card.Group>
 			<Card.GroupItem width="one-half">
 				<Card id="ccsSearchCard" clickable>
 					<Card.Content>
 						<Card.Heading id="ccsSearchCardHeading" className="nhsuk-heading-m">
-							<Card.Link href="/">
-								{/* TODO: Add link to next page */}
+							<Card.Link
+								onClick={() => navigate(SEARCH_PATH, { replace: true })}
+							>
 								Check Capacity Summary Search
 							</Card.Link>
 						</Card.Heading>
