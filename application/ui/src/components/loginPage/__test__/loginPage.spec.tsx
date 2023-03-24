@@ -1,4 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import {
 	AUTH_FORGOTTEN_PASSWORD_ACTION_LINK,
 	AUTH_SIGN_UP_ACTION_LINK,
@@ -9,7 +10,6 @@ import {
 	FORGOTTEN_PASSWORD_PATH,
 	REGISTER_PATH,
 } from "../../../constants/paths";
-import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import LoginPage from "../loginPage";
 
 const testBaseUrl = "http://localhost";
