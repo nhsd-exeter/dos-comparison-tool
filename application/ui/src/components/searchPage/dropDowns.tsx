@@ -12,7 +12,7 @@ export function SymptomGroupDropDown() {
 
 export function SymptomDiscriminatorDropDown() {
 	return (
-		<Select label="Symptom Group">
+		<Select label="Symptom Discriminator">
 			<Select.Option value="1">NHS.UK frontend option 1</Select.Option>
 			<Select.Option value="2">NHS.UK frontend option 2</Select.Option>
 			<Select.Option value="3">NHS.UK frontend option 3</Select.Option>
@@ -51,7 +51,7 @@ export function RoleDropDown() {
 }
 export function AgeUnitsDropDown() {
 	return (
-		<Select>
+		<Select label="AgeUnits">
 			<Select.Option value="1">Years</Select.Option>
 			<Select.Option value="2">Months</Select.Option>
 			<Select.Option value="3">Days</Select.Option>
@@ -61,14 +61,10 @@ export function AgeUnitsDropDown() {
 
 export function EnvironmentDropDown() {
 	return (
-		<Select>
+		<Select label="Environment">
 			<Select.Option value="1">NHS.UK frontend option 1</Select.Option>
 			<Select.Option value="2">NHS.UK frontend option 2</Select.Option>
 			<Select.Option value="3">NHS.UK frontend option 3</Select.Option>
 		</Select>
 	);
 }
-
-// export function CreateDropDown() {
-// 	return ();
-// }
