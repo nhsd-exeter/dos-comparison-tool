@@ -2857,6 +2857,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stryker-mutator/api@npm:6.4.2":
+  version: 6.4.2
+  resolution: "@stryker-mutator/api@npm:6.4.2"
+  dependencies:
+    mutation-testing-metrics: 1.7.14
+    mutation-testing-report-schema: 1.7.14
+    tslib: ~2.5.0
+  checksum: 441ea628551143ff4aeba0172c3d0b2823b1dfe076467d5b1b2796fd49ceb5f2bce98b3f57b66ad6f9cd8ef3b5bd5c5da0e94069de6ebe9c1afa3d7fbc13296d
+  languageName: node
+  linkType: hard
+
 "@stryker-mutator/core@npm:^6.4.1":
   version: 6.4.1
   resolution: "@stryker-mutator/core@npm:6.4.1"
@@ -2931,17 +2942,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stryker-mutator/typescript-checker@npm:^6.4.1":
-  version: 6.4.1
-  resolution: "@stryker-mutator/typescript-checker@npm:6.4.1"
+"@stryker-mutator/typescript-checker@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "@stryker-mutator/typescript-checker@npm:6.4.2"
   dependencies:
-    "@stryker-mutator/api": 6.4.1
-    "@stryker-mutator/util": 6.4.1
+    "@stryker-mutator/api": 6.4.2
+    "@stryker-mutator/util": 6.4.2
     semver: ~7.3.2
   peerDependencies:
     "@stryker-mutator/core": ^6.4.0
     typescript: ">=3.6"
-  checksum: b7fd0f977e50dc6d9ecf0f6ca0bd8ce181078e7d8e6fba9792a8d2dfb686f3ad1e619131122dc1c3376470462de43213949abb5b73e375b2241906c67b5b71ee
+  checksum: 97f4ff112501a7c54d8369ffd98d551465c647f48f5b61cdb8be096ab8a4bca97ebcb647a8005eeec4f2e0bc6af3024828abcda79623005f3cb45421a808da27
   languageName: node
   linkType: hard
 
@@ -2951,6 +2962,15 @@ __metadata:
   dependencies:
     lodash.flatmap: ~4.5.0
   checksum: 8c91eacf62d2f49a748cef4b5bb3d695e338d699ae28a025bdceb5355de3946365382293b7e0ade2efd07652df58e6b180399a7debfe8c00f34c34f8cf3d38bc
+  languageName: node
+  linkType: hard
+
+"@stryker-mutator/util@npm:6.4.2":
+  version: 6.4.2
+  resolution: "@stryker-mutator/util@npm:6.4.2"
+  dependencies:
+    lodash.flatmap: ~4.5.0
+  checksum: d5e5ca678937c2b45cc8c52551ad2ca271f4e68d47d3fc0dc8f2fabff68875763c4a245f24a1be8eb99a50dcd371bdf060d2289edbd3114f677ab50e98a627d2
   languageName: node
   linkType: hard
 
@@ -7440,7 +7460,7 @@ __metadata:
     "@reduxjs/toolkit": ^1.9.3
     "@stryker-mutator/core": ^6.4.1
     "@stryker-mutator/jest-runner": ^6.4.1
-    "@stryker-mutator/typescript-checker": ^6.4.1
+    "@stryker-mutator/typescript-checker": ^6.4.2
     "@swc/core": ^1.3.37
     "@swc/jest": ^0.2.24
     "@testing-library/jest-dom": ^5.16.5
