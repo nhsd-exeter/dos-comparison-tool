@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SEARCH_PATH } from "../../constants/paths";
 import { Layout } from "../common";
 import ResultsCard from "./resultCard";
+
 function ResultsPage() {
 	const navigate = useNavigate();
 	return (

@@ -10,9 +10,6 @@ import {
 	SymptomDiscriminatorDropDown,
 	SymptomGroupDropDown,
 } from "../dropDowns";
-export const expectedHeader = "DoS Comparison Tool";
-export const expectedPageText =
-	"Compare results from between NHS Directory of Services searches";
 
 test("It renders the expected SymptomGroupDropDown component", () => {
 	// Arrange
