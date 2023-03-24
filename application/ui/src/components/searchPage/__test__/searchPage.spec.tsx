@@ -1,6 +1,6 @@
 import { expect, test } from "@jest/globals";
-import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
+import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import SearchPage from "../searchPage";
 
 test("It renders the expected SearchPage layout", () => {

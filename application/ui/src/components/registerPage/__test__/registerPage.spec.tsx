@@ -3,6 +3,7 @@ import { act, fireEvent, screen } from "@testing-library/react";
 
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import sinon from "sinon";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import {
 	AUTH_REGISTER_EMAIL_INPUT,
 	AUTH_REGISTER_PASSWORD_INPUT,
@@ -11,7 +12,6 @@ import {
 	HEADER_ID,
 	NEXT_BUTTON,
 } from "../../../constants/componentIds";
-import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import RegisterPage from "../registerPage";
 
 const testEmail = "test@test.com";

@@ -2,6 +2,7 @@ import { describe, expect, test } from "@jest/globals";
 import { act, fireEvent, screen } from "@testing-library/react";
 import { CognitoUser } from "amazon-cognito-identity-js";
 import sinon from "sinon";
+import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import {
 	AUTH_FORGOTTEN_PASSWORD_USERNAME_INPUT,
 	AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT,
@@ -9,7 +10,6 @@ import {
 	HEADER_ID,
 	NEXT_BUTTON,
 } from "../../../constants/componentIds";
-import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import ForgottenPasswordPage from "../forgottenPasswordPage";
 
 test("It renders the expected ForgottenPasswordPage layout", () => {
