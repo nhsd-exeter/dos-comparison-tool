@@ -1,0 +1,5 @@
+.age-row {
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+}

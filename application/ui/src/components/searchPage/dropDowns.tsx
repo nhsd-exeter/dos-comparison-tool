@@ -51,7 +51,7 @@ export function RoleDropDown() {
 }
 export function AgeUnitsDropDown() {
 	return (
-		<Select label="AgeUnits">
+		<Select>
 			<Select.Option value="1">Years</Select.Option>
 			<Select.Option value="2">Months</Select.Option>
 			<Select.Option value="3">Days</Select.Option>
