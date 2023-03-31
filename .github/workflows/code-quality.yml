@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           cache: "pip"
           cache-dependency-path: |
             application/requirements-dev.txt
@@ -153,7 +153,7 @@ jobs:
         run: make typescript-test
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           cache: "pip"
           cache-dependency-path: |
             application/requirements-dev.txt
@@ -176,6 +176,6 @@ jobs:
             -Dsonar.coverage.exclusions=**/__test__/**,deployment,infrastructure,application/ui/src/index.tsx,application/ui/jest.config.js,application/ui/craco.config.js,application/ui/src/reportWebVitals.ts,application/ui/src/setupTests.ts,application/conftest.py,application/*/tests/**.py
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info
             -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.python.version=3.9
+            -Dsonar.python.version=3.10
             -Dsonar.terraform.provider.aws.version=4.48.0
             -Dsonar.tests=test

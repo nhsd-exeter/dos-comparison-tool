@@ -1,4 +1,4 @@
-FROM python:3.11.1-slim
+FROM python:3.11.2-slim
 # Update Pip
 RUN python -m pip install --upgrade pip
 # Copy Python requirements
