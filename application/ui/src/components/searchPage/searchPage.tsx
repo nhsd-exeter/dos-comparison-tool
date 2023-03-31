@@ -1,4 +1,5 @@
 // import { useAppDispatch } from "../../app/hooks";
+import { Button } from "nhsuk-react-components";
 import { Layout } from "../common";
 import SearchForm from "./searchForm";
 import SharedSearchForm from "./sharedSearchForm";
@@ -14,7 +15,7 @@ function SearchPage() {
 	return (
 		<Layout>
 			<div>
-				<h1>Compare CCS Search</h1>
+				<h1>CCS Comparison Search</h1>
 				<p>Make a search to compare results from multiple environments</p>
 			</div>
 
@@ -24,6 +25,8 @@ function SearchPage() {
 			<SearchForm />
 			<h2>Search 2 Details</h2>
 			<SearchForm />
+			<br />
+			<Button href="search-results">{"Search"}</Button>
 		</Layout>
 	);
 }

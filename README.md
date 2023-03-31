@@ -9,6 +9,7 @@
   - [Contributing](#contributing)
   - [Development](#development)
     - [Local UI Development](#local-ui-development)
+    - [Upgrade UI Dependencies](#upgrade-ui-dependencies)
   - [Testing](#testing)
     - [Unit tests](#unit-tests)
       - [Typescript Unit tests](#typescript-unit-tests)
@@ -116,8 +117,20 @@ Before starting any work, please read [Contributing.md](documentation/Contributi
 ### Local UI Development
 
 To start the UI in development mode, run the following command. It assumes that you have already `tx-mfa` authenticated into the nonprod AWS account.
+This will deploy/refresh the necessary AWS components and then initiate a local development server.
 
     make ui-start PROFILE=dev
+
+Note: A `make clean` must be run after switching branches to ensure Terraform will apply to correct backend
+
+### Upgrade UI Dependencies
+
+To upgrade UI dependencies you can either use Dependabot which creates Pull Requests to upgrade individual libraries. Otherwise run the following commands:
+
+    cd application/ui
+    yarn dependency-update
+    yarn dedupe
+    // Run Tests
 
 ## Testing
 
