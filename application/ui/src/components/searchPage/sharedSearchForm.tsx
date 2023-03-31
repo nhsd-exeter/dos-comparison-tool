@@ -13,8 +13,20 @@ function SharedSearchForm() {
 
 	return (
 		<Form role="form" onSubmit={handleSearchForm}>
-			<Input type="text" required autoComplete="off" label="Postcode" />
-			<Input type="text" required autoComplete="off" label="Surgery Code" />
+			<Input
+				type="text"
+				required
+				autoComplete="off"
+				label="Postcode"
+				width="10"
+			/>
+			<Input
+				type="text"
+				required
+				autoComplete="off"
+				label="Surgery Code"
+				width="10"
+			/>
 			<SymptomGroupDropDown />
 			<SymptomDiscriminatorDropDown />
 			<DispositionDropDown />

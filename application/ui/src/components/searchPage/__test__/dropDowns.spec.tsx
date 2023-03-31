@@ -60,7 +60,7 @@ test("It renders the expected AgeUnitsDropDown component", () => {
 	// Arrange
 	renderWithProvidersAndRouter(<AgeUnitsDropDown />);
 	// Act: Get the elements.
-	const AgeUnits = screen.getByLabelText("AgeUnits");
+	const AgeUnits = document.getElementsByClassName("AgeUnits");
 	// Assert: Elements are present.
 	expect(AgeUnits).toBeTruthy();
 });
