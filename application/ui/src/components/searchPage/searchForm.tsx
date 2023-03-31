@@ -12,7 +12,13 @@ function SearchForm() {
 			<RoleDropDown />
 			<Label>Age</Label>
 			<div className="age-row">
-				<Input type="text" required autoComplete="off" width="10" />
+				<Input
+					type="text"
+					required
+					autoComplete="off"
+					width="10"
+					className="AgeInput"
+				/>
 				<AgeUnitsDropDown />
 			</div>
 		</Form>

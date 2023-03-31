@@ -16,7 +16,7 @@ export function SymptomGroupDropDown() {
 
 export function SymptomDiscriminatorDropDown() {
 	return (
-		<Select label="Disposition">
+		<Select label="Symptom Discriminator">
 			<Select.Option value="1">Option 1</Select.Option>
 			<Select.Option value="2">Option 2</Select.Option>
 			<Select.Option value="3">Option 3</Select.Option>
@@ -26,7 +26,7 @@ export function SymptomDiscriminatorDropDown() {
 
 export function DispositionDropDown() {
 	return (
-		<Select label="Symptom Discriminator">
+		<Select label="Disposition">
 			<Select.Option value="To contact a Primary Care Service with 2 hours">
 				To contact a Primary Care Service with 2 hours
 			</Select.Option>
@@ -61,7 +61,7 @@ export function RoleDropDown() {
 }
 export function AgeUnitsDropDown() {
 	return (
-		<Select>
+		<Select className="AgeUnits">
 			<Select.Option value="Years">Years</Select.Option>
 			<Select.Option value="Months">Months</Select.Option>
 			<Select.Option value="Days">Days</Select.Option>

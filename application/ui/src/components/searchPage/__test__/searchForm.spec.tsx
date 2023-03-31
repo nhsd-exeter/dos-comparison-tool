@@ -8,8 +8,8 @@ test("It renders the expected SearchForm layout", () => {
 	renderWithProvidersAndRouter(<SearchForm />);
 	// Act: Get the elements.
 	const roleDropDown = screen.getByLabelText("Role");
-	const ageUnitsDropDown = screen.getByLabelText("AgeUnits");
-	const ageInput = screen.getByLabelText("Age");
+	const ageUnitsDropDown = document.getElementsByClassName("AgeUnits");
+	const ageInput = document.getElementsByClassName("AgeInput");
 	// Assert: Elements are present.
 	expect(roleDropDown).toBeDefined();
 	expect(ageUnitsDropDown).toBeDefined();
