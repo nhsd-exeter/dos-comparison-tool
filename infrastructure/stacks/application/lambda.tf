@@ -10,6 +10,10 @@ module "search_lambda" {
   environment_variables = {
     "PROFILE" : var.profile
     "ENVIRONMENT" : var.environment
+    "POWERTOOLS_SERVICE_NAME" : var.search_lambda_function_name
+    "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
+    "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
+    "POWERTOOLS_TRACE_MIDDLEWARES" : true
   }
 }
 

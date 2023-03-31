@@ -118,6 +118,11 @@ ui-build-clean: # Clean UI build artefacts
 search-build: # Build Search image
 	make -s build-lambda NAME=search
 
+search-build-and-deploy: # Build Search image and deploy to AWS
+	make -s build-lambda NAME=search VERSION=$(BUILD_TAG)
+	make docker-push NAME=search VERSION=$(BUILD_TAG)
+	make provision-infrastructure VERSION=$(BUILD_TAG)
+
 search-clean: # Clean Search
 	make docker-image-clean NAME=search
 
