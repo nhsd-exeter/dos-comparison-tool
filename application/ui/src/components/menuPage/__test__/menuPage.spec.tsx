@@ -18,9 +18,6 @@ test("It renders the MenuPage Content", () => {
 	// Arrange
 	renderWithProvidersAndRouter(<MenuPage />);
 	// Act
-	const ccsSearchCardHeading = document
-		.getElementById("ccsSearchCardHeading")
-		?.getElementsByClassName("nhsuk-card__link")[0];
 	const ccsSearchCardHeadingText = document.getElementById(
 		"ccsSearchCardHeading"
 	)?.textContent;

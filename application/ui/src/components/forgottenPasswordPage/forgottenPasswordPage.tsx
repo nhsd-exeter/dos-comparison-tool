@@ -17,7 +17,6 @@ type ForgottenPasswordPageProps = Record<string, never>;
 type ForgottenPasswordPageState = {
 	error?: JSX.Element;
 	requested_reset?: boolean;
-	username?: string;
 	password_reset?: boolean;
 };
 
