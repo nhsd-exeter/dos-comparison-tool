@@ -1,26 +1,24 @@
-from json import load
-from os import path
-
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
-from pytest import fixture
 
 from ..search import lambda_handler
 
-
-@fixture
-def event():
-    #  Open the test event file
-    filename = "test_event.json"
-    current_dir = path.dirname(path.abspath(__file__))
-    with open(f"{current_dir}/{filename}") as file:
-        event = APIGatewayProxyEventV2(load(file))
-        file.close()
-    return event
+# Fixtures that can't be found in this file are in the conftest.py file
 
 
-def test_lambda_handler(event: APIGatewayProxyEventV2, lambda_context: LambdaContext):
-    # Arrange
+def test_lambda_handler(search_request: APIGatewayProxyEventV2, lambda_context: LambdaContext):
     # Act
-    lambda_handler(event, lambda_context)
+    response = lambda_handler(search_request, lambda_context)
     # Assert
+    assert response["statusCode"] == 200
+    assert response["body"] == "Hello World"
+
+
+def test_lambda_handler_with_invalid_request(
+    invalid_search_request: APIGatewayProxyEventV2, lambda_context: LambdaContext
+):
+    # Act
+    response = lambda_handler(invalid_search_request, lambda_context)
+    # Assert
+    assert response["statusCode"] == 500
+    assert response["body"] == "Internal Server Error"

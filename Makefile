@@ -11,6 +11,8 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 	cd $(APPLICATION_DIR)/ui
 	yarn install
 	cd $(PROJECT_DIR)
+# Python Setup
+	make pip-install
 # Set up local virtual environment and download dependencies
 
 build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
@@ -38,10 +40,10 @@ push: # Push project artefacts to the registry
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make provision-infrastructure
 	eval "$$(make -s populate-application-variables)"
-	make k8s-deploy STACK=application
+# make k8s-deploy STACK=application
 
 undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
-	make k8s-undeploy STACK=application
+# make k8s-undeploy STACK=application
 	make terraform-destroy-auto-approve STACKS=application
 
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
@@ -272,3 +274,4 @@ terraform-security:
 # ==============================================================================
 
 .SILENT:
+	project-config
