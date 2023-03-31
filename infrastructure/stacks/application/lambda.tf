@@ -1,11 +1,23 @@
 module "search_lambda" {
-  source        = "../../modules/lambda"
-  function_name = var.search_lambda_function_name
-  image_uri     = var.search_lambda_image_uri
-  timeout       = "5"
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "4.12.1"
 
-  splunk_firehose_subscription_destination_arn = "arn:aws:firehose:${var.aws_region}:${var.aws_account_id}:deliverystream/${var.splunk_firehose_subscription}"
-  splunk_firehose_role_arn                     = "arn:aws:iam::${var.aws_account_id}:role/${var.splunk_firehose_role}"
+  function_name = var.search_lambda_function_name
+  description   = "Search lambda function for the DOS Comparison Tool"
+
+  memory_size                       = 128
+  timeout                           = 5
+  maximum_retry_attempts            = 0
+  tracing_mode                      = "Active"
+  cloudwatch_logs_retention_in_days = 30
+
+  create_package = false
+  package_type   = "Image"
+  image_uri      = var.search_lambda_image_uri
+
+  attach_network_policy         = true
+  attach_cloudwatch_logs_policy = true
+  attach_tracing_policy         = true
 
   environment_variables = {
     "PROFILE" : var.profile
@@ -15,6 +27,19 @@ module "search_lambda" {
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
   }
+
+  vpc_security_group_ids = [aws_security_group.lambda_security_group.id]
+  vpc_subnet_ids         = [data.aws_subnet.vpc_subnet_a.id, data.aws_subnet.vpc_subnet_b.id, data.aws_subnet.vpc_subnet_c.id]
+
+  depends_on = [aws_security_group.lambda_security_group]
+}
+
+resource "aws_cloudwatch_log_subscription_filter" "splunk_firehose_subscription" {
+  name            = "${var.search_lambda_function_name}-log-subscription"
+  role_arn        = "arn:aws:iam::${var.aws_account_id}:role/${var.splunk_firehose_role}"
+  filter_pattern  = ""
+  log_group_name  = module.search_lambda.lambda_cloudwatch_log_group_name
+  destination_arn = "arn:aws:firehose:${var.aws_region}:${var.aws_account_id}:deliverystream/${var.splunk_firehose_subscription}"
 }
 
 resource "aws_lambda_permission" "allow_api_gateway_to_invoke" {

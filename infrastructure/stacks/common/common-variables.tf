@@ -52,6 +52,11 @@ variable "aws_account_id_tools" {
   default     = "00000000000"
 }
 
+variable "aws_vpc_name" {
+  type        = string
+  description = "The name of the VPC"
+}
+
 # ##############
 # # TEXAS COMMON
 # ##############

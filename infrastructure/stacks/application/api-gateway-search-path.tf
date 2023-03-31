@@ -4,7 +4,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   http_method             = aws_api_gateway_method.search_path_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = module.search_lambda.lambda_invoke_arn
+  uri                     = module.search_lambda.lambda_function_invoke_arn
 }
 
 resource "aws_api_gateway_resource" "search_path" {

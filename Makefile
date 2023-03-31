@@ -185,6 +185,10 @@ pip-install: # Install Python dependencies
 python-test: # Run Python unit tests
 	python -m pytest application
 
+python-format:
+	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
+	make python-imports-format
+
 python-dead-code-check: # Check for dead Python code
 	python -m vulture $(APPLICATION_DIR)
 
