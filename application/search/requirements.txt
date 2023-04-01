@@ -1,2 +1,4 @@
 aws-embedded-metrics
 aws-lambda-powertools[logger,tracer]
+requests
+xmltodict

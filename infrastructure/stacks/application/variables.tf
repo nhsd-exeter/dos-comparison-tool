@@ -79,6 +79,25 @@ variable "search_lambda_image_uri" {
 }
 
 # ############################
+# LAMBDA ENVIRONMENT VARIABLES
+# ############################
+
+variable "ccs_secrets_name" {
+  type        = string
+  description = "The name of the CCS secrets manager secret"
+}
+
+variable "ccs_username_key" {
+  type        = string
+  description = "The key for the CCS username in secrets manager"
+}
+
+variable "ccs_password_key" {
+  type        = string
+  description = "The key for the CCS password in secrets manager"
+}
+
+# ############################
 # SPLUNK
 # ############################
 

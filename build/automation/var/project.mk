@@ -60,6 +60,9 @@ TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
 TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search
 TF_VAR_search_lambda_image_tag := $(or $(SEARCH_IMAGE_TAG), $(VERSION))
 TF_VAR_search_lambda_image_uri := $(TF_VAR_search_lambda_image_repository):$(TF_VAR_search_lambda_image_tag)
+TF_VAR_ccs_secrets_name := $(DEPLOYMENT_SECRETS)
+TF_VAR_ccs_username_key := CCS_USERNAME
+TF_VAR_ccs_password_key := CCS_PASSWORD
 # Route53
 TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 # Security Group

@@ -1,4 +1,4 @@
-from json import loads
+# from json import loads
 from typing import Any, Dict
 
 from aws_lambda_powertools.logging import Logger
@@ -23,23 +23,17 @@ def lambda_handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> Dic
         Dict[str, Any]: Response body
     """
     try:
-        body = extract_body(event)
+        body = event.json_body
         search_one = body.get("search_one")
+        ccs_search_one = CheckCapacitySummarySearch(**search_one)
+        ccs_search_one.log_values()
+        ccs_search_one.search()
         search_two = body.get("search_two")
-        CheckCapacitySummarySearch(**search_one).log_values()
-        CheckCapacitySummarySearch(**search_two).log_values()
+        ccs_search_two = CheckCapacitySummarySearch(**search_two)
+        ccs_search_two.log_values()
+        ccs_search_two.search()
     except Exception as e:
         logger.exception(e)
         return {"statusCode": 500, "body": "Internal Server Error"}
 
-    return {"statusCode": 200, "body": "Hello World"}
-
-
-def extract_body(event: APIGatewayProxyEventV2) -> dict:
-    """Extracts the body from the event
-    Args:
-        event (APIGatewayProxyEventV2): Lambda function invocation event
-    Returns:
-        dict: Body of the event
-    """
-    return loads(event.body) if event.body else {}
+    return {"statusCode": 200, "body": "Successful Request"}

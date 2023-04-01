@@ -18,7 +18,19 @@ module "search_lambda" {
   attach_network_policy         = true
   attach_cloudwatch_logs_policy = true
   attach_tracing_policy         = true
-
+  attach_policy_json            = true
+  policy_json = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : "secretsmanager:GetSecretValue",
+          "Resource" : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:${var.ccs_secrets_name}-*"
+        },
+      ]
+    }
+  )
   environment_variables = {
     "PROFILE" : var.profile
     "ENVIRONMENT" : var.environment
@@ -26,6 +38,9 @@ module "search_lambda" {
     "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
+    "CCS_SECRET_NAME" : var.ccs_secrets_name
+    "CCS_USERNAME_KEY" : var.ccs_username_key
+    "CCS_PASSWORD_KEY" : var.ccs_password_key
   }
 
   vpc_security_group_ids = [aws_security_group.lambda_security_group.id]
