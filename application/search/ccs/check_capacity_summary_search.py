@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from json import loads
 from os import getenv
 from typing import Any, Dict
-from xml.dom import minidom
-from xml.dom.minidom import Element
+from xml.dom import minidom  # nosec - B408 minidom used to create XML
+from xml.dom.minidom import Element  # nosec - B408 minidom used to create XML
 
 from aws_lambda_powertools.logging import Logger
 from boto3 import client
