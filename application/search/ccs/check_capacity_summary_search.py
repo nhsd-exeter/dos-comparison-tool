@@ -9,6 +9,7 @@ from boto3 import client
 from requests import post
 from xmltodict import parse
 
+from .ccs_exceptions import CCSAPIResponseException
 from .service import Service
 
 logger = Logger(child=True)
@@ -40,7 +41,7 @@ class CheckCapacitySummarySearch:
             version=self.version,
         )
 
-    def search(self) -> list[Service] | Exception:
+    def search(self) -> list[Service]:
         """Searches for a services using the CCS API"""
         username, password = self._get_username_and_password()
         data = self._build_request_data(username, password)
@@ -66,7 +67,9 @@ class CheckCapacitySummarySearch:
                 search_environment=self.search_environment,
                 error_message=response.text,
             )
-            raise Exception(f"CCS Response {response.status_code}")
+            raise CCSAPIResponseException(
+                status_code=response.status_code, message=f"CCS Response {response.status_code}"
+            )
 
     def _get_username_and_password(self) -> tuple[str, str]:
         """Gets the username and password for the CCS API

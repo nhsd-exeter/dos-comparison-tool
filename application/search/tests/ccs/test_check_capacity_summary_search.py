@@ -5,6 +5,7 @@ from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
 from pytest import raises
 
+from ...ccs.ccs_exceptions import CCSAPIResponseException
 from ...ccs.check_capacity_summary_search import CheckCapacitySummarySearch
 from ...ccs.service import Service
 
@@ -155,7 +156,7 @@ class TestCheckCapacitySummarySearch:
 
         mock_post.return_value = MagicMock(status_code=status_code)
         # Act
-        with raises(Exception) as exception:
+        with raises(CCSAPIResponseException) as exception:
             response = ccs_search.search()
             assert exception == f"CCS Response {status_code}"
             assert response is None, "No expected response"

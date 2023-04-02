@@ -1,4 +1,3 @@
-# from json import loads
 from typing import Any, Dict
 
 from aws_lambda_powertools.logging import Logger
