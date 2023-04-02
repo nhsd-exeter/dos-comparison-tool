@@ -62,6 +62,10 @@ build-and-push-without-ui: # Build and push docker images - optional: VERSION=[n
 	make search-build
 	make docker-push NAME=search
 
+unit-test: # Run unit tests
+	make python-unit-test
+	make typescript-unit-test
+
 clean: # Clean up project
 	make search-clean
 	make ui-clean
@@ -163,11 +167,11 @@ typescript-code-check: # Check TypeScript code for linting and formatting
 	make typescript-check-format
 	make typescript-check-lint
 
-typescript-test-ci-setup: # Set up TypeScript test environment for CI
+typescript-unit-test-ci-setup: # Set up TypeScript test environment for CI
 	make yarn-install-locked
 	make ui-config
 
-typescript-test: # Run TypeScript tests
+typescript-unit-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
 
@@ -182,7 +186,7 @@ pip-install: # Install Python dependencies
 	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
-python-test: # Run Python unit tests
+python-unit-test: # Run Python unit tests
 	python -m pytest application
 
 python-format:
@@ -229,7 +233,7 @@ test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
 
 end-to-end-test:
-	make -s docker-run-python \
+	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
 	CMD="pytest"

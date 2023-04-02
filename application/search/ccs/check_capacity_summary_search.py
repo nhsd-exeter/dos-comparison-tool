@@ -45,7 +45,7 @@ class CheckCapacitySummarySearch:
         """Searches for a services using the CCS API"""
         username, password = self._get_username_and_password()
         data = self._build_request_data(username, password)
-        environment_url = "https://core-dos-regressiondi-ddc-core-dos-ui.k8s-nonprod.texasplatform.uk"
+        environment_url = "https://test.com"
         response = post(
             url=f"{environment_url}/app/api/webservices",
             headers={"content-type": "text/xml"},
