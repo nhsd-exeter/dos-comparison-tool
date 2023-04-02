@@ -2,8 +2,7 @@ from dataclasses import dataclass
 from json import loads
 from os import getenv
 from typing import Any, Dict
-from xml.dom import minidom  # nosec - B408 minidom used to create XML
-from xml.dom.minidom import Element  # nosec - B408 minidom used to create XML
+from xml.dom.minidom import Document, Element  # nosec - B408 minidom used to create XML
 
 from aws_lambda_powertools.logging import Logger
 from boto3 import client
@@ -67,7 +66,7 @@ class CheckCapacitySummarySearch:
                 search_environment=self.search_environment,
                 error_message=response.text,
             )
-            return Exception(f"CCS Response {response.status_code}")
+            raise Exception(f"CCS Response {response.status_code}")
 
     def _get_username_and_password(self) -> tuple[str, str]:
         """Gets the username and password for the CCS API
@@ -92,7 +91,7 @@ class CheckCapacitySummarySearch:
             element.appendChild(root.createTextNode(value))
             parent_element.appendChild(element)
 
-        root = minidom.Document()
+        root = Document()
         xml = root.createElement("soap:Envelope")
         xml.setAttribute("xmlns:soap", "http://www.w3.org/2003/05/soap-envelope")
         xml.setAttribute("xmlns:web", "https://nww.pathwaysdos.nhs.uk/app/api/webservices")
@@ -127,7 +126,7 @@ class CheckCapacitySummarySearch:
             _int.appendChild(root.createTextNode(str(symptom_discriminator)))
             symptom_discriminator_list.appendChild(_int)
 
-        return str(root.toxml())
+        return root.toxml()
 
     def _parse_xml_response(self, response_xml: str) -> list[Service]:
         """Parses the response from the CCS API
