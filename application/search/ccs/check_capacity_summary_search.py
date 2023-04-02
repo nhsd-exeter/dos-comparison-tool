@@ -145,7 +145,7 @@ class CheckCapacitySummarySearch:
             .get("ns1:serviceCareSummaryDestination", {})
         )
         api_response = []
-        for service in services:
+        for service in services if isinstance(services, list) else [services]:
             dos_service = Service(
                 name=service.get("ns1:name"),
                 uid=service.get("ns1:id"),
