@@ -6,13 +6,14 @@ import loginErrorReducer from "../slices/loginErrorSlice";
 export function devTools(): boolean {
 	return process.env.NODE_ENV === "development" ? true : false;
 }
+export const rootReducer = {
+	auth: authReducer,
+	loginError: loginErrorReducer,
+	ccsComparisonSearch: ccsComparisonSearchReducer,
+};
 
 export const store = configureStore({
-	reducer: {
-		auth: authReducer,
-		loginError: loginErrorReducer,
-		ccsComparisonSearch: ccsComparisonSearchReducer,
-	},
+	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,

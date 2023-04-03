@@ -17,7 +17,6 @@ export const search = createAsyncThunk(
 		axios.defaults.headers.common["Authorization"] = authToken;
 		axios.defaults.headers.common["Content-Type"] =
 			"application/json;charset=utf-8";
-
 		const response = await axios.post(ApiEndpoint + "/search", {
 			search_one: {
 				age: 2,
@@ -56,15 +55,15 @@ export const ccsComparisonSearch = createSlice({
 				state.loading = "idle";
 			}
 		});
-		builder.addCase(search.rejected, (state, action) => {
+		builder.addCase(search.rejected, (state) => {
 			if (state.loading === "pending") {
 				state.loading = "idle";
 				state.error = "Error occurred";
-				console.log(action.error.message);
-				console.log(action.error.name);
 			}
 		});
 	},
 });
+
+export const { actions } = ccsComparisonSearch;
 
 export default ccsComparisonSearch.reducer;
