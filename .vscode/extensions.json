@@ -12,8 +12,7 @@
     "infeng.vscode-react-typescript",
     "dsznajder.es7-react-js-snippets",
     "miclo.sort-typescript-imports",
-    "rbbit.typescript-hero",
-    "NicholasHsiang.vscode-javascript-comment",
+    "nicholashsiang.vscode-javascript-comment",
     "salbert.comment-ts"
   ],
   "unwantedRecommendations": [
