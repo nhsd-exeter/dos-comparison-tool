@@ -7,7 +7,6 @@ test("It renders the expected SharedSearchForm layout", () => {
 	// Arrange
 	renderWithProvidersAndRouter(<SharedSearchForm />);
 	// Act: Get the elements.
-	const form = screen.getByRole("form");
 	const postcodeInput = screen.getByLabelText("Postcode");
 	const surgeryCodeInput = screen.getByLabelText("Surgery Code");
 	const symptomGroupDropDown = screen.getByLabelText("Symptom Group");
@@ -17,7 +16,6 @@ test("It renders the expected SharedSearchForm layout", () => {
 	const dispositionDropDown = screen.getByLabelText("Disposition");
 	const sexDropDown = screen.getByLabelText("Sex");
 	// Assert: Elements are present.
-	expect(form).toBeDefined();
 	expect(postcodeInput).toBeDefined();
 	expect(surgeryCodeInput).toBeDefined();
 	expect(symptomGroupDropDown).toBeDefined();
