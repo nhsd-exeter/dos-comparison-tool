@@ -38,8 +38,6 @@ export const search = createAsyncThunk(
 				search_environment: "test",
 			},
 		});
-		console.log(response.data);
-		console.log(response.status);
 		return response.data;
 	}
 );
