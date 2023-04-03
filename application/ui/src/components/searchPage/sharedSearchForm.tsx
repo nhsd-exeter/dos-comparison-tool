@@ -1,4 +1,4 @@
-import { Form, Input } from "nhsuk-react-components";
+import { Input } from "nhsuk-react-components";
 import {
 	DispositionDropDown,
 	SexDropDown,
@@ -7,12 +7,8 @@ import {
 } from "./dropDowns";
 
 function SharedSearchForm() {
-	const handleSearchForm = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-	};
-
 	return (
-		<Form role="form" onSubmit={handleSearchForm}>
+		<div>
 			<Input
 				type="text"
 				required
@@ -31,7 +27,7 @@ function SharedSearchForm() {
 			<SymptomDiscriminatorDropDown />
 			<DispositionDropDown />
 			<SexDropDown />
-		</Form>
+		</div>
 	);
 }
 

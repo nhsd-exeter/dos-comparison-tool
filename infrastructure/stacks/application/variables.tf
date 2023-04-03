@@ -97,6 +97,11 @@ variable "ccs_password_key" {
   description = "The key for the CCS password in secrets manager"
 }
 
+variable "default_environment_url" {
+  type        = string
+  description = "The default environment URL for the CCS API"
+}
+
 # ############################
 # SPLUNK
 # ############################

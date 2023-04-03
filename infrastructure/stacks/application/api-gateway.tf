@@ -16,9 +16,14 @@ resource "aws_api_gateway_deployment" "di_endpoint_deployment" {
   rest_api_id = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
   triggers = {
     redeployment = join("", [md5(jsonencode([
-      aws_api_gateway_resource.search_path,
-      aws_api_gateway_method.search_path_method,
-      aws_api_gateway_integration.lambda_integration,
+      aws_api_gateway_resource.search_path.id,
+      aws_api_gateway_method.search_path_method.id,
+      aws_api_gateway_integration.lambda_integration.id,
+      aws_api_gateway_method.search_cors_method.id,
+      aws_api_gateway_integration.search_cors_integration.id,
+      aws_api_gateway_method_response.search_cors_method_response.id,
+      aws_api_gateway_gateway_response.default_4xx_gateway_response.id,
+      aws_api_gateway_gateway_response.default_5xx_gateway_response.id,
     ]))])
   }
   lifecycle {

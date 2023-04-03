@@ -1,14 +1,10 @@
-import { Form, Input, Label } from "nhsuk-react-components";
+import { Input, Label } from "nhsuk-react-components";
 import { AgeUnitsDropDown, RoleDropDown } from "./dropDowns";
 import "./search.css";
 
 function SearchForm() {
-	const handleSearchForm = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-	};
-
 	return (
-		<Form role="form" onSubmit={handleSearchForm}>
+		<div>
 			<RoleDropDown />
 			<Label>Age</Label>
 			<div className="age-row">
@@ -21,7 +17,7 @@ function SearchForm() {
 				/>
 				<AgeUnitsDropDown />
 			</div>
-		</Form>
+		</div>
 	);
 }
 

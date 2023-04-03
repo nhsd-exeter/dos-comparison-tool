@@ -10,6 +10,12 @@ from .ccs.check_capacity_summary_search import CheckCapacitySummarySearch
 logger = Logger()
 tracer = Tracer()
 
+response_headers = {
+    "Access-Control-Allow-Headers": "Origin,Content-Type,Accept,Authorization",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "OPTIONS,POST",
+}
+
 
 @logger.inject_lambda_context(clear_state=True)
 @event_source(data_class=APIGatewayProxyEventV2)
@@ -33,6 +39,6 @@ def lambda_handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> Dic
         ccs_search_two.search()
     except Exception as e:
         logger.exception(e)
-        return {"statusCode": 500, "body": "Internal Server Error"}
+        return {"statusCode": 500, "body": "Internal Server Error", "headers": response_headers}
 
-    return {"statusCode": 200, "body": "Successful Request"}
+    return {"statusCode": 200, "body": "Successful Request", "headers": response_headers}
