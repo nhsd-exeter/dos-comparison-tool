@@ -75,7 +75,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Test Setup
-        run: make typescript-test-ci-setup
+        run: make typescript-unit-test-ci-setup
       - name: Typescript Check Package
         run: |
           make typescript-package-duplicate-check
@@ -148,9 +148,9 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Test Setup
-        run: make typescript-test-ci-setup
+        run: make typescript-unit-test-ci-setup
       - name: Run Typescript Unit Tests
-        run: make typescript-test
+        run: make typescript-unit-test
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -161,7 +161,7 @@ jobs:
       - name: Python Install Requirements
         run: make pip-install
       - name: Run Python Unit Tests
-        run: make python-test
+        run: make python-unit-test
       - uses: sonarsource/sonarcloud-github-action@master
         # SEE: https://github.com/SonarSource/sonarcloud-github-action
         env:
@@ -177,5 +177,5 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=application/ui/coverage/lcov.info
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.python.version=3.10
-            -Dsonar.terraform.provider.aws.version=4.48.0
+            -Dsonar.terraform.provider.aws.version=4.61.0
             -Dsonar.tests=test

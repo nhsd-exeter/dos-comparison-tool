@@ -11,6 +11,8 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 	cd $(APPLICATION_DIR)/ui
 	yarn install
 	cd $(PROJECT_DIR)
+# Python Setup
+	make pip-install
 # Set up local virtual environment and download dependencies
 
 build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
@@ -38,10 +40,10 @@ push: # Push project artefacts to the registry
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make provision-infrastructure
 	eval "$$(make -s populate-application-variables)"
-	make k8s-deploy STACK=application
+# make k8s-deploy STACK=application
 
 undeploy: # Undeploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
-	make k8s-undeploy STACK=application
+# make k8s-undeploy STACK=application
 	make terraform-destroy-auto-approve STACKS=application
 
 build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[name]
@@ -59,6 +61,10 @@ build-and-push: # Build and push docker images - optional: VERSION=[name]
 build-and-push-without-ui: # Build and push docker images - optional: VERSION=[name]
 	make search-build
 	make docker-push NAME=search
+
+unit-test: # Run unit tests
+	make python-unit-test
+	make typescript-unit-test
 
 clean: # Clean up project
 	make search-clean
@@ -118,6 +124,11 @@ ui-build-clean: # Clean UI build artefacts
 search-build: # Build Search image
 	make -s build-lambda NAME=search
 
+search-build-and-deploy: # Build Search image and deploy to AWS
+	make -s build-lambda NAME=search VERSION=$(BUILD_TAG)
+	make docker-push NAME=search VERSION=$(BUILD_TAG)
+	make provision-infrastructure VERSION=$(BUILD_TAG)
+
 search-clean: # Clean Search
 	make docker-image-clean NAME=search
 
@@ -156,11 +167,11 @@ typescript-code-check: # Check TypeScript code for linting and formatting
 	make typescript-check-format
 	make typescript-check-lint
 
-typescript-test-ci-setup: # Set up TypeScript test environment for CI
+typescript-unit-test-ci-setup: # Set up TypeScript test environment for CI
 	make yarn-install-locked
 	make ui-config
 
-typescript-test: # Run TypeScript tests
+typescript-unit-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
 
@@ -175,8 +186,12 @@ pip-install: # Install Python dependencies
 	cat $(APPLICATION_DIR)/*/requirements.txt $(APPLICATION_DIR)/requirements-dev.txt | sort --unique > $(APPLICATION_DIR)/development-requirements.txt
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
-python-test: # Run Python unit tests
+python-unit-test: # Run Python unit tests
 	python -m pytest application
+
+python-format:
+	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
+	make python-imports-format
 
 python-dead-code-check: # Check for dead Python code
 	python -m vulture $(APPLICATION_DIR)
@@ -218,7 +233,7 @@ test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
 
 end-to-end-test:
-	make -s docker-run-python \
+	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
 	CMD="pytest"
@@ -267,3 +282,4 @@ terraform-security:
 # ==============================================================================
 
 .SILENT:
+	project-config

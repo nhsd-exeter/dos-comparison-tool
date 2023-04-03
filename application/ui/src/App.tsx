@@ -49,7 +49,8 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={BASE_PATH} element={<HomePage />} />
 			<Route path={LOGIN_PATH} element={<MenuPage />} />
 			<Route path={MENU_PATH} element={<MenuPage />} />
-
+			<Route path={SEARCH_PATH} element={<SearchPage />} />
+			<Route path={SEARCH_RESULTS_PATH} element={<ResultsPage />} />
 			<Route path="*" element={<ErrorPage />} />
 		</Routes>
 	);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="https://nww.pathwaysdos.nhs.uk/app/api/webservices">
+    <env:Body>
+        <ns1:CheckCapacitySummaryResponse>
+            <ns1:CheckCapacitySummaryResult>
+                <ns1:serviceCareSummaryDestination>
+                    <ns1:id>123</ns1:id>
+                    <ns1:name>Test Pharmacy</ns1:name>
+                    <ns1:address>1 Pharmacy Lane</ns1:address>
+                    <ns1:postcode>TEST 123</ns1:postcode>
+                    <ns1:serviceType>
+                        <ns1:name>Pharmacy</ns1:name>
+                    </ns1:serviceType>
+                    <ns1:distance>0.4</ns1:distance>
+                </ns1:serviceCareSummaryDestination>
+            </ns1:CheckCapacitySummaryResult>
+        </ns1:CheckCapacitySummaryResponse>
+    </env:Body>
+</env:Envelope>

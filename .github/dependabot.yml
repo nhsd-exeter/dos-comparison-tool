@@ -48,12 +48,6 @@ updates:
 
   # Maintain dependencies for Terraform
   - package-ecosystem: "terraform"
-    directory: "/infrastructure/modules/lambda"
-    schedule:
-      interval: "monthly"
-    target-branch: "main"
-
-  - package-ecosystem: "terraform"
     directory: "/infrastructure/stacks/application"
     schedule:
       interval: "monthly"

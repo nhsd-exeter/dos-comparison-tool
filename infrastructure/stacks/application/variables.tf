@@ -79,6 +79,25 @@ variable "search_lambda_image_uri" {
 }
 
 # ############################
+# LAMBDA ENVIRONMENT VARIABLES
+# ############################
+
+variable "ccs_secrets_name" {
+  type        = string
+  description = "The name of the CCS secrets manager secret"
+}
+
+variable "ccs_username_key" {
+  type        = string
+  description = "The key for the CCS username in secrets manager"
+}
+
+variable "ccs_password_key" {
+  type        = string
+  description = "The key for the CCS password in secrets manager"
+}
+
+# ############################
 # SPLUNK
 # ############################
 
@@ -122,7 +141,6 @@ variable "api_gateway_endpoint_key" {
   description = "The key for the API Gateway endpoint in the Cognito secrets"
 }
 
-
 variable "cognito_secrets_admin_username_key" {
   type        = string
   description = "The key for the admin username in the Cognito secrets"
@@ -141,4 +159,23 @@ variable "cognito_secrets_user_pool_id_key" {
 variable "cognito_secrets_user_pool_client_id_key" {
   type        = string
   description = "The key for the user pool client ID in the Cognito secrets"
+}
+
+# ############################
+# SECURITY GROUPS
+# ############################
+
+variable "security_group_name" {
+  type        = string
+  description = "The name of the security group"
+}
+
+# ##############
+# # VPC
+# ##############
+
+data "aws_vpc" "texas_vpc" {
+  tags = {
+    Name = var.aws_vpc_name
+  }
 }

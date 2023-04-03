@@ -1,26 +1,62 @@
-from json import load
-from os import path
+from unittest.mock import call, MagicMock, patch
 
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
-from pytest import fixture
 
 from ..search import lambda_handler
 
-
-@fixture
-def event():
-    #  Open the test event file
-    filename = "test_event.json"
-    current_dir = path.dirname(path.abspath(__file__))
-    with open(f"{current_dir}/{filename}") as file:
-        event = APIGatewayProxyEventV2(load(file))
-        file.close()
-    return event
+# Fixtures that can't be found in this file are in the conftest.py file
+FILE_PATH = "application.search.search"
 
 
-def test_lambda_handler(event: APIGatewayProxyEventV2, lambda_context: LambdaContext):
-    # Arrange
+@patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
+def test_lambda_handler(
+    mock_check_capacity_summary_search: MagicMock, search_request: APIGatewayProxyEventV2, lambda_context: LambdaContext
+):
     # Act
-    lambda_handler(event, lambda_context)
+    response = lambda_handler(search_request, lambda_context)
     # Assert
+    assert response["statusCode"] == 200
+    assert response["body"] == "Successful Request"
+    mock_check_capacity_summary_search.assert_has_calls(
+        [
+            call(
+                age=1,
+                age_format="years",
+                disposition=1,
+                symptom_group=1,
+                symptom_discriminator_list=[1, 2, 3],
+                search_distance=1,
+                gender="male",
+                search_environment="test",
+            ),
+            call().log_values(),
+            call().search(),
+            call(
+                age=1,
+                age_format="years",
+                disposition=1,
+                symptom_group=1,
+                symptom_discriminator_list=[1, 2, 3],
+                search_distance=1,
+                gender="male",
+                search_environment="test",
+            ),
+            call().log_values(),
+            call().search(),
+        ]
+    )
+
+
+@patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
+def test_lambda_handler_with_invalid_request(
+    mock_check_capacity_summary_search: MagicMock,
+    invalid_search_request: APIGatewayProxyEventV2,
+    lambda_context: LambdaContext,
+):
+    # Act
+    response = lambda_handler(invalid_search_request, lambda_context)
+    # Assert
+    assert response["statusCode"] == 500
+    assert response["body"] == "Internal Server Error"
+    mock_check_capacity_summary_search.assert_not_called()

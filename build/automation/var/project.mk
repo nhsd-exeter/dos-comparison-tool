@@ -17,6 +17,8 @@ SERVICE_TAG = $(PROJECT_ID)
 PROJECT_TECH_STACK_LIST = python,typescript,terraform,shell
 DEPLOYMENT_SECRETS = $(PROJECT_ID)-$(PROFILE)/deployment
 TF_VAR_role_prefix := $(ROLE_PREFIX)
+AWS_VPC_NAME = lk8s-$(AWS_ACCOUNT_NAME).texasplatform.uk
+TF_VAR_aws_vpc_name = $(AWS_VPC_NAME)
 
 # ==============================================================================
 # Service Variables
@@ -58,8 +60,13 @@ TF_VAR_search_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-search
 TF_VAR_search_lambda_image_repository := $(DOCKER_REGISTRY)/search
 TF_VAR_search_lambda_image_tag := $(or $(SEARCH_IMAGE_TAG), $(VERSION))
 TF_VAR_search_lambda_image_uri := $(TF_VAR_search_lambda_image_repository):$(TF_VAR_search_lambda_image_tag)
+TF_VAR_ccs_secrets_name := $(DEPLOYMENT_SECRETS)
+TF_VAR_ccs_username_key := CCS_USERNAME
+TF_VAR_ccs_password_key := CCS_PASSWORD
 # Route53
 TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
+# Security Group
+TF_VAR_security_group_name := $(PROJECT_ID)-$(ENVIRONMENT)-security-group
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
