@@ -1,17 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-
-import axios from "axios";
-
-import * as dep from "axios";
-
-import { RootState, store } from "../../app/store";
+import axios, * as dep from "axios";
+import { store } from "../../app/store";
 import { search } from "../ccsComparisonSearch";
-const initialState = {
-	ccsComparisonSearch: { loading: "pending" },
-} as RootState;
 
 jest.mock("axios");
-
 const mockedDependency = <jest.Mock<typeof dep.default>>dep.default;
 
 describe("tests for ccsComparisonSearch slice", () => {
