@@ -34,5 +34,5 @@ resource "aws_api_gateway_method" "search_cors_method" {
   rest_api_id   = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
   resource_id   = aws_api_gateway_resource.search_path.id
   http_method   = "OPTIONS"
-  authorization = "NONE"
+  authorization = "NONE" #tfsec:ignore:aws-api-gateway-no-public-access:Options method is public to allow CORS
 }
