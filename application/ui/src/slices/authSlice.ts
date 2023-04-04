@@ -26,6 +26,9 @@ export const authSlice = createSlice({
 });
 
 export const selectLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+export const selectToken = (state: RootState) =>
+	state.auth.isLoggedIn ? state.auth.session?.getIdToken().getJwtToken() : "";
+
 export const { signIn, signOut } = authSlice.actions;
 
 export default authSlice.reducer;

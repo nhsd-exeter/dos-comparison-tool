@@ -63,6 +63,7 @@ TF_VAR_search_lambda_image_uri := $(TF_VAR_search_lambda_image_repository):$(TF_
 TF_VAR_ccs_secrets_name := $(DEPLOYMENT_SECRETS)
 TF_VAR_ccs_username_key := CCS_USERNAME
 TF_VAR_ccs_password_key := CCS_PASSWORD
+TF_VAR_default_environment_url := https://core-dos-regressiondi-ddc-core-dos-ui.$(TEXAS_HOSTED_ZONE_NONPROD)
 # Route53
 TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 # Security Group

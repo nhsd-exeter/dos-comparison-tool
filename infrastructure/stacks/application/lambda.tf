@@ -41,6 +41,7 @@ module "search_lambda" {
     "CCS_SECRET_NAME" : var.ccs_secrets_name
     "CCS_USERNAME_KEY" : var.ccs_username_key
     "CCS_PASSWORD_KEY" : var.ccs_password_key
+    "DEFAULT_ENVIRONMENT_URL" : var.default_environment_url
   }
 
   vpc_security_group_ids = [aws_security_group.lambda_security_group.id]

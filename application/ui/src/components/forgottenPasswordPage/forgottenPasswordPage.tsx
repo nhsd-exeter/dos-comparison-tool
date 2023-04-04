@@ -16,8 +16,8 @@ import { ErrorBox, Layout } from "../common";
 type ForgottenPasswordPageProps = Record<string, never>;
 type ForgottenPasswordPageState = {
 	error?: JSX.Element;
-	requested_reset?: boolean;
-	password_reset?: boolean;
+	requested_reset: boolean;
+	password_reset: boolean;
 };
 
 class ForgottenPasswordPage extends React.Component<
@@ -30,7 +30,10 @@ class ForgottenPasswordPage extends React.Component<
 			this.handleForgottenPasswordForm.bind(this);
 		this.handleNewPasswordForm = this.handleNewPasswordForm.bind(this);
 	}
-	state: ForgottenPasswordPageState = {};
+	state: ForgottenPasswordPageState = {
+		requested_reset: false,
+		password_reset: false,
+	};
 
 	private handleForgottenPasswordForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();

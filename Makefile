@@ -7,7 +7,7 @@ include $(abspath $(PROJECT_DIR)/build/automation/init.mk)
 setup: # Set up project for development - mandatory: PROFILE=[name]
 	make project-config
 	make trust-certificate
-# Yarn Setup
+# TypeScript Setup
 	cd $(APPLICATION_DIR)/ui
 	yarn install
 	cd $(PROJECT_DIR)
@@ -169,15 +169,10 @@ typescript-code-check: # Check TypeScript code for linting and formatting
 
 typescript-unit-test-ci-setup: # Set up TypeScript test environment for CI
 	make yarn-install-locked
-	make ui-config
 
 typescript-unit-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
 	yarn run test
-
-typescript-mutation-test: # Run TypeScript mutation tests
-	cd $(APPLICATION_DIR)/ui
-	yarn run test:mutation
 
 # ==============================================================================
 # Python Development, Linting and Testing targets
