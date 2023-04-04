@@ -1,6 +1,6 @@
 from json import dumps
 from os import environ
-from unittest.mock import MagicMock, patch, call
+from unittest.mock import call, MagicMock, patch
 from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
 from pytest import raises
