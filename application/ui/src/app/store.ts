@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../slices/authSlice";
-import ccsComparisonSearchReducer from "../slices/ccsComparisonSearch";
+import ccsComparisonSearchReducer from "../slices/ccsComparisonSearchSlice";
 import loginErrorReducer from "../slices/loginErrorSlice";
 
 export function devTools(): boolean {

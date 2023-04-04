@@ -7,7 +7,7 @@ import {
 	selectCCSAPIResponseSuccessStatus,
 	selectCCSComparisonSearchOne,
 	selectCCSComparisonSearchTwo,
-} from "../../slices/ccsComparisonSearch";
+} from "../../slices/ccsComparisonSearchSlice";
 import { Layout } from "../common";
 import ResultsCard from "./resultCard";
 
@@ -23,6 +23,7 @@ function ResultsPage() {
 			const searchResultObject = Object(searchResult);
 			ResultsListOne.push(
 				<ResultsCard
+					key={searchResultObject.uid}
 					serviceName={searchResultObject.name}
 					serviceType={searchResultObject.service_type}
 					serviceUid={searchResultObject.uid}

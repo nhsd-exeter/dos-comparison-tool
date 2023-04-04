@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectToken } from "../../slices/authSlice";
-import { search } from "../../slices/ccsComparisonSearch";
+import { search } from "../../slices/ccsComparisonSearchSlice";
 import { Layout } from "../common";
 import SearchForm from "./searchForm";
 import SharedSearchForm from "./sharedSearchForm";

@@ -47,7 +47,7 @@ export const search = createAsyncThunk(
 	}
 );
 
-export const ccsComparisonSearch = createSlice({
+export const ccsComparisonSearchSlice = createSlice({
 	name: "ccsComparisonSearch",
 	initialState,
 	reducers: {},
@@ -82,4 +82,4 @@ export const selectCCSComparisonSearchOne = (state: RootState) =>
 export const selectCCSComparisonSearchTwo = (state: RootState) =>
 	state.ccsComparisonSearch.searchTwo;
 
-export default ccsComparisonSearch.reducer;
+export default ccsComparisonSearchSlice.reducer;
