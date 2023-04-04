@@ -1,6 +1,6 @@
-// import { useAppDispatch } from "../../app/hooks";
 import { Button, Container, Form } from "nhsuk-react-components";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectToken } from "../../slices/authSlice";
 import { search } from "../../slices/ccsComparisonSearch";
@@ -11,9 +11,11 @@ import SharedSearchForm from "./sharedSearchForm";
 function SearchPage() {
 	const dispatch = useAppDispatch();
 	const idToken = useAppSelector(selectToken) as string;
+	const navigate = useNavigate();
 
 	const handleSearchForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		navigate("/search-results");
 		await dispatch(search(idToken));
 	};
 

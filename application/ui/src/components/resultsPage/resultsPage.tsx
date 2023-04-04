@@ -1,62 +1,53 @@
 import { Col, Container, Pagination, Row } from "nhsuk-react-components";
+import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 import { SEARCH_PATH } from "../../constants/paths";
+import {
+	selectCCSAPIResponseSuccessStatus,
+	selectCCSComparisonSearchOne,
+	selectCCSComparisonSearchTwo,
+} from "../../slices/ccsComparisonSearch";
 import { Layout } from "../common";
 import ResultsCard from "./resultCard";
 
 function ResultsPage() {
 	const navigate = useNavigate();
-	return (
-		<Layout>
+	const requestSuccess = useAppSelector(selectCCSAPIResponseSuccessStatus);
+	const searchOne = useAppSelector(selectCCSComparisonSearchOne);
+	const searchTwo = useAppSelector(selectCCSComparisonSearchTwo);
+
+	const handleResultsFromSearch = (search: string[]) => {
+		const ResultsListOne: JSX.Element[] = [];
+		search?.map((searchResult: string) => {
+			const searchResultObject = Object(searchResult);
+			ResultsListOne.push(
+				<ResultsCard
+					serviceName={searchResultObject.name}
+					serviceType={searchResultObject.service_type}
+					serviceUid={searchResultObject.uid}
+					serviceAddress={searchResultObject.address}
+					distance={searchResultObject.distance}
+					equalResults={true}
+				/>
+			);
+		});
+		return ResultsListOne;
+	};
+
+	const resultsPage = (
+		<div>
 			<h1>Search Results</h1>
 			<div>
 				<Container>
 					<Row>
 						<Col width="one-half" label="left-column">
 							<h2>Search 1 - UAT1</h2>
-							<ResultsCard
-								serviceName="Boots Pharmacy - Taunton"
-								serviceType="Pharmacy"
-								serviceUid="123456789"
-								serviceAddress="64-65 High St: Taunton: Somerset: TA1 3PT"
-								distance="1.2 miles"
-								equalResults={true}
-							/>
-							<ResultsCard
-								serviceName="Superdrug Pharmacy - Taunton"
-								serviceType="Pharmacy"
-								serviceUid="123456781"
-								serviceAddress="1-10 Paul Street &, 9 Cheapside, Taunton TA1 3PF"
-								distance="1.8 miles"
-								equalResults={true}
-							/>
-							<ResultsCard
-								serviceName="JP Pharmacy - Taunton"
-								serviceType="Pharmacy"
-								serviceUid="123456782"
-								serviceAddress="High St: Taunton: Somerset: TA1 3PT"
-								distance="2.0 miles"
-								equalResults={false}
-							/>
+							{handleResultsFromSearch(searchOne)}
 						</Col>
 						<Col width="one-half" label="right-column">
 							<h2>Search 2 - Live</h2>
-							<ResultsCard
-								serviceName="Boots Pharmacy - Taunton"
-								serviceType="Pharmacy"
-								serviceUid="123456789"
-								serviceAddress="64-65 High St: Taunton: Somerset: TA1 3PT"
-								distance="1.2 miles"
-								equalResults={true}
-							/>
-							<ResultsCard
-								serviceName="Superdrug Pharmacy - Taunton"
-								serviceType="Pharmacy"
-								serviceUid="123456781"
-								serviceAddress="1-10 Paul Street &, 9 Cheapside, Taunton TA1 3PF"
-								distance="1.8 miles"
-								equalResults={true}
-							/>
+							{handleResultsFromSearch(searchTwo)}
 						</Col>
 					</Row>
 				</Container>
@@ -69,8 +60,23 @@ function ResultsPage() {
 					</Pagination.Link>
 				</Pagination>
 			</div>
-		</Layout>
+		</div>
 	);
+
+	const pageLoading = (
+		<Oval
+			height={80}
+			width={80}
+			color="#005eb8"
+			secondaryColor="#005eb8"
+			visible={true}
+			ariaLabel="oval-loading"
+			strokeWidth={4}
+			strokeWidthSecondary={3}
+		/>
+	);
+
+	return <Layout>{requestSuccess ? resultsPage : pageLoading}</Layout>;
 }
 
 export default ResultsPage;

@@ -1,15 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { RootState } from "../app/store";
 import { ApiEndpoint } from "../config";
+// import { CCSSearchResponse } from "../interfaces/dtos";
 
 export interface CCSComparisonSearchState {
-	loading?: "pending" | "fulfilled" | "rejected" | "idle";
-	data?: any;
+	loading: "pending" | "fulfilled" | "rejected" | "idle";
+	searchOne: Array<string>;
+	searchTwo: Array<string>;
+	successStatus: boolean;
 	error?: string;
 }
 
-export const initialState = {} as CCSComparisonSearchState;
+export const initialState = {
+	successStatus: false,
+	loading: "idle",
+} as CCSComparisonSearchState;
 
 export const search = createAsyncThunk(
 	"ccsComparisonSearch/search",
@@ -51,7 +57,9 @@ export const ccsComparisonSearch = createSlice({
 		});
 		builder.addCase(search.fulfilled, (state, action) => {
 			if (state.loading === "pending") {
-				state.data = action.payload;
+				state.searchOne = Object(action.payload)["search_one"];
+				state.searchTwo = Object(action.payload)["search_two"];
+				state.successStatus = true;
 				state.loading = "idle";
 			}
 		});
@@ -64,6 +72,14 @@ export const ccsComparisonSearch = createSlice({
 	},
 });
 
-export const { actions } = ccsComparisonSearch;
+export const selectError = (state: RootState) =>
+	state.ccsComparisonSearch.error;
+export const selectCCSAPIResponseSuccessStatus = (state: RootState) =>
+	state.ccsComparisonSearch.successStatus;
+
+export const selectCCSComparisonSearchOne = (state: RootState) =>
+	state.ccsComparisonSearch.searchOne;
+export const selectCCSComparisonSearchTwo = (state: RootState) =>
+	state.ccsComparisonSearch.searchTwo;
 
 export default ccsComparisonSearch.reducer;

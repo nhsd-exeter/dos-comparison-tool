@@ -1,5 +1,4 @@
-import { Icons, SummaryList } from "nhsuk-react-components";
-import { Fragment } from "react";
+import { SummaryList } from "nhsuk-react-components";
 import "./results.css";
 
 type ResultsCardProps = {
@@ -12,13 +11,13 @@ type ResultsCardProps = {
 };
 
 function ResultsCard(Props: ResultsCardProps) {
-	const resultsIcon = Props.equalResults ? <Icons.Tick /> : <Icons.Cross />;
+	// const resultsIcon = Props.equalResults ? <Icons.Tick /> : <Icons.Cross />;
 
 	return (
 		<div className="results_card">
 			<div className="results-card__header">
 				<h3 className="results-card__header__title">{Props.serviceName}</h3>
-				<Fragment>{resultsIcon}</Fragment>
+				{/* <Fragment>{resultsIcon}</Fragment> */}
 			</div>
 			<SummaryList className="results-card__summary_list">
 				<SummaryList.Row>

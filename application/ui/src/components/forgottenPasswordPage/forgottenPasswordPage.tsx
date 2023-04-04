@@ -18,6 +18,7 @@ type ForgottenPasswordPageState = {
 	error?: JSX.Element;
 	requested_reset: boolean;
 	password_reset: boolean;
+	username?: string;
 };
 
 class ForgottenPasswordPage extends React.Component<
