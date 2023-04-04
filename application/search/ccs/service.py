@@ -7,3 +7,4 @@ class Service:
     name: str
     address: str
     service_type: str
+    distance: float

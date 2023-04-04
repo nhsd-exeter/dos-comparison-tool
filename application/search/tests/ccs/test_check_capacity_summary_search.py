@@ -1,6 +1,6 @@
 from json import dumps
 from os import environ
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, call
 from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
 from pytest import raises
@@ -48,33 +48,6 @@ class TestCheckCapacitySummarySearch:
         assert ccs_search.search_distance == self.expected_search_distance, "Search distance not set correctly"
 
     @patch(f"{FILE_PATH}.logger")
-    def test_log_values(self, mock_logger: MagicMock) -> None:
-        # Arrange
-        ccs_search = CheckCapacitySummarySearch(
-            age=self.age,
-            age_format=self.age_format,
-            disposition=self.disposition,
-            symptom_group=self.symptom_group,
-            symptom_discriminator_list=self.symptom_discriminator_list,
-            gender=self.gender,
-            search_environment=self.search_environment,
-        )
-        # Act
-        ccs_search.log_values()
-        # Assert
-        mock_logger.info.assert_called_once_with(
-            f"CCS Request for environment {self.search_environment}",
-            age=self.age,
-            age_format=self.age_format,
-            disposition=self.disposition,
-            symptom_group=self.symptom_group,
-            symptom_discriminator_list=self.symptom_discriminator_list,
-            gender=self.gender,
-            search_environment=self.search_environment,
-            version=self.expected_version,
-        )
-
-    @patch(f"{FILE_PATH}.logger")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._parse_xml_response")
     @patch(f"{FILE_PATH}.post")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
@@ -118,10 +91,25 @@ class TestCheckCapacitySummarySearch:
             timeout=2,
         )
         mock__parse_xml_response.assert_called_with(mock_post.return_value.text)
-        mock_logger.info.assert_called_once_with(
-            f"{self.search_environment} CCS Response {status_code}",
-            status_code=status_code,
-            search_environment=self.search_environment,
+        mock_logger.info.assert_has_calls(
+            calls=[
+                call(
+                    f"CCS Request for environment {self.search_environment}",
+                    age=self.age,
+                    age_format=self.age_format,
+                    disposition=self.disposition,
+                    symptom_group=self.symptom_group,
+                    symptom_discriminator_list=self.symptom_discriminator_list,
+                    gender=self.gender,
+                    search_environment=self.search_environment,
+                    version=self.expected_version,
+                ),
+                call(
+                    f"{self.search_environment} CCS Response {status_code}",
+                    status_code=status_code,
+                    search_environment=self.search_environment,
+                ),
+            ]
         )
 
     @patch(f"{FILE_PATH}.logger")
@@ -244,6 +232,8 @@ class TestCheckCapacitySummarySearch:
         response = ccs_search._parse_xml_response(api_response_xml)
         # Assert
         expected_response = [
-            Service(uid="123", name="Test Pharmacy", address="1 Pharmacy Lane", service_type="Pharmacy")
+            Service(
+                uid="123", name="Test Pharmacy", address="1 Pharmacy Lane", service_type="Pharmacy", distance="0.4"
+            ).__dict__,
         ]
         assert expected_response == response, "Service not as expected"
