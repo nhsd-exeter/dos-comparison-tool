@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../app/store";
 import { ApiEndpoint } from "../config";
-// import { CCSSearchResponse } from "../interfaces/dtos";
 
 export interface CCSComparisonSearchState {
 	loading: "pending" | "fulfilled" | "rejected" | "idle";
