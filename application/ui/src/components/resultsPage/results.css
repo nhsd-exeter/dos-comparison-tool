@@ -10,19 +10,19 @@
 .results-card__header {
   display: flex;
   flex-direction: row;
-  height: 50px;
-  width: 400px;
+
   font-size: 30px;
+  /* margin-bottom: 5; */
 }
 
-.results-card__header__title {
+/* .results-card__header__title {
   font-weight: 600;
   margin-top: 5px;
   margin-left: 5px;
   margin-bottom: 0;
   margin-right: 0;
   padding: 0;
-}
+} */
 
 .results-card__summary_list {
   list-style: none;

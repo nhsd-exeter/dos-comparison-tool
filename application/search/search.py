@@ -1,3 +1,4 @@
+from json import dumps
 from typing import Any, Dict
 
 from aws_lambda_powertools.logging import Logger
@@ -30,15 +31,11 @@ def lambda_handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> Dic
     try:
         body = event.json_body
         search_one = body.get("search_one")
-        ccs_search_one = CheckCapacitySummarySearch(**search_one)
-        ccs_search_one.log_values()
-        ccs_search_one.search()
         search_two = body.get("search_two")
-        ccs_search_two = CheckCapacitySummarySearch(**search_two)
-        ccs_search_two.log_values()
-        ccs_search_two.search()
+        response_body = {"search_one": CheckCapacitySummarySearch(**search_one).search()}
+        response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
     except Exception as e:
         logger.exception(e)
         return {"statusCode": 500, "body": "Internal Server Error", "headers": response_headers}
 
-    return {"statusCode": 200, "body": "Successful Request", "headers": response_headers}
+    return {"statusCode": 200, "body": dumps(response_body), "headers": response_headers}

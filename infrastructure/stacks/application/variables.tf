@@ -102,6 +102,11 @@ variable "default_environment_url" {
   description = "The default environment URL for the CCS API"
 }
 
+variable "ccs_search_path" {
+  type        = string
+  description = "The path for the CCS search API"
+}
+
 # ############################
 # SPLUNK
 # ############################

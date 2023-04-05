@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import axios, * as dep from "axios";
 import { store } from "../../app/store";
-import { search } from "../ccsComparisonSearch";
+import { search } from "../ccsComparisonSearchSlice";
 
 jest.mock("axios");
 const mockedDependency = <jest.Mock<typeof dep.default>>dep.default;

@@ -1,3 +1,4 @@
+from json import dumps
 from unittest.mock import call, MagicMock, patch
 
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
@@ -13,11 +14,13 @@ FILE_PATH = "application.search.search"
 def test_lambda_handler(
     mock_check_capacity_summary_search: MagicMock, search_request: APIGatewayProxyEventV2, lambda_context: LambdaContext
 ):
+    # Arrange
+    mock_check_capacity_summary_search.return_value.search.return_value = return_value = {}
     # Act
     response = lambda_handler(search_request, lambda_context)
     # Assert
     assert response["statusCode"] == 200
-    assert response["body"] == "Successful Request"
+    assert response["body"] == dumps({"search_one": return_value, "search_two": return_value})
     mock_check_capacity_summary_search.assert_has_calls(
         [
             call(
@@ -30,7 +33,6 @@ def test_lambda_handler(
                 gender="male",
                 search_environment="test",
             ),
-            call().log_values(),
             call().search(),
             call(
                 age=1,
@@ -42,7 +44,6 @@ def test_lambda_handler(
                 gender="male",
                 search_environment="test",
             ),
-            call().log_values(),
             call().search(),
         ]
     )

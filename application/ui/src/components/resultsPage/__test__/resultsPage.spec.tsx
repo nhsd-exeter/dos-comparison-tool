@@ -4,5 +4,46 @@ import ResultsPage from "../resultsPage";
 
 test("It renders the expected ResultsPage component", () => {
 	// Arrange
-	renderWithProvidersAndRouter(<ResultsPage />);
+	const preloadedState = {
+		ccsComparisonSearch: {
+			searchOne: [
+				{
+					name: "Service Name",
+					service_type: "Service Type",
+					uid: "123456789",
+					address: "Service Address",
+					distance: "0.0",
+				},
+				{
+					name: "Service Name",
+					service_type: "Service Type",
+					uid: "123456789",
+					address: "Service Address",
+					distance: "0.0",
+				},
+			],
+			searchTwo: [
+				{
+					name: "Service Name",
+					service_type: "Service Type",
+					uid: "123456789",
+					address: "Service Address",
+					distance: "0.0",
+				},
+				{
+					name: "Service Name",
+					service_type: "Service Type",
+					uid: "123456789",
+					address: "Service Address",
+					distance: "0.0",
+				},
+			],
+			successStatus: false,
+		},
+	};
+	// Act
+	renderWithProvidersAndRouter(<ResultsPage />, {
+		preloadedState: preloadedState,
+	});
+	// Assert
 });

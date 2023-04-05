@@ -27,8 +27,12 @@ class CheckCapacitySummarySearch:
     search_distance: int = 20
     version: float = 1.5
 
-    def log_values(self) -> None:
-        """Logs the values of the class in JSON format"""
+    def search(self) -> list[dict[Service]]:
+        """Searches for a services using the CCS API
+
+        Returns:
+            list[dict[Service]]: List of DoS services
+        """
         logger.info(
             f"CCS Request for environment {self.search_environment}",
             age=self.age,
@@ -40,20 +44,18 @@ class CheckCapacitySummarySearch:
             search_environment=self.search_environment,
             version=self.version,
         )
-
-    def search(self) -> list[Service]:
-        """Searches for a services using the CCS API"""
         username, password = self._get_username_and_password()
         data = self._build_request_data(username, password)
         environment_url = getenv("DEFAULT_ENVIRONMENT_URL")
+        ccs_search_path = getenv("CCS_SEARCH_PATH")
         logger.debug(
             f"CCS Request for environment {self.search_environment}", data=data, environment_url=environment_url
         )
         response = post(
-            url=f"{environment_url}/app/api/webservices",
+            url=f"{environment_url}{ccs_search_path}",
             headers={"content-type": "text/xml"},
             data=data,
-            timeout=2,
+            timeout=3,
         )
 
         if response.status_code == 200:
@@ -134,14 +136,14 @@ class CheckCapacitySummarySearch:
 
         return root.toxml()
 
-    def _parse_xml_response(self, response_xml: str) -> list[Service]:
+    def _parse_xml_response(self, response_xml: str) -> list[dict[Service]]:
         """Parses the response from the CCS API
 
         Args:
             response_xml (str): XML response from the CCS API
 
         Returns:
-            list[Service]: List of services returned from the CCS API
+            list[dict[Service]]: List of services returned from the CCS API
         """
         response_dict: Dict[str, Any] = parse(response_xml)
         body = response_dict.get("env:Envelope", {}).get("env:Body", {})
@@ -157,7 +159,8 @@ class CheckCapacitySummarySearch:
                 uid=service.get("ns1:id"),
                 address=service.get("ns1:address"),
                 service_type=service.get("ns1:serviceType", {}).get("ns1:name"),
+                distance=service.get("ns1:distance"),
             )
-            api_response.append(dos_service)
+            api_response.append(dos_service.__dict__)
             logger.debug("CCS Service", service=dos_service, search_environment=self.search_environment)
         return api_response
