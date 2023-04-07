@@ -5,7 +5,6 @@ import {
 	AgeUnitsDropDown,
 	DispositionDropDown,
 	EnvironmentDropDown,
-	RoleDropDown,
 	SexDropDown,
 	SymptomDiscriminatorDropDown,
 	SymptomGroupDropDown,
@@ -42,18 +41,9 @@ test("It renders the expected SexDropDown component", () => {
 	// Arrange
 	renderWithProvidersAndRouter(<SexDropDown />);
 	// Act: Get the elements.
-	const Sex = screen.getByLabelText("Sex");
+	const sex = screen.getByLabelText("Sex");
 	// Assert: Elements are present.
-	expect(Sex).toBeTruthy();
-});
-
-test("It renders the expected RoleDropDown component", () => {
-	// Arrange
-	renderWithProvidersAndRouter(<RoleDropDown />);
-	// Act: Get the elements.
-	const Role = screen.getByLabelText("Role");
-	// Assert: Elements are present.
-	expect(Role).toBeTruthy();
+	expect(sex).toBeTruthy();
 });
 
 test("It renders the expected AgeUnitsDropDown component", () => {

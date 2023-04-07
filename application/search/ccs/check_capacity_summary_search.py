@@ -33,6 +33,7 @@ class CheckCapacitySummarySearch:
         Returns:
             list[dict[Service]]: List of DoS services
         """
+
         logger.info(
             f"CCS Request for environment {self.search_environment}",
             age=self.age,
@@ -46,8 +47,8 @@ class CheckCapacitySummarySearch:
         )
         username, password = self._get_username_and_password()
         data = self._build_request_data(username, password)
-        environment_url = getenv("DEFAULT_ENVIRONMENT_URL")
         ccs_search_path = getenv("CCS_SEARCH_PATH")
+        environment_url = self._get_environment_url()
         logger.debug(
             f"CCS Request for environment {self.search_environment}", data=data, environment_url=environment_url
         )
@@ -135,6 +136,14 @@ class CheckCapacitySummarySearch:
             symptom_discriminator_list.appendChild(_int)
 
         return root.toxml()
+
+    def _get_environment_url(self) -> str:
+        """Gets the environment URL for the CCS API
+
+        Returns:
+            str: Environment URL for the CCS API
+        """
+        return getenv("DEFAULT_ENVIRONMENT_URL")
 
     def _parse_xml_response(self, response_xml: str) -> list[dict[Service]]:
         """Parses the response from the CCS API

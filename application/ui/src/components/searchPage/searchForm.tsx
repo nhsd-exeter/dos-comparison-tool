@@ -1,21 +1,22 @@
 import { Input, Label } from "nhsuk-react-components";
-import { AgeUnitsDropDown, RoleDropDown } from "./dropDowns";
+import { AGE_INPUT_SUFFIX } from "../../constants/componentIds";
+import { AgeUnitsDropDown, EnvironmentDropDown } from "./dropDowns";
 import "./search.css";
 
-function SearchForm() {
+function SearchForm({ searchName }: { searchName: string }) {
 	return (
 		<div>
-			<RoleDropDown />
+			<EnvironmentDropDown searchName={searchName} />
 			<Label>Age</Label>
-			<div className="age-row">
+			<div className={"AgeRow"}>
 				<Input
-					type="text"
-					required
 					autoComplete="off"
+					id={`${searchName}${AGE_INPUT_SUFFIX}`}
+					required
+					type="text"
 					width="10"
-					className="AgeInput"
 				/>
-				<AgeUnitsDropDown />
+				<AgeUnitsDropDown searchName={searchName} />
 			</div>
 		</div>
 	);
