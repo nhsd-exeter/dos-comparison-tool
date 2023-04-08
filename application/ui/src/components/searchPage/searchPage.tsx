@@ -7,12 +7,12 @@ import {
 	AGE_UNITS_DROP_DOWN_SUFFIX,
 	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
-	SEARCH_ONE,
-	SEARCH_TWO,
+	SEARCH_BUTTON,
 	SEX_DROP_DOWN,
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
 	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
+import { SEARCH_ONE, SEARCH_TWO } from "../../constants/constants";
 import { CCSSearchData } from "../../interfaces/dtos";
 import { selectToken } from "../../slices/authSlice";
 import { search } from "../../slices/ccsComparisonSearchSlice";
@@ -96,7 +96,7 @@ function SearchPage() {
 					<h2>Search 2 Details</h2>
 					<SearchForm searchName={SEARCH_TWO} />
 					<br />
-					<Button>{"Search"}</Button>
+					<Button id={SEARCH_BUTTON}>{"Search"}</Button>
 				</Form>
 			</Container>
 		</Layout>

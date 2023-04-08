@@ -25,9 +25,7 @@ export const AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT =
 export const AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT =
 	"authResetPasswordPasswordInput";
 // CCS Search Elements
-export const SEARCH_ONE = "SearchOne";
-export const SEARCH_TWO = "SearchTwo";
-
+export const SEARCH_BUTTON = NEXT_BUTTON;
 export const POSTCODE_INPUT = "PostcodeInput";
 export const SYMPTOM_GROUP_DROP_DOWN = "SymptomGroupDropDown";
 export const SYMPTOM_DISCRIMINATOR_DROP_DOWN = "SymptomDiscriminatorDropDown";
