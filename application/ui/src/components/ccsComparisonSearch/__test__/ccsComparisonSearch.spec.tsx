@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { fireEvent } from "@testing-library/react";
-import axios, * as dep from "axios";
+import axios from "axios";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import {
 	FOOTER_ID,
@@ -10,7 +10,6 @@ import {
 import CCSComparisonSearch from "../ccsComparisonSearch";
 
 jest.mock("axios");
-const mockedDependency = (jest.Mock as typeof dep.default) >> dep.default;
 
 test("It renders the expected CCSComparisonSearch layout", () => {
 	// Arrange

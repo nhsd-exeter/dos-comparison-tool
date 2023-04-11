@@ -1,11 +1,9 @@
-import { describe, expect, it } from "@jest/globals";
-import { fireEvent } from "@testing-library/react";
-import axios, * as dep from "axios";
+import { expect } from "@jest/globals";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import PageNotFound from "../pageNotFound";
 
-test("It renders the expected ErrorPage layout", () => {
+test("It renders the expected PageNotFound layout", () => {
 	// Arrange
 	renderWithProvidersAndRouter(<PageNotFound />);
 	// Act: Get the elements.
@@ -14,17 +12,4 @@ test("It renders the expected ErrorPage layout", () => {
 	// Assert: Elements are present.
 	expect(footer).toBeFalsy();
 	expect(header).toBeTruthy();
-});
-
-describe("SearchPage works as expected", () => {
-	it("On submit it sends a ccsComparisonSearchRequest", () => {
-		// Arrange
-		axios.post.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-		// Act
-		renderWithProvidersAndRouter(<SearchPage />);
-		const submitButton = document.getElementById(SEARCH_BUTTON) as HTMLElement;
-		fireEvent(submitButton, new MouseEvent("click"));
-		// Assert
-		expect(axios.post).toHaveBeenCalledTimes(1);
-	});
 });
