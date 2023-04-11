@@ -1,4 +1,4 @@
-from ...ccs.service import Service
+from ...ccs_comparison_search.service import Service
 
 
 class TestService:

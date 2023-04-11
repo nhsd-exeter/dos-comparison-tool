@@ -5,21 +5,22 @@ from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
 from pytest import raises
 
-from ...ccs.ccs_exceptions import CCSAPIResponseException
-from ...ccs.check_capacity_summary_search import CheckCapacitySummarySearch
-from ...ccs.service import Service
+from ...ccs_comparison_search.ccs_exceptions import CCSAPIResponseException
+from ...ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
+from ...ccs_comparison_search.service import Service
 
-FILE_PATH = "application.search.ccs.check_capacity_summary_search"
+FILE_PATH = "application.search.ccs_comparison_search.check_capacity_summary_search"
 
 
 class TestCheckCapacitySummarySearch:
     age = 1
     age_format = "years"
     disposition = 1
-    symptom_group = 1
-    symptom_discriminator_list = [1, 2, 3]
     gender = "M"
+    postcode = "test"
     search_environment = "test"
+    symptom_discriminator_list = [1, 2, 3]
+    symptom_group = 1
     expected_search_distance = 20
     expected_version = 1.5
 
@@ -33,6 +34,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
         # Assert
@@ -44,6 +46,7 @@ class TestCheckCapacitySummarySearch:
             ccs_search.symptom_discriminator_list == self.symptom_discriminator_list
         ), "Symptom discriminator list not set correctly"
         assert ccs_search.gender == self.gender, "Gender not set correctly"
+        assert ccs_search.postcode == self.postcode, "Postcode not set correctly"
         assert ccs_search.search_environment == self.search_environment, "Search environment not set correctly"
         assert ccs_search.search_distance == self.expected_search_distance, "Search distance not set correctly"
 
@@ -75,6 +78,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
         mock_post.return_value = MagicMock(status_code=status_code)
@@ -101,6 +105,7 @@ class TestCheckCapacitySummarySearch:
                     symptom_group=self.symptom_group,
                     symptom_discriminator_list=self.symptom_discriminator_list,
                     gender=self.gender,
+                    postcode=self.postcode,
                     search_environment=self.search_environment,
                     version=self.expected_version,
                 ),
@@ -139,9 +144,9 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
-
         mock_post.return_value = MagicMock(status_code=status_code)
         # Act
         with raises(CCSAPIResponseException) as exception:
@@ -175,6 +180,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
         username_value = "username"
@@ -207,12 +213,13 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
         # Act
         request_data = ccs_search._build_request_data(username, password)
         # Assert
-        expected_xml = """<?xml version="1.0" ?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://nww.pathwaysdos.nhs.uk/app/api/webservices"><soap:Header><web:serviceVersion>1.5</web:serviceVersion></soap:Header><soap:Body><web:CheckCapacitySummary><web:userInfo><web:username>username</web:username><web:password>password</web:password></web:userInfo><web:c><web:postcode>GU22 7EW</web:postcode><web:age>1</web:age><web:ageFormat>years</web:ageFormat><web:disposition>1</web:disposition><web:symptomGroup>1</web:symptomGroup><web:searchDistance>20</web:searchDistance><web:gender>M</web:gender><web:symptomDiscriminatorList><web:int>1</web:int><web:int>2</web:int><web:int>3</web:int></web:symptomDiscriminatorList></web:c></web:CheckCapacitySummary></soap:Body></soap:Envelope>"""  # noqa: E501
+        expected_xml = """<?xml version="1.0" ?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://nww.pathwaysdos.nhs.uk/app/api/webservices"><soap:Header><web:serviceVersion>1.5</web:serviceVersion></soap:Header><soap:Body><web:CheckCapacitySummary><web:userInfo><web:username>username</web:username><web:password>password</web:password></web:userInfo><web:c><web:postcode>test</web:postcode><web:age>1</web:age><web:ageFormat>years</web:ageFormat><web:disposition>1</web:disposition><web:symptomGroup>1</web:symptomGroup><web:searchDistance>20</web:searchDistance><web:gender>M</web:gender><web:symptomDiscriminatorList><web:int>1</web:int><web:int>2</web:int><web:int>3</web:int></web:symptomDiscriminatorList></web:c></web:CheckCapacitySummary></soap:Body></soap:Envelope>"""  # noqa: E501
         assert request_data == expected_xml, "Request data should be as expected"
 
     def test_parse_xml_response(self) -> None:
@@ -224,9 +231,10 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            postcode=self.postcode,
             search_environment=self.search_environment,
         )
-        api_response = parse("application/search/tests/ccs/example_ccs_api_response.xml")
+        api_response = parse("application/search/tests/ccs_comparison_search/example_ccs_api_response.xml")
         api_response_xml = api_response.toprettyxml()
         # Act
         response = ccs_search._parse_xml_response(api_response_xml)
