@@ -32,3 +32,19 @@ export interface AuthState extends Partial<Auth> {
 	failedLogin: boolean;
 	loggedIn: boolean;
 }
+
+export interface CCSSearchData {
+	authToken: string;
+	search_one: Search;
+	search_two: Search;
+}
+
+export interface Search {
+	age: number;
+	age_format: string;
+	disposition: number;
+	symptom_group: number;
+	symptom_discriminator_list: number[];
+	gender: string;
+	search_environment: string;
+}

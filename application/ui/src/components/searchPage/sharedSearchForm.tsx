@@ -1,4 +1,5 @@
 import { Input } from "nhsuk-react-components";
+import { POSTCODE_INPUT } from "../../constants/componentIds";
 import {
 	DispositionDropDown,
 	SexDropDown,
@@ -14,13 +15,7 @@ function SharedSearchForm() {
 				required
 				autoComplete="off"
 				label="Postcode"
-				width="10"
-			/>
-			<Input
-				type="text"
-				required
-				autoComplete="off"
-				label="Surgery Code"
+				id={POSTCODE_INPUT}
 				width="10"
 			/>
 			<SymptomGroupDropDown />

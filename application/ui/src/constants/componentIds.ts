@@ -1,4 +1,5 @@
 // These are the ids of the elements in the DOM
+
 // Layout Elements (Header, Footer, Main) are used to identify the elements in the DOM
 export const HEADER_ID = "DoSComparisonToolHeader";
 export const FOOTER_ID = "DoSComparisonToolFooter";
@@ -23,3 +24,13 @@ export const AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT =
 	"authResetPasswordConfirmCode";
 export const AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT =
 	"authResetPasswordPasswordInput";
+// CCS Search Elements
+export const SEARCH_BUTTON = NEXT_BUTTON;
+export const POSTCODE_INPUT = "PostcodeInput";
+export const SYMPTOM_GROUP_DROP_DOWN = "SymptomGroupDropDown";
+export const SYMPTOM_DISCRIMINATOR_DROP_DOWN = "SymptomDiscriminatorDropDown";
+export const DISPOSITION_DROP_DOWN = "DispositionDropDown";
+export const SEX_DROP_DOWN = "SexDropDown";
+export const AGE_INPUT_SUFFIX = "AgeInput";
+export const AGE_UNITS_DROP_DOWN_SUFFIX = "AgeUnitsDropDown";
+export const ENVIRONMENT_DROP_DOWN_SUFFIX = "EnvironmentDropDown";

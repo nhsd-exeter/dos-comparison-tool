@@ -1,39 +1,43 @@
 import { Select } from "nhsuk-react-components";
+import {
+	AGE_UNITS_DROP_DOWN_SUFFIX,
+	DISPOSITION_DROP_DOWN,
+	ENVIRONMENT_DROP_DOWN_SUFFIX,
+	SEX_DROP_DOWN,
+	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
+	SYMPTOM_GROUP_DROP_DOWN,
+} from "../../constants/componentIds";
 
 export function SymptomGroupDropDown() {
 	return (
-		<Select label="Symptom Group">
-			<Select.Option value="Abdominal Pain">Abdominal Pain</Select.Option>
-			<Select.Option value="Acne, Spots and Pimples">
-				Acne, Spots and Pimples
-			</Select.Option>
-			<Select.Option value="Arm, Pain or Swelling">
-				Arm, Pain or Swelling
-			</Select.Option>
+		<Select label="Symptom Group" id={SYMPTOM_GROUP_DROP_DOWN}>
+			<Select.Option value="1011">Abdominal Pain</Select.Option>
+			<Select.Option value="1011">Acne, Spots and Pimples</Select.Option>
+			<Select.Option value="1011">Arm, Pain or Swelling</Select.Option>
 		</Select>
 	);
 }
 
 export function SymptomDiscriminatorDropDown() {
 	return (
-		<Select label="Symptom Discriminator">
-			<Select.Option value="1">Option 1</Select.Option>
-			<Select.Option value="2">Option 2</Select.Option>
-			<Select.Option value="3">Option 3</Select.Option>
+		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
+			<Select.Option value="4003">Option 1</Select.Option>
+			<Select.Option value="4003">Option 2</Select.Option>
+			<Select.Option value="4003">Option 3</Select.Option>
 		</Select>
 	);
 }
 
 export function DispositionDropDown() {
 	return (
-		<Select label="Disposition">
-			<Select.Option value="To contact a Primary Care Service with 2 hours">
+		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
+			<Select.Option value="9001">
 				To contact a Primary Care Service with 2 hours
 			</Select.Option>
-			<Select.Option value="To contact a Primary Care Service with 6 hours">
+			<Select.Option value="9001">
 				To contact a Primary Care Service with 6 hours
 			</Select.Option>
-			<Select.Option value="To contact a Primary Care Service with 12 hours">
+			<Select.Option value="9001">
 				To contact a Primary Care Service with 12 hours
 			</Select.Option>
 		</Select>
@@ -42,26 +46,20 @@ export function DispositionDropDown() {
 
 export function SexDropDown() {
 	return (
-		<Select label="Sex">
-			<Select.Option value="Male">Male</Select.Option>
-			<Select.Option value="Female">Female</Select.Option>
-			<Select.Option value="Unknown">Unknown</Select.Option>
+		<Select label="Sex" id={SEX_DROP_DOWN}>
+			<Select.Option value="M">Male</Select.Option>
+			<Select.Option value="F">Female</Select.Option>
+			<Select.Option value="I">Unknown</Select.Option>
 		</Select>
 	);
 }
 
-export function RoleDropDown() {
+export function AgeUnitsDropDown({ searchName }: { searchName: string }) {
 	return (
-		<Select label="Role">
-			<Select.Option value="111 Telephony">111 Telephony</Select.Option>
-			<Select.Option value="Digital Referral">Digital Referral</Select.Option>
-			<Select.Option value="999">999</Select.Option>
-		</Select>
-	);
-}
-export function AgeUnitsDropDown() {
-	return (
-		<Select className="AgeUnits">
+		<Select
+			className="AgeUnits"
+			id={`${searchName}${AGE_UNITS_DROP_DOWN_SUFFIX}`}
+		>
 			<Select.Option value="Years">Years</Select.Option>
 			<Select.Option value="Months">Months</Select.Option>
 			<Select.Option value="Days">Days</Select.Option>
@@ -69,9 +67,12 @@ export function AgeUnitsDropDown() {
 	);
 }
 
-export function EnvironmentDropDown() {
+export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 	return (
-		<Select label="Environment">
+		<Select
+			label="Environment"
+			id={`${searchName}${ENVIRONMENT_DROP_DOWN_SUFFIX}`}
+		>
 			<Select.Option value="Live">Cloud - Live</Select.Option>
 			<Select.Option value="UserTest">Cloud - UserTest</Select.Option>
 			<Select.Option value="UAT1">Cloud - UAT1</Select.Option>

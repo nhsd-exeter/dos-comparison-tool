@@ -2,3 +2,5 @@
 
 # ==============================================================================
 # Service Variables
+
+APPLICATION_CCS_SEARCH_ENVIRONMENTS:=regressiondi,test,fix

@@ -1,10 +1,41 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import axios, * as dep from "axios";
 import { store } from "../../app/store";
+import { CCSSearchData } from "../../interfaces/dtos";
 import { search } from "../ccsComparisonSearchSlice";
 
 jest.mock("axios");
 const mockedDependency = <jest.Mock<typeof dep.default>>dep.default;
+
+const age = 2;
+const ageFormat = "Years";
+const disposition = 9001;
+const gender = "M";
+const searchEnvironment = "test";
+const symptomDiscriminatorList = [4003];
+const symptomGroup = 1011;
+
+const searchDetails: CCSSearchData = {
+	authToken: "test",
+	search_one: {
+		age,
+		age_format: ageFormat,
+		disposition,
+		gender,
+		search_environment: searchEnvironment,
+		symptom_discriminator_list: symptomDiscriminatorList,
+		symptom_group: symptomGroup,
+	},
+	search_two: {
+		age,
+		age_format: ageFormat,
+		disposition,
+		gender,
+		search_environment: searchEnvironment,
+		symptom_discriminator_list: symptomDiscriminatorList,
+		symptom_group: symptomGroup,
+	},
+};
 
 describe("tests for ccsComparisonSearch slice", () => {
 	beforeEach(() => {
@@ -15,27 +46,27 @@ describe("tests for ccsComparisonSearch slice", () => {
 		// Arrange - set up the initial state
 		axios.post.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 		// Act - run the action
-		store.dispatch(search(""));
+		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
 		expect(axios.post).toHaveBeenCalledWith("test/search", {
 			search_one: {
-				age: 2,
-				age_format: "Years",
-				disposition: 9001,
-				gender: "M",
-				search_environment: "test",
-				symptom_discriminator_list: [4003],
-				symptom_group: 1011,
+				age: age,
+				age_format: ageFormat,
+				disposition: disposition,
+				gender: gender,
+				search_environment: searchEnvironment,
+				symptom_discriminator_list: symptomDiscriminatorList,
+				symptom_group: symptomGroup,
 			},
 			search_two: {
-				age: 2,
-				age_format: "Years",
-				disposition: 9001,
-				gender: "M",
-				search_environment: "test",
-				symptom_discriminator_list: [4003],
-				symptom_group: 1011,
+				age: age,
+				age_format: ageFormat,
+				disposition: disposition,
+				gender: gender,
+				search_environment: searchEnvironment,
+				symptom_discriminator_list: symptomDiscriminatorList,
+				symptom_group: symptomGroup,
 			},
 		});
 	});
@@ -44,8 +75,28 @@ describe("tests for ccsComparisonSearch slice", () => {
 		// Arrange - set up the initial state
 		axios.post.mockImplementationOnce(() => Promise.reject({}));
 		// Act - run the action
-		store.dispatch(search(""));
+		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
+		expect(axios.post).toHaveBeenCalledWith("test/search", {
+			search_one: {
+				age: age,
+				age_format: ageFormat,
+				disposition: disposition,
+				gender: gender,
+				search_environment: searchEnvironment,
+				symptom_discriminator_list: symptomDiscriminatorList,
+				symptom_group: symptomGroup,
+			},
+			search_two: {
+				age: age,
+				age_format: ageFormat,
+				disposition: disposition,
+				gender: gender,
+				search_environment: searchEnvironment,
+				symptom_discriminator_list: symptomDiscriminatorList,
+				symptom_group: symptomGroup,
+			},
+		});
 	});
 });

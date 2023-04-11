@@ -30,8 +30,10 @@ def lambda_handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> Dic
     """
     try:
         body = event.json_body
-        search_one = body.get("search_one")
-        search_two = body.get("search_two")
+        search_one = body.get("search_one", {})
+        search_two = body.get("search_two", {})
+        if search_one == {} or search_two == {}:
+            return {"statusCode": 400, "body": "Bad Request", "headers": response_headers}
         response_body = {"search_one": CheckCapacitySummarySearch(**search_one).search()}
         response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
     except Exception as e:
