@@ -6,7 +6,9 @@ import { CCSSearchData } from "../interfaces/dtos";
 export interface CCSComparisonSearchState {
 	loading: "pending" | "fulfilled" | "rejected" | "idle";
 	searchOne: Array<string>;
+	searchOneEnvironment: string;
 	searchTwo: Array<string>;
+	searchTwoEnvironment: string;
 	successStatus: boolean;
 	error?: string;
 }
@@ -42,6 +44,12 @@ export const ccsComparisonSearchSlice = createSlice({
 			if (state.loading === "pending") {
 				state.searchOne = Object(action.payload)["search_one"];
 				state.searchTwo = Object(action.payload)["search_two"];
+				state.searchOneEnvironment = Object(action.payload)[
+					"search_one_environment"
+				];
+				state.searchTwoEnvironment = Object(action.payload)[
+					"search_two_environment"
+				];
 				state.successStatus = true;
 				state.loading = "idle";
 			}
@@ -64,5 +72,10 @@ export const selectCCSComparisonSearchOne = (state: RootState) =>
 	state.ccsComparisonSearch.searchOne;
 export const selectCCSComparisonSearchTwo = (state: RootState) =>
 	state.ccsComparisonSearch.searchTwo;
+
+export const selectCCSComparisonSearchOneEnvironment = (state: RootState) =>
+	state.ccsComparisonSearch.searchOneEnvironment;
+export const selectCCSComparisonSearchTwoEnvironment = (state: RootState) =>
+	state.ccsComparisonSearch.searchTwoEnvironment;
 
 export default ccsComparisonSearchSlice.reducer;

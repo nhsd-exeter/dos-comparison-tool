@@ -50,6 +50,6 @@ SEARCH_REQUEST = {
         "symptom_discriminator_list": [1, 2, 3],
         "search_distance": 1,
         "gender": "male",
-        "search_environment": "test",
+        "search_environment": "test2",
     },
 }

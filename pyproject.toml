@@ -8,7 +8,7 @@ exclude_dirs = ["/tests", "ui"]
 [tool.vulture]
 make_whitelist = true
 paths = ["application"]
-exclude = ["application/ui", "application/conftest.py", "application/__init__.py", "**/tests/**", "application/search/ccs/service"]
+exclude = ["application/ui", "application/conftest.py", "application/__init__.py", "**/tests/**", "application/search/ccs_comparison_search/service"]
 sort_by_size = true
 ignore_names = ["lambda_handler", "tracer", "logger", "context", "event"]
 

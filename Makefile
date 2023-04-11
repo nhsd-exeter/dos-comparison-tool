@@ -182,7 +182,7 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application
+	python -m pytest application -vvvv
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
