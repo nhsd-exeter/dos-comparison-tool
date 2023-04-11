@@ -6,7 +6,7 @@ from aws_lambda_powertools.tracing import Tracer
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2, event_source
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from .ccs.check_capacity_summary_search import CheckCapacitySummarySearch
+from .ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
 
 logger = Logger()
 tracer = Tracer()
@@ -35,7 +35,9 @@ def lambda_handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> Dic
         if search_one == {} or search_two == {}:
             return {"statusCode": 400, "body": "Bad Request", "headers": response_headers}
         response_body = {"search_one": CheckCapacitySummarySearch(**search_one).search()}
+        response_body["search_one_environment"] = search_one["search_environment"]
         response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
+        response_body["search_two_environment"] = search_two["search_environment"]
     except Exception as e:
         logger.exception(e)
         return {"statusCode": 500, "body": "Internal Server Error", "headers": response_headers}

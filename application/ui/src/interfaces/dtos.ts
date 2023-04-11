@@ -43,8 +43,9 @@ export interface Search {
 	age: number;
 	age_format: string;
 	disposition: number;
-	symptom_group: number;
-	symptom_discriminator_list: number[];
 	gender: string;
+	postcode: string;
 	search_environment: string;
+	symptom_discriminator_list: number[];
+	symptom_group: number;
 }
