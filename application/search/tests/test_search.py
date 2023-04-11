@@ -1,10 +1,11 @@
 from json import dumps
 from unittest.mock import call, MagicMock, patch
-from .conftest import SEARCH_REQUEST
+
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
 from ..search import lambda_handler
+from .conftest import SEARCH_REQUEST
 
 # Fixtures that can't be found in this file are in the conftest.py file
 FILE_PATH = "application.search.search"
