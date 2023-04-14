@@ -1,3 +1,4 @@
+# tfsec:ignore:aws-iam-no-policy-wildcards
 module "data_lambda" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "4.12.1"

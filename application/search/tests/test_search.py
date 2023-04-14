@@ -11,6 +11,15 @@ URL_PATH = "/search/CCSComparisonSearch"
 HTTP_METHOD = "POST"
 
 
+def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
+    # Arrange
+    event = {"body": "invalid", "path": URL_PATH, "httpMethod": "GET"}
+    # Act
+    response = lambda_handler(event, lambda_context)
+    # Assert
+    assert response["body"] == """{"statusCode":404,"message":"Not found"}"""
+
+
 @patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
 def test_ccs_comparison_search(
     mock_check_capacity_summary_search: MagicMock, search_request: dict, lambda_context: LambdaContext
