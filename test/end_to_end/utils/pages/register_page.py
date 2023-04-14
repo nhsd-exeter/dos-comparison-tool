@@ -1,9 +1,9 @@
-from os import getenv
 from typing import Self
 
 from ..aws import confirm_user
 from ..drivers.chrome_driver import get_driver
 from ..elements import input_textbox
+from ..environment_variables import get_and_check_environment_variable
 from .page import Page
 
 
@@ -38,4 +38,5 @@ class RegisterPage(Page):
 
     def navigate_to_page(self):
         """Navigate to the homepage"""
-        return get_driver().get(f'{getenv("APPLICATION_URL")}{self.url_subdirectory}')
+        application_url = get_and_check_environment_variable("APPLICATION_URL")
+        return get_driver().get(f"{application_url}{self.url_subdirectory}")

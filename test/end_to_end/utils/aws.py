@@ -1,7 +1,8 @@
 from json import loads
-from os import getenv
 
 from boto3 import client
+
+from ..utils.environment_variables import get_and_check_environment_variable
 
 
 def get_secret(secret_name: str) -> dict[str, str]:
@@ -23,7 +24,8 @@ def confirm_user(username: str) -> None:
     Args:
         username (str): Username of the user to confirm.
     """
-    secret_value = get_secret(getenv("COGNITO_SECRETS_NAME"))
+    secret_name = get_and_check_environment_variable("COGNITO_SECRETS_NAME")
+    secret_value = get_secret(secret_name)
     client("cognito-idp").admin_confirm_sign_up(UserPoolId=secret_value["USER_POOL_ID"], Username=username)
 
 
@@ -33,5 +35,6 @@ def delete_user(username: str) -> None:
     Args:
         username (str): Username of the user to delete.
     """
-    secret_value = get_secret(getenv("COGNITO_SECRETS_NAME"))
+    secret_name = get_and_check_environment_variable("COGNITO_SECRETS_NAME")
+    secret_value = get_secret(secret_name)
     client("cognito-idp").admin_delete_user(UserPoolId=secret_value["USER_POOL_ID"], Username=username)

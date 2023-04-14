@@ -1,6 +1,5 @@
-from os import getenv
-
 from ..drivers.chrome_driver import get_driver
+from ..environment_variables import get_and_check_environment_variable
 from .page import Page
 
 
@@ -12,4 +11,5 @@ class HomePage(Page):
 
     def navigate_to_page(self):
         """Navigate to the homepage"""
-        return get_driver().get(getenv("APPLICATION_URL"))
+        application_url = get_and_check_environment_variable("APPLICATION_URL")
+        return get_driver().get(application_url)

@@ -21,9 +21,10 @@ build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[
 
 start: # Start project
 	eval "$$(make -s populate-application-variables)"
-	make project-start
+	make project-start COMPOSE_PROJECT_NAME=$(PROJECT_NAME)
 
-stop: project-stop # Stop project
+stop: # Stop project
+	make project-stop COMPOSE_PROJECT_NAME=$(PROJECT_NAME)
 
 restart: stop start # Restart project
 
@@ -50,7 +51,7 @@ build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[nam
 	make build-and-push deploy VERSION=$(BUILD_TAG)
 
 build-and-start: # Build and start application - mandatory: PROFILE=[name]
-	make build provision-infrastructure start
+	make build-and-push provision-infrastructure start VERSION=$(BUILD_TAG)
 
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
@@ -182,7 +183,7 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application -vvvv
+	python -m pytest application
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
@@ -231,7 +232,17 @@ end-to-end-test:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest"
+	CMD="pytest" \
+	ARGS=" \
+		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
+		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \
+		-e COGNITO_SECRETS_ADMIN_USERNAME_KEY=$(COGNITO_SECRETS_ADMIN_USERNAME_KEY) \
+		-e COGNITO_SECRETS_ADMIN_PASSWORD_KEY=$(COGNITO_SECRETS_ADMIN_PASSWORD_KEY) \
+		-e DEPLOYMENT_SECRETS=$(DEPLOYMENT_SECRETS) \
+		-e SETUP_USER_USERNAME_KEY=$(SETUP_USER_USERNAME_KEY) \
+		-e SETUP_USER_PASSWORD_KEY=$(SETUP_USER_PASSWORD_KEY) \
+		-e SETUP_USER_EMAIL_KEY=$(SETUP_USER_EMAIL_KEY) \
+		"
 
 # ==============================================================================
 # Deployment variables
