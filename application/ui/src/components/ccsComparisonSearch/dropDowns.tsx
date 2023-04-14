@@ -11,9 +11,9 @@ import {
 export function SymptomGroupDropDown() {
 	return (
 		<Select label="Symptom Group" id={SYMPTOM_GROUP_DROP_DOWN}>
-			<Select.Option value="1011">Abdominal Pain</Select.Option>
-			<Select.Option value="1011">Acne, Spots and Pimples</Select.Option>
-			<Select.Option value="1011">Arm, Pain or Swelling</Select.Option>
+			<Select.Option value="1004">Abdominal Pain</Select.Option>
+			<Select.Option value="1004">Acne, Spots and Pimples</Select.Option>
+			<Select.Option value="1004">Arm, Pain or Swelling</Select.Option>
 		</Select>
 	);
 }
@@ -21,9 +21,8 @@ export function SymptomGroupDropDown() {
 export function SymptomDiscriminatorDropDown() {
 	return (
 		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
-			<Select.Option value="4003">Option 1</Select.Option>
-			<Select.Option value="4003">Option 2</Select.Option>
-			<Select.Option value="4003">Option 3</Select.Option>
+			<Select.Option value="4153">AMB Bleeding, significant</Select.Option>
+			<Select.Option value="4153">AMB Bleeding</Select.Option>
 		</Select>
 	);
 }
@@ -73,10 +72,9 @@ export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 			label="Environment"
 			id={`${searchName}${ENVIRONMENT_DROP_DOWN_SUFFIX}`}
 		>
-			<Select.Option value="Live">Cloud - Live</Select.Option>
-			<Select.Option value="UserTest">Cloud - UserTest</Select.Option>
-			<Select.Option value="UAT1">Cloud - UAT1</Select.Option>
-			<Select.Option value="UAT2">Cloud - UAT2</Select.Option>
+			<Select.Option value="Regression">Regression</Select.Option>
+			<Select.Option value="RegressionDI">Regression DI</Select.Option>
+			<Select.Option value="RegressionSF">Regression SF</Select.Option>
 		</Select>
 	);
 }

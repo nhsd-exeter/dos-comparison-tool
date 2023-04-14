@@ -37,14 +37,6 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={LOGIN_PATH} element={<Login />} />
 			<Route path={REGISTER_PATH} element={<Register />} />
 			<Route path={FORGOTTEN_PASSWORD_PATH} element={<ForgottenPassword />} />
-			<Route
-				path={CCS_COMPARISON_SEARCH_PATH}
-				element={<CCSComparisonSearch />}
-			/>
-			<Route
-				path={CCS_COMPARISON_RESULTS_PATH}
-				element={<CCSComparisonResults />}
-			/>
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
 	);
@@ -54,6 +46,14 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={BASE_PATH} element={<Home />} />
 			<Route path={LOGIN_PATH} element={<Login />} />
 			<Route path={MENU_PATH} element={<Menu />} />
+			<Route
+				path={CCS_COMPARISON_SEARCH_PATH}
+				element={<CCSComparisonSearch />}
+			/>
+			<Route
+				path={CCS_COMPARISON_RESULTS_PATH}
+				element={<CCSComparisonResults />}
+			/>
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
 	);

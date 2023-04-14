@@ -50,7 +50,7 @@ build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[nam
 	make build-and-push deploy VERSION=$(BUILD_TAG)
 
 build-and-start: # Build and start application - mandatory: PROFILE=[name]
-	make build provision-infrastructure start
+	make build-and-push provision-infrastructure start VERSION=$(BUILD_TAG)
 
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
@@ -182,7 +182,7 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application -vvvv
+	python -m pytest application
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
