@@ -17,6 +17,7 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 
 build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
 	make search-build
+	make data-build
 	make ui-build
 
 start: # Start project
@@ -61,7 +62,13 @@ build-and-push: # Build and push docker images - optional: VERSION=[name]
 
 build-and-push-without-ui: # Build and push docker images - optional: VERSION=[name]
 	make search-build
+	make data-build
 	make docker-push NAME=search
+	make docker-push NAME=data
+
+back-end-build-and-deploy: # Build, push and deploy back-end (everything but UI) - mandatory: PROFILE=[name]
+	make build-and-push-without-ui VERSION=$(BUILD_TAG)
+	make provision-infrastructure VERSION=$(BUILD_TAG)
 
 unit-test: # Run unit tests
 	make python-unit-test
@@ -69,6 +76,7 @@ unit-test: # Run unit tests
 
 clean: # Clean up project
 	make search-clean
+	make data-clean
 	make ui-clean
 	make terraform-clean
 	make python-clean
@@ -125,13 +133,17 @@ ui-build-clean: # Clean UI build artefacts
 search-build: # Build Search image
 	make -s build-lambda NAME=search
 
-search-build-and-deploy: # Build Search image and deploy to AWS
-	make -s build-lambda NAME=search VERSION=$(BUILD_TAG)
-	make docker-push NAME=search VERSION=$(BUILD_TAG)
-	make provision-infrastructure VERSION=$(BUILD_TAG)
-
 search-clean: # Clean Search
 	make docker-image-clean NAME=search
+
+	# ==============================================================================
+# Data targets (Data Lambda Docker Image)
+
+data-build: # Build Search image
+	make -s build-lambda NAME=data
+
+data-clean: # Clean Search
+	make docker-image-clean NAME=data
 
 # ==============================================================================
 # TypeScript Development, Linting and Testing targets
@@ -187,6 +199,7 @@ python-unit-test: # Run Python unit tests
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
+	make python-code-format FILES=$(APPLICATION_DIR_REL)/data
 	make python-imports-format
 
 python-dead-code-check: # Check for dead Python code

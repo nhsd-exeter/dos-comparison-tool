@@ -37,6 +37,7 @@ function ApplicationRouting(): JSX.Element {
 			<Route path={LOGIN_PATH} element={<Login />} />
 			<Route path={REGISTER_PATH} element={<Register />} />
 			<Route path={FORGOTTEN_PASSWORD_PATH} element={<ForgottenPassword />} />
+
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
 	);

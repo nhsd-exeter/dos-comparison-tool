@@ -15,17 +15,48 @@ resource "aws_api_gateway_rest_api" "dos_comparison_tool_api_gateway" {
 resource "aws_api_gateway_deployment" "di_endpoint_deployment" {
   rest_api_id = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
   triggers = {
-    redeployment = join("", [md5(jsonencode([
+    redeployment = sha1(jsonencode([
       aws_api_gateway_resource.search_path.id,
+      aws_api_gateway_resource.search_proxy_path.id,
       aws_api_gateway_method.search_path_method.id,
-      aws_api_gateway_integration.lambda_integration.id,
+      aws_api_gateway_integration.search_lambda_integration.id,
       aws_api_gateway_method.search_cors_method.id,
       aws_api_gateway_integration.search_cors_integration.id,
       aws_api_gateway_method_response.search_cors_method_response.id,
+
+      aws_api_gateway_resource.data_path.id,
+      aws_api_gateway_resource.data_proxy_path.id,
+      aws_api_gateway_method.data_path_method.id,
+      aws_api_gateway_integration.data_lambda_integration.id,
+      aws_api_gateway_method.data_cors_method.id,
+      aws_api_gateway_integration.data_cors_integration.id,
+      aws_api_gateway_method_response.data_cors_method_response.id,
+
       aws_api_gateway_gateway_response.default_4xx_gateway_response.id,
       aws_api_gateway_gateway_response.default_5xx_gateway_response.id,
-    ]))])
+    ]))
+
   }
+
+  depends_on = [
+    aws_api_gateway_resource.search_path,
+    aws_api_gateway_resource.search_proxy_path,
+    aws_api_gateway_method.search_path_method,
+    aws_api_gateway_integration.search_lambda_integration,
+    aws_api_gateway_method.search_cors_method,
+    aws_api_gateway_integration.search_cors_integration,
+    aws_api_gateway_method_response.search_cors_method_response,
+    aws_api_gateway_resource.data_path,
+    aws_api_gateway_resource.data_proxy_path,
+    aws_api_gateway_method.data_path_method,
+    aws_api_gateway_integration.data_lambda_integration,
+    aws_api_gateway_method.data_cors_method,
+    aws_api_gateway_integration.data_cors_integration,
+    aws_api_gateway_method_response.data_cors_method_response,
+    aws_api_gateway_gateway_response.default_4xx_gateway_response,
+    aws_api_gateway_gateway_response.default_5xx_gateway_response,
+  ]
+
   lifecycle {
     create_before_destroy = true
   }
@@ -82,27 +113,6 @@ resource "aws_cloudwatch_log_group" "di_endpoint_access_logs" {
   retention_in_days = 30
 }
 
-resource "aws_api_gateway_method_response" "search_cors_method_response" {
-  rest_api_id = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
-  resource_id = aws_api_gateway_resource.search_path.id
-  http_method = aws_api_gateway_method.search_cors_method.http_method
-  status_code = 200
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Headers" = true
-    "method.response.header.Access-Control-Allow-Methods" = true
-    "method.response.header.Access-Control-Allow-Origin"  = true
-  }
-
-  response_models = {
-    "application/json" = "Empty"
-  }
-
-  depends_on = [
-    aws_api_gateway_method.search_cors_method,
-  ]
-}
-
 resource "aws_api_gateway_gateway_response" "default_4xx_gateway_response" {
   rest_api_id   = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
   response_type = "DEFAULT_4XX"
@@ -121,4 +131,20 @@ resource "aws_api_gateway_gateway_response" "default_5xx_gateway_response" {
     "gatewayresponse.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
     "gatewayresponse.header.Access-Control-Allow-Origin"  = "'*'"
   }
+}
+
+resource "aws_api_gateway_method_settings" "search_path_method_settings" {
+  rest_api_id = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
+  stage_name  = aws_api_gateway_stage.dos_comparison_tool_api_gateway_stage.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled      = true
+    logging_level        = "INFO"
+    cache_data_encrypted = true
+  }
+
+  depends_on = [
+    aws_api_gateway_method.search_path_method
+  ]
 }

@@ -24,10 +24,13 @@ export const search = createAsyncThunk(
 		axios.defaults.headers.common["Authorization"] = requestData.authToken;
 		axios.defaults.headers.common["Content-Type"] =
 			"application/json;charset=utf-8";
-		const response = await axios.post(ApiEndpoint + "/search", {
-			search_one: requestData.search_one,
-			search_two: requestData.search_two,
-		});
+		const response = await axios.post(
+			ApiEndpoint + "/search/CCSComparisonSearch",
+			{
+				search_one: requestData.search_one,
+				search_two: requestData.search_two,
+			}
+		);
 		return response.data;
 	}
 );

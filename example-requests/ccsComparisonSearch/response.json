@@ -1,0 +1,22 @@
+{
+  "search_one": [
+    {
+      "uid": "1234567",
+      "name": "Test GP Surgery",
+      "address": "3 Test Street, Test Town, Test County, Test Postcode",
+      "service_type": "Service Type",
+      "distance": "0.1"
+    }
+  ],
+  "search_one_environment": "Live",
+  "search_two": [
+    {
+      "uid": "1234567",
+      "name": "Test GP Surgery",
+      "address": "3 Test Street, Test Town, Test County, Test Postcode",
+      "service_type": "Service Type",
+      "distance": "0.1"
+    }
+  ],
+  "search_two_environment": "Live"
+}

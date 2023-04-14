@@ -52,6 +52,8 @@ TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CL
 TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-monitoring-dashboard
 # API Gateway
 TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
+TF_VAR_api_gateway_execution_role_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-execution-role
+TF_VAR_api_gateway_execution_role_policy_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-execution-role-policy
 TF_VAR_cognito_authorizer_name := $(PROJECT_ID)-$(ENVIRONMENT)-cognito-authorizer
 API_GATEWAY_ENDPOINT_KEY := API_GATEWAY_ENDPOINT
 TF_VAR_api_gateway_endpoint_key := $(API_GATEWAY_ENDPOINT_KEY)
@@ -65,10 +67,18 @@ TF_VAR_ccs_username_key := CCS_USERNAME
 TF_VAR_ccs_password_key := CCS_PASSWORD
 TF_VAR_default_environment_url := https://core-dos-regressiondi-ddc-core-dos-ui.$(TEXAS_HOSTED_ZONE_NONPROD)
 TF_VAR_ccs_search_path = /app/api/webservices
+# Data Lambda
+TF_VAR_data_lambda_function_name := $(PROJECT_ID)-$(ENVIRONMENT)-data
+TF_VAR_data_lambda_image_repository := $(DOCKER_REGISTRY)/data
+TF_VAR_data_lambda_image_tag := $(or $(DATA_IMAGE_TAG), $(VERSION))
+TF_VAR_data_lambda_image_uri := $(TF_VAR_data_lambda_image_repository):$(TF_VAR_data_lambda_image_tag)
 # Route53
 TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 # Security Group
 TF_VAR_security_group_name := $(PROJECT_ID)-$(ENVIRONMENT)-security-group
+# S3
+TF_VAR_application_bucket_name := $(PROJECT_ID)-$(ENVIRONMENT)-application-bucket
+TF_VAR_log_bucket_name := $(PROJECT_ID)-$(ENVIRONMENT)-logs-bucket
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
