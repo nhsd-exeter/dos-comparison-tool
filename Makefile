@@ -21,9 +21,10 @@ build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[
 
 start: # Start project
 	eval "$$(make -s populate-application-variables)"
-	make project-start
+	make project-start COMPOSE_PROJECT_NAME=$(PROJECT_NAME)
 
-stop: project-stop # Stop project
+stop: # Stop project
+	make project-stop COMPOSE_PROJECT_NAME=$(PROJECT_NAME)
 
 restart: stop start # Restart project
 
