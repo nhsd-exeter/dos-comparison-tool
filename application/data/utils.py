@@ -19,7 +19,7 @@ def file_to_dataframe(file_name: str) -> DataFrame:
         DataFrame: Pandas DataFrame
     """
     bucket_name = getenv("APPLICATION_CONFIG_BUCKET_NAME")
-    local_file_name = f"/tmp/{file_name}"
+    local_file_name = f"/tmp/{file_name}"  # nosec - This is a local file path in lambda
     logger.info(
         f"Getting file {file_name} from S3",
         extra={"file_name": file_name, "bucket_name": bucket_name, "local_file_name": local_file_name},

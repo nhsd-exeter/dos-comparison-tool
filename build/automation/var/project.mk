@@ -76,6 +76,7 @@ TF_VAR_data_lambda_image_tag := $(or $(DATA_IMAGE_TAG), $(VERSION))
 TF_VAR_data_lambda_image_uri := $(TF_VAR_data_lambda_image_repository):$(TF_VAR_data_lambda_image_tag)
 # Route53
 TF_VAR_dos_comparison_tool_api_gateway_subdomain_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
+API_GATEWAY_ENDPOINT := $(TF_VAR_dos_comparison_tool_api_gateway_subdomain_name).$(TEXAS_HOSTED_ZONE_NONPROD)
 # Security Group
 TF_VAR_security_group_name := $(PROJECT_ID)-$(ENVIRONMENT)-security-group
 # S3
