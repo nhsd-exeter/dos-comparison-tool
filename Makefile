@@ -231,7 +231,17 @@ end-to-end-test:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest"
+	CMD="pytest" \
+	ARGS=" \
+		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
+		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \
+		-e COGNITO_SECRETS_ADMIN_USERNAME_KEY=$(COGNITO_SECRETS_ADMIN_USERNAME_KEY) \
+		-e COGNITO_SECRETS_ADMIN_PASSWORD_KEY=$(COGNITO_SECRETS_ADMIN_PASSWORD_KEY) \
+		-e DEPLOYMENT_SECRETS=$(DEPLOYMENT_SECRETS) \
+		-e SETUP_USER_USERNAME_KEY=$(SETUP_USER_USERNAME_KEY) \
+		-e SETUP_USER_PASSWORD_KEY=$(SETUP_USER_PASSWORD_KEY) \
+		-e SETUP_USER_EMAIL_KEY=$(SETUP_USER_EMAIL_KEY) \
+		"
 
 # ==============================================================================
 # Deployment variables
