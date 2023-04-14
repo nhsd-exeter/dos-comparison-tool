@@ -9,7 +9,7 @@ updates:
 
   # Maintain dependencies for Python
   - package-ecosystem: "pip"
-    directory: "/application/search"
+    directory: "/application"
     schedule:
       interval: "weekly"
     target-branch: "main"
@@ -29,6 +29,12 @@ updates:
 
   - package-ecosystem: "docker"
     directory: "/build/docker/search"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+
+  - package-ecosystem: "docker"
+    directory: "/build/docker/data"
     schedule:
       interval: "weekly"
     target-branch: "main"

@@ -102,6 +102,11 @@ variable "data_lambda_image_uri" {
 # LAMBDA ENVIRONMENT VARIABLES
 # ############################
 
+variable "log_level" {
+  type        = string
+  description = "The log level for the application"
+}
+
 variable "ccs_secrets_name" {
   type        = string
   description = "The name of the CCS secrets manager secret"

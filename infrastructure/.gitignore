@@ -40,5 +40,6 @@ terraform.rc
 .external_modules
 
 # Common
-!stacks/common/*.tf
+!stacks/common/common-provider.tf
+!stacks/common/common-variables.tf
 common-*.tf

@@ -37,6 +37,7 @@ test: # Test project
 
 push: # Push project artefacts to the registry
 	make docker-push NAME=search
+	make docker-push NAME=data
 	make docker-push NAME=ui
 
 deploy: # Deploy artefacts - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]

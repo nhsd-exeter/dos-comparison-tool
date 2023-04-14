@@ -18,16 +18,33 @@ module "data_lambda" {
   attach_network_policy         = true
   attach_cloudwatch_logs_policy = true
   attach_tracing_policy         = true
+  attach_policy_json            = true
+  policy_json = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : ["s3:GetObject", "s3:GetBucketLocation", "s3:ListBucket"]
+          "Resource" : [module.application_bucket.s3_bucket_arn, "${module.application_bucket.s3_bucket_arn}/*"]
+        },
+      ]
+    }
+  )
 
   environment_variables = {
     "PROFILE" : var.profile
     "ENVIRONMENT" : var.environment
+    "LOG_LEVEL" : var.log_level
     "POWERTOOLS_SERVICE_NAME" : var.environment
     "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
     "APPLICATION_CONFIG_BUCKET_NAME" : var.application_bucket_name
   }
+  depends_on = [
+    module.application_bucket
+  ]
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "data_lambda_splunk_firehose_subscription" {

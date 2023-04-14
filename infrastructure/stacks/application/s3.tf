@@ -37,6 +37,10 @@ module "application_bucket" {
   versioning = {
     enabled = true
   }
+
+  depends_on = [
+    module.log_bucket
+  ]
 }
 
 # Ignored the following checks due to tfec bug causing the module's examples to fail the checks
@@ -73,4 +77,5 @@ module "log_bucket" {
   versioning = {
     enabled = true
   }
+
 }

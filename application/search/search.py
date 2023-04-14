@@ -17,6 +17,7 @@ app = APIGatewayRestResolver(cors=cors_config)
 
 
 @app.post("/search/CCSComparisonSearch")
+@tracer.capture_method()
 def ccs_comparison_search() -> tuple:
     """CCS Comparison Search
 

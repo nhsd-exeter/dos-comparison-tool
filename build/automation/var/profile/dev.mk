@@ -3,4 +3,5 @@
 # ==============================================================================
 # Service Variables
 
-APPLICATION_CCS_SEARCH_ENVIRONMENTS:=regressiondi,test,fix
+APPLICATION_CCS_SEARCH_ENVIRONMENTS := regressiondi,test,fix
+LOG_LEVEL := DEBUG
