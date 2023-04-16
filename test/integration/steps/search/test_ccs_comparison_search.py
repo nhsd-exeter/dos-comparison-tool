@@ -1,23 +1,10 @@
-from json import load
-
-from pytest_bdd import given, scenarios, then, when
+from pytest_bdd import scenarios, then, when
 from requests.models import Response
 
 from ...utils.constants import CCS_COMPARISON_SEARCH_URL
 from ...utils.utils import api_gateway_request
 
 scenarios("../../features/search/ccs_comparison_search.feature")
-
-
-@given("I have a CCS Comparison Search request", target_fixture="payload")
-def _() -> dict:
-    """Builds a CCS Comparison Search request.
-
-    Returns:
-        dict: CCS Comparison Search request.
-    """
-    with open("resources/ccs_comparison_search_one.json") as file:
-        return load(file)
 
 
 @when("I send an authenticated CCS Comparison Search request", target_fixture="response")

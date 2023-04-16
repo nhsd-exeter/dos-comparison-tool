@@ -1,59 +1,36 @@
-"""Security feature tests."""
+from pytest_bdd import scenarios, when
+from requests.models import Response
 
-from pytest_bdd import given, scenarios, then, when
+from ...utils.constants import (
+    CCS_COMPARISON_SEARCH_URL,
+    DISPOSITIONS_URL,
+    SYMPTOM_GROUPS_URL,
+    SYMPTOM_DISCRIMINATORS_URL,
+)
+from ...utils.utils import api_gateway_request
 
 scenarios("../../features/general/security.feature")
 
 
-@given("I have a CCS Comparison Search request")
-def _():
-    """I have a CCS Comparison Search request."""
-    pass
-
-
-@given("I have a Disposition Search request")
-def _():
-    """I have a Disposition Search request."""
-    pass
-
-
-@given("I have a Symptom Discriminator Search request")
-def _():
-    """I have a Symptom Discriminator Search request."""
-    pass
-
-
-@given("I have a Symptom Group Search request")
-def _():
-    """I have a Symptom Group Search request."""
-    pass
-
-
-@when("I send an unauthenticated CCS Comparison Search request")
-def _():
+@when("I send an unauthenticated CCS Comparison Search request", target_fixture="response")
+def _(payload: dict) -> Response:
     """I send an unauthenticated CCS Comparison Search request."""
-    pass
+    return api_gateway_request(path=CCS_COMPARISON_SEARCH_URL, payload=payload, auth=False)
 
 
-@when("I send an unauthenticated Disposition Search request")
-def _():
-    """I send an unauthenticated Disposition Search request."""
-    pass
-
-
-@when("I send an unauthenticated Symptom Discriminator Search request")
-def _():
-    """I send an unauthenticated Symptom Discriminator Search request."""
-    pass
-
-
-@when("I send an unauthenticated Symptom Group Search request")
-def _():
+@when("I send an unauthenticated Symptom Group Search request", target_fixture="response")
+def _() -> Response:
     """I send an unauthenticated Symptom Group Search request."""
-    pass
+    return api_gateway_request(path=SYMPTOM_GROUPS_URL, auth=False)
 
 
-@then("I receive a 403 response")
-def _():
-    """I receive a 403 response."""
-    pass
+@when("I send an unauthenticated Symptom Discriminator Search request", target_fixture="response")
+def _() -> Response:
+    """I send an unauthenticated Symptom Discriminator Search request."""
+    return api_gateway_request(path=f"{SYMPTOM_DISCRIMINATORS_URL}/1", auth=False)
+
+
+@when("I send an unauthenticated Disposition Search request", target_fixture="response")
+def _() -> Response:
+    """I send an unauthenticated Disposition Search request."""
+    return api_gateway_request(path=DISPOSITIONS_URL, auth=False)
