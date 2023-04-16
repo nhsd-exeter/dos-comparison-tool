@@ -1,5 +1,4 @@
 from pytest_bdd import scenarios, then, when
-from pytest_bdd.parsers import parse
 from requests.models import Response
 
 from ...utils.constants import DISPOSITIONS_URL
@@ -16,18 +15,6 @@ def _() -> Response:
         Response: Response from the API Gateway.
     """
     return api_gateway_request(path=DISPOSITIONS_URL)
-
-
-@then(parse('the response should have status code "{status_code}"'), target_fixture="response")
-def _(status_code: str, response: Response) -> Response:
-    """Checks that the response has the correct status code.
-
-    Args:
-        status_code (str): Expected status code of the response.
-        response (Response): response to check.
-    """
-    assert response.status_code == int(status_code)
-    return response
 
 
 @then("I should see the dispositions search results")

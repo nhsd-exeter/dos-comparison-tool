@@ -1,7 +1,6 @@
 from json import load
 
 from pytest_bdd import given, scenarios, then, when
-from pytest_bdd.parsers import parse
 from requests.models import Response
 
 from ...utils.constants import CCS_COMPARISON_SEARCH_URL
@@ -34,18 +33,6 @@ def _(payload: dict) -> Response:
     return api_gateway_request(path=CCS_COMPARISON_SEARCH_URL, payload=payload)
 
 
-@then(parse('the response should have status code "{status_code}"'), target_fixture="response")
-def _(status_code: str, response: Response) -> Response:
-    """Checks that the response has the correct status code.
-
-    Args:
-        status_code (str): Expected status code of the response.
-        response (Response): response to check.
-    """
-    assert response.status_code == int(status_code)
-    return response
-
-
 @then("I should receive a CCS Comparison Search response", target_fixture="response")
 def _(response: Response) -> None:
     """Checks the response from the CCS Comparison Search request.
@@ -54,7 +41,9 @@ def _(response: Response) -> None:
         response (Response): response to check.
     """
     json_response = response.json()
-    assert json_response["search_one"] is not None
-    assert json_response["search_one_environment"] is not None
-    assert json_response["search_two"] is not None
-    assert json_response["search_two_environment"] is not None
+    assert json_response["search_one"] is not None, "Expected search_one to be not None"
+    assert isinstance(json_response["search_one"][0], dict), "Expected search_one to be a list of dicts"
+    assert json_response["search_one_environment"] == "test", "Expected search_one_environment to be 'test'"
+    assert json_response["search_two"] is not None, "Expected search_two to be not None"
+    assert isinstance(json_response["search_two"][0], dict), "Expected search_two to be a list of dicts"
+    assert json_response["search_two_environment"] == "test", "Expected search_two_environment to be 'test'"
