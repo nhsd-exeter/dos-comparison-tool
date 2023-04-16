@@ -247,7 +247,10 @@ api-integration-tests:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest --gherkin-terminal-reporter -n auto"
+	CMD="pytest --gherkin-terminal-reporter -n auto" \
+	ARGS=" \
+		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
+	"
 
 end-to-end-test:
 	make -s docker-run \

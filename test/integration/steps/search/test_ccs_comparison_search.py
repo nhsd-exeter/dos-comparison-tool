@@ -1,4 +1,4 @@
-from pytest_bdd import scenarios, given, when, then
+from pytest_bdd import given, scenarios, then, when
 
 # Scenarios
 
