@@ -4,6 +4,7 @@ from pytest_bdd import given, scenarios, then, when
 from pytest_bdd.parsers import parse
 from requests.models import Response
 
+from ...utils.constants import CCS_COMPARISON_SEARCH_URL
 from ...utils.utils import api_gateway_request
 
 scenarios("../../features/search/ccs_comparison_search.feature")
@@ -30,7 +31,7 @@ def _(payload: dict) -> Response:
     Returns:
         Response: Response from the API Gateway.
     """
-    return api_gateway_request(path="/search/CCSComparisonSearch", payload=payload)
+    return api_gateway_request(path=CCS_COMPARISON_SEARCH_URL, payload=payload)
 
 
 @then(parse('the response should have status code "{status_code}"'), target_fixture="response")
