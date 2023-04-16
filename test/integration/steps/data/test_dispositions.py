@@ -1,4 +1,4 @@
-from pytest_bdd import given, scenarios, then, when
+from pytest_bdd import scenarios, then, when
 from pytest_bdd.parsers import parse
 from requests.models import Response
 
@@ -8,13 +8,7 @@ from ...utils.utils import api_gateway_request
 scenarios("../../features/data/dispositions.feature")
 
 
-@given("I am on the disposition search page")
-def _():
-    """I am on the disposition search page."""
-    pass
-
-
-@when("I search for a disposition", target_fixture="response")
+@when("I search for dispositions", target_fixture="response")
 def _() -> Response:
     """Search for a disposition.
 
@@ -36,7 +30,7 @@ def _(status_code: str, response: Response) -> Response:
     return response
 
 
-@then("I should see the disposition search results")
+@then("I should see the dispositions search results")
 def _(response: Response):
     """I should see the disposition search results.
 
