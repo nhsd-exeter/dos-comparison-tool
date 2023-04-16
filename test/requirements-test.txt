@@ -1,6 +1,7 @@
 boto3
 isort
+pycognito
 pytest-bdd
 pytest-xdist
-selenium
 requests
+selenium

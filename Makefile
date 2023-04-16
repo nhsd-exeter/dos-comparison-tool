@@ -31,10 +31,6 @@ restart: stop start # Restart project
 
 log: project-log # Show project logs
 
-test: # Test project
-	make start
-	make stop
-
 push: # Push project artefacts to the registry
 	make docker-push NAME=search
 	make docker-push NAME=data

@@ -7,7 +7,7 @@ from ...utils.environment_variables import API_GATEWAY_ENDPOINT
 scenarios("../../features/general/cors.feature")
 
 
-@when(parse('I send a "{http_method}" request to "{path}"'), target_fixture="response")
+@when(parse('I send an unauthenticated "{http_method}" request to "{path}"'), target_fixture="response")
 def _(http_method: str, path: str) -> Response:
     """Sends a request to the API and returns the response.
 

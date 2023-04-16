@@ -1,2 +1,3 @@
 *.svg
 build/automation/var/project.mk
+test/integration/utils/environment_variables.py
