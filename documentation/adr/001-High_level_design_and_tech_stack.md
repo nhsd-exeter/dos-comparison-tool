@@ -8,6 +8,13 @@ Design the new DoS Comparison Tool.
 - Status: **Decided**
 - Deciders: **Jack Plowman, Jonathan Pearce**
 
+- [ADR-001: High-level design and tech stack](#adr-001-high-level-design-and-tech-stack)
+  - [Overview](#overview)
+  - [Context and Problem Statement](#context-and-problem-statement)
+  - [Decision](#decision)
+  - [Consequences](#consequences)
+
+
 ## Context and Problem Statement
 
 The DoS Testing Tool is a web application that allows users to compare search results from different DoS environments. It is current hosted on a platform called Anvil. This means it is unmaintained and can't be maintained by the DoS team.

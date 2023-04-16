@@ -8,6 +8,16 @@ DoS Comparison Tool needs to be able connect the user interface (UI) to the sear
 - Status: **Decided**
 - Deciders: **Jack Plowman**
 
+- [ADR-004: API Gateway Investigation](#adr-004-api-gateway-investigation)
+  - [Overview](#overview)
+  - [Context and Problem Statement](#context-and-problem-statement)
+    - [Lambda function URLs](#lambda-function-urls)
+    - [API Gateway REST API (v1)](#api-gateway-rest-api-v1)
+    - [API Gateway HTTP API (v2)](#api-gateway-http-api-v2)
+  - [Decision](#decision)
+  - [Consequences](#consequences)
+
+
 ## Context and Problem Statement
 
 DoS Comparison Tool needs to be able connect the user interface (UI) to the search lambda in a secure way. This is because the lambda connects to DoS API so only authenticated users should be able to use the search lambda.

@@ -8,6 +8,13 @@ Design the new DoS Comparison Tool.
 - Status: **Decided**
 - Deciders: **Jack Plowman, Jonathan Pearce**
 
+- [ADR-003: Cognito design choices](#adr-003-cognito-design-choices)
+  - [Overview](#overview)
+  - [Context and Problem Statement](#context-and-problem-statement)
+  - [Decision](#decision)
+  - [Consequences](#consequences)
+
+
 ## Context and Problem Statement
 
 How to build the authentication of the DoS Comparison Tool using AWS Cognito. Such as using Cognito within the React application or using Cognito from the backend.
