@@ -1,4 +1,5 @@
 boto3
 isort
 pytest-bdd
+pytest-xdist
 selenium

@@ -196,7 +196,8 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application
+	python -m pytest application \
+		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
@@ -241,6 +242,12 @@ tester-build: # Build tester image which is used for end-to-end testing
 
 test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
+
+api-integration-tests:
+	make -s docker-run \
+	IMAGE=$(DOCKER_REGISTRY)/tester \
+	DIR=test/integration \
+	CMD="pytest"
 
 end-to-end-test:
 	make -s docker-run \
