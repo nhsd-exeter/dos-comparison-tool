@@ -3,7 +3,7 @@ module "search_lambda" {
   version = "4.12.1"
 
   function_name = var.search_lambda_function_name
-  description   = "Search lambda function for the DOS Comparison Tool"
+  description   = "Search lambda function for the DoS Comparison Tool"
 
   memory_size                       = 128
   timeout                           = 5
@@ -34,7 +34,7 @@ module "search_lambda" {
   environment_variables = {
     "PROFILE" : var.profile
     "ENVIRONMENT" : var.environment
-    "POWERTOOLS_SERVICE_NAME" : var.search_lambda_function_name
+    "POWERTOOLS_SERVICE_NAME" : var.environment
     "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
@@ -51,20 +51,10 @@ module "search_lambda" {
   depends_on = [aws_security_group.lambda_security_group]
 }
 
-resource "aws_cloudwatch_log_subscription_filter" "splunk_firehose_subscription" {
+resource "aws_cloudwatch_log_subscription_filter" "search_lambda_splunk_firehose_subscription" {
   name            = "${var.search_lambda_function_name}-log-subscription"
   role_arn        = "arn:aws:iam::${var.aws_account_id}:role/${var.splunk_firehose_role}"
   filter_pattern  = ""
   log_group_name  = module.search_lambda.lambda_cloudwatch_log_group_name
   destination_arn = "arn:aws:firehose:${var.aws_region}:${var.aws_account_id}:deliverystream/${var.splunk_firehose_subscription}"
-}
-
-resource "aws_lambda_permission" "allow_api_gateway_to_invoke" {
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = module.search_lambda.lambda_function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id}/*/*/*"
-
-  depends_on = [module.search_lambda]
 }

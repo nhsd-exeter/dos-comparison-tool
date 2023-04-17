@@ -59,6 +59,16 @@ variable "api_gateway_name" {
   description = "The name of the API Gateway"
 }
 
+variable "api_gateway_execution_role_name" {
+  type        = string
+  description = "The name of the API Gateway execution role"
+}
+
+variable "api_gateway_execution_role_policy_name" {
+  type        = string
+  description = "The name of the API Gateway execution role policy"
+}
+
 variable "cognito_authorizer_name" {
   type        = string
   description = "The name of the Cognito authorizer"
@@ -78,9 +88,24 @@ variable "search_lambda_image_uri" {
   description = "The URI of the search lambda image"
 }
 
+variable "data_lambda_function_name" {
+  type        = string
+  description = "The name of the data lambda"
+}
+
+variable "data_lambda_image_uri" {
+  type        = string
+  description = "The URI of the data lambda image"
+}
+
 # ############################
 # LAMBDA ENVIRONMENT VARIABLES
 # ############################
+
+variable "log_level" {
+  type        = string
+  description = "The log level for the application"
+}
 
 variable "ccs_secrets_name" {
   type        = string
@@ -188,4 +213,18 @@ data "aws_vpc" "texas_vpc" {
   tags = {
     Name = var.aws_vpc_name
   }
+}
+
+# ##############
+# S3
+# ##############
+
+variable "application_bucket_name" {
+  type        = string
+  description = "The name of the application bucket"
+}
+
+variable "log_bucket_name" {
+  type        = string
+  description = "The name of the log bucket"
 }

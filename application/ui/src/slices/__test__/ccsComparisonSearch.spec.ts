@@ -49,7 +49,7 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
-		expect(axios.post).toHaveBeenCalledWith("test/search", {
+		expect(axios.post).toHaveBeenCalledWith("test/search/CCSComparisonSearch", {
 			search_one: {
 				age: age,
 				age_format: ageFormat,
@@ -78,7 +78,7 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
-		expect(axios.post).toHaveBeenCalledWith("test/search", {
+		expect(axios.post).toHaveBeenCalledWith("test/search/CCSComparisonSearch", {
 			search_one: {
 				age: age,
 				age_format: ageFormat,

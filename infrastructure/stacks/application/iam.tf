@@ -48,3 +48,48 @@ resource "aws_iam_role_policy_attachment" "kubernetes_service_account_role_polic
   role       = aws_iam_role.kubernetes_service_account_role.name
   policy_arn = aws_iam_policy.kubernetes_service_account_role_policy.arn
 }
+
+resource "aws_iam_role" "api_gateway_execution_role" {
+  name               = var.api_gateway_execution_role_name
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "api_gateway_execution_role_policy" {
+  name        = var.api_gateway_execution_role_policy_name
+  path        = "/"
+  description = "Policy for the API Gateway execution role to allow access to AWS services"
+  policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Sid" : "AllowInvokeLambdas",
+          "Effect" : "Allow",
+          "Action" : ["lambda:InvokeFunction"],
+          "Resource" : [
+            "arn:aws:lambda:${var.aws_region}:${var.aws_account_id}:function:${var.data_lambda_function_name}",
+            "arn:aws:lambda:${var.aws_region}:${var.aws_account_id}:function:${var.search_lambda_function_name}"
+          ]
+        }
+      ]
+    }
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "api_gateway_execution_role_policy_attachment" {
+  role       = aws_iam_role.api_gateway_execution_role.name
+  policy_arn = aws_iam_policy.api_gateway_execution_role_policy.arn
+}

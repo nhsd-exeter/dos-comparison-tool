@@ -3,4 +3,5 @@
 # ==============================================================================
 # Service Variables
 
-APPLICATION_CCS_SEARCH_ENVIRONMENTS:=ut,uat1,uat2
+APPLICATION_CCS_SEARCH_ENVIRONMENTS := ut,uat1,uat2
+LOG_LEVEL := INFO
