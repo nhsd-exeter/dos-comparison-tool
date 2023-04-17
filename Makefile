@@ -31,10 +31,6 @@ restart: stop start # Restart project
 
 log: project-log # Show project logs
 
-test: # Test project
-	make start
-	make stop
-
 push: # Push project artefacts to the registry
 	make docker-push NAME=search
 	make docker-push NAME=data
@@ -196,7 +192,8 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application
+	python -m pytest application \
+		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing
 
 python-format:
 	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
@@ -242,11 +239,20 @@ tester-build: # Build tester image which is used for end-to-end testing
 test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
 
+api-integration-tests:
+	make -s docker-run \
+	IMAGE=$(DOCKER_REGISTRY)/tester \
+	DIR=test/integration \
+	CMD="pytest --gherkin-terminal-reporter -n auto" \
+	ARGS=" \
+		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
+	"
+
 end-to-end-test:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest" \
+	CMD="pytest --gherkin-terminal-reporter" \
 	ARGS=" \
 		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
 		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \

@@ -160,7 +160,7 @@ Unit Tests are written in Typescript and run using Jest. They are located in the
 
 End to end testing is a software testing method that tests a software application from start to finish. It is a technique used to test whether the flow of an application is performing as designed from start to end.
 
-These tests are written in python and run with pytest and pytest bdd. These tests are located in the `test/end_to_end` directory.
+These tests are written in python and run with pytest and pytest-bdd. These tests are located in the `test/end_to_end` directory.
 
 The prerequisites for running these tests are:
 
