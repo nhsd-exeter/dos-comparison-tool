@@ -53,6 +53,11 @@ build-and-start: # Build and start application - mandatory: PROFILE=[name]
 
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
+	if [ "$(PROFILE)" == "dev" ]; then
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/dispositions.csv s3://$(APPLICATION_BUCKET)/dispositions.csv --sse AES256
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_discriminators.csv s3://$(APPLICATION_BUCKET)/symptom_discriminators.csv --sse AES256
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_groups.csv s3://$(APPLICATION_BUCKET)/symptom_groups.csv --sse AES256
+	fi
 
 build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
@@ -243,7 +248,7 @@ api-integration-tests:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest -vvvv --gherkin-terminal-reporter" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto" \
 	ARGS=" \
 		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
 	"
