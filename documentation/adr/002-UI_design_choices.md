@@ -8,6 +8,13 @@ Design the new DoS Comparison Tool.
 - Status: **Decided**
 - Deciders: **Jack Plowman**
 
+- [ADR-002: UI design choices](#adr-002-ui-design-choices)
+  - [Overview](#overview)
+  - [Context and Problem Statement](#context-and-problem-statement)
+  - [Redux/Redux Toolkit](#reduxredux-toolkit)
+    - [Decision](#decision)
+    - [Consequences](#consequences)
+
 ## Context and Problem Statement
 
 How to build the UI of the DoS Comparison Tool. Such as what framework and libraries to use.
