@@ -7,18 +7,21 @@ from .auth import get_authentication_token
 from .environment_variables import API_GATEWAY_ENDPOINT
 
 
-def api_gateway_request(path: str, payload: dict) -> Response:
+def api_gateway_request(path: str, payload: dict = None, auth: bool = True) -> Response:
     """Send a request to the API Gateway.
 
     Args:
         path (str): The path to send to the API Gateway.
         payload (dict): The payload to send to the API Gateway.
+        auth (bool): Whether to authenticate the request.
 
     Returns:
         Response: The response from the API Gateway.
     """
+    payload = {} if payload is None else dumps(payload)
+    headers = {"Authorization": get_authentication_token()} if auth else {}
     return post(
         url=f"{API_GATEWAY_ENDPOINT}{path}",
-        headers={"Authorization": get_authentication_token()},
-        data=dumps(payload),
+        headers=headers,
+        data=payload,
     )

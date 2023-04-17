@@ -21,18 +21,6 @@ def _(http_method: str, path: str) -> Response:
     return request(method=http_method, url=f"{API_GATEWAY_ENDPOINT}{path}")
 
 
-@then(parse('the response should have status code "{status_code}"'), target_fixture="response")
-def _(status_code: str, response: Response) -> Response:
-    """Checks that the response has the correct CORS header.
-
-    Args:
-        status_code (str): Expected status code of the response.
-        response (Response): response to check.
-    """
-    assert response.status_code == int(status_code)
-    return response
-
-
 @then(parse('the response should have "{cors_header}" header set to "{cors_value}"'))
 def _(cors_header: str, cors_value: str, response: Response) -> None:
     """Checks that the response has the correct CORS header.
