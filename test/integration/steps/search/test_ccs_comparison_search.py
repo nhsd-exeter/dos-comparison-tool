@@ -1,4 +1,4 @@
-from pytest_bdd import scenarios, then, when
+from pytest_bdd import given, scenarios, then, when
 from requests.models import Response
 
 from ...utils.constants import CCS_COMPARISON_SEARCH_URL
@@ -34,3 +34,26 @@ def _(response: Response) -> None:
     assert json_response["search_two"] is not None, "Expected search_two to be not None"
     assert isinstance(json_response["search_two"][0], dict), "Expected search_two to be a list of dicts"
     assert json_response["search_two_environment"] == "test", "Expected search_two_environment to be 'test'"
+
+
+@given("I have an empty CCS Comparison Search request", target_fixture="payload")
+def _() -> dict:
+    """Builds an empty CCS Comparison Search request.
+
+    Returns:
+        dict: CCS Comparison Search request.
+    """
+    return {"search_one": {}, "search_two": {}}
+
+
+@then("I should receive a CCS Comparison Search error response", target_fixture="response")
+def _(response: Response) -> None:
+    """Checks the response from the CCS Comparison Search request.
+
+    Args:
+        response (Response): response to check.
+    """
+    json_response = response.json()
+    assert (
+        json_response["message"] == "search_one and search_two are required"
+    ), "Expected message to be 'search_one and search_two are required'"
