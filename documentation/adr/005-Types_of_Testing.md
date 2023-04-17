@@ -66,15 +66,19 @@ End to End tests will be used to test the whole application by simulating a user
 
 Pytest and pytest-bdd will be used to run end to end tests as the tests can be written in gherkin (feature files) and use Selenium (Python) to interact with the user interface.
 
-### Contract Testing
+### Integration Testing
 
-Contract testing is a methodology for ensuring that two separate systems (such as two micro-services) are compatible and can communicate with one other
+Integration testing (sometimes called integration and testing, abbreviated I&T) is the phase in software testing in which individual software modules are combined and tested as a group.
 
-#### Advantages & Disadvantages of Contract Tests
+#### Advantages & Disadvantages of Integration Testing
 
 <https://pactflow.io/blog/what-is-contract-testing/#:~:text=Contract%20testing%20is%20a%20methodology,both%20parties%20adhere%20to%20it.>
 
-#### Contract Tests Tool(s) Selected
+#### Integration Tests Tool(s) Selected
+
+#### Integration Test Tool(s) Selected
+
+Pytest and pytest-bdd will be used to run end to integration tests as the tests can be written in gherkin (feature files) and Python with the API Layer
 
 ### Performance Testing
 
@@ -86,6 +90,6 @@ Performance testing checks the performance of the application to ensure the perf
 
 #### Performance Tests Tool(s) Selected
 
-#### API Performance Testing -> Locust
+##### API Performance Testing -> Locust
 
 Locust was selected for performance testing as it is an open source Python package for load testing.
