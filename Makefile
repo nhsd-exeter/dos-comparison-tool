@@ -243,7 +243,7 @@ api-integration-tests:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest --gherkin-terminal-reporter -n auto" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter" \
 	ARGS=" \
 		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
 	"
@@ -252,7 +252,7 @@ end-to-end-test:
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest --gherkin-terminal-reporter" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter" \
 	ARGS=" \
 		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
 		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \
