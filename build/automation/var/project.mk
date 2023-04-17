@@ -20,6 +20,7 @@ TF_VAR_role_prefix := $(ROLE_PREFIX)
 AWS_VPC_NAME = lk8s-$(AWS_ACCOUNT_NAME).texasplatform.uk
 TF_VAR_aws_vpc_name = $(AWS_VPC_NAME)
 
+CONFIGURATION_BUCKET = $(PROJECT_ID)-configuration-bucket
 # ==============================================================================
 # Service Variables
 
@@ -80,7 +81,8 @@ API_GATEWAY_ENDPOINT := https://$(TF_VAR_dos_comparison_tool_api_gateway_subdoma
 # Security Group
 TF_VAR_security_group_name := $(PROJECT_ID)-$(ENVIRONMENT)-security-group
 # S3
-TF_VAR_application_bucket_name := $(PROJECT_ID)-$(ENVIRONMENT)-application-bucket
+APPLICATION_BUCKET :=$(PROJECT_ID)-$(ENVIRONMENT)-application-bucket
+TF_VAR_application_bucket_name := $(APPLICATION_BUCKET)
 TF_VAR_log_bucket_name := $(PROJECT_ID)-$(ENVIRONMENT)-logs-bucket
 # ==============================================================================
 # End to End Tests

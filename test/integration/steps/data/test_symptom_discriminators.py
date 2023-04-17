@@ -13,7 +13,14 @@ scenarios("../../features/data/symptom_discriminators.feature")
     target_fixture="response",
 )
 def _(symptom_group_id: int) -> Response:
-    """I search for a symptom discriminator."""
+    """Search for a symptom discriminators.
+
+    Args:
+        symptom_group_id (int): Symptom Group Id.
+
+    Returns:
+        Response: Response from the API Gateway.
+    """
     return api_gateway_request(path=f"{SYMPTOM_DISCRIMINATORS_URL}/{symptom_group_id}")
 
 

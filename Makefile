@@ -53,6 +53,11 @@ build-and-start: # Build and start application - mandatory: PROFILE=[name]
 
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
 	make terraform-apply-auto-approve STACKS=application
+	if [ "$(PROFILE)" == "dev" ]; then
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/dispositions.csv s3://$(APPLICATION_BUCKET)/dispositions.csv --sse AES256
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_discriminators.csv s3://$(APPLICATION_BUCKET)/symptom_discriminators.csv --sse AES256
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_groups.csv s3://$(APPLICATION_BUCKET)/symptom_groups.csv --sse AES256
+	fi
 
 build-and-push: # Build and push docker images - optional: VERSION=[name]
 	make build push
@@ -239,20 +244,20 @@ tester-build: # Build tester image which is used for end-to-end testing
 test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
 
-api-integration-tests:
+api-integration-tests: # Run API integration tests - mandatory: PROFILE, ENVIRONMENT
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest --gherkin-terminal-reporter -n auto" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto" \
 	ARGS=" \
 		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
 	"
 
-end-to-end-test:
+end-to-end-test: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest --gherkin-terminal-reporter" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter" \
 	ARGS=" \
 		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
 		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \
@@ -287,22 +292,22 @@ pipeline-send-notification: ## Send Slack notification with the pipeline status
 # ==============================================================================
 # Checkov (Code Security Best Practices)
 
-docker-best-practices:
+docker-best-practices: # Run Docker best practices checks
 	make docker-run-checkov DIR=/build/docker CHECKOV_OPTS="--framework dockerfile --skip-check CKV_DOCKER_2,CKV_DOCKER_3,CKV_DOCKER_4"
 
-terraform-best-practices:
+terraform-best-practices: # Run Terraform best practices checks
 	make docker-run-checkov DIR=/infrastructure CHECKOV_OPTS="--framework terraform --skip-check CKV_AWS_7,CKV_AWS_115,CKV_AWS_116,CKV_AWS_117,CKV_AWS_120,CKV_AWS_147,CKV_AWS_149,CKV_AWS_158,CKV_AWS_173,CKV_AWS_219,CKV_AWS_225,CKV_AWS_272,CKV2_AWS_29"
 
-kubernetes-best-practices:
+kubernetes-best-practices: # Run Kubernetes best practices checks
 	make docker-run-checkov DIR=/deployment CHECKOV_OPTS="--framework kubernetes --skip-check CKV_K8S_20,CKV_K8S_22,CKV_K8S_23,CKV_K8S_28,CKV_K8S_30,CKV_K8S_37,CKV_K8S_40,CKV_K8S_43"
 
-github-actions-best-practices:
+github-actions-best-practices: # Run GitHub Actions best practices checks
 	make docker-run-checkov DIR=/.github CHECKOV_OPTS="--skip-check CKV_GHA_2"
 
-checkov-secret-scanning:
+checkov-secret-scanning: # Run Checkov secret scanning
 	make docker-run-checkov CHECKOV_OPTS="--framework secrets"
 
-terraform-security:
+terraform-security: # Run Terraform security checks
 	make docker-run-terraform-tfsec DIR=infrastructure CMD="tfsec"
 
 # ==============================================================================
