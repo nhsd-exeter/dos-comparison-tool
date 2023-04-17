@@ -17,11 +17,26 @@ def _(symptom_group_id: int) -> Response:
     return api_gateway_request(path=f"{SYMPTOM_DISCRIMINATORS_URL}/{symptom_group_id}")
 
 
-@then("I should see the symptom discriminator search results")
+@then("I should see symptom discriminators search results")
 def _(response: Response):
-    """I should see the symptom discriminator search results."""
+    """I should see the symptom discriminators search results.
+
+    Args:
+        response (Response): Response from the API Gateway.
+    """
     response_json: list[dict] = response.json()
     assert response_json[0]["SymptomDiscriminatorId"] == 4003, "Symptom Discriminator Id is not correct"
     assert (
         response_json[0]["SymptomDiscriminatorName"] == "PC full Primary Care assessment and prescribing capability"
     ), "Symptom Discriminator Name is not correct"
+
+
+@then("I shouldn't see any symptom discriminators search results")
+def _(response: Response):
+    """I shouldn't see any symptom discriminators search result.
+
+    Args:
+        response (Response): Response from the API Gateway.
+    """
+    response_json: list[dict] = response.json()
+    assert not response_json, "Symptom Discriminators search result is not empty"

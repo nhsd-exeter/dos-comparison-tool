@@ -1,4 +1,5 @@
 from pytest_bdd import scenarios, when
+from pytest_bdd.parsers import parse
 from requests.models import Response
 
 from ...utils.constants import (
@@ -34,3 +35,16 @@ def _() -> Response:
 def _() -> Response:
     """I send an unauthenticated Disposition Search request."""
     return api_gateway_request(path=DISPOSITIONS_URL, auth=False)
+
+
+@when(parse('I send an authenticated request to "{path}"'), target_fixture="response")
+def _(path: str) -> Response:
+    """Sends a request to the API and returns the response.
+
+    Args:
+        path (str): Path to send the request to.
+
+    Returns:
+        Response: Response from the API Gateway.
+    """
+    return api_gateway_request(path=path)
