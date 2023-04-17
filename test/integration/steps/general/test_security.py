@@ -4,8 +4,8 @@ from requests.models import Response
 from ...utils.constants import (
     CCS_COMPARISON_SEARCH_URL,
     DISPOSITIONS_URL,
-    SYMPTOM_GROUPS_URL,
     SYMPTOM_DISCRIMINATORS_URL,
+    SYMPTOM_GROUPS_URL,
 )
 from ...utils.utils import api_gateway_request
 
