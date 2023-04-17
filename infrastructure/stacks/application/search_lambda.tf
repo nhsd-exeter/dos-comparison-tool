@@ -1,6 +1,6 @@
 module "search_lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "4.12.1"
+  version = "4.14.0"
 
   function_name = var.search_lambda_function_name
   description   = "Search lambda function for the DoS Comparison Tool"
