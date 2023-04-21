@@ -1,5 +1,9 @@
 // These are the ids of the elements in the DOM
 
+// Page Names
+export const MENU_PAGE = "MenuPage";
+export const CCS_COMPARISON_SEARCH_PAGE = "CCSComparisonSearchPage";
+export const CCS_COMPARISON_RESULTS_PAGE = "CCSComparisonResultsPage";
 // Layout Elements (Header, Footer, Main) are used to identify the elements in the DOM
 export const HEADER_ID = "DoSComparisonToolHeader";
 export const FOOTER_ID = "DoSComparisonToolFooter";

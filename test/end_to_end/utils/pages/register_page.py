@@ -12,6 +12,7 @@ class RegisterPage(Page):
     """Actions and checks for the register page. Includes both the signup and confirm signup forms."""
 
     url_subdirectory = "/register"
+    page_id = "RegisterPage"
 
     def sign_up(self: Self, username: str, email: str, password: str) -> None:
         """Sign up."""

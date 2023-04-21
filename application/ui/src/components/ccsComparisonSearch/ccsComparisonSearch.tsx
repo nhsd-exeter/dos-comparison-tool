@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
 	AGE_INPUT_SUFFIX,
 	AGE_UNITS_DROP_DOWN_SUFFIX,
+	CCS_COMPARISON_SEARCH_PAGE,
 	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
 	POSTCODE_INPUT,
@@ -88,7 +89,7 @@ function CCSComparisonSearch() {
 
 	return (
 		<Layout>
-			<Container>
+			<Container id={CCS_COMPARISON_SEARCH_PAGE}>
 				<div>
 					<h1>CCS Comparison Search</h1>
 					<p>Make a search to compare results from multiple environments</p>

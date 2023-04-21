@@ -11,6 +11,7 @@ class HomePage(Page):
 
     url_subdirectory = "/"
     page_number = 1
+    page_id = "HomePage"
 
     def navigate_to_page(self: Self) -> None:
         """Navigate to the homepage."""
