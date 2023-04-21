@@ -34,3 +34,4 @@ export const SEX_DROP_DOWN = "SexDropDown";
 export const AGE_INPUT_SUFFIX = "AgeInput";
 export const AGE_UNITS_DROP_DOWN_SUFFIX = "AgeUnitsDropDown";
 export const ENVIRONMENT_DROP_DOWN_SUFFIX = "EnvironmentDropDown";
+export const ROLE_DROP_DOWN_SUFFIX = "RoleDropDown";

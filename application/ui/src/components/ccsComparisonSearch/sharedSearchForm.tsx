@@ -1,4 +1,4 @@
-import { Input } from "nhsuk-react-components";
+import { Hint, Input } from "nhsuk-react-components";
 import { POSTCODE_INPUT } from "../../constants/componentIds";
 import {
 	DispositionDropDown,
@@ -10,6 +10,7 @@ import {
 function SharedSearchForm() {
 	return (
 		<div>
+			<Hint>Select shared details for searches</Hint>
 			<Input
 				type="text"
 				required

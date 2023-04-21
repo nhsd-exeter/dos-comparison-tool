@@ -3,6 +3,7 @@ import {
 	AGE_UNITS_DROP_DOWN_SUFFIX,
 	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
+	ROLE_DROP_DOWN_SUFFIX,
 	SEX_DROP_DOWN,
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
 	SYMPTOM_GROUP_DROP_DOWN,
@@ -75,6 +76,24 @@ export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 			<Select.Option value="Regression">Regression</Select.Option>
 			<Select.Option value="RegressionDI">Regression DI</Select.Option>
 			<Select.Option value="RegressionSF">Regression SF</Select.Option>
+		</Select>
+	);
+}
+
+export function RoleDropDown({ searchName }: { searchName: string }) {
+	return (
+		<Select label="Role" id={`${searchName}${ROLE_DROP_DOWN_SUFFIX}`}>
+			<Select.Option value="1004">111 Telephony</Select.Option>
+			<Select.Option value="1004">Digital Referral</Select.Option>
+			<Select.Option value="1004">999</Select.Option>
+			<Select.Option value="1004">ED Streaming Referral</Select.Option>
+			<Select.Option value="1004">CAS Referral</Select.Option>
+			<Select.Option value="1004">111 Telephony DHU</Select.Option>
+			<Select.Option value="1004">111 Telephony IOW</Select.Option>
+			<Select.Option value="1004">111 Telephony LAS</Select.Option>
+			<Select.Option value="1004">111 Telephony NWAS</Select.Option>
+			<Select.Option value="1004">111 Telephony WMAS</Select.Option>
+			<Select.Option value="1004">111 Telephony SCAS</Select.Option>
 		</Select>
 	);
 }

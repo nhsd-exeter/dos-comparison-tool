@@ -1,12 +1,18 @@
-import { Input, Label } from "nhsuk-react-components";
+import { Hint, Input, Label } from "nhsuk-react-components";
 import { AGE_INPUT_SUFFIX } from "../../constants/componentIds";
-import { AgeUnitsDropDown, EnvironmentDropDown } from "./dropDowns";
+import {
+	AgeUnitsDropDown,
+	EnvironmentDropDown,
+	RoleDropDown,
+} from "./dropDowns";
 import "./search.css";
 
 function EnvironmentSearchForm({ searchName }: { searchName: string }) {
 	return (
 		<div>
+			<Hint>Select details for this specific search</Hint>
 			<EnvironmentDropDown searchName={searchName} />
+			<RoleDropDown searchName={searchName} />
 			<Label>Age</Label>
 			<div className={"AgeRow"}>
 				<Input
