@@ -1,5 +1,6 @@
 import { Hint, Input, Label } from "nhsuk-react-components";
 import { AGE_INPUT_SUFFIX } from "../../constants/componentIds";
+import { DateTimeSelector } from "./dateTimeSelector";
 import {
 	AgeUnitsDropDown,
 	EnvironmentDropDown,
@@ -23,6 +24,11 @@ function EnvironmentSearchForm({ searchName }: { searchName: string }) {
 					width="10"
 				/>
 				<AgeUnitsDropDown searchName={searchName} />
+			</div>
+			<Label>Search Date/Time</Label>
+			<DateTimeSelector />
+			<div>
+				<br />
 			</div>
 		</div>
 	);
