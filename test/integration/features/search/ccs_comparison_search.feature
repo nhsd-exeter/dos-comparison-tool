@@ -8,7 +8,7 @@ Feature: CCS Comparison Search
     Then the response should have status code "200"
     And I should receive a CCS Comparison Search response
 
-  Scenario: CCS Comparison Search
+  Scenario: CCS Comparison Search Bad Request
     Given I have an empty CCS Comparison Search request
     When I send an authenticated CCS Comparison Search request
     Then the response should have status code "400"
