@@ -27,6 +27,7 @@ class CheckCapacitySummarySearch:
     symptom_discriminator_list: list[int]
     gender: str
     postcode: str
+    role: str
     search_environment: str
     search_distance: int = 20
     version: float = 1.5
