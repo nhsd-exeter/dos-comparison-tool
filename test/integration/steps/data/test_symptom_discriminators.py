@@ -35,10 +35,8 @@ def _(response: Response) -> None:
     """
     response_json: list[dict] = response.json()
 
-    response_json[0]["SymptomDiscriminatorId"]
     assert (
-        response_json[0]["SymptomDiscriminatorName"]
-        == "PC full Primary Care assessment and prescribing capability"
+        response_json[0]["SymptomDiscriminatorName"] == "PC full Primary Care assessment and prescribing capability"
     ), "Symptom Discriminator Name is not correct"
 
 
