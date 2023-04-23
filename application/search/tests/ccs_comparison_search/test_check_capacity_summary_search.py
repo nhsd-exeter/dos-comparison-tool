@@ -1,11 +1,12 @@
 from json import dumps
 from os import environ
+from typing import Self
 from unittest.mock import MagicMock, call, patch
 from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
-from pytest import raises
+import pytest
 
-from application.search.ccs_comparison_search.ccs_exceptions import CCSAPIResponseException
+from application.search.ccs_comparison_search.ccs_exceptions import CCSAPIResponseError
 from application.search.ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
 from application.search.ccs_comparison_search.service import Service
 
@@ -13,6 +14,8 @@ FILE_PATH = "application.search.ccs_comparison_search.check_capacity_summary_sea
 
 
 class TestCheckCapacitySummarySearch:
+    """Tests for the CheckCapacitySummarySearch class."""
+
     age = 1
     age_format = "years"
     disposition = 1
@@ -24,8 +27,8 @@ class TestCheckCapacitySummarySearch:
     expected_search_distance = 20
     expected_version = 1.5
 
-    def test__init__(self) -> None:
-        # Arrange
+    def test__init__(self: Self) -> None:
+        """Test the __init__ method."""
         # Act
         ccs_search = CheckCapacitySummarySearch(
             age=self.age,
@@ -56,13 +59,14 @@ class TestCheckCapacitySummarySearch:
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_username_and_password")
     def test_search(
-        self,
+        self: Self,
         mock__get_username_and_password: MagicMock,
         mock__build_request_data: MagicMock,
         mock_post: MagicMock,
         mock__parse_xml_response: MagicMock,
         mock_logger: MagicMock,
     ) -> None:
+        """Test the search method."""
         # Arrange
         username = "username"
         password = "password"
@@ -123,13 +127,14 @@ class TestCheckCapacitySummarySearch:
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_username_and_password")
     def test_search_error(
-        self,
+        self: Self,
         mock__get_username_and_password: MagicMock,
         mock__build_request_data: MagicMock,
         mock_post: MagicMock,
         mock__parse_xml_response: MagicMock,
         mock_logger: MagicMock,
     ) -> None:
+        """Test the search method."""
         # Arrange
         username = "username"
         password = "password"
@@ -149,7 +154,7 @@ class TestCheckCapacitySummarySearch:
         )
         mock_post.return_value = MagicMock(status_code=status_code)
         # Act
-        with raises(CCSAPIResponseException) as exception:
+        with pytest.raises(CCSAPIResponseError) as exception:  # noqa: PT012
             response = ccs_search.search()
             assert exception == f"CCS Response {status_code}"
             assert response is None, "No expected response"
@@ -171,7 +176,8 @@ class TestCheckCapacitySummarySearch:
         )
 
     @patch(f"{FILE_PATH}.client")
-    def test_get_username_and_password(self, mock_client: MagicMock) -> None:
+    def test_get_username_and_password(self: Self, mock_client: MagicMock) -> None:
+        """Test the _get_username_and_password method."""
         # Arrange
         ccs_search = CheckCapacitySummarySearch(
             age=self.age,
@@ -202,7 +208,8 @@ class TestCheckCapacitySummarySearch:
         del environ["CCS_USERNAME_KEY"]
         del environ["CCS_PASSWORD_KEY"]
 
-    def test_build_request_data(self) -> None:
+    def test_build_request_data(self: Self) -> None:
+        """Test the _build_request_data method."""
         # Arrange
         username = "username"
         password = "password"
@@ -222,7 +229,8 @@ class TestCheckCapacitySummarySearch:
         expected_xml = """<?xml version="1.0" ?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://nww.pathwaysdos.nhs.uk/app/api/webservices"><soap:Header><web:serviceVersion>1.5</web:serviceVersion></soap:Header><soap:Body><web:CheckCapacitySummary><web:userInfo><web:username>username</web:username><web:password>password</web:password></web:userInfo><web:c><web:postcode>test</web:postcode><web:age>1</web:age><web:ageFormat>years</web:ageFormat><web:disposition>1</web:disposition><web:symptomGroup>1</web:symptomGroup><web:searchDistance>20</web:searchDistance><web:gender>M</web:gender><web:symptomDiscriminatorList><web:int>1</web:int><web:int>2</web:int><web:int>3</web:int></web:symptomDiscriminatorList></web:c></web:CheckCapacitySummary></soap:Body></soap:Envelope>"""  # noqa: E501
         assert request_data == expected_xml, "Request data should be as expected"
 
-    def test_parse_xml_response(self) -> None:
+    def test_parse_xml_response(self: Self) -> None:
+        """Test the _parse_xml_response method."""
         # Arrange
         ccs_search = CheckCapacitySummarySearch(
             age=self.age,
@@ -234,7 +242,9 @@ class TestCheckCapacitySummarySearch:
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
-        api_response = parse("application/search/tests/ccs_comparison_search/example_ccs_api_response.xml")
+        api_response = parse(  # noqa: S318
+            "application/search/tests/ccs_comparison_search/example_ccs_api_response.xml",
+        )
         api_response_xml = api_response.toprettyxml()
         # Act
         response = ccs_search._parse_xml_response(api_response_xml)

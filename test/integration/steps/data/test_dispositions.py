@@ -12,22 +12,23 @@ def _() -> Response:
     """Search for a disposition.
 
     Returns:
-    -------
         Response: Response from the API Gateway.
     """
     return api_gateway_request(path=DISPOSITIONS_URL)
 
 
 @then("I should see the dispositions search results")
-def _(response: Response):
+def _(response: Response) -> None:
     """I should see the disposition search results.
 
     Args:
-    ----
         response (Response): response to check.
     """
     json_response: list[dict] = response.json()
-    assert json_response[0]["DispositionCode"] == "DX02", "Expected DispositionCode to be 'DX02'"
     assert (
-        json_response[0]["DispositionName"] == "Attend Emergency Treatment Centre within 1 hour"
+        json_response[0]["DispositionCode"] == "DX02"
+    ), "Expected DispositionCode to be 'DX02'"
+    assert (
+        json_response[0]["DispositionName"]
+        == "Attend Emergency Treatment Centre within 1 hour"
     ), "Expected DispositionName to be 'Attend Emergency Treatment Centre within 1 hour'"

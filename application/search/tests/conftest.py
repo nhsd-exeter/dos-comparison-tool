@@ -1,10 +1,11 @@
 from json import dumps
 
-from pytest import fixture
+import pytest
 
 
-@fixture()
+@pytest.fixture()
 def search_request() -> dict[str, dict[str, str | int | list[int]]]:
+    """Fixture to return a search request."""
     return {"body": dumps(SEARCH_REQUEST)}
 
 

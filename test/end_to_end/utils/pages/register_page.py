@@ -1,7 +1,7 @@
 from typing import Self
 
 from end_to_end.utils.aws import confirm_user
-from end_to_end.utils.drivers.chrome_driver import get_driver
+from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
 from end_to_end.utils.elements import input_textbox
 from end_to_end.utils.environment_variables import get_and_check_environment_variable
 
@@ -9,9 +9,7 @@ from .page import Page
 
 
 class RegisterPage(Page):
-    """Actions and checks for the register page
-    Includes both the signup and confirm signup forms.
-    """
+    """Actions and checks for the register page. Includes both the signup and confirm signup forms."""
 
     url_subdirectory = "/register"
 
@@ -37,7 +35,7 @@ class RegisterPage(Page):
         """Input password."""
         input_textbox(element_id="authRegisterPasswordInput", text=password)
 
-    def navigate_to_page(self):
+    def navigate_to_page(self: Self) -> None:
         """Navigate to the homepage."""
         application_url = get_and_check_environment_variable("APPLICATION_URL")
-        return get_driver().get(f"{application_url}{self.url_subdirectory}")
+        CHROME_DRIVER.get(f"{application_url}{self.url_subdirectory}")

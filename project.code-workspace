@@ -50,6 +50,8 @@
     "php.suggest.basic": false,
     "php.validate.executablePath": "/usr/bin/php",
     "python.languageServer": "Pylance",
+    "python.formatting.blackArgs": ["--line-length", "120"],
+    "python.formatting.provider": "black",
     "python.pythonPath": "~/.pyenv/versions/3.10.2/bin/python",
     "python.terminal.activateEnvironment": false,
     "search.exclude": {
@@ -198,6 +200,7 @@
       "statusBarItem.remoteForeground": "#15202b",
       "commandCenter.border": "#15202b99"
     },
-    "peacock.color": "#feaa0e"
+    "peacock.color": "#feaa0e",
+    "python.formatting.provider": "none"
   }
 }

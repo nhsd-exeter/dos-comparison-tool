@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from json import loads
 from os import getenv
-from typing import Any
+from typing import Any, Self
 from xml.dom.minidom import Document, Element  # nosec - B408 minidom used to create XML
 
 from aws_lambda_powertools.logging import Logger
@@ -9,14 +9,17 @@ from boto3 import client
 from requests import post
 from xmltodict import parse
 
-from .ccs_exceptions import CCSAPIResponseException
+from .ccs_exceptions import CCSAPIResponseError
 from .service import Service
 
 logger = Logger(child=True)
+CCS_SUCCESS_STATUS_CODE = 200
 
 
 @dataclass(init=True, repr=True)
 class CheckCapacitySummarySearch:
+    """CCS Comparison Search."""
+
     age: int
     age_format: str
     disposition: int
@@ -28,11 +31,10 @@ class CheckCapacitySummarySearch:
     search_distance: int = 20
     version: float = 1.5
 
-    def search(self) -> list[dict[Service]]:
+    def search(self: Self) -> list[dict[Service]]:
         """Searches for a services using the CCS API.
 
         Returns:
-        -------
             list[dict[Service]]: List of DoS services
         """
         logger.info(
@@ -63,41 +65,39 @@ class CheckCapacitySummarySearch:
             timeout=3,
         )
 
-        if response.status_code == 200:
+        if response.status_code == CCS_SUCCESS_STATUS_CODE:
             logger.info(
                 f"{self.search_environment} CCS Response {response.status_code}",
                 status_code=response.status_code,
                 search_environment=self.search_environment,
             )
             return self._parse_xml_response(response.text)
-        else:
-            logger.error(
-                f"{self.search_environment} CCS Response {response.status_code}",
-                status_code=response.status_code,
-                search_environment=self.search_environment,
-                error_message=response.text,
-            )
-            raise CCSAPIResponseException(
-                status_code=response.status_code,
-                message=f"CCS Response {response.status_code}",
-            )
 
-    def _get_username_and_password(self) -> tuple[str, str]:
+        logger.error(
+            f"{self.search_environment} CCS Response {response.status_code}",
+            status_code=response.status_code,
+            search_environment=self.search_environment,
+            error_message=response.text,
+        )
+        raise CCSAPIResponseError(
+            status_code=response.status_code,
+            message=f"CCS Response {response.status_code}",
+        )
+
+    def _get_username_and_password(self: Self) -> tuple[str, str]:
         """Gets the username and password for the CCS API.
 
         Returns:
-        -------
             tuple[str, str]: Username and password for the CCS API
         """
         response = client("secretsmanager").get_secret_value(SecretId=getenv("CCS_SECRET_NAME"))
         secret = loads(response["SecretString"])
         return secret[getenv("CCS_USERNAME_KEY")], secret[getenv("CCS_PASSWORD_KEY")]
 
-    def _build_request_data(self, username: str, password: str) -> str:
+    def _build_request_data(self: Self, username: str, password: str) -> str:
         """Builds the XML request data for the CCS API.
 
         Returns:
-        -------
             str: XML request data for the CCS API
         """
 
@@ -144,24 +144,21 @@ class CheckCapacitySummarySearch:
 
         return root.toxml()
 
-    def _get_environment_url(self) -> str:
+    def _get_environment_url(self: Self) -> str:
         """Gets the environment URL for the CCS API.
 
         Returns:
-        -------
             str: Environment URL for the CCS API
         """
         return getenv("DEFAULT_ENVIRONMENT_URL")
 
-    def _parse_xml_response(self, response_xml: str) -> list[dict[Service]]:
+    def _parse_xml_response(self: Self, response_xml: str) -> list[dict[Service]]:
         """Parses the response from the CCS API.
 
         Args:
-        ----
             response_xml (str): XML response from the CCS API
 
         Returns:
-        -------
             list[dict[Service]]: List of services returned from the CCS API
         """
         response_dict: dict[str, Any] = parse(response_xml)

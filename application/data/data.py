@@ -20,12 +20,10 @@ def lambda_handler(event: dict[str, Any], context: LambdaContext) -> dict[str, A
     """Lambda Handler.
 
     Args:
-    ----
         event (dict[str, Any]): Event from API Gateway
         context (LambdaContext): Lambda Context
 
     Returns:
-    -------
         dict[str, Any]: Response
     """
     return app.resolve(event, context)
@@ -38,7 +36,6 @@ def symptom_groups() -> tuple:
     """Get Symptom Groups.
 
     Returns:
-    -------
         tuple: Response
     """
     symptom_groups = file_to_dataframe("symptom_groups.csv")
@@ -52,7 +49,6 @@ def symptom_discriminators(symptom_group_id: str) -> tuple:
     """Get Symptom Discriminators using Symptom Group ID.
 
     Returns:
-    -------
         tuple: Response
     """
     symptom_group_id = int(symptom_group_id)
@@ -69,7 +65,6 @@ def dispositions() -> tuple:
     """Get Symptom Groups.
 
     Returns:
-    -------
         tuple: Response
     """
     dispositions = file_to_dataframe("dispositions.csv")

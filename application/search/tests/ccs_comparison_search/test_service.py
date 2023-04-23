@@ -1,14 +1,19 @@
+from typing import Self
+
 from application.search.ccs_comparison_search.service import Service
 
 
 class TestService:
+    """Test Service class."""
+
     uid = 123
     name = "test"
     address = "test"
     service_type = "test"
     distance = 1.0
 
-    def test__init__(self) -> None:
+    def test__init__(self: Self) -> None:
+        """Test Service init method."""
         # Act
         service = Service(
             uid=self.uid,
@@ -22,9 +27,10 @@ class TestService:
         assert service.name == self.name, "Name not set correctly"
         assert service.address == self.address, "Address not set correctly"
         assert service.service_type == self.service_type, "Service type not set correctly"
-        assert service.distance == 1.0, "Distance not set correctly"
+        assert service.distance == self.distance, "Distance not set correctly"
 
-    def test__repr__(self) -> None:
+    def test__repr__(self: Self) -> None:
+        """Test Service representation method."""
         # Act
         service = Service(
             uid=self.uid,

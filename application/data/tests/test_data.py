@@ -15,8 +15,8 @@ DISPOSITIONS_URL_PATH = f"/{LAMBDA_NAME}/dispositions"
 HTTP_METHOD = "POST"
 
 
-def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
-
+def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
+    """Test lambda handler with an invalid route."""
     # Arrange
     event = {"body": "", "path": "/data/any", "httpMethod": "GET"}
     # Act
@@ -26,7 +26,8 @@ def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
 
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
-def test_lambda_handler_symptom_groups(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext):
+def test_lambda_handler_symptom_groups(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext) -> None:
+    """Test lambda handler with a valid route."""
     # Arrange
     event = {"body": "", "path": SYMPTOM_GROUPS_URL_PATH, "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
@@ -35,13 +36,23 @@ def test_lambda_handler_symptom_groups(mock_file_to_dataframe: MagicMock, lambda
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["statusCode"] == 200
+    expected_status_code = 200
+    assert response["statusCode"] == expected_status_code
     assert response["body"] == dumps(data_frame.to_dict(orient="records"), separators=(",", ":"))
     mock_file_to_dataframe.assert_called_once_with("symptom_groups.csv")
 
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
-def test_lambda_handler_symptom_discriminators(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext):
+def test_lambda_handler_symptom_discriminators(
+    mock_file_to_dataframe: MagicMock,
+    lambda_context: LambdaContext,
+) -> None:
+    """Test lambda handler symptom discriminators.
+
+    Args:
+        mock_file_to_dataframe (MagicMock): Mocked file to data frame.
+        lambda_context (LambdaContext): Lambda context for data lambda.
+    """
     # Arrange
     symptom_group_id = 1000
     event = {"body": "", "path": f"{SYMPTOM_DISCRIMINATORS_URL_PATH}/{symptom_group_id}", "httpMethod": HTTP_METHOD}
@@ -51,14 +62,21 @@ def test_lambda_handler_symptom_discriminators(mock_file_to_dataframe: MagicMock
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["statusCode"] == 200
+    expected_status_code = 200
+    assert response["statusCode"] == expected_status_code
     expected_data_frame = data_frame.drop("SymptomGroupId", axis=1)
     assert response["body"] == dumps(expected_data_frame.to_dict(orient="records"), separators=(",", ":"))
     mock_file_to_dataframe.assert_called_once_with("symptom_discriminators.csv")
 
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
-def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext):
+def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext) -> None:
+    """Test lambda handler dispositions.
+
+    Args:
+        mock_file_to_dataframe (MagicMock): Mocked file to data frame.
+        lambda_context (LambdaContext): Lambda context.
+    """
     # Arrange
     event = {"body": "", "path": DISPOSITIONS_URL_PATH, "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
@@ -67,6 +85,7 @@ def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_c
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["statusCode"] == 200
+    expected_status_code = 200
+    assert response["statusCode"] == expected_status_code
     assert response["body"] == dumps(data_frame.to_dict(orient="records"), separators=(",", ":"))
     mock_file_to_dataframe.assert_called_once_with("dispositions.csv")

@@ -1,4 +1,6 @@
-from end_to_end.utils.drivers.chrome_driver import get_driver
+from typing import Self
+
+from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
 from end_to_end.utils.environment_variables import get_and_check_environment_variable
 
 from .page import Page
@@ -10,7 +12,7 @@ class HomePage(Page):
     url_subdirectory = "/"
     page_number = 1
 
-    def navigate_to_page(self):
+    def navigate_to_page(self: Self) -> None:
         """Navigate to the homepage."""
         application_url = get_and_check_environment_variable("APPLICATION_URL")
-        return get_driver().get(application_url)
+        return CHROME_DRIVER.get(application_url)

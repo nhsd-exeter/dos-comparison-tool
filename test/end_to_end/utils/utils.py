@@ -12,7 +12,6 @@ def login_as_user(username: str, password: str) -> None:
     """Login to the application. User will be left on menu page.
 
     Args:
-    ----
         username (str): Username to login with
         password (str): Password to login with
     """

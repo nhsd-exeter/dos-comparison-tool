@@ -14,7 +14,6 @@ def get_authentication_token() -> str:
     """Get Authentication Token from Cognito to be used in the Authorization header.
 
     Returns:
-    -------
         str: Id Token to be used in the Authorization header
     """
     user_name = get_secret_value(COGNITO_SECRETS_NAME, COGNITO_SECRETS_ADMIN_USERNAME_KEY)

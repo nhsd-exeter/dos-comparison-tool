@@ -1,21 +1,9 @@
-[tool.coverage.run]
-omit = ["**/__init__.py", "**/tests/**", "application/conftest.py"]
-branch = true
-
-[tool.vulture]
-make_whitelist = true
-paths = ["application"]
-exclude = ["application/ui", "application/conftest.py", "application/__init__.py", "**/tests/**", "application/search/ccs_comparison_search/service"]
-sort_by_size = true
-ignore_names = ["lambda_handler", "tracer", "logger", "context", "event", "ccs_comparison_search"]
-
 [tool.ruff]
 select = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
 ignore = [
   "D100", # Missing docstring in public module
   "D104", # Missing docstring in public package
-  "PTH123", # Use `pathlib.Path` instead of `os.path`
-  "G004", # Logging statement uses f-string
+  "PTH123", # Use `pathlib.Path` instead of `os.path`,
 ]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
@@ -52,16 +40,13 @@ line-length = 120
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Set target version to Python 3.10.
-target-version = "py310"
+# Set python version to 3.11.
+target-version = "py311"
 
 [tool.ruff.per-file-ignores]
-"**test_*.py" = [
-  "S101", # Allow `assert` in tests.
-  "S105",# Allow fake secrets in tests.
-  "SLF001", # Allow `_function` in tests.
-  "PLR0913", # Allow many arrguments in tests.
-]
+"**test_*.py" = ["S101"] # Allow `assert` in tests.
+"integration**.py" = ["S101"] # Allow `assert` in tests.
+"end_to_end**.py" = ["S101"] # Allow `assert` in tests.
 
 [tool.ruff.pydocstyle]
 convention = "google" # Use Google docstring convention.

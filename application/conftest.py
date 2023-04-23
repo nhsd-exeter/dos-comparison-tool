@@ -8,7 +8,6 @@ def lambda_context() -> dataclass:
     """Mock LambdaContext - All dummy values.
 
     Returns:
-    -------
         LambdaContext
     """
 
