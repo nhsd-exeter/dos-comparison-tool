@@ -16,6 +16,7 @@ ignore = [
   "D104", # Missing docstring in public package
   "PTH123", # Use `pathlib.Path` instead of `os.path`
   "G004", # Logging statement uses f-string
+  "ANN101", # Missing type annotation for self in method
 ]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.

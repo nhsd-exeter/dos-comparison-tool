@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from json import loads
 from os import getenv
-from typing import Any, Self
+from typing import Any
 from xml.dom.minidom import Document, Element  # nosec - B408 minidom used to create XML
 
 from aws_lambda_powertools.logging import Logger
@@ -31,7 +31,7 @@ class CheckCapacitySummarySearch:
     search_distance: int = 20
     version: float = 1.5
 
-    def search(self: Self) -> list[dict[Service]]:
+    def search(self) -> list[dict[Service]]:
         """Searches for a services using the CCS API.
 
         Returns:
@@ -84,7 +84,7 @@ class CheckCapacitySummarySearch:
             message=f"CCS Response {response.status_code}",
         )
 
-    def _get_username_and_password(self: Self) -> tuple[str, str]:
+    def _get_username_and_password(self) -> tuple[str, str]:
         """Gets the username and password for the CCS API.
 
         Returns:
@@ -94,7 +94,7 @@ class CheckCapacitySummarySearch:
         secret = loads(response["SecretString"])
         return secret[getenv("CCS_USERNAME_KEY")], secret[getenv("CCS_PASSWORD_KEY")]
 
-    def _build_request_data(self: Self, username: str, password: str) -> str:
+    def _build_request_data(self, username: str, password: str) -> str:
         """Builds the XML request data for the CCS API.
 
         Returns:
@@ -144,7 +144,7 @@ class CheckCapacitySummarySearch:
 
         return root.toxml()
 
-    def _get_environment_url(self: Self) -> str:
+    def _get_environment_url(self) -> str:
         """Gets the environment URL for the CCS API.
 
         Returns:
@@ -152,7 +152,7 @@ class CheckCapacitySummarySearch:
         """
         return getenv("DEFAULT_ENVIRONMENT_URL")
 
-    def _parse_xml_response(self: Self, response_xml: str) -> list[dict[Service]]:
+    def _parse_xml_response(self, response_xml: str) -> list[dict[Service]]:
         """Parses the response from the CCS API.
 
         Args:

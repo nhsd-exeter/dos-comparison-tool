@@ -40,10 +40,10 @@ def ccs_comparison_search() -> tuple:
         response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
         response_body["search_two_environment"] = search_two["search_environment"]
     except BadRequestError:
-        logger.exception()
+        logger.exception("Bad Request Error")
         raise
     except Exception as e:
-        logger.exception()
+        logger.exception("Internal Server Error")
         error_message = "Internal Server Error"
         raise InternalServerError(error_message) from e
     return response_body, 200
