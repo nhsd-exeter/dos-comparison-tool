@@ -1,9 +1,9 @@
 from json import dumps
-from unittest.mock import call, MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from ..search import lambda_handler
+from application.search.search import lambda_handler
 
 # Fixtures that can't be found in this file are in the conftest.py file
 FILE_PATH = "application.search.search"
@@ -22,7 +22,9 @@ def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
 
 @patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
 def test_ccs_comparison_search(
-    mock_check_capacity_summary_search: MagicMock, search_request: dict, lambda_context: LambdaContext
+    mock_check_capacity_summary_search: MagicMock,
+    search_request: dict,
+    lambda_context: LambdaContext,
 ):
     # Arrange
     mock_check_capacity_summary_search.return_value.search.return_value = {}
@@ -60,7 +62,7 @@ def test_ccs_comparison_search(
                 search_environment="test2",
             ),
             call().search(),
-        ]
+        ],
     )
 
 

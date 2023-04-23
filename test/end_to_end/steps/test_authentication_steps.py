@@ -1,12 +1,12 @@
 from pytest_bdd import given, scenarios, then, when
 from selenium import webdriver
 
-from ..utils.aws import delete_user, get_secret
-from ..utils.environment_variables import get_and_check_environment_variable
-from ..utils.pages.login_page import LoginPage
-from ..utils.pages.register_page import RegisterPage
-from ..utils.types import SignInContext, SignUpContext
-from ..utils.utils import login_as_user
+from end_to_end.utils.aws import delete_user, get_secret
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
+from end_to_end.utils.pages.login_page import LoginPage
+from end_to_end.utils.pages.register_page import RegisterPage
+from end_to_end.utils.types import SignInContext, SignUpContext
+from end_to_end.utils.utils import login_as_user
 
 scenarios("../features/authentication.feature")
 
@@ -16,9 +16,11 @@ def a_user_wants_to_sign_up(driver: webdriver.Remote) -> SignUpContext:
     """Set up the test environment.
 
     Args:
+    ----
         driver (webdriver.Remote): Selenium driver. Created by a pytest fixture.
 
     Returns:
+    -------
         SignUpContext: Context of the test.
     """
     RegisterPage().navigate_to_page()
@@ -39,9 +41,11 @@ def the_user_signs_up(context: SignUpContext) -> SignUpContext:
     """Sign up.
 
     Args:
+    ----
         context (SignUpContext): Context of the test.
 
     Returns:
+    -------
         SignUpContext: Context of the test.
     """
     RegisterPage().sign_up(**context)
@@ -53,6 +57,7 @@ def the_user_is_able_to_login(context: SignUpContext) -> None:
     """A user is able to login.
 
     Args:
+    ----
         context (SignUpContext): Context of the test.
     """
     login_as_user(username=context["email"], password=context["password"])
@@ -64,9 +69,11 @@ def a_user_wants_to_sign_in_with_invalid_credentials(driver: webdriver.Remote) -
     """Set up the test environment.
 
     Args:
+    ----
         driver (webdriver.Remote): Selenium driver. Created by a pytest fixture.
 
     Returns:
+    -------
         SignUpContext: Context of the test.
     """
     LoginPage().navigate_to_page()
@@ -81,6 +88,7 @@ def the_user_signs_in_with_invalid_credentials(context: SignInContext) -> None:
     """Sign in with invalid credentials.
 
     Args:
+    ----
         context (SignInContext): Context of the test.
     """
     LoginPage().login(**context)

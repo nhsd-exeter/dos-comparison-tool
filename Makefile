@@ -200,26 +200,15 @@ python-unit-test: # Run Python unit tests
 	python -m pytest application \
 		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing
 
-python-format:
-	make python-code-format FILES=$(APPLICATION_DIR_REL)/search
-	make python-code-format FILES=$(APPLICATION_DIR_REL)/data
-	make python-imports-format
+python-lint: # Run Python linting (ruff)
+	python -m ruff check . --fix
+
+python-lint-watch: # Run Python linting (ruff) in watch mode
+	python -m ruff check . --fix --watch
 
 python-dead-code-check: # Check for dead Python code
 	python -m vulture $(APPLICATION_DIR)
 
-python-imports-check: # Check Python imports - optional: DIR=[path]
-	if [ -z "$(DIR)" ]; then DIR="."; fi
-	python -m isort $$DIR -l=120 --check-only --profile=black \
-		--force-alphabetical-sort-within-sections
-
-python-imports-format: # Format Python imports - optional: DIR=[path]
-	if [ -z "$(DIR)" ]; then DIR="."; fi
-	python -m isort $$DIR -l=120 --profile=black \
-		--force-alphabetical-sort-within-sections
-
-python-security-check: # Run Python security checks
-	python -m bandit -r application -c pyproject.toml
 
 # ==============================================================================
 # Development targets

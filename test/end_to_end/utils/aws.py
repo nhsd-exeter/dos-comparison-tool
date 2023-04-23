@@ -2,16 +2,18 @@ from json import loads
 
 from boto3 import client
 
-from ..utils.environment_variables import get_and_check_environment_variable
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
 
 
 def get_secret(secret_name: str) -> dict[str, str]:
     """Get the secret from AWS Secrets Manager.
 
     Args:
+    ----
         secret_name (str): Name of the secret to get.
 
     Returns:
+    -------
         dict[str, str]: Secret value.
     """
     secret = client("secretsmanager").get_secret_value(SecretId=secret_name)
@@ -22,6 +24,7 @@ def confirm_user(username: str) -> None:
     """Confirm the user.
 
     Args:
+    ----
         username (str): Username of the user to confirm.
     """
     secret_name = get_and_check_environment_variable("COGNITO_SECRETS_NAME")
@@ -33,6 +36,7 @@ def delete_user(username: str) -> None:
     """Delete the user.
 
     Args:
+    ----
         username (str): Username of the user to delete.
     """
     secret_name = get_and_check_environment_variable("COGNITO_SECRETS_NAME")

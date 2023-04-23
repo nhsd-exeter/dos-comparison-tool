@@ -3,7 +3,7 @@ from json import dumps
 from pytest import fixture
 
 
-@fixture
+@fixture()
 def search_request() -> dict[str, dict[str, str | int | list[int]]]:
     return {"body": dumps(SEARCH_REQUEST)}
 

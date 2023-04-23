@@ -1,13 +1,13 @@
 from json import dumps
 from os import environ
-from unittest.mock import call, MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 
 from pytest import raises
 
-from ...ccs_comparison_search.ccs_exceptions import CCSAPIResponseException
-from ...ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
-from ...ccs_comparison_search.service import Service
+from application.search.ccs_comparison_search.ccs_exceptions import CCSAPIResponseException
+from application.search.ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
+from application.search.ccs_comparison_search.service import Service
 
 FILE_PATH = "application.search.ccs_comparison_search.check_capacity_summary_search"
 
@@ -114,7 +114,7 @@ class TestCheckCapacitySummarySearch:
                     status_code=status_code,
                     search_environment=self.search_environment,
                 ),
-            ]
+            ],
         )
 
     @patch(f"{FILE_PATH}.logger")
@@ -189,7 +189,7 @@ class TestCheckCapacitySummarySearch:
         environ["CCS_USERNAME_KEY"] = username_key = "username_key"
         environ["CCS_PASSWORD_KEY"] = password_key = "password_key"
         mock_client.return_value.get_secret_value.return_value = {
-            "SecretString": dumps({username_key: username_value, password_key: password_value})
+            "SecretString": dumps({username_key: username_value, password_key: password_value}),
         }
         # Act
         username, password = ccs_search._get_username_and_password()
@@ -241,7 +241,11 @@ class TestCheckCapacitySummarySearch:
         # Assert
         expected_response = [
             Service(
-                uid="123", name="Test Pharmacy", address="1 Pharmacy Lane", service_type="Pharmacy", distance="0.4"
+                uid="123",
+                name="Test Pharmacy",
+                address="1 Pharmacy Lane",
+                service_type="Pharmacy",
+                distance="0.4",
             ).__dict__,
         ]
         assert expected_response == response, "Service not as expected"

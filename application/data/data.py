@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, CORSConfig
 from aws_lambda_powertools.logging import Logger
@@ -16,7 +16,18 @@ app = APIGatewayRestResolver(cors=cors_config)
 
 @logger.inject_lambda_context(clear_state=True)
 @tracer.capture_lambda_handler(capture_response=True)
-def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, Any]:
+def lambda_handler(event: dict[str, Any], context: LambdaContext) -> dict[str, Any]:
+    """Lambda Handler.
+
+    Args:
+    ----
+        event (dict[str, Any]): Event from API Gateway
+        context (LambdaContext): Lambda Context
+
+    Returns:
+    -------
+        dict[str, Any]: Response
+    """
     return app.resolve(event, context)
 
 
@@ -24,9 +35,10 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
 @app.post("/data/symptom_groups")
 @tracer.capture_method()
 def symptom_groups() -> tuple:
-    """Get Symptom Groups
+    """Get Symptom Groups.
 
     Returns:
+    -------
         tuple: Response
     """
     symptom_groups = file_to_dataframe("symptom_groups.csv")
@@ -37,9 +49,10 @@ def symptom_groups() -> tuple:
 @app.post("/data/symptom_discriminators/<symptom_group_id>")
 @tracer.capture_method()
 def symptom_discriminators(symptom_group_id: str) -> tuple:
-    """Get Symptom Discriminators using Symptom Group ID
+    """Get Symptom Discriminators using Symptom Group ID.
 
     Returns:
+    -------
         tuple: Response
     """
     symptom_group_id = int(symptom_group_id)
@@ -53,9 +66,10 @@ def symptom_discriminators(symptom_group_id: str) -> tuple:
 @app.post("/data/dispositions")
 @tracer.capture_method()
 def dispositions() -> tuple:
-    """Get Symptom Groups
+    """Get Symptom Groups.
 
     Returns:
+    -------
         tuple: Response
     """
     dispositions = file_to_dataframe("dispositions.csv")

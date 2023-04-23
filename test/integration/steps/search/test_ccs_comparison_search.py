@@ -1,8 +1,8 @@
 from pytest_bdd import given, scenarios, then, when
 from requests.models import Response
 
-from ...utils.constants import CCS_COMPARISON_SEARCH_URL
-from ...utils.utils import api_gateway_request
+from integration.utils.constants import CCS_COMPARISON_SEARCH_URL
+from integration.utils.utils import api_gateway_request
 
 scenarios("../../features/search/ccs_comparison_search.feature")
 

@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 from pandas import read_csv
 
-from ..data import lambda_handler
+from application.data.data import lambda_handler
 
 # Fixtures that can't be found in this file are in the conftest.py file
 FILE_PATH = "application.data.data"
@@ -16,6 +16,7 @@ HTTP_METHOD = "POST"
 
 
 def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
+
     # Arrange
     event = {"body": "", "path": "/data/any", "httpMethod": "GET"}
     # Act
@@ -29,7 +30,7 @@ def test_lambda_handler_symptom_groups(mock_file_to_dataframe: MagicMock, lambda
     # Arrange
     event = {"body": "", "path": SYMPTOM_GROUPS_URL_PATH, "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
-        "application/data/tests/resources/symptom_groups_test.csv"
+        "application/data/tests/resources/symptom_groups_test.csv",
     )
     # Act
     response = lambda_handler(event, lambda_context)
@@ -45,7 +46,7 @@ def test_lambda_handler_symptom_discriminators(mock_file_to_dataframe: MagicMock
     symptom_group_id = 1000
     event = {"body": "", "path": f"{SYMPTOM_DISCRIMINATORS_URL_PATH}/{symptom_group_id}", "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
-        "application/data/tests/resources/symptom_discriminators_test.csv"
+        "application/data/tests/resources/symptom_discriminators_test.csv",
     )
     # Act
     response = lambda_handler(event, lambda_context)
@@ -61,7 +62,7 @@ def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_c
     # Arrange
     event = {"body": "", "path": DISPOSITIONS_URL_PATH, "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
-        "application/data/tests/resources/dispositions_test.csv"
+        "application/data/tests/resources/dispositions_test.csv",
     )
     # Act
     response = lambda_handler(event, lambda_context)

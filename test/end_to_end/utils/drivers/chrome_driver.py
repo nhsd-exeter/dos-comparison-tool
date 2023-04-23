@@ -1,6 +1,6 @@
 from selenium import webdriver
 
-from ..environment_variables import get_and_check_environment_variable
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
 
 driver = None
 

@@ -13,7 +13,8 @@
     "dsznajder.es7-react-js-snippets",
     "miclo.sort-typescript-imports",
     "nicholashsiang.vscode-javascript-comment",
-    "salbert.comment-ts"
+    "salbert.comment-ts",
+    "charliermarsh.ruff"
   ],
   "unwantedRecommendations": [
     "googlecloudtools.cloudcode",

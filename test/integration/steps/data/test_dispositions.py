@@ -1,8 +1,8 @@
 from pytest_bdd import scenarios, then, when
 from requests.models import Response
 
-from ...utils.constants import DISPOSITIONS_URL
-from ...utils.utils import api_gateway_request
+from integration.utils.constants import DISPOSITIONS_URL
+from integration.utils.utils import api_gateway_request
 
 scenarios("../../features/data/dispositions.feature")
 
@@ -12,6 +12,7 @@ def _() -> Response:
     """Search for a disposition.
 
     Returns:
+    -------
         Response: Response from the API Gateway.
     """
     return api_gateway_request(path=DISPOSITIONS_URL)
@@ -22,6 +23,7 @@ def _(response: Response):
     """I should see the disposition search results.
 
     Args:
+    ----
         response (Response): response to check.
     """
     json_response: list[dict] = response.json()

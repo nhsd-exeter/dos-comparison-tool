@@ -9,9 +9,10 @@ from requests.models import Response
 
 @given("I have a CCS Comparison Search request", target_fixture="payload")
 def _() -> dict:
-    """Builds a CCS Comparison Search request.
+    """Build CCS Comparison Search request.
 
     Returns:
+    -------
         dict: CCS Comparison Search request.
     """
     with open("resources/ccs_comparison_search_one.json") as file:
@@ -20,9 +21,10 @@ def _() -> dict:
 
 @then(parse('the response should have status code "{status_code:d}"'), target_fixture="response")
 def _(status_code: int, response: Response) -> Response:
-    """Checks that the response has the correct status code.
+    """Check response has the correct status code.
 
     Args:
+    ----
         status_code (int): Expected status code of the response.
         response (Response): response to check.
     """

@@ -1,7 +1,8 @@
-from ..aws import get_secret
-from ..drivers.chrome_driver import get_driver
-from ..elements import wait_and_get_element
-from ..environment_variables import get_and_check_environment_variable
+from end_to_end.utils.aws import get_secret
+from end_to_end.utils.drivers.chrome_driver import get_driver
+from end_to_end.utils.elements import wait_and_get_element
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
+
 from .page import Page
 
 
@@ -34,6 +35,7 @@ class LoginPage(Page):
         """Get the username and password from secrets manager.
 
         Returns:
+        -------
             tuple[str, str]: Username and password in that order.
         """
         secret_name = get_and_check_environment_variable("COGNITO_SECRETS_NAME")
@@ -45,7 +47,7 @@ class LoginPage(Page):
         return username, password
 
     def navigate_to_page(self) -> None:
-        """Navigate to the homepage"""
+        """Navigate to the homepage."""
         application_url = get_and_check_environment_variable("APPLICATION_URL")
         get_driver().get(f"{application_url}{self.url_subdirectory}")
 
@@ -53,6 +55,7 @@ class LoginPage(Page):
         """Check if the login error is displayed.
 
         Returns:
+        -------
             bool: True if the login error is displayed, False otherwise.
         """
         element = wait_and_get_element("error-summary")

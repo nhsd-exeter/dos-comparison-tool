@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 from pandas import DataFrame
 
-from ..utils import file_to_dataframe
+from application.data.utils import file_to_dataframe
 
 FILE_PATH = "application.data.utils"
 

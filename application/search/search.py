@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, CORSConfig
 from aws_lambda_powertools.event_handler.exceptions import BadRequestError, InternalServerError
@@ -19,13 +19,15 @@ app = APIGatewayRestResolver(cors=cors_config)
 @app.post("/search/CCSComparisonSearch")
 @tracer.capture_method()
 def ccs_comparison_search() -> tuple:
-    """CCS Comparison Search
+    """CCS Comparison Search.
 
     Args:
+    ----
         event (APIGatewayProxyEventV2): API Gateway Event
         context (LambdaContext): Lambda Context
 
     Returns:
+    -------
         Dict[str, Any]: Response
     """
     try:
@@ -49,5 +51,5 @@ def ccs_comparison_search() -> tuple:
 
 @logger.inject_lambda_context(clear_state=True)
 @tracer.capture_lambda_handler(capture_response=True)
-def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, Any]:
+def lambda_handler(event: dict[str, Any], context: LambdaContext) -> dict[str, Any]:
     return app.resolve(event, context)
