@@ -48,13 +48,10 @@ jobs:
       - name: Ruff Check
         uses: jpetrucciani/ruff-check@main
         with:
-          path: '.'
-      - name: Python Install Requirements
-        run: |
-          pip install vulture
+          path: "."
       - name: Python Dead Code Check
         run: |
-          make python-dead-code-check
+          make python-dead-code-install python-dead-code-check
 
   typescript-check-code-quality:
     runs-on: ubuntu-latest

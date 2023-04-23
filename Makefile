@@ -206,9 +206,11 @@ python-lint: # Run Python linting (ruff)
 python-lint-watch: # Run Python linting (ruff) in watch mode
 	python -m ruff check . --fix --watch
 
+python-dead-code-install: # Install Python dead code checker
+	python -m pip install vulture
+
 python-dead-code-check: # Check for dead Python code
 	python -m vulture $(APPLICATION_DIR)
-
 
 # ==============================================================================
 # Development targets
