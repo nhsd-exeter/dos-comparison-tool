@@ -162,7 +162,7 @@ jobs:
         run: make pip-install
       - name: Run Python Unit Tests
         run: make python-unit-test
-      - uses: sonarsource/sonarcloud-github-action@master
+      - uses: sonarsource/sonarcloud-github-action@v1.9.1
         # SEE: https://github.com/SonarSource/sonarcloud-github-action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
