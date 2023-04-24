@@ -11,7 +11,7 @@ from .secrets_manager import get_secret_value
 
 
 def get_authentication_token() -> str:
-    """Get Authentication Token from Cognito to be used in the Authorization header
+    """Get Authentication Token from Cognito to be used in the Authorization header.
 
     Returns:
         str: Id Token to be used in the Authorization header

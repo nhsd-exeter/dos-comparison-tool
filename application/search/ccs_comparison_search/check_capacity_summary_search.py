@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from json import loads
 from os import getenv
-from typing import Any, Dict
+from typing import Any
 from xml.dom.minidom import Document, Element  # nosec - B408 minidom used to create XML
 
 from aws_lambda_powertools.logging import Logger
@@ -9,14 +9,17 @@ from boto3 import client
 from requests import post
 from xmltodict import parse
 
-from .ccs_exceptions import CCSAPIResponseException
+from .ccs_exceptions import CCSAPIResponseError
 from .service import Service
 
 logger = Logger(child=True)
+CCS_SUCCESS_STATUS_CODE = 200
 
 
 @dataclass(init=True, repr=True)
 class CheckCapacitySummarySearch:
+    """CCS Comparison Search."""
+
     age: int
     age_format: str
     disposition: int
@@ -29,12 +32,11 @@ class CheckCapacitySummarySearch:
     version: float = 1.5
 
     def search(self) -> list[dict[Service]]:
-        """Searches for a services using the CCS API
+        """Searches for a services using the CCS API.
 
         Returns:
             list[dict[Service]]: List of DoS services
         """
-
         logger.info(
             f"CCS Request for environment {self.search_environment}",
             age=self.age,
@@ -52,7 +54,9 @@ class CheckCapacitySummarySearch:
         ccs_search_path = getenv("CCS_SEARCH_PATH")
         environment_url = self._get_environment_url()
         logger.debug(
-            f"CCS Request for environment {self.search_environment}", data=data, environment_url=environment_url
+            f"CCS Request for environment {self.search_environment}",
+            data=data,
+            environment_url=environment_url,
         )
         response = post(
             url=f"{environment_url}{ccs_search_path}",
@@ -61,26 +65,27 @@ class CheckCapacitySummarySearch:
             timeout=3,
         )
 
-        if response.status_code == 200:
+        if response.status_code == CCS_SUCCESS_STATUS_CODE:
             logger.info(
                 f"{self.search_environment} CCS Response {response.status_code}",
                 status_code=response.status_code,
                 search_environment=self.search_environment,
             )
             return self._parse_xml_response(response.text)
-        else:
-            logger.error(
-                f"{self.search_environment} CCS Response {response.status_code}",
-                status_code=response.status_code,
-                search_environment=self.search_environment,
-                error_message=response.text,
-            )
-            raise CCSAPIResponseException(
-                status_code=response.status_code, message=f"CCS Response {response.status_code}"
-            )
+
+        logger.error(
+            f"{self.search_environment} CCS Response {response.status_code}",
+            status_code=response.status_code,
+            search_environment=self.search_environment,
+            error_message=response.text,
+        )
+        raise CCSAPIResponseError(
+            status_code=response.status_code,
+            message=f"CCS Response {response.status_code}",
+        )
 
     def _get_username_and_password(self) -> tuple[str, str]:
-        """Gets the username and password for the CCS API
+        """Gets the username and password for the CCS API.
 
         Returns:
             tuple[str, str]: Username and password for the CCS API
@@ -90,14 +95,14 @@ class CheckCapacitySummarySearch:
         return secret[getenv("CCS_USERNAME_KEY")], secret[getenv("CCS_PASSWORD_KEY")]
 
     def _build_request_data(self, username: str, password: str) -> str:
-        """Builds the XML request data for the CCS API
+        """Builds the XML request data for the CCS API.
 
         Returns:
             str: XML request data for the CCS API
         """
 
         def add_basic_element(key: str, value: str, parent_element: Element) -> None:
-            """Adds a basic element to the XML request data"""
+            """Adds a basic element to the XML request data."""
             element = root.createElement(f"web:{key}")
             element.appendChild(root.createTextNode(value))
             parent_element.appendChild(element)
@@ -140,7 +145,7 @@ class CheckCapacitySummarySearch:
         return root.toxml()
 
     def _get_environment_url(self) -> str:
-        """Gets the environment URL for the CCS API
+        """Gets the environment URL for the CCS API.
 
         Returns:
             str: Environment URL for the CCS API
@@ -148,7 +153,7 @@ class CheckCapacitySummarySearch:
         return getenv("DEFAULT_ENVIRONMENT_URL")
 
     def _parse_xml_response(self, response_xml: str) -> list[dict[Service]]:
-        """Parses the response from the CCS API
+        """Parses the response from the CCS API.
 
         Args:
             response_xml (str): XML response from the CCS API
@@ -156,7 +161,7 @@ class CheckCapacitySummarySearch:
         Returns:
             list[dict[Service]]: List of services returned from the CCS API
         """
-        response_dict: Dict[str, Any] = parse(response_xml)
+        response_dict: dict[str, Any] = parse(response_xml)
         body = response_dict.get("env:Envelope", {}).get("env:Body", {})
         services = (
             body.get("ns1:CheckCapacitySummaryResponse", {})

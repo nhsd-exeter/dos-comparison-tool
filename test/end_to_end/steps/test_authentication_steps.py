@@ -1,30 +1,30 @@
 from pytest_bdd import given, scenarios, then, when
-from selenium import webdriver
 
-from ..utils.aws import delete_user, get_secret
-from ..utils.environment_variables import get_and_check_environment_variable
-from ..utils.pages.login_page import LoginPage
-from ..utils.pages.register_page import RegisterPage
-from ..utils.types import SignInContext, SignUpContext
-from ..utils.utils import login_as_user
+from end_to_end.utils.aws import delete_user, get_secret
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
+from end_to_end.utils.pages.login_page import LoginPage
+from end_to_end.utils.pages.register_page import RegisterPage
+from end_to_end.utils.types import SignInContext, SignUpContext
+from end_to_end.utils.utils import login_as_user
 
 scenarios("../features/authentication.feature")
 
 
 @given("a user wants to sign up", target_fixture="context")
-def a_user_wants_to_sign_up(driver: webdriver.Remote) -> SignUpContext:
+def a_user_wants_to_sign_up() -> SignUpContext:
     """Set up the test environment.
-
-    Args:
-        driver (webdriver.Remote): Selenium driver. Created by a pytest fixture.
 
     Returns:
         SignUpContext: Context of the test.
     """
     RegisterPage().navigate_to_page()
     deployment_secrets = get_and_check_environment_variable("DEPLOYMENT_SECRETS")
-    setup_user_username_key = get_and_check_environment_variable("SETUP_USER_USERNAME_KEY")
-    setup_user_password_key = get_and_check_environment_variable("SETUP_USER_PASSWORD_KEY")
+    setup_user_username_key = get_and_check_environment_variable(
+        "SETUP_USER_USERNAME_KEY",
+    )
+    setup_user_password_key = get_and_check_environment_variable(
+        "SETUP_USER_PASSWORD_KEY",
+    )
     setup_user_email_key = get_and_check_environment_variable("SETUP_USER_EMAIL_KEY")
     secret_value = get_secret(deployment_secrets)
     return SignUpContext(
@@ -60,11 +60,8 @@ def the_user_is_able_to_login(context: SignUpContext) -> None:
 
 
 @given("a user wants to sign in with invalid credentials", target_fixture="context")
-def a_user_wants_to_sign_in_with_invalid_credentials(driver: webdriver.Remote) -> SignUpContext:
+def a_user_wants_to_sign_in_with_invalid_credentials() -> SignUpContext:
     """Set up the test environment.
-
-    Args:
-        driver (webdriver.Remote): Selenium driver. Created by a pytest fixture.
 
     Returns:
         SignUpContext: Context of the test.
@@ -72,7 +69,7 @@ def a_user_wants_to_sign_in_with_invalid_credentials(driver: webdriver.Remote) -
     LoginPage().navigate_to_page()
     return SignInContext(
         username="invalid_username",
-        password="invalid_password",
+        password="invalid_password",  # noqa: S106
     )
 
 

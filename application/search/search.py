@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, CORSConfig
 from aws_lambda_powertools.event_handler.exceptions import BadRequestError, InternalServerError
@@ -19,7 +19,7 @@ app = APIGatewayRestResolver(cors=cors_config)
 @app.post("/search/CCSComparisonSearch")
 @tracer.capture_method()
 def ccs_comparison_search() -> tuple:
-    """CCS Comparison Search
+    """CCS Comparison Search.
 
     Args:
         event (APIGatewayProxyEventV2): API Gateway Event
@@ -33,21 +33,32 @@ def ccs_comparison_search() -> tuple:
         search_one = body.get("search_one", {})
         search_two = body.get("search_two", {})
         if search_one == {} or search_two == {}:
-            raise BadRequestError("search_one and search_two are required")
+            error_message = "search_one and search_two are required"
+            raise BadRequestError(error_message)  # noqa: TRY301
         response_body = {"search_one": CheckCapacitySummarySearch(**search_one).search()}
         response_body["search_one_environment"] = search_one["search_environment"]
         response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
         response_body["search_two_environment"] = search_two["search_environment"]
-    except BadRequestError as e:
-        logger.exception(e)
+    except BadRequestError:
+        logger.exception("Bad Request Error")
         raise
     except Exception as e:
-        logger.exception(e)
-        raise InternalServerError("Internal Server Error") from e
+        logger.exception("Internal Server Error")
+        error_message = "Internal Server Error"
+        raise InternalServerError(error_message) from e
     return response_body, 200
 
 
 @logger.inject_lambda_context(clear_state=True)
 @tracer.capture_lambda_handler(capture_response=True)
-def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, Any]:
+def lambda_handler(event: dict[str, Any], context: LambdaContext) -> dict[str, Any]:
+    """Lambda handler.
+
+    Args:
+        event (dict[str, Any]): Lambda Event
+        context (LambdaContext): Lambda Context
+
+    Returns:
+        dict[str, Any]: Response
+    """
     return app.resolve(event, context)

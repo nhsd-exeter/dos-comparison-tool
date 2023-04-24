@@ -6,7 +6,7 @@ secrets_manager = client("secretsmanager")
 
 
 def get_secret(secret_name: str) -> dict:
-    """Get Secret from AWS Secrets Manager
+    """Get Secret from AWS Secrets Manager.
 
     Args:
         secret_name (str): Secret Name
@@ -19,7 +19,7 @@ def get_secret(secret_name: str) -> dict:
 
 
 def get_secret_value(secret_name: str, key: str) -> str:
-    """Get Secret Value from AWS Secrets Manager
+    """Get Secret Value from AWS Secrets Manager.
 
     Args:
         secret_name (str): Secret Name

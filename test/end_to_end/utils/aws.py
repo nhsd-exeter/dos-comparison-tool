@@ -2,7 +2,7 @@ from json import loads
 
 from boto3 import client
 
-from ..utils.environment_variables import get_and_check_environment_variable
+from end_to_end.utils.environment_variables import get_and_check_environment_variable
 
 
 def get_secret(secret_name: str) -> dict[str, str]:

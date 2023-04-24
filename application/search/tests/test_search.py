@@ -1,9 +1,9 @@
 from json import dumps
-from unittest.mock import call, MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from ..search import lambda_handler
+from application.search.search import lambda_handler
 
 # Fixtures that can't be found in this file are in the conftest.py file
 FILE_PATH = "application.search.search"
@@ -11,7 +11,12 @@ URL_PATH = "/search/CCSComparisonSearch"
 HTTP_METHOD = "POST"
 
 
-def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
+def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
+    """Test lambda handler with an invalid route.
+
+    Args:
+        lambda_context (LambdaContext): Lambda context for search lambda.
+    """
     # Arrange
     event = {"body": "invalid", "path": URL_PATH, "httpMethod": "GET"}
     # Act
@@ -22,8 +27,17 @@ def test_lambda_handler_invalid_route(lambda_context: LambdaContext):
 
 @patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
 def test_ccs_comparison_search(
-    mock_check_capacity_summary_search: MagicMock, search_request: dict, lambda_context: LambdaContext
-):
+    mock_check_capacity_summary_search: MagicMock,
+    search_request: dict,
+    lambda_context: LambdaContext,
+) -> None:
+    """Test CCS comparison search.
+
+    Args:
+        mock_check_capacity_summary_search (MagicMock): Mocked CheckCapacitySummarySearch.
+        search_request (dict): Search request.
+        lambda_context (LambdaContext): Lambda context for search lambda.
+    """
     # Arrange
     mock_check_capacity_summary_search.return_value.search.return_value = {}
     search_request["path"] = URL_PATH
@@ -31,7 +45,8 @@ def test_ccs_comparison_search(
     # Act
     response = lambda_handler(search_request, lambda_context)
     # Assert
-    assert response["statusCode"] == 200
+    expected_status_code = 200
+    assert response["statusCode"] == expected_status_code
     assert (
         response["body"]
         == """{"search_one":{},"search_one_environment":"test","search_two":{},"search_two_environment":"test2"}"""
@@ -60,7 +75,7 @@ def test_ccs_comparison_search(
                 search_environment="test2",
             ),
             call().search(),
-        ]
+        ],
     )
 
 
@@ -68,7 +83,13 @@ def test_ccs_comparison_search(
 def test_lambda_handler_with_invalid_request(
     mock_check_capacity_summary_search: MagicMock,
     lambda_context: LambdaContext,
-):
+) -> None:
+    """Test lambda handler with an invalid request.
+
+    Args:
+        mock_check_capacity_summary_search (MagicMock): Mocked CheckCapacitySummarySearch.
+        lambda_context (LambdaContext): Lambda context for search lambda.
+    """
     # Arrange
     event = {"body": dumps({"test": "tests"}), "path": URL_PATH, "httpMethod": HTTP_METHOD}
     # Act
@@ -82,7 +103,13 @@ def test_lambda_handler_with_invalid_request(
 def test_lambda_handler_internal_server_error(
     mock_check_capacity_summary_search: MagicMock,
     lambda_context: LambdaContext,
-):
+) -> None:
+    """Test lambda handler with an internal server error.
+
+    Args:
+        mock_check_capacity_summary_search (MagicMock): Mocked CheckCapacitySummarySearch.
+        lambda_context (LambdaContext): Lambda context for search lambda.
+    """
     # Arrange
     event = {"body": "invalid", "path": URL_PATH, "httpMethod": HTTP_METHOD}
     # Act

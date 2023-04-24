@@ -45,23 +45,13 @@ jobs:
           cache-dependency-path: |
             application/requirements-dev.txt
             application/*/requirements.txt
-      - name: Python Install Requirements
-        run: |
-          make pip-install
-      - name: Check Python Code Quality and Format
-        run: |
-          make -s python-code-check \
-            FILES="." \
-            EXCLUDE="application/ui,build"
-      - name: Python Import Format Check
-        run: |
-          make python-imports-check
+      - name: Ruff Check
+        uses: jpetrucciani/ruff-check@main
+        with:
+          path: "."
       - name: Python Dead Code Check
         run: |
-          make python-dead-code-check
-      - name: Python Security Check
-        run: |
-          make python-security-check
+          make python-dead-code-install python-dead-code-check
 
   typescript-check-code-quality:
     runs-on: ubuntu-latest
@@ -98,28 +88,6 @@ jobs:
       - name: TFSec Terraform Security Scanning
         run: |
           make terraform-security
-
-  python-tests-check-code-quality:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: "pip"
-          cache-dependency-path: |
-            test/requirements-test.txt
-      - name: Install Python Dependencies
-        run: |
-          make test-install
-      - name: Python Import Format Check
-        run: |
-          make -s python-imports-check DIR="test"
-      - name: Check Python Code Quality and Format
-        run: |
-          make -s python-code-check FILES="test"
 
   CodeQL-Analysis:
     runs-on: ubuntu-latest

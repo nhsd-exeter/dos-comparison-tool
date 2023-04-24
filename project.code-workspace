@@ -49,18 +49,9 @@
     "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home",
     "php.suggest.basic": false,
     "php.validate.executablePath": "/usr/bin/php",
+    "python.languageServer": "Pylance",
     "python.formatting.blackArgs": ["--line-length", "120"],
     "python.formatting.provider": "black",
-    "python.languageServer": "Pylance",
-    "python.linting.flake8Args": ["--max-line-length=120"],
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "~/.pyenv/versions/3.10.2/bin/flake8",
-    "python.linting.mypyArgs": [],
-    "python.linting.mypyEnabled": true,
-    "python.linting.mypyPath": "~/.pyenv/versions/3.10.2/bin/mypy",
-    "python.linting.pylintArgs": [],
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintPath": "~/.pyenv/versions/3.10.2/bin/pylint",
     "python.pythonPath": "~/.pyenv/versions/3.10.2/bin/python",
     "python.terminal.activateEnvironment": false,
     "search.exclude": {
@@ -126,7 +117,10 @@
     },
     "[python]": {
       "editor.tabSize": 4,
-      "editor.insertSpaces": true
+      "editor.insertSpaces": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll": true
+      }
     },
     "[terraform]": {
       "editor.insertSpaces": true,
@@ -206,6 +200,7 @@
       "statusBarItem.remoteForeground": "#15202b",
       "commandCenter.border": "#15202b99"
     },
-    "peacock.color": "#feaa0e"
+    "peacock.color": "#feaa0e",
+    "python.formatting.provider": "none"
   }
 }

@@ -1,8 +1,8 @@
 from pytest_bdd import scenarios, then, when
 from pytest_bdd.parsers import parse
-from requests import request, Response
+from requests import Response, request
 
-from ...utils.environment_variables import API_GATEWAY_ENDPOINT
+from integration.utils.environment_variables import API_GATEWAY_ENDPOINT
 
 scenarios("../../features/general/cors.feature")
 

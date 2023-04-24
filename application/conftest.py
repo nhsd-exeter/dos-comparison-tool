@@ -1,13 +1,19 @@
 from dataclasses import dataclass
 
-from pytest import fixture
+import pytest
 
 
-@fixture
-def lambda_context():
+@pytest.fixture()
+def lambda_context() -> dataclass:
+    """Mock LambdaContext - All dummy values.
+
+    Returns:
+        LambdaContext
+    """
+
     @dataclass
     class LambdaContext:
-        """Mock LambdaContext - All dummy values"""
+        """Mock LambdaContext - All dummy values."""
 
         function_name: str = "lambda"
         memory_limit_in_mb: int = 128
