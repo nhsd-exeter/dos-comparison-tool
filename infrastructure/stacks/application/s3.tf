@@ -11,7 +11,6 @@ module "application_bucket" {
   version = "3.8.2"
 
   bucket        = var.application_bucket_name
-  acl           = "private"
   force_destroy = true
 
   attach_deny_insecure_transport_policy = true
@@ -23,7 +22,7 @@ module "application_bucket" {
 
   logging = {
     target_bucket = module.log_bucket.s3_bucket_id
-    target_prefix = "log/"
+    target_prefix = "s3/${var.application_bucket_name}"
   }
 
   server_side_encryption_configuration = {
@@ -56,7 +55,6 @@ module "log_bucket" {
   version = "3.8.2"
 
   bucket        = var.log_bucket_name
-  acl           = "log-delivery-write"
   force_destroy = true
 
   attach_deny_insecure_transport_policy = true
@@ -73,6 +71,32 @@ module "log_bucket" {
       }
     }
   }
+
+  policy = jsonencode({
+    Statement = [
+      {
+        Action = "kms:*"
+        Effect = "Allow"
+        Principal = {
+          Service = ["s3:PutObject"]
+        }
+        Resource = [
+          "arn:aws:s3:::${var.log_bucket_name}/*",
+          "arn:aws:s3:::${var.log_bucket_name}/s3/${var.application_bucket_name}/*"
+        ]
+        condition = {
+          test     = "ArnLike"
+          variable = "aws:SourceArn"
+          values   = ["arn:aws:s3:::${var.application_bucket_name}"]
+        }
+        condition = {
+          test     = "StringEquals"
+          variable = "aws:SourceAccount"
+          values   = ["${var.aws_account_id}"]
+        }
+      }
+    ]
+  })
 
   versioning = {
     enabled = true
