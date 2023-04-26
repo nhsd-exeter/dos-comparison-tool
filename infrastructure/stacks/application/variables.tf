@@ -315,3 +315,17 @@ variable "waf_managed_rule_group_metric_name" {
   type        = string
   description = "WAF managed rule group metric name"
 }
+
+# ##############
+# KMS
+# ##############
+
+variable "log_encryption_key_alias" {
+  type        = string
+  description = "The alias for the log encryption key"
+}
+
+variable "developer_role_name" {
+  type        = string
+  description = "The name of the developer role"
+}
