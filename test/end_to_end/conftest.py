@@ -1,26 +1,12 @@
-import pytest
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+from pytest_bdd import given
 
-from .utils.constants import HOMEPAGE_WAIT_TIMEOUT
-from .utils.drivers.chrome_driver import CHROME_DRIVER, close_driver
-from .utils.pages.home_page import HomePage
+from .utils.utils import login_as_authorised_user
+
+# ----------------
+# Steps
 
 
-@pytest.fixture()
-def driver() -> webdriver.Remote:
-    """A fixture to prepare for the test by creating a driver then navigating the driver to the homepage."""
-    HomePage().navigate_to_page()
-    WebDriverWait(CHROME_DRIVER, HOMEPAGE_WAIT_TIMEOUT).until(
-        expected_conditions.presence_of_element_located(
-            (By.ID, "DoSComparisonToolHeader"),
-        ),
-    )
-    return driver
-
-
-def pytest_bdd_after_scenario() -> None:
-    """Hook to close the driver after each scenario."""
-    close_driver()
+@given("I an authorised user")
+def _() -> None:
+    """Login to the application."""
+    login_as_authorised_user()

@@ -2,6 +2,7 @@ import { Col, Container, Pagination, Row } from "nhsuk-react-components";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
+import { CCS_COMPARISON_RESULTS_PAGE } from "../../constants/componentIds";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 import {
 	selectCCSAPIResponseSuccessStatus,
@@ -45,7 +46,7 @@ function CCSComparisonResults() {
 	};
 
 	const resultsPage = (
-		<div>
+		<div id={CCS_COMPARISON_RESULTS_PAGE}>
 			<h1>Search Results</h1>
 			<div>
 				<Container>

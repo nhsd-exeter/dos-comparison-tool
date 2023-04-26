@@ -13,6 +13,7 @@ class LoginPage(Page):
 
     url_subdirectory = "/login"
     page_number = 2
+    page_id = "LoginPage"
 
     def login(self: Self, username: str = "", password: str = "") -> None:
         """Login to the application. User will be left on menu page."""
