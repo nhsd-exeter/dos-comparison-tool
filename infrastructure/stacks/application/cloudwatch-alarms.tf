@@ -123,7 +123,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_non_gb_alarm" {
   alarm_description   = "WAF non GB alarm"
   dimensions = {
     region   = var.aws_region,
-    RuleName = var.non_gb_rule_metric_name
+    RuleName = var.waf_non_gb_rule_metric_name
   }
 }
 

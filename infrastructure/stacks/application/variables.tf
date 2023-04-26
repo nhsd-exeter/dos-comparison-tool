@@ -301,7 +301,7 @@ variable "waf_rate_based_metric_name" {
   description = "WAF rate based metric name"
 }
 
-variable "non_gb_rule_metric_name" {
+variable "waf_non_gb_rule_metric_name" {
   type        = string
   description = "Non GB rule metric name"
 }
@@ -316,7 +316,7 @@ variable "waf_aws_sqli_metric_name" {
   description = "WAF AWS SQLi metric name"
 }
 
-variable "ip_reputation_list_metric_name" {
+variable "waf_ip_reputation_list_metric_name" {
   type        = string
   description = "IP reputation list metric name"
 }
