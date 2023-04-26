@@ -105,6 +105,13 @@ TF_VAR_waf_rate_based_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based
 TF_VAR_waf_aws_known_bad_inputs_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-metric
 TF_VAR_waf_aws_sqli_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-metric
 TF_VAR_waf_managed_rule_group_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-metric
+# WAF Alarms
+TF_VAR_waf_rate_based_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based-alarm
+TF_VAR_waf_non_gb_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-non-gb-alarm
+TF_VAR_waf_aws_known_bad_inputs_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-alarm
+TF_VAR_waf_aws_sqli_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-alarm
+TF_VAR_waf_ip_reputation_list_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-reputation-list-alarm
+TF_VAR_waf_managed_rule_group_alarm_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-alarm
 # KMS
 LOG_ENCRYPTION_KEY := $(PROJECT_ID)-$(ENVIRONMENT)-log-encryption-key
 TF_VAR_log_encryption_key_alias := alias/$(LOG_ENCRYPTION_KEY)
