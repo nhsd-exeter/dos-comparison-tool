@@ -7,6 +7,7 @@
 # ############################
 
 resource "aws_cloudwatch_metric_alarm" "waf_rate_based_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_rate_based_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
@@ -24,6 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_rate_based_alarm" {
 
 
 resource "aws_cloudwatch_metric_alarm" "waf_non_gb_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_non_gb_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
@@ -40,6 +42,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_non_gb_alarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "waf_aws_known_bad_inputs_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_aws_known_bad_inputs_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
@@ -56,6 +59,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_aws_known_bad_inputs_alarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "waf_aws_sqli_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_aws_sqli_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
@@ -72,6 +76,7 @@ resource "aws_cloudwatch_metric_alarm" "waf_aws_sqli_alarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "ip_reputation_list_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_ip_reputation_list_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
@@ -88,6 +93,7 @@ resource "aws_cloudwatch_metric_alarm" "ip_reputation_list_alarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "waf_managed_rule_group_alarm" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
   alarm_name          = var.waf_managed_rule_group_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
