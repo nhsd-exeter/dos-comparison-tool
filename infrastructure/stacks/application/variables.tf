@@ -317,6 +317,40 @@ variable "waf_managed_rule_group_metric_name" {
 }
 
 # ##############
+# WAF ALARMS
+# ##############
+
+variable "waf_rate_based_alarm_name" {
+  type        = string
+  description = "WAF rate based alarm name"
+}
+
+variable "waf_non_gb_alarm_name" {
+  type        = string
+  description = "WAF non GB alarm name"
+}
+
+variable "waf_aws_known_bad_inputs_alarm_name" {
+  type        = string
+  description = "WAF AWS known bad inputs alarm name"
+}
+
+variable "waf_aws_sqli_alarm_name" {
+  type        = string
+  description = "WAF AWS SQLi alarm name"
+}
+
+variable "waf_ip_reputation_list_alarm_name" {
+  type        = string
+  description = "WAF IP reputation list alarm name"
+}
+
+variable "waf_managed_rule_group_alarm_name" {
+  type        = string
+  description = "WAF managed rule group alarm name"
+}
+
+# ##############
 # KMS
 # ##############
 
