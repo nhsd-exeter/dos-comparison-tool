@@ -21,6 +21,7 @@ AWS_VPC_NAME = lk8s-$(AWS_ACCOUNT_NAME).texasplatform.uk
 TF_VAR_aws_vpc_name = $(AWS_VPC_NAME)
 
 CONFIGURATION_BUCKET = $(PROJECT_ID)-configuration-bucket
+TF_VAR_developer_role_name := Developer
 # ==============================================================================
 # Service Variables
 
@@ -104,6 +105,9 @@ TF_VAR_waf_rate_based_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based
 TF_VAR_waf_aws_known_bad_inputs_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-metric
 TF_VAR_waf_aws_sqli_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-metric
 TF_VAR_waf_managed_rule_group_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-metric
+# KMS
+LOG_ENCRYPTION_KEY := $(PROJECT_ID)-$(ENVIRONMENT)-log-encryption-key
+TF_VAR_log_encryption_key_alias := alias/$(LOG_ENCRYPTION_KEY)
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub

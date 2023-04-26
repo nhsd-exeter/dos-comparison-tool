@@ -27,7 +27,7 @@ module "search_lambda" {
           "Effect" : "Allow",
           "Action" : "secretsmanager:GetSecretValue",
           "Resource" : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:${var.ccs_secrets_name}-*"
-        },
+        }
       ]
     }
   )
@@ -45,10 +45,14 @@ module "search_lambda" {
     "CCS_SEARCH_PATH" : var.ccs_search_path
   }
 
-  vpc_security_group_ids = [aws_security_group.lambda_security_group.id]
-  vpc_subnet_ids         = [data.aws_subnet.vpc_subnet_a.id, data.aws_subnet.vpc_subnet_b.id, data.aws_subnet.vpc_subnet_c.id]
+  vpc_security_group_ids     = [aws_security_group.lambda_security_group.id]
+  vpc_subnet_ids             = [data.aws_subnet.vpc_subnet_a.id, data.aws_subnet.vpc_subnet_b.id, data.aws_subnet.vpc_subnet_c.id]
+  cloudwatch_logs_kms_key_id = aws_kms_key.log_encryption_key.arn
 
-  depends_on = [aws_security_group.lambda_security_group]
+  depends_on = [
+    aws_security_group.lambda_security_group,
+    aws_kms_key.log_encryption_key,
+  ]
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "search_lambda_splunk_firehose_subscription" {

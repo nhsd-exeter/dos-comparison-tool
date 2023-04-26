@@ -28,7 +28,7 @@ module "data_lambda" {
           "Effect" : "Allow",
           "Action" : ["s3:GetObject", "s3:GetBucketLocation", "s3:ListBucket"]
           "Resource" : [module.application_bucket.s3_bucket_arn, "${module.application_bucket.s3_bucket_arn}/*"]
-        },
+        }
       ]
     }
   )
@@ -43,8 +43,11 @@ module "data_lambda" {
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
     "APPLICATION_CONFIG_BUCKET_NAME" : var.application_bucket_name
   }
+  cloudwatch_logs_kms_key_id = aws_kms_key.log_encryption_key.arn
+
   depends_on = [
-    module.application_bucket
+    module.application_bucket,
+    aws_kms_key.log_encryption_key,
   ]
 }
 
