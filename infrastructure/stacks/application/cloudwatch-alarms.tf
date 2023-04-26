@@ -2,6 +2,92 @@
 # Application Alarms
 # ############################
 
+resource "aws_cloudwatch_metric_alarm" "search_lambda_error_rate_alert" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
+  alarm_name          = var.search_lambda_error_rate_alert_name
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  threshold           = 10
+  alarm_description   = "Search Lambda error rate has exceeded 10%"
+  metric_query {
+    id          = "expression"
+    expression  = "(errors/invocations) * 100"
+    label       = "Error Rate (%)"
+    return_data = "true"
+  }
+
+  metric_query {
+    id = "errors"
+    metric {
+      metric_name = "Errors"
+      namespace   = "AWS/Lambda"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        FunctionName = var.search_lambda_function_name
+      }
+    }
+  }
+
+  metric_query {
+    id = "invocations"
+    metric {
+      metric_name = "Invocations"
+      namespace   = "AWS/Lambda"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        FunctionName = var.search_lambda_function_name
+      }
+    }
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "data_lambda_error_rate_alert" {
+  count               = var.profile == "dev" && var.environment != "dev" ? 0 : 1
+  alarm_name          = var.data_lambda_error_rate_alert_name
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  threshold           = 10
+  alarm_description   = "Data Lambda error rate has exceeded 10%"
+  metric_query {
+    id          = "expression"
+    expression  = "(errors/invocations) * 100"
+    label       = "Error Rate (%)"
+    return_data = "true"
+  }
+
+  metric_query {
+    id = "errors"
+    metric {
+      metric_name = "Errors"
+      namespace   = "AWS/Lambda"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        FunctionName = var.data_lambda_function_name
+      }
+    }
+  }
+
+  metric_query {
+    id = "invocations"
+    metric {
+      metric_name = "Invocations"
+      namespace   = "AWS/Lambda"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        FunctionName = var.data_lambda_function_name
+      }
+    }
+  }
+}
+
 # ############################
 # WAF Alarms
 # ############################

@@ -52,6 +52,8 @@ TF_VAR_cognito_secrets_user_pool_id_key := $(COGNITO_SECRETS_USER_POOL_ID_KEY)
 TF_VAR_cognito_secrets_user_pool_client_id_key := $(COGNITO_SECRETS_USER_POOL_CLIENT_ID_KEY)
 # Cloudwatch
 TF_VAR_cloudwatch_monitoring_dashboard_name := $(PROJECT_ID)-$(ENVIRONMENT)-monitoring-dashboard
+TF_VAR_search_lambda_error_rate_alert_name := $(PROJECT_ID)-$(ENVIRONMENT)-search-lambda-error-rate-alert
+TF_VAR_data_lambda_error_rate_alert_name := $(PROJECT_ID)-$(ENVIRONMENT)-data-lambda-error-rate-alert
 # API Gateway
 TF_VAR_api_gateway_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway
 TF_VAR_api_gateway_execution_role_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-execution-role
