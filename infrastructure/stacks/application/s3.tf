@@ -22,7 +22,7 @@ module "application_bucket" {
 
   logging = {
     target_bucket = module.log_bucket.s3_bucket_id
-    target_prefix = "s3/${var.application_bucket_name}"
+    target_prefix = "s3/${var.application_bucket_name}/"
   }
 
   server_side_encryption_configuration = {
@@ -50,6 +50,7 @@ module "application_bucket" {
 # tfsec:ignore:aws-s3-specify-public-access-block
 # tfsec:ignore:aws-s3-block-public-acls
 # tfsec:ignore:aws-s3-block-public-policy
+# tfsec:ignore:aws-s3-enable-bucket-logging
 module "log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.8.2"
