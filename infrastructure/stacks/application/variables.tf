@@ -50,6 +50,11 @@ variable "cloudwatch_monitoring_dashboard_name" {
   description = "The name of the CloudWatch monitoring dashboard"
 }
 
+variable "api_gateway_waf_logs_name" {
+  type        = string
+  description = "The name of the API Gateway WAF logs"
+}
+
 # ############################
 # API GATEWAY
 # ############################
@@ -227,4 +232,86 @@ variable "application_bucket_name" {
 variable "log_bucket_name" {
   type        = string
   description = "The name of the log bucket"
+}
+
+# ##############
+# WAF
+# ##############
+
+variable "api_gateway_waf_acl" {
+  type        = string
+  description = "API Gateway WAF ACL"
+}
+
+# ##############
+# WAF RULES
+# ##############
+
+variable "waf_rate_based_rule_name" {
+  type        = string
+  description = "WAF rate based rule name"
+}
+
+variable "waf_non_gb_rule_name" {
+  type        = string
+  description = "WAF non GB rule name"
+}
+
+variable "waf_aws_known_bad_inputs_rule_name" {
+  type        = string
+  description = "WAF AWS known bad inputs rule name"
+}
+
+variable "waf_aws_sqli_rule_name" {
+  type        = string
+  description = "WAF AWS SQLi rule name"
+}
+
+variable "waf_ip_reputation_list_rule_name" {
+  type        = string
+  description = "WAF IP reputation list rule name"
+}
+
+variable "waf_managed_rule_group_rule_name" {
+  type        = string
+  description = "WAF managed rule group rule name"
+}
+
+# ##############
+# WAF METRICS
+# ##############
+
+variable "waf_acl_metric_name" {
+  type        = string
+  description = "WAF ACL metric name"
+}
+
+variable "waf_rate_based_metric_name" {
+  type        = string
+  description = "WAF rate based metric name"
+}
+
+variable "non_gb_rule_metric_name" {
+  type        = string
+  description = "Non GB rule metric name"
+}
+
+variable "waf_aws_known_bad_inputs_metric_name" {
+  type        = string
+  description = "WAF AWS known bad inputs metric name"
+}
+
+variable "waf_aws_sqli_metric_name" {
+  type        = string
+  description = "WAF AWS SQLi metric name"
+}
+
+variable "ip_reputation_list_metric_name" {
+  type        = string
+  description = "IP reputation list metric name"
+}
+
+variable "waf_managed_rule_group_metric_name" {
+  type        = string
+  description = "WAF managed rule group metric name"
 }

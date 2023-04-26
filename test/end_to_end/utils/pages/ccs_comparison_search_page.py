@@ -1,9 +1,7 @@
 from typing import Self
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.wait import WebDriverWait
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
 
@@ -81,7 +79,3 @@ class CCSComparisonSearchPage(Page):
         """
         select = Select(CHROME_DRIVER.find_element(By.ID, drop_down_name))
         select.select_by_visible_text(drop_down_text)
-
-    def assert_on_page(self: Self) -> None:
-        """Assert that the user is on the CCS Comparison Search page."""
-        WebDriverWait(CHROME_DRIVER, 20).until(expected_conditions.presence_of_element_located((By.ID, self.page_id)))
