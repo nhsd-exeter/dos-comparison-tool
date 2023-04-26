@@ -84,6 +84,26 @@ TF_VAR_security_group_name := $(PROJECT_ID)-$(ENVIRONMENT)-security-group
 APPLICATION_BUCKET :=$(PROJECT_ID)-$(ENVIRONMENT)-application-bucket
 TF_VAR_application_bucket_name := $(APPLICATION_BUCKET)
 TF_VAR_log_bucket_name := $(PROJECT_ID)-$(ENVIRONMENT)-logs-bucket
+# WAF
+TF_VAR_api_gateway_waf_acl := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-waf-acl
+TF_VAR_api_gateway_waf_logs_name := aws-waf-logs-$(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-waf-logs
+# WAF Rules
+TF_VAR_waf_ip_reputation_list_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-reputation-list-rule
+TF_VAR_waf_non_gb_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-non-gb-rule
+TF_VAR_waf_ip_allow_list_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-allow-list-rule
+TF_VAR_waf_rate_based_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based-rule
+TF_VAR_waf_aws_known_bad_inputs_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-rule
+TF_VAR_waf_aws_sqli_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-rule
+TF_VAR_waf_managed_rule_group_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-rule
+# WAF Metrics
+TF_VAR_waf_acl_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-acl-metric
+TF_VAR_ip_reputation_list_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-ip-reputation-list-metric
+TF_VAR_non_gb_rule_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-non-gb-rule-metric
+TF_VAR_waf_ip_allow_list_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-allow-list-metric
+TF_VAR_waf_rate_based_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based-metric
+TF_VAR_waf_aws_known_bad_inputs_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-metric
+TF_VAR_waf_aws_sqli_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-metric
+TF_VAR_waf_managed_rule_group_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-metric
 # ==============================================================================
 # End to End Tests
 TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
