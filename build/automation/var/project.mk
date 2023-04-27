@@ -61,6 +61,7 @@ TF_VAR_api_gateway_execution_role_policy_name := $(PROJECT_ID)-$(ENVIRONMENT)-ap
 TF_VAR_cognito_authorizer_name := $(PROJECT_ID)-$(ENVIRONMENT)-cognito-authorizer
 API_GATEWAY_ENDPOINT_KEY := API_GATEWAY_ENDPOINT
 TF_VAR_api_gateway_endpoint_key := $(API_GATEWAY_ENDPOINT_KEY)
+TF_VAR_api_gateway_request_validator_name := $(PROJECT_ID)-$(ENVIRONMENT)-api-gateway-request-validator
 # All Lambdas
 TF_VAR_log_level := $(LOG_LEVEL)
 # Search Lambda
