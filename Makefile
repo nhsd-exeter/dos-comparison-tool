@@ -221,7 +221,7 @@ build-lambda: ### Build lambda docker image - mandatory: NAME
 	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
 	cd $(APPLICATION_DIR)
 	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
-		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py common > /dev/null 2>&1
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py > /dev/null 2>&1
 	cd $(PROJECT_DIR)
 	make -s docker-image NAME=$(NAME)
 	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt

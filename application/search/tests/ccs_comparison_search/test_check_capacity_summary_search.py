@@ -20,6 +20,7 @@ class TestCheckCapacitySummarySearch:
     disposition = 1
     gender = "M"
     postcode = "test"
+    role = "test"
     search_environment = "test"
     symptom_discriminator_list = [1, 2, 3]
     symptom_group = 1
@@ -36,6 +37,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -81,6 +83,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -148,6 +151,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -185,6 +189,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -219,6 +224,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -238,6 +244,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )

@@ -83,17 +83,17 @@ export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 export function RoleDropDown({ searchName }: { searchName: string }) {
 	return (
 		<Select label="Role" id={`${searchName}${ROLE_DROP_DOWN_SUFFIX}`}>
-			<Select.Option value="1004">111 Telephony</Select.Option>
-			<Select.Option value="1004">Digital Referral</Select.Option>
-			<Select.Option value="1004">999</Select.Option>
-			<Select.Option value="1004">ED Streaming Referral</Select.Option>
-			<Select.Option value="1004">CAS Referral</Select.Option>
-			<Select.Option value="1004">111 Telephony DHU</Select.Option>
-			<Select.Option value="1004">111 Telephony IOW</Select.Option>
-			<Select.Option value="1004">111 Telephony LAS</Select.Option>
-			<Select.Option value="1004">111 Telephony NWAS</Select.Option>
-			<Select.Option value="1004">111 Telephony WMAS</Select.Option>
-			<Select.Option value="1004">111 Telephony SCAS</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">Digital Referral</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">999</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">ED Streaming Referral</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">CAS Referral</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony DHU</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony IOW</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony LAS</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony NWAS</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony WMAS</Select.Option>
+			<Select.Option value="TTOOL_IOW_WS">111 Telephony SCAS</Select.Option>
 		</Select>
 	);
 }

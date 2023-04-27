@@ -66,3 +66,6 @@ target-version = "py310"
 
 [tool.ruff.pydocstyle]
 convention = "google" # Use Google docstring convention.
+
+[tool.ruff.isort]
+known-local-folder = ["application", "common"]

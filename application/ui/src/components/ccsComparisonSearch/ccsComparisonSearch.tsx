@@ -9,6 +9,7 @@ import {
 	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
 	POSTCODE_INPUT,
+	ROLE_DROP_DOWN_SUFFIX,
 	SEARCH_BUTTON,
 	SEX_DROP_DOWN,
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
@@ -52,6 +53,9 @@ function CCSComparisonSearch() {
 		const searchOneAgeFormat = getElementById(
 			`${SEARCH_ONE}${AGE_UNITS_DROP_DOWN_SUFFIX}`
 		);
+		const searchOneRole = getElementById(
+			`${SEARCH_ONE}${ROLE_DROP_DOWN_SUFFIX}`
+		);
 
 		const searchTwoEnvironment = getElementById(
 			`${SEARCH_TWO}${ENVIRONMENT_DROP_DOWN_SUFFIX}`
@@ -59,6 +63,9 @@ function CCSComparisonSearch() {
 		const searchTwoAge = getElementById(`${SEARCH_TWO}${AGE_INPUT_SUFFIX}`);
 		const searchTwoAgeFormat = getElementById(
 			`${SEARCH_TWO}${AGE_UNITS_DROP_DOWN_SUFFIX}`
+		);
+		const searchTwoRole = getElementById(
+			`${SEARCH_ONE}${ROLE_DROP_DOWN_SUFFIX}`
 		);
 
 		const searchData: CCSSearchData = {
@@ -68,6 +75,7 @@ function CCSComparisonSearch() {
 				age_format: searchOneAgeFormat,
 				disposition: parseInt(disposition),
 				gender: sex,
+				role: searchOneRole,
 				postcode: postcodeInput,
 				search_environment: searchOneEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],
@@ -78,6 +86,7 @@ function CCSComparisonSearch() {
 				age_format: searchTwoAgeFormat,
 				disposition: parseInt(disposition),
 				gender: sex,
+				role: searchTwoRole,
 				postcode: postcodeInput,
 				search_environment: searchTwoEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],

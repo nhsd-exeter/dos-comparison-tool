@@ -5,7 +5,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from ..common.utils import file_to_dataframe  # noqa: TID252
+from .utils import file_to_dataframe
 
 logger = Logger()
 tracer = Tracer()
@@ -68,4 +68,16 @@ def dispositions() -> tuple:
         tuple: Response
     """
     dispositions = file_to_dataframe("dispositions.csv")
+    return dispositions.to_dict(orient="records"), 200
+
+
+@app.post("/data/roles")
+@tracer.capture_method()
+def roles() -> tuple:
+    """Get Roles.
+
+    Returns:
+        tuple: Response
+    """
+    dispositions = file_to_dataframe("ccs_roles.csv")
     return dispositions.to_dict(orient="records"), 200
