@@ -30,6 +30,7 @@ class CheckCapacitySummarySearch:
     postcode: str
     role: str
     search_environment: str
+    search_date_time: str
     search_distance: int = 20
     version: float = 1.5
 
@@ -50,6 +51,7 @@ class CheckCapacitySummarySearch:
             gender=self.gender,
             search_environment=self.search_environment,
             version=self.version,
+            search_date_time=self.search_date_time,
         )
         username, password = (
             self._get_non_prod_username_and_password()
@@ -59,7 +61,7 @@ class CheckCapacitySummarySearch:
         data = self._build_request_data(username, password)
         ccs_search_path = getenv("CCS_SEARCH_PATH")
         environment_url = self._get_environment_url()
-        logger.debug(
+        logger.info(
             f"CCS Request for environment {self.search_environment}",
             data=data,
             environment_url=environment_url,
@@ -149,6 +151,7 @@ class CheckCapacitySummarySearch:
         add_basic_element("symptomGroup", str(self.symptom_group), c)
         add_basic_element("searchDistance", str(self.search_distance), c)
         add_basic_element("gender", self.gender, c)
+        add_basic_element("SearchDateTime", self.search_date_time, c)
         symptom_discriminator_list = root.createElement("web:symptomDiscriminatorList")
         c.appendChild(symptom_discriminator_list)
         for symptom_discriminator in self.symptom_discriminator_list:

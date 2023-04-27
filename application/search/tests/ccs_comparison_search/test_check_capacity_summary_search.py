@@ -24,6 +24,7 @@ class TestCheckCapacitySummarySearch:
     search_environment = "test"
     symptom_discriminator_list = [1, 2, 3]
     symptom_group = 1
+    search_date_time = "2021-01-01T00:00:00Z"
     expected_search_distance = 20
     expected_version = 1.5
 
@@ -40,6 +41,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         # Assert
         assert ccs_search.age == self.age, "Age not set correctly"
@@ -87,6 +89,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         mock_post.return_value = MagicMock(status_code=status_code)
         # Act
@@ -111,10 +114,16 @@ class TestCheckCapacitySummarySearch:
                     disposition=self.disposition,
                     symptom_group=self.symptom_group,
                     symptom_discriminator_list=self.symptom_discriminator_list,
-                    gender=self.gender,
                     postcode=self.postcode,
+                    gender=self.gender,
                     search_environment=self.search_environment,
                     version=self.expected_version,
+                    search_date_time=self.search_date_time,
+                ),
+                call(
+                    f"CCS Request for environment {self.search_environment}",
+                    data="<xml></xml>",
+                    environment_url=None,
                 ),
                 call(
                     f"{self.search_environment} CCS Response {status_code}",
@@ -157,6 +166,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         mock_post.return_value = MagicMock(status_code=status_code)
         # Act
@@ -195,6 +205,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         username_value = "username"
         password_value = "password"
@@ -228,6 +239,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         # Act
         username, password = ccs_search._get_prod_username_and_password()
@@ -250,11 +262,12 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         # Act
         request_data = ccs_search._build_request_data(username, password)
         # Assert
-        expected_xml = """<?xml version="1.0" ?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://nww.pathwaysdos.nhs.uk/app/api/webservices"><soap:Header><web:serviceVersion>1.5</web:serviceVersion></soap:Header><soap:Body><web:CheckCapacitySummary><web:userInfo><web:username>username</web:username><web:password>password</web:password></web:userInfo><web:c><web:postcode>test</web:postcode><web:age>1</web:age><web:ageFormat>years</web:ageFormat><web:disposition>1</web:disposition><web:symptomGroup>1</web:symptomGroup><web:searchDistance>20</web:searchDistance><web:gender>M</web:gender><web:symptomDiscriminatorList><web:int>1</web:int><web:int>2</web:int><web:int>3</web:int></web:symptomDiscriminatorList></web:c></web:CheckCapacitySummary></soap:Body></soap:Envelope>"""  # noqa: E501
+        expected_xml = '<?xml version="1.0" ?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://nww.pathwaysdos.nhs.uk/app/api/webservices"><soap:Header><web:serviceVersion>1.5</web:serviceVersion></soap:Header><soap:Body><web:CheckCapacitySummary><web:userInfo><web:username>username</web:username><web:password>password</web:password></web:userInfo><web:c><web:postcode>test</web:postcode><web:age>1</web:age><web:ageFormat>years</web:ageFormat><web:disposition>1</web:disposition><web:symptomGroup>1</web:symptomGroup><web:searchDistance>20</web:searchDistance><web:gender>M</web:gender><web:SearchDateTime>2021-01-01T00:00:00Z</web:SearchDateTime><web:symptomDiscriminatorList><web:int>1</web:int><web:int>2</web:int><web:int>3</web:int></web:symptomDiscriminatorList></web:c></web:CheckCapacitySummary></soap:Body></soap:Envelope>'  # noqa: E501
         assert request_data == expected_xml, "Request data should be as expected"
 
     def test_parse_xml_response(self) -> None:
@@ -270,6 +283,7 @@ class TestCheckCapacitySummarySearch:
             role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
+            search_date_time=self.search_date_time,
         )
         api_response = parse(  # noqa: S318
             "application/search/tests/ccs_comparison_search/example_ccs_api_response.xml",
