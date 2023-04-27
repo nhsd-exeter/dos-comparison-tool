@@ -10,7 +10,8 @@
     ],
     "symptom_group": 1011,
     "role": "TTOOL_IOW_WS",
-    "postcode": "GU22 7EW"
+    "postcode": "GU22 7EW",
+    "search_date_time": "2018-01-01T00:00:00.000Z"
   },
   "search_two": {
     "age": "2",
@@ -23,6 +24,7 @@
     ],
     "symptom_group": 1011,
     "role": "TTOOL_IOW_WS",
-    "postcode": "GU22 7EW"
+    "postcode": "GU22 7EW",
+    "search_date_time": "2018-01-01T00:00:00.000Z"
   }
 }
