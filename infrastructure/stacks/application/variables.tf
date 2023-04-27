@@ -55,6 +55,16 @@ variable "api_gateway_waf_logs_name" {
   description = "The name of the API Gateway WAF logs"
 }
 
+variable "search_lambda_error_rate_alert_name" {
+  type        = string
+  description = "The name of the search lambda error rate alert"
+}
+
+variable "data_lambda_error_rate_alert_name" {
+  type        = string
+  description = "The name of the data lambda error rate alert"
+}
+
 # ############################
 # API GATEWAY
 # ############################
