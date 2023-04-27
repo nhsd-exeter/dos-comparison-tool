@@ -12,3 +12,10 @@ phases:
     commands:
       # Run unit tests
       - make python-unit-test
+reports:
+  python-unit-tests:
+    files:
+      - testresults.xml
+    base-directory: $CODEBUILD_SRC_DIR
+    discard-paths: yes
+    file-format: JUNITXML

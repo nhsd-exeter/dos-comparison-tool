@@ -89,9 +89,33 @@ resource "aws_codepipeline" "development_pipeline" {
   }
   stage {
     name = "Deploy_and_Test_Nonprod_Environments"
-    action {
+    # action {
 
-      name            = "Deploy_Dev"
+    #   name            = "Deploy_Dev"
+    #   category        = "Build"
+    #   owner           = "AWS"
+    #   run_order       = 1
+    #   provider        = "CodeBuild"
+    #   input_artifacts = ["source_output"]
+    #   version         = "1"
+    #   configuration = {
+    #     ProjectName = var.deploy_codebuild_project
+    #     EnvironmentVariables = jsonencode([
+    #       {
+    #         name  = "PROFILE"
+    #         value = "dev"
+    #         type  = "PLAINTEXT"
+    #       },
+    #       {
+    #         name  = "ENVIRONMENT"
+    #         value = "dev"
+    #         type  = "PLAINTEXT"
+    #       }
+    #     ])
+    #   }
+    # }
+    action {
+      name            = "End_To_End_Tests"
       category        = "Build"
       owner           = "AWS"
       run_order       = 1
@@ -99,7 +123,31 @@ resource "aws_codepipeline" "development_pipeline" {
       input_artifacts = ["source_output"]
       version         = "1"
       configuration = {
-        ProjectName = var.deploy_codebuild_project
+        ProjectName = var.end_to_end_tests_codebuild_project
+        EnvironmentVariables = jsonencode([
+          {
+            name  = "PROFILE"
+            value = "dev"
+            type  = "PLAINTEXT"
+          },
+          {
+            name  = "ENVIRONMENT"
+            value = "dev"
+            type  = "PLAINTEXT"
+          }
+        ])
+      }
+    }
+    action {
+      name            = "API_Integration_Tests"
+      category        = "Build"
+      owner           = "AWS"
+      run_order       = 1
+      provider        = "CodeBuild"
+      input_artifacts = ["source_output"]
+      version         = "1"
+      configuration = {
+        ProjectName = var.api_integration_tests_codebuild_project
         EnvironmentVariables = jsonencode([
           {
             name  = "PROFILE"
@@ -124,6 +172,6 @@ resource "aws_codepipeline" "development_pipeline" {
     module.lambda_build_codebuild_project,
     module.deploy_codebuild_project,
     module.end_to_end_tests_codebuild_project,
-    module.api_integration_tests_codebuild_project
+    module.api_integration_tests_codebuild_project,
   ]
 }

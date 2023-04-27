@@ -5,6 +5,7 @@ phases:
   pre_build:
     commands:
       - chown -R 999:999 $CODEBUILD_SRC_DIR
+      - make docker-pull NAME=ui VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
       # Assume the role that has access to test the application
       - |
         if [[ "$AWS_ACCOUNT" == "PROD" ]]; then
@@ -21,4 +22,4 @@ phases:
       - echo "[Testing]"
       - echo ENVIRONMENT=$ENVIRONMENT
       - echo PROFILE=$PROFILE
-      - make end-to-end-test PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT
+      - make end-to-end-tests PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT

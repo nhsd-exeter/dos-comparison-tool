@@ -201,6 +201,6 @@
       "commandCenter.border": "#15202b99"
     },
     "peacock.color": "#feaa0e",
-    "python.formatting.provider": "none"
+    "autoDocstring.docstringFormat": "google"
   }
 }

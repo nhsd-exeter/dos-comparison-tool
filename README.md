@@ -14,6 +14,7 @@
     - [Unit tests](#unit-tests)
       - [Typescript Unit tests](#typescript-unit-tests)
     - [End to End tests](#end-to-end-tests)
+    - [API Integration Tests](#api-integration-tests)
     - [Test data and mock services](#test-data-and-mock-services)
     - [Manual check](#manual-check)
   - [Deployment](#deployment)
@@ -169,15 +170,27 @@ The prerequisites for running these tests are:
 
 To run the end to end tests, run the following command:
 
-    make end-to-end-test PROFILE= ENVIRONMENT=
+    make end-to-end-tests PROFILE= ENVIRONMENT=
 
 Example:
 
-    make end-to-end-test PROFILE=dev ENVIRONMENT=dev
+    make end-to-end-tests PROFILE=dev ENVIRONMENT=dev
 
 To view the tests running in a browser, run the following command:
 
     make test-browser
+
+### API Integration Tests
+
+API Integration testing is a software testing method that tests the integration between AWS API Gateway and AWS Lambdas. In this project it also replaces contract tests.
+
+To run API Integration Tests, run the following command:
+
+    make api-integration-tests PROFILE= ENVIRONMENTS=
+
+Example:
+
+  make api-integration-tests PROFILE=dev ENVIRONMENTS=dev
 
 ### Test data and mock services
 

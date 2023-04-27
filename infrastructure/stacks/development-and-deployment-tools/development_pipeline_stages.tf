@@ -52,7 +52,7 @@ module "deploy_codebuild_project" {
 module "end_to_end_tests_codebuild_project" {
   source                          = "../../modules/codebuild"
   codebuild_project_name          = var.end_to_end_tests_codebuild_project
-  codebuild_project_description   = "DoS Comparison Tool - End to end tests"
+  codebuild_project_description   = "DoS Comparison Tool - End To End Tests"
   codebuild_service_role          = data.aws_iam_role.pipeline_role.arn
   github_repsitory_url            = var.github_repository_url
   buildspec_rendered              = file("${local.pipeline_stages_path}/end_to_end_tests_buildspec.yml")
@@ -62,7 +62,7 @@ module "end_to_end_tests_codebuild_project" {
 module "api_integration_tests_codebuild_project" {
   source                          = "../../modules/codebuild"
   codebuild_project_name          = var.api_integration_tests_codebuild_project
-  codebuild_project_description   = "DoS Comparison Tool - API integration tests"
+  codebuild_project_description   = "DoS Comparison Tool - API Integration Tests"
   codebuild_service_role          = data.aws_iam_role.pipeline_role.arn
   github_repsitory_url            = var.github_repository_url
   buildspec_rendered              = file("${local.pipeline_stages_path}/api_integration_tests_buildspec.yml")
