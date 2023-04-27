@@ -100,8 +100,8 @@ TF_VAR_waf_aws_sqli_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-sqli-rule
 TF_VAR_waf_managed_rule_group_rule_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-managed-rule-group-rule
 # WAF Metrics
 TF_VAR_waf_acl_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-acl-metric
-TF_VAR_ip_reputation_list_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-ip-reputation-list-metric
-TF_VAR_non_gb_rule_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-non-gb-rule-metric
+TF_VAR_waf_ip_reputation_list_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-reputation-list-metric
+TF_VAR_waf_non_gb_rule_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-non-gb-rule-metric
 TF_VAR_waf_ip_allow_list_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-ip-allow-list-metric
 TF_VAR_waf_rate_based_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-rate-based-metric
 TF_VAR_waf_aws_known_bad_inputs_metric_name := $(PROJECT_ID)-$(ENVIRONMENT)-waf-aws-known-bad-inputs-metric

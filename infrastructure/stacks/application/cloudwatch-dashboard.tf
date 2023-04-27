@@ -77,6 +77,61 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
           title : "Search Lambda",
           period : 60
         }
+      },
+      {
+        height : 6,
+        width : 12,
+        y : 6,
+        x : 0,
+        type : "metric",
+        properties : {
+          sparkline : true,
+          view : "singleValue",
+          metrics : [
+            ["AWS/WAFV2", "CountedRequests", "Region", var.aws_region, "Rule", var.waf_rate_based_metric_name, "WebACL", var.api_gateway_waf_acl, { "label" : "Rate Based Rule" }],
+            ["...", var.waf_non_gb_rule_metric_name, ".", ".", { "label" : "Non GB Rule" }],
+            ["...", var.waf_aws_known_bad_inputs_metric_name, ".", ".", { "label" : "Bad Inputs Rule" }],
+            ["...", var.waf_aws_sqli_metric_name, ".", ".", { "label" : "SQL Injection Rule" }],
+            ["...", var.waf_ip_reputation_list_metric_name, ".", ".", { "label" : "IP Reputation Rule" }],
+            ["...", var.waf_managed_rule_group_metric_name, ".", ".", { "label" : "Common AWS Rules" }],
+          ],
+          stacked : false,
+          region : var.aws_region,
+          stat : "Sum",
+          title : "WAF Rule Matches"
+        }
+      },
+      {
+        height : 6,
+        width : 6,
+        y : 6,
+        x : 12,
+        type : "metric",
+        properties : {
+          metrics : [
+            ["AWS/WAFV2", "CountedRequests", "Region", "eu-west-2", "Rule", "ALL", "WebACL", var.api_gateway_waf_acl],
+            ["...", "AllowedRequests", ".", "."]
+          ],
+          period : 60,
+          region : var.aws_region,
+          stacked : false,
+          stat : "Sum",
+          title : "WAF Requests",
+          view : "gauge",
+          yAxis : {
+            left : {
+              min : 0,
+              max : 100
+            }
+          },
+          legend : {
+            position : "bottom"
+          },
+          liveData : false,
+          setPeriodToTimeRange : false,
+          sparkline : true,
+          trend : true
+        }
       }
     ]
   })

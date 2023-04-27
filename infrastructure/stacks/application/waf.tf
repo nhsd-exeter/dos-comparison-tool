@@ -44,7 +44,7 @@ resource "aws_wafv2_web_acl" "api_gateway_waf_acl" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = var.non_gb_rule_metric_name
+      metric_name                = var.waf_non_gb_rule_metric_name
       sampled_requests_enabled   = true
     }
   }
@@ -111,7 +111,7 @@ resource "aws_wafv2_web_acl" "api_gateway_waf_acl" {
 
     visibility_config {
       cloudwatch_metrics_enabled = true
-      metric_name                = var.ip_reputation_list_metric_name
+      metric_name                = var.waf_ip_reputation_list_metric_name
       sampled_requests_enabled   = true
     }
   }
