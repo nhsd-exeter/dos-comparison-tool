@@ -236,7 +236,7 @@ api-integration-tests: # Run API integration tests - mandatory: PROFILE, ENVIRON
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto --cucumberjson=./testresults.json" \
 	ARGS=" \
 		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
 	"
@@ -245,7 +245,7 @@ end-to-end-tests: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest -vvvv --gherkin-terminal-reporter" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter --cucumberjson=./testresults.json" \
 	ARGS=" \
 		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
 		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \

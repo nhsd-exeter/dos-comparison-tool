@@ -11,6 +11,10 @@ phases:
       - export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
       # Sign in to Docker Hub
       - make docker-hub-sign-in PROFILE=dev
+      # Unset AWS credentials
+      - unset AWS_ACCESS_KEY_ID
+      - unset AWS_SECRET_ACCESS_KEY
+      - unset AWS_SESSION_TOKEN
   build:
     commands:
       # Build the project
