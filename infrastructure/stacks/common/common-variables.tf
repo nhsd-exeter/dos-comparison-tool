@@ -83,7 +83,7 @@ variable "role_prefix" {
 
 variable "environment" {
   type        = string
-  description = "Environment name (don't use if application stack)"
+  description = "Environment name"
 }
 
 variable "project_display_name" {
