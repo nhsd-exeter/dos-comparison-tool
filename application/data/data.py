@@ -79,5 +79,5 @@ def roles() -> tuple:
     Returns:
         tuple: Response
     """
-    dispositions = file_to_dataframe("ccs_roles.csv")
-    return dispositions.to_dict(orient="records"), 200
+    roles = file_to_dataframe("ccs_roles.csv")
+    return roles.to_dict(orient="records"), 200
