@@ -278,9 +278,9 @@ pipeline-send-notification: ## Send Slack notification with the pipeline status
 	eval "$$(make secret-fetch-and-export-variables NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment)"
 	make slack-it
 
-docker-hub-signin: # Sign into Docker hub
-	export DOCKER_USERNAME=$$($(AWSCLI) secretsmanager get-secret-value --secret-id uec-pu-updater/deployment --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_USERNAME)
-	export DOCKER_PASSWORD=$$($(AWSCLI) secretsmanager get-secret-value --secret-id uec-pu-updater/deployment --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_PASS)
+docker-hub-sign-in: # Sign into Docker hub
+	export DOCKER_USERNAME=$$($(AWSCLI) secretsmanager get-secret-value --secret-id $(DEPLOYMENT_SECRETS) --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_USERNAME)
+	export DOCKER_PASSWORD=$$($(AWSCLI) secretsmanager get-secret-value --secret-id $(DEPLOYMENT_SECRETS) --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_PASS)
 	make docker-login
 
 # ==============================================================================
