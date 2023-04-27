@@ -51,7 +51,11 @@ class CheckCapacitySummarySearch:
             search_environment=self.search_environment,
             version=self.version,
         )
-        username, password = self._get_username_and_password()
+        username, password = (
+            self._get_non_prod_username_and_password()
+            if getenv("PROFILE", "dev") == "dev"
+            else self._get_prod_username_and_password()
+        )
         data = self._build_request_data(username, password)
         ccs_search_path = getenv("CCS_SEARCH_PATH")
         environment_url = self._get_environment_url()
@@ -86,7 +90,7 @@ class CheckCapacitySummarySearch:
             message=f"CCS Response {response.status_code}",
         )
 
-    def _get_username_and_password(self) -> tuple[str, str]:
+    def _get_non_prod_username_and_password(self) -> tuple[str, str]:
         """Gets the username and password for the CCS API.
 
         Returns:
@@ -95,6 +99,14 @@ class CheckCapacitySummarySearch:
         response = client("secretsmanager").get_secret_value(SecretId=getenv("CCS_SECRET_NAME"))
         secret = loads(response["SecretString"])
         return secret[getenv("CCS_USERNAME_KEY")], secret[getenv("CCS_PASSWORD_KEY")]
+
+    def _get_prod_username_and_password(self) -> tuple[str, str]:
+        """Gets the username and password for the CCS API.
+
+        Returns:
+            tuple[str, str]: Username and password for the CCS API
+        """
+        return self.role, "example-password"
 
     def _build_request_data(self, username: str, password: str) -> str:
         """Builds the XML request data for the CCS API.
