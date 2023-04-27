@@ -180,7 +180,7 @@ typescript-code-check: # Check TypeScript code for linting and formatting
 	make typescript-check-lint
 
 typescript-unit-test-ci-setup: # Set up TypeScript test environment for CI
-	make yarn-install-locked
+	make yarn-install
 
 typescript-unit-test: # Run TypeScript tests
 	cd $(APPLICATION_DIR)/ui
