@@ -150,10 +150,9 @@ resource "aws_api_gateway_method_settings" "search_path_method_settings" {
 }
 
 resource "aws_api_gateway_request_validator" "dos_comparison_tool_api_gateway_request_validator" {
-  name                        = var.api_gateway_request_validator_name
-  rest_api_id                 = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
-  validate_request_body       = true
-  validate_request_parameters = true
+  name                  = var.api_gateway_request_validator_name
+  rest_api_id           = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
+  validate_request_body = true
 
   depends_on = [
     aws_api_gateway_rest_api.dos_comparison_tool_api_gateway

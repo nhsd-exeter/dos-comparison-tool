@@ -69,3 +69,15 @@ def dispositions() -> tuple:
     """
     dispositions = file_to_dataframe("dispositions.csv")
     return dispositions.to_dict(orient="records"), 200
+
+
+@app.post("/data/roles")
+@tracer.capture_method()
+def roles() -> tuple:
+    """Get Roles.
+
+    Returns:
+        tuple: Response
+    """
+    roles = file_to_dataframe("ccs_roles.csv")
+    return roles.to_dict(orient="records"), 200

@@ -20,6 +20,7 @@ class TestCheckCapacitySummarySearch:
     disposition = 1
     gender = "M"
     postcode = "test"
+    role = "test"
     search_environment = "test"
     symptom_discriminator_list = [1, 2, 3]
     symptom_group = 1
@@ -36,6 +37,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -56,10 +58,10 @@ class TestCheckCapacitySummarySearch:
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._parse_xml_response")
     @patch(f"{FILE_PATH}.post")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
-    @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_username_and_password")
+    @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_non_prod_username_and_password")
     def test_search(
         self,
-        mock__get_username_and_password: MagicMock,
+        mock__get_non_prod_username_and_password: MagicMock,
         mock__build_request_data: MagicMock,
         mock_post: MagicMock,
         mock__parse_xml_response: MagicMock,
@@ -67,11 +69,12 @@ class TestCheckCapacitySummarySearch:
     ) -> None:
         """Test the search method."""
         # Arrange
+        environ["PROFILE"] = "dev"
         username = "username"
         password = "password"
         environment_url = "https://test.com"
         status_code = 200
-        mock__get_username_and_password.return_value = (username, password)
+        mock__get_non_prod_username_and_password.return_value = (username, password)
         mock__build_request_data.return_value = return_data = "<xml></xml>"
         mock__parse_xml_response.return_value = expected_return = "parsed xml"
         ccs_search = CheckCapacitySummarySearch(
@@ -81,6 +84,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -89,7 +93,7 @@ class TestCheckCapacitySummarySearch:
         search_details = ccs_search.search()
         # Assert
         assert search_details == expected_return, "Search details should be parsed xml"
-        mock__get_username_and_password.assert_called_once()
+        mock__get_non_prod_username_and_password.assert_called_once()
         mock__build_request_data.assert_called_with(username, password)
         mock_post(
             url=f"{environment_url}/app/api/webservices",
@@ -119,15 +123,17 @@ class TestCheckCapacitySummarySearch:
                 ),
             ],
         )
+        # Clean up
+        del environ["PROFILE"]
 
     @patch(f"{FILE_PATH}.logger")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._parse_xml_response")
     @patch(f"{FILE_PATH}.post")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
-    @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_username_and_password")
+    @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_non_prod_username_and_password")
     def test_search_error(
         self,
-        mock__get_username_and_password: MagicMock,
+        mock__get_non_prod_username_and_password: MagicMock,
         mock__build_request_data: MagicMock,
         mock_post: MagicMock,
         mock__parse_xml_response: MagicMock,
@@ -139,7 +145,7 @@ class TestCheckCapacitySummarySearch:
         password = "password"
         environment_url = "https://test.com"
         status_code = 500
-        mock__get_username_and_password.return_value = (username, password)
+        mock__get_non_prod_username_and_password.return_value = (username, password)
         mock__build_request_data.return_value = return_data = "<xml></xml>"
         ccs_search = CheckCapacitySummarySearch(
             age=self.age,
@@ -148,6 +154,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -158,7 +165,7 @@ class TestCheckCapacitySummarySearch:
             assert exception == f"CCS Response {status_code}"
             assert response is None, "No expected response"
         # Assert
-        mock__get_username_and_password.assert_called_once()
+        mock__get_non_prod_username_and_password.assert_called_once()
         mock__build_request_data.assert_called_with(username, password)
         mock_post(
             url=f"{environment_url}/app/api/webservices",
@@ -175,8 +182,8 @@ class TestCheckCapacitySummarySearch:
         )
 
     @patch(f"{FILE_PATH}.client")
-    def test_get_username_and_password(self, mock_client: MagicMock) -> None:
-        """Test the _get_username_and_password method."""
+    def test_get_non_prod_username_and_password(self, mock_client: MagicMock) -> None:
+        """Test the _get_non_prod_username_and_password method."""
         # Arrange
         ccs_search = CheckCapacitySummarySearch(
             age=self.age,
@@ -185,6 +192,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -197,7 +205,7 @@ class TestCheckCapacitySummarySearch:
             "SecretString": dumps({username_key: username_value, password_key: password_value}),
         }
         # Act
-        username, password = ccs_search._get_username_and_password()
+        username, password = ccs_search._get_non_prod_username_and_password()
         # Assert
         mock_client.return_value.get_secret_value.assert_called_with(SecretId=secret_name)
         assert username == username_value, "Username should be username value"
@@ -206,6 +214,26 @@ class TestCheckCapacitySummarySearch:
         del environ["CCS_SECRET_NAME"]
         del environ["CCS_USERNAME_KEY"]
         del environ["CCS_PASSWORD_KEY"]
+
+    def test_get_prod_username_and_password(self) -> None:
+        """Test the _get_prod_username_and_password method."""
+        # Arrange
+        ccs_search = CheckCapacitySummarySearch(
+            age=self.age,
+            age_format=self.age_format,
+            disposition=self.disposition,
+            symptom_group=self.symptom_group,
+            symptom_discriminator_list=self.symptom_discriminator_list,
+            gender=self.gender,
+            role=self.role,
+            postcode=self.postcode,
+            search_environment=self.search_environment,
+        )
+        # Act
+        username, password = ccs_search._get_prod_username_and_password()
+        # Assert
+        assert username == self.role, f"Username should be {self.role}"
+        assert password == "example-password", "Password should be example-password"
 
     def test_build_request_data(self) -> None:
         """Test the _build_request_data method."""
@@ -219,6 +247,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )
@@ -238,6 +267,7 @@ class TestCheckCapacitySummarySearch:
             symptom_group=self.symptom_group,
             symptom_discriminator_list=self.symptom_discriminator_list,
             gender=self.gender,
+            role=self.role,
             postcode=self.postcode,
             search_environment=self.search_environment,
         )

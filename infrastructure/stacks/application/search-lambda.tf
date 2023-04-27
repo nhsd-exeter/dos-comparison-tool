@@ -27,6 +27,11 @@ module "search_lambda" {
           "Effect" : "Allow",
           "Action" : "secretsmanager:GetSecretValue",
           "Resource" : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account_id}:secret:${var.ccs_secrets_name}-*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : ["s3:GetObject", "s3:GetBucketLocation", "s3:ListBucket"]
+          "Resource" : [module.application_bucket.s3_bucket_arn, "${module.application_bucket.s3_bucket_arn}/*"]
         }
       ]
     }
@@ -43,6 +48,7 @@ module "search_lambda" {
     "CCS_PASSWORD_KEY" : var.ccs_password_key
     "DEFAULT_ENVIRONMENT_URL" : var.default_environment_url
     "CCS_SEARCH_PATH" : var.ccs_search_path
+    "APPLICATION_CONFIG_BUCKET_NAME" : var.application_bucket_name
   }
 
   vpc_security_group_ids     = [aws_security_group.lambda_security_group.id]
@@ -50,6 +56,7 @@ module "search_lambda" {
   cloudwatch_logs_kms_key_id = aws_kms_key.log_encryption_key.arn
 
   depends_on = [
+    module.application_bucket,
     aws_security_group.lambda_security_group,
     aws_kms_key.log_encryption_key,
   ]
