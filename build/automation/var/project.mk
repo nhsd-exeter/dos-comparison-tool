@@ -23,7 +23,22 @@ TF_VAR_aws_vpc_name = $(AWS_VPC_NAME)
 CONFIGURATION_BUCKET = $(PROJECT_ID)-configuration-bucket
 TF_VAR_developer_role_name := Developer
 # ==============================================================================
-# Service Variables
+# Pipeline
+
+TF_VAR_github_repository = $(ORG_NAME)/$(PROJECT_NAME)
+TF_VAR_github_repository_url = https://github.com/$(TF_VAR_github_repository).git
+TF_VAR_development_pipeline_integration_branch = main
+TF_VAR_development_pipeline = $(PROJECT_ID)-$(PROFILE)-development-pipeline
+TF_VAR_development_pipeline_bucket = $(PROJECT_ID)-$(PROFILE)-development-pipeline-bucket
+TF_VAR_development_pipeline_log_bucket = $(PROJECT_ID)-$(PROFILE)-development-pipeline-log-bucket
+TF_VAR_typescript_unit_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-typescript-unit-tests
+TF_VAR_python_unit_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-python-unit-tests
+TF_VAR_lambda_build_codebuild_project = $(PROJECT_ID)-$(PROFILE)-lambda-build
+TF_VAR_ui_build_codebuild_project = $(PROJECT_ID)-$(PROFILE)-ui-build
+TF_VAR_deploy_codebuild_project = $(PROJECT_ID)-$(PROFILE)-deploy
+TF_VAR_end_to_end_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-end-to-end-tests
+TF_VAR_api_integration_tests_codebuild_project = $(PROJECT_ID)-$(PROFILE)-api-integration-tests
+TF_VAR_clean_up_resources_codebuild_project = $(PROJECT_ID)-$(PROFILE)-clean-up-resources
 
 # ==============================================================================
 # IaC Variables (Infrastructure as Code)

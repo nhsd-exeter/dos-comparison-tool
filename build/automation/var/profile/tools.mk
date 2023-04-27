@@ -6,7 +6,8 @@ include $(VAR_DIR)/platform-texas/v2/account-tools.mk
 INFRASTRUCTURE_STACKS = terraform-state,networking,service-roles
 
 # Terraform module configuration
-TERRAFORM_STATE_KEY = $(TERRAFORM_STATE_KEY_SHARED)
+TERRAFORM_STATE_STORE = $(PROJECT_ID)-terraform-state
+TERRAFORM_STATE_LOCK = $(PROJECT_ID)-terraform-state-lock
 
 # Terraform stacks configuration
 TERRAFORM_STATE_BUCKET_NAME = $(TERRAFORM_STATE_STORE)

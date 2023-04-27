@@ -1,0 +1,16 @@
+# For documentation see here - https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      # Install Yarn
+      - npm install --location=global yarn
+      # Yarn install and setup for tests
+      - make typescript-unit-test-ci-setup
+  build:
+    commands:
+      # Run unit tests
+      - make typescript-unit-test

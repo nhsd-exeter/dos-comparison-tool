@@ -1,0 +1,12 @@
+# For documentation see here - https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+version: 0.2
+
+phases:
+  build:
+    commands:
+      # Build the project
+      - make $BUILD_ITEM_NAME-build VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION DOCKER_BUILDKIT=1
+      # Push the image to ECR
+      - make docker-push NAME=$BUILD_ITEM_NAME VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      # Scan the image for vulnerabilities with AWS ECR Image Scanning
+      - make aws-ecr-get-security-scan REPOSITORY=$BUILD_ITEM_NAME TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION SHOW_ALL_WARNINGS=true

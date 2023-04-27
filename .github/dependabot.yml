@@ -58,3 +58,15 @@ updates:
     schedule:
       interval: "monthly"
     target-branch: "main"
+
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure/modules/codebuild"
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
+
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure/stacks/development-and-deployment-tools"
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
