@@ -17,7 +17,11 @@ HTTP_METHOD = "POST"
 
 
 def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
-    """Test lambda handler with an invalid route."""
+    """Test lambda handler with an invalid route.
+
+    Args:
+        lambda_context (LambdaContext): Lambda context for data lambda.
+    """
     # Arrange
     event = {"body": "", "path": "/data/any", "httpMethod": "GET"}
     # Act
@@ -28,7 +32,12 @@ def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
 def test_lambda_handler_symptom_groups(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext) -> None:
-    """Test lambda handler with a valid route."""
+    """Test lambda handler symptom groups path.
+
+    Args:
+        mock_file_to_dataframe (MagicMock): Mocked file to data frame.
+        lambda_context (LambdaContext): Lambda context for data lambda.
+    """
     # Arrange
     event = {"body": "", "path": SYMPTOM_GROUPS_URL_PATH, "httpMethod": HTTP_METHOD}
     mock_file_to_dataframe.return_value = data_frame = read_csv(
@@ -48,7 +57,7 @@ def test_lambda_handler_symptom_discriminators(
     mock_file_to_dataframe: MagicMock,
     lambda_context: LambdaContext,
 ) -> None:
-    """Test lambda handler symptom discriminators.
+    """Test lambda handler symptom discriminators path.
 
     Args:
         mock_file_to_dataframe (MagicMock): Mocked file to data frame.
@@ -72,7 +81,7 @@ def test_lambda_handler_symptom_discriminators(
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
 def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext) -> None:
-    """Test lambda handler dispositions.
+    """Test lambda handler dispositions path.
 
     Args:
         mock_file_to_dataframe (MagicMock): Mocked file to data frame.
@@ -94,11 +103,11 @@ def test_lambda_handler_dispositions(mock_file_to_dataframe: MagicMock, lambda_c
 
 @patch(f"{FILE_PATH}.file_to_dataframe")
 def test_lambda_handler_roles(mock_file_to_dataframe: MagicMock, lambda_context: LambdaContext) -> None:
-    """AI is creating summary for test_lambda_handler_roles.
+    """Test lambda handler roles path.
 
     Args:
-        mock_file_to_dataframe (MagicMock): [description]
-        lambda_context (LambdaContext): [description]
+        mock_file_to_dataframe (MagicMock): Mocked file to data frame.
+        lambda_context (LambdaContext): Lambda context.
     """
     # Arrange
     event = {"body": "", "path": ROLES_URL_PATH, "httpMethod": HTTP_METHOD}
