@@ -57,6 +57,7 @@ provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name]
 		aws s3 cp s3://$(CONFIGURATION_BUCKET)/dispositions.csv s3://$(APPLICATION_BUCKET)/dispositions.csv --sse AES256
 		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_discriminators.csv s3://$(APPLICATION_BUCKET)/symptom_discriminators.csv --sse AES256
 		aws s3 cp s3://$(CONFIGURATION_BUCKET)/symptom_groups.csv s3://$(APPLICATION_BUCKET)/symptom_groups.csv --sse AES256
+		aws s3 cp s3://$(CONFIGURATION_BUCKET)/ccs_roles.csv s3://$(APPLICATION_BUCKET)/ccs_roles.csv --sse AES256
 	fi
 
 build-and-push: # Build and push docker images - optional: VERSION=[name]
@@ -220,7 +221,7 @@ build-lambda: ### Build lambda docker image - mandatory: NAME
 	cp -f $(APPLICATION_DIR)/$$UNDERSCORE_LAMBDA_NAME/requirements.txt $(DOCKER_DIR)/$(NAME)/assets/requirements.txt
 	cd $(APPLICATION_DIR)
 	tar -czf $(DOCKER_DIR)/$(NAME)/assets/app.tar.gz \
-		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py > /dev/null 2>&1
+		--exclude=tests $$UNDERSCORE_LAMBDA_NAME __init__.py common > /dev/null 2>&1
 	cd $(PROJECT_DIR)
 	make -s docker-image NAME=$(NAME)
 	rm -f $(DOCKER_DIR)/$(NAME)/assets/*.tar.gz $(DOCKER_DIR)/$(NAME)/assets/*.txt

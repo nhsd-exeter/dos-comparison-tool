@@ -6,6 +6,7 @@ from xml.dom.minidom import Document, Element  # nosec - B408 minidom used to cr
 
 from aws_lambda_powertools.logging import Logger
 from boto3 import client
+from pandas import DataFrame
 from requests import post
 from xmltodict import parse
 
@@ -14,6 +15,7 @@ from .service import Service
 
 logger = Logger(child=True)
 CCS_SUCCESS_STATUS_CODE = 200
+s3 = client("s3")
 
 
 @dataclass(init=True, repr=True)
@@ -51,6 +53,7 @@ class CheckCapacitySummarySearch:
             version=self.version,
         )
         username, password = self._get_username_and_password()
+        self._get_role()
         data = self._build_request_data(username, password)
         ccs_search_path = getenv("CCS_SEARCH_PATH")
         environment_url = self._get_environment_url()
@@ -84,6 +87,15 @@ class CheckCapacitySummarySearch:
             status_code=response.status_code,
             message=f"CCS Response {response.status_code}",
         )
+
+    def _get_role(self) -> DataFrame:
+        """Gets the role for the CCS API.
+
+        Returns:
+            str: Role for the CCS API
+        """
+        print("get_role")  # noqa: T201
+        # # return file_to_dataframe("ccs_roles.csv")  # noqa: ERA001
 
     def _get_username_and_password(self) -> tuple[str, str]:
         """Gets the username and password for the CCS API.

@@ -1,4 +1,5 @@
 aws-embedded-metrics
 aws-lambda-powertools[logger,tracer]
+pandas
 requests
 xmltodict

@@ -5,7 +5,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from .utils import file_to_dataframe
+from ..common.utils import file_to_dataframe  # noqa: TID252
 
 logger = Logger()
 tracer = Tracer()
