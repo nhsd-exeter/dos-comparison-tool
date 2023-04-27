@@ -135,8 +135,8 @@ LOG_ENCRYPTION_KEY := $(PROJECT_ID)-$(ENVIRONMENT)-log-encryption-key
 TF_VAR_log_encryption_key_alias := alias/$(LOG_ENCRYPTION_KEY)
 # ==============================================================================
 # End to End Tests
-TEST_BROWSER_URL := http://host.docker.internal:4444/wd/hub
-APPLICATION_URL := https://host.docker.internal:8081
+TEST_BROWSER_URL := $(or $(TEST_BROWSER_OVERRIDE_URL), http://host.docker.internal:4444/wd/hub)
+APPLICATION_URL := $(or $(APPLICATION_OVERRIDE_URL), https://host.docker.internal:8081)
 SETUP_USER_USERNAME_KEY := INTEGRATION_TEST_SETUP_USER_USERNAME
 SETUP_USER_PASSWORD_KEY := INTEGRATION_TEST_SETUP_USER_PASSWORD
 SETUP_USER_EMAIL_KEY := INTEGRATION_TEST_SETUP_USER_EMAIL
