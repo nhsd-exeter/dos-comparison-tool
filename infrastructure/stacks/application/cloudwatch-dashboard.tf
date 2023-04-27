@@ -132,6 +132,28 @@ resource "aws_cloudwatch_dashboard" "cloudwatch_dashboard" {
           sparkline : true,
           trend : true
         }
+      },
+      {
+        height : 6,
+        width : 6,
+        y : 12,
+        x : 18,
+        type : "metric",
+        properties : {
+          view : "timeSeries",
+          stacked : false,
+          metrics : [
+            ["AWS/Lambda", "ConcurrentExecutions", "FunctionName", module.data_lambda.lambda_function_name],
+            [".", "Duration", ".", "."],
+            [".", "Errors", ".", ".", { "visible" : false }],
+            ["...", { "id" : "errors", "stat" : "Sum", "color" : "#d62728" }],
+            [".", "Invocations", ".", ".", { "id" : "invocations", "stat" : "Sum" }],
+            [{ "expression" : "100 - 100 * errors / MAX([errors, invocations])", "label" : "Success rate (%)", "id" : "availability", "yAxis" : "right", "region" : var.aws_region, "color" : "#2ca02c" }]
+          ],
+          region : var.aws_region,
+          title : "Data Lambda",
+          period : 60
+        }
       }
     ]
   })
