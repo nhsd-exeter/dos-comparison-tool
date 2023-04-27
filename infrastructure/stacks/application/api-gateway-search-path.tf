@@ -34,13 +34,15 @@ resource "aws_api_gateway_resource" "search_proxy_path" {
 
 resource "aws_api_gateway_method" "search_path_method" {
   #checkov:skip=CKV2_AWS_53:Need to validate the request body once schema is defined
-  http_method   = "POST"
-  resource_id   = aws_api_gateway_resource.search_proxy_path.id
-  rest_api_id   = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.cognito_authorizer.id
+  http_method          = "POST"
+  resource_id          = aws_api_gateway_resource.search_proxy_path.id
+  rest_api_id          = aws_api_gateway_rest_api.dos_comparison_tool_api_gateway.id
+  authorization        = "COGNITO_USER_POOLS"
+  authorizer_id        = aws_api_gateway_authorizer.cognito_authorizer.id
+  request_validator_id = aws_api_gateway_request_validator.dos_comparison_tool_api_gateway_request_validator.id
 
   depends_on = [
+    aws_api_gateway_request_validator.dos_comparison_tool_api_gateway_request_validator,
     aws_api_gateway_resource.search_proxy_path,
     aws_api_gateway_authorizer.cognito_authorizer,
   ]

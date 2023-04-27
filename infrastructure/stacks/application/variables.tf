@@ -84,6 +84,11 @@ variable "api_gateway_execution_role_policy_name" {
   description = "The name of the API Gateway execution role policy"
 }
 
+variable "api_gateway_request_validator_name" {
+  type        = string
+  description = "The name of the API Gateway request validator"
+}
+
 variable "cognito_authorizer_name" {
   type        = string
   description = "The name of the Cognito authorizer"
