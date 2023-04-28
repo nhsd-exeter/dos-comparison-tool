@@ -12,8 +12,8 @@
     "format:fix": "yarn prettier . --write",
     "lint:check": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
-    "start": "HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
-    "test": "craco test --coverage --watchAll=false",
+    "start": "GENERATE_SOURCEMAP=false HTTPS=true SSL_CRT_FILE=../../build/automation/etc/certificate/certificate.crt SSL_KEY_FILE=../../build/automation/etc/certificate/certificate.key craco start",
+    "test": "craco test --coverage --watchAll=false --reporters=default --reporters=jest-junit",
     "test:watch": "craco test --coverage --watchAll=true",
     "test:debug": "craco --inspect-brk test --runInBand --no-cache"
   },
@@ -58,6 +58,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.17",
     "jest": "^29.5.0",
+    "jest-junit": "^16.0.0",
     "jsdom": "^21.1.1",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.2",

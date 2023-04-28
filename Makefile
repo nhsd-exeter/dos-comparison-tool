@@ -195,7 +195,7 @@ pip-install: # Install Python dependencies
 
 python-unit-test: # Run Python unit tests
 	python -m pytest application \
-		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing
+		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing --junitxml=./testresults.xml
 
 python-lint: # Run Python linting (ruff)
 	python -m ruff check . --fix
@@ -236,16 +236,16 @@ api-integration-tests: # Run API integration tests - mandatory: PROFILE, ENVIRON
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto --cucumberjson=./testresults.json" \
 	ARGS=" \
 		--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk) \
 	"
 
-end-to-end-test: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT
+end-to-end-tests: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest -vvvv --gherkin-terminal-reporter" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter --cucumberjson=./testresults.json" \
 	ARGS=" \
 		-e TEST_BROWSER_URL=$(TEST_BROWSER_URL) \
 		-e COGNITO_SECRETS_NAME=$(COGNITO_SECRETS_NAME) \
@@ -267,6 +267,7 @@ populate-application-variables: ## Populate application variables required for u
 	echo "export API_ENDPOINT=$$(echo $$DEPLOYMENT_SECRETS | jq -r '.$(API_GATEWAY_ENDPOINT_KEY)')"
 
 # ==============================================================================
+# Pipeline targets
 
 pipeline-finalise: ## Finalise pipeline execution - mandatory: PIPELINE_NAME,BUILD_STATUS
 	# Check if BUILD_STATUS is SUCCESS or FAILURE
@@ -276,6 +277,11 @@ pipeline-send-notification: ## Send Slack notification with the pipeline status
 	eval "$$(make aws-assume-role-export-variables)"
 	eval "$$(make secret-fetch-and-export-variables NAME=$(PROJECT_GROUP_SHORT)-$(PROJECT_NAME_SHORT)-$(PROFILE)/deployment)"
 	make slack-it
+
+docker-hub-sign-in: # Sign into Docker hub
+	export DOCKER_USERNAME=$$($(AWSCLI) secretsmanager get-secret-value --secret-id $(DEPLOYMENT_SECRETS) --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_USERNAME)
+	export DOCKER_PASSWORD=$$($(AWSCLI) secretsmanager get-secret-value --secret-id $(DEPLOYMENT_SECRETS) --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_PASS)
+	make docker-login
 
 # ==============================================================================
 # Environment Clean up

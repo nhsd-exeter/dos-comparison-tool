@@ -14,7 +14,8 @@
     "miclo.sort-typescript-imports",
     "nicholashsiang.vscode-javascript-comment",
     "salbert.comment-ts",
-    "charliermarsh.ruff"
+    "charliermarsh.ruff",
+    "njpwerner.autodocstring"
   ],
   "unwantedRecommendations": [
     "googlecloudtools.cloudcode",

@@ -14,3 +14,10 @@ phases:
     commands:
       # Run unit tests
       - make typescript-unit-test
+reports:
+  typescript-unit-tests:
+    files:
+      - junit.xml
+    base-directory: $CODEBUILD_SRC_DIR/application/ui
+    discard-paths: yes
+    file-format: JUNITXML
