@@ -24,5 +24,5 @@ def api_gateway_request(path: str, payload: dict = None, *, auth: bool = True) -
         url=f"{API_GATEWAY_ENDPOINT}{path}",
         headers=headers,
         data=payload,
-        timeout=10,
+        timeout=20,
     )

@@ -2,7 +2,11 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import axios, * as dep from "axios";
 import { store } from "../../app/store";
 import { CCSSearchData } from "../../interfaces/dtos";
-import { search } from "../ccsComparisonSearchSlice";
+import {
+	resetCCSComparisonSearch,
+	search,
+	selectError,
+} from "../ccsComparisonSearchSlice";
 
 jest.mock("axios");
 const mockedDependency = <jest.Mock<typeof dep.default>>dep.default;
@@ -71,7 +75,7 @@ describe("tests for ccsComparisonSearch slice", () => {
 		});
 	});
 
-	it("Should be handle when API fails", async () => {
+	it("Should handle when API fails", async () => {
 		// Arrange - set up the initial state
 		axios.post.mockImplementationOnce(() => Promise.reject({}));
 		// Act - run the action
@@ -98,5 +102,29 @@ describe("tests for ccsComparisonSearch slice", () => {
 				symptom_group: symptomGroup,
 			},
 		});
+	});
+
+	it("Should handle a state reset", () => {
+		// Act - run the action
+		store.dispatch(resetCCSComparisonSearch());
+		// Assert - check the result
+		expect(store.getState().ccsComparisonSearch).toEqual({
+			error: "Error occurred",
+			loading: "idle",
+			searchOne: [],
+			searchTwo: [],
+			searchOneEnvironment: "",
+			searchTwoEnvironment: "",
+			successStatus: false,
+		});
+	});
+});
+
+describe("tests for ccsComparisonSearch slice selectors", () => {
+	it("selectError should return the error state", () => {
+		// Act - run the action
+		const error = selectError(store.getState());
+		// Assert - check the result
+		expect(error).toEqual("Error occurred");
 	});
 });
