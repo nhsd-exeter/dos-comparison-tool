@@ -21,7 +21,6 @@ import {
 	REGISTER_PATH,
 } from "./constants/paths";
 import { selectLoggedIn } from "./slices/authSlice";
-
 export class App extends React.Component {
 	render(): JSX.Element {
 		return <ApplicationRouting />;
