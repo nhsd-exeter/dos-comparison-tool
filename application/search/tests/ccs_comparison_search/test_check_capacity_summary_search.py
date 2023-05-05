@@ -6,7 +6,10 @@ from xml.dom.minidom import parse  # nosec - B408 minidom used to create XML
 import pytest
 
 from application.search.ccs_comparison_search.ccs_exceptions import CCSAPIResponseError
-from application.search.ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
+from application.search.ccs_comparison_search.check_capacity_summary_search import (
+    CheckCapacitySummarySearch,
+    compare_search_responses,
+)
 from application.search.ccs_comparison_search.service import Service
 
 FILE_PATH = "application.search.ccs_comparison_search.check_capacity_summary_search"
@@ -235,3 +238,25 @@ class TestCheckCapacitySummarySearch:
             ).__dict__,
         ]
         assert expected_response == response, "Service not as expected"
+
+
+def test_compare_search_responses() -> None:
+    """Test the compare_search_responses method."""
+    # Arrange
+    shared_ccs_search = [
+        Service(
+            uid="123",
+            name="Test Pharmacy",
+            address="1 Pharmacy Lane",
+            service_type="Pharmacy",
+            distance="0.4",
+        ).__dict__,
+    ]
+    # Act
+    ccs_search_one_response, ccs_search_two_response = compare_search_responses(shared_ccs_search, shared_ccs_search)
+    # Assert
+    assert ccs_search_one_response == ccs_search_two_response, "Responses should be the same"
+    for response in ccs_search_one_response:
+        assert response["equal_results"] is True, "Equal responses should be True"
+    for response in ccs_search_two_response:
+        assert response["equal_results"] is True, "Equal responses should be True"
