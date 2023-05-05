@@ -1,10 +1,11 @@
 import { Col, Container, Pagination, Row } from "nhsuk-react-components";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CCS_COMPARISON_RESULTS_PAGE } from "../../constants/componentIds";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 import {
+	resetCCSComparisonSearch,
 	selectCCSAPIResponseSuccessStatus,
 	selectCCSComparisonSearchOne,
 	selectCCSComparisonSearchOneEnvironment,
@@ -16,6 +17,7 @@ import ResultsCard from "./resultCard";
 
 function CCSComparisonResults() {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const requestSuccess = useAppSelector(selectCCSAPIResponseSuccessStatus);
 	const searchOne = useAppSelector(selectCCSComparisonSearchOne);
 	const searchTwo = useAppSelector(selectCCSComparisonSearchTwo);
@@ -64,9 +66,10 @@ function CCSComparisonResults() {
 				<Pagination>
 					<Pagination.Link
 						previous
-						onClick={() =>
-							navigate(CCS_COMPARISON_SEARCH_PATH, { replace: true })
-						}
+						onClick={() => {
+							dispatch(resetCCSComparisonSearch());
+							navigate(CCS_COMPARISON_SEARCH_PATH, { replace: true });
+						}}
 					>
 						Search
 					</Pagination.Link>

@@ -38,7 +38,15 @@ export const search = createAsyncThunk(
 export const ccsComparisonSearchSlice = createSlice({
 	name: "ccsComparisonSearch",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetCCSComparisonSearch: (state) => {
+			state.searchOne = [];
+			state.searchTwo = [];
+			state.searchOneEnvironment = "";
+			state.searchTwoEnvironment = "";
+			state.successStatus = false;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(search.pending, (state) => {
 			state.loading = "pending";
@@ -81,4 +89,5 @@ export const selectCCSComparisonSearchOneEnvironment = (state: RootState) =>
 export const selectCCSComparisonSearchTwoEnvironment = (state: RootState) =>
 	state.ccsComparisonSearch.searchTwoEnvironment;
 
+export const { resetCCSComparisonSearch } = ccsComparisonSearchSlice.actions;
 export default ccsComparisonSearchSlice.reducer;
