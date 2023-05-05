@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 
-@dataclass(init=True, repr=True)
+@dataclass(init=True, repr=True, eq=True)
 class Service:
     """Service dataclass."""
 
