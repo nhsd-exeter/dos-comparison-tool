@@ -1,4 +1,4 @@
-import { Button, Container, Form } from "nhsuk-react-components";
+import { Button, Container, Form, Pagination } from "nhsuk-react-components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -16,7 +16,7 @@ import {
 	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
 import { SEARCH_ONE, SEARCH_TWO } from "../../constants/constants";
-import { CCS_COMPARISON_RESULTS_PATH } from "../../constants/paths";
+import { CCS_COMPARISON_RESULTS_PATH, MENU_PATH } from "../../constants/paths";
 import { CCSSearchData } from "../../interfaces/dtos";
 import { selectToken } from "../../slices/authSlice";
 import { search } from "../../slices/ccsComparisonSearchSlice";
@@ -114,6 +114,16 @@ function CCSComparisonSearch() {
 					<EnvironmentSearchForm searchName={SEARCH_TWO} />
 					<br />
 					<Button id={SEARCH_BUTTON}>{"Search"}</Button>
+					<Pagination>
+						<Pagination.Link
+							previous
+							onClick={() => {
+								navigate(MENU_PATH, { replace: true });
+							}}
+						>
+							Menu Page
+						</Pagination.Link>
+					</Pagination>
 				</Form>
 			</Container>
 		</Layout>
