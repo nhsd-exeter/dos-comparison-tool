@@ -197,3 +197,35 @@ class CheckCapacitySummarySearch:
             api_response.append(dos_service.__dict__)
             logger.debug("CCS Service", service=dos_service, search_environment=self.search_environment)
         return api_response
+
+
+def compare_search_responses(
+    search_one: list[dict[Service, Any]],
+    search_two: list[dict[Service, Any]],
+) -> tuple[list[dict[Service, Any]], list[dict[Service, Any]]]:
+    """Compares two search responses and adds a key to each service to indicate if they are equal.
+
+    Args:
+        search_one (list[dict[Service, Any]]): Search response one
+        search_two (list[dict[Service, Any]]): Search response two
+
+    Returns:
+        tuple[list[dict[Service, Any]], list[dict[Service, Any]]]: Search responses with equal key added
+    """
+    search_one_len = len(search_one)
+    search_two_len = len(search_two)
+    min_length = min(search_one_len, search_two_len)
+
+    for index in range(min_length):
+        result = search_one[index] == search_two[index]
+        search_one[index]["equal_results"] = result
+        search_two[index]["equal_results"] = result
+
+    if search_one_len > search_two_len:
+        for index in range(search_two_len, search_one_len):
+            search_one[index]["equal_results"] = False
+    elif search_two_len > search_one_len:
+        for index in range(search_one_len, search_two_len):
+            search_two[index]["equal_results"] = False
+
+    return search_one, search_two

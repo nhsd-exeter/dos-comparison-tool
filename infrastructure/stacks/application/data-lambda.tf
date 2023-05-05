@@ -41,6 +41,7 @@ module "data_lambda" {
     "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
+    "LOG_LEVEL" : var.log_level
     "APPLICATION_CONFIG_BUCKET_NAME" : var.application_bucket_name
   }
   cloudwatch_logs_kms_key_id = aws_kms_key.log_encryption_key.arn

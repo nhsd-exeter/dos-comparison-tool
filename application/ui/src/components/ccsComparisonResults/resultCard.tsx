@@ -15,14 +15,13 @@ function ResultsCard(Props: ResultsCardProps) {
 		? "results-card__ranking__green"
 		: "results-card__ranking__amber";
 	const ranking_text = Props.equalResults
-		? "Ranking Same"
-		: "Ranking Different";
+		? "Service/Ranking Same"
+		: "Service/Ranking Different";
 
 	return (
 		<div className="results_card">
 			<div className="results-card__header">
 				<h3 className="results-card__header__title">{Props.serviceName}</h3>
-				{/* <Fragment>{resultsIcon}</Fragment> */}
 			</div>
 			<SummaryList className="results-card__summary_list">
 				<SummaryList.Row className={ranking_colour_class}>

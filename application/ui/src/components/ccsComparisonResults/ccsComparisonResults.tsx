@@ -40,7 +40,7 @@ function CCSComparisonResults() {
 					serviceUid={searchResultObject.uid}
 					serviceAddress={searchResultObject.address}
 					distance={searchResultObject.distance}
-					equalResults={false}
+					equalResults={searchResultObject.equal_results}
 				/>
 			);
 		});
