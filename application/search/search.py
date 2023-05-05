@@ -6,7 +6,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
-from .ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch
+from .ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch, compare_search_responses
 
 logger = Logger()
 tracer = Tracer()
@@ -35,10 +35,19 @@ def ccs_comparison_search() -> tuple:
         if search_one == {} or search_two == {}:
             error_message = "search_one and search_two are required"
             raise BadRequestError(error_message)  # noqa: TRY301
-        response_body = {"search_one": CheckCapacitySummarySearch(**search_one).search()}
-        response_body["search_one_environment"] = search_one["search_environment"]
-        response_body["search_two"] = CheckCapacitySummarySearch(**search_two).search()
-        response_body["search_two_environment"] = search_two["search_environment"]
+        search_one_response = CheckCapacitySummarySearch(**search_one).search()
+        search_two_response = CheckCapacitySummarySearch(**search_two).search()
+        search_one_response, search_two_response = compare_search_responses(search_one_response, search_two_response)
+        logger.debug(
+            "CCS Comparison Search Responses",
+            extra={"search_one_response": search_one_response, "search_two_response": search_two_response},
+        )
+        response_body = {
+            "search_one": search_one_response,
+            "search_two": search_two_response,
+            "search_one_environment": search_one["search_environment"],
+            "search_two_environment": search_two["search_environment"],
+        }
     except BadRequestError:
         logger.exception("Bad Request Error")
         raise

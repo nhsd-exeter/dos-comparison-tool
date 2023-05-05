@@ -8,7 +8,7 @@
 # tfsec:ignore:aws-s3-block-public-policy
 module "development_pipeline_artefact_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.9.0"
+  version = "3.10.1"
 
   bucket        = var.development_pipeline_bucket
   acl           = "private"
@@ -51,12 +51,12 @@ module "development_pipeline_artefact_bucket" {
 # tfsec:ignore:aws-s3-specify-public-access-block
 # tfsec:ignore:aws-s3-block-public-acls
 # tfsec:ignore:aws-s3-block-public-policy
+# tfsec:ignore:aws-s3-enable-bucket-logging
 module "development_pipeline_log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.9.0"
+  version = "3.10.1"
 
   bucket        = var.development_pipeline_log_bucket
-  acl           = "log-delivery-write"
   force_destroy = true
 
   attach_deny_insecure_transport_policy = true
@@ -73,6 +73,32 @@ module "development_pipeline_log_bucket" {
       }
     }
   }
+
+  policy = jsonencode({
+    Statement = [
+      {
+        Action = "kms:*"
+        Effect = "Allow"
+        Principal = {
+          Service = ["s3:PutObject"]
+        }
+        Resource = [
+          "arn:aws:s3:::${var.development_pipeline_log_bucket}/*",
+          "arn:aws:s3:::${var.development_pipeline_log_bucket}/s3/${var.development_pipeline_bucket}/*"
+        ]
+        condition = {
+          test     = "ArnLike"
+          variable = "aws:SourceArn"
+          values   = ["arn:aws:s3:::${var.development_pipeline_bucket}"]
+        }
+        condition = {
+          test     = "StringEquals"
+          variable = "aws:SourceAccount"
+          values   = ["${var.aws_account_id}"]
+        }
+      }
+    ]
+  })
 
   versioning = {
     enabled = true

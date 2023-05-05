@@ -43,6 +43,7 @@ module "search_lambda" {
     "POWERTOOLS_TRACER_CAPTURE_RESPONSE" : true
     "POWERTOOLS_TRACER_CAPTURE_ERROR" : true
     "POWERTOOLS_TRACE_MIDDLEWARES" : true
+    "LOG_LEVEL" : var.log_level
     "CCS_SECRET_NAME" : var.ccs_secrets_name
     "CCS_USERNAME_KEY" : var.ccs_username_key
     "CCS_PASSWORD_KEY" : var.ccs_password_key

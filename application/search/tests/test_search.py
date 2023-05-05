@@ -1,6 +1,8 @@
+from functools import partial
 from json import dumps
 from unittest.mock import MagicMock, call, patch
 
+from aws_lambda_powertools.shared.json_encoder import Encoder
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
 from application.search.search import lambda_handler
@@ -9,6 +11,7 @@ from application.search.search import lambda_handler
 FILE_PATH = "application.search.search"
 URL_PATH = "/search/CCSComparisonSearch"
 HTTP_METHOD = "POST"
+SERIALIZER = partial(dumps, separators=(",", ":"), cls=Encoder)
 
 
 def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
@@ -22,7 +25,7 @@ def test_lambda_handler_invalid_route(lambda_context: LambdaContext) -> None:
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["body"] == """{"statusCode":404,"message":"Not found"}"""
+    assert response["body"] == SERIALIZER({"statusCode": 404, "message": "Not found"})
 
 
 @patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
@@ -47,10 +50,16 @@ def test_ccs_comparison_search(
     # Assert
     expected_status_code = 200
     assert response["statusCode"] == expected_status_code
-    assert (
-        response["body"]
-        == """{"search_one":{},"search_one_environment":"test","search_two":{},"search_two_environment":"test2"}"""
+
+    assert response["body"] == SERIALIZER(
+        {
+            "search_one": {},
+            "search_two": {},
+            "search_one_environment": "test",
+            "search_two_environment": "test2",
+        },
     )
+
     mock_check_capacity_summary_search.assert_has_calls(
         [
             call(
@@ -95,7 +104,7 @@ def test_lambda_handler_with_invalid_request(
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["body"] == """{"statusCode":400,"message":"search_one and search_two are required"}"""
+    assert response["body"] == SERIALIZER({"statusCode": 400, "message": "search_one and search_two are required"})
     mock_check_capacity_summary_search.assert_not_called()
 
 
@@ -115,5 +124,5 @@ def test_lambda_handler_internal_server_error(
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["body"] == """{"statusCode":500,"message":"Internal Server Error"}"""
+    assert response["body"] == SERIALIZER({"statusCode": 500, "message": "Internal Server Error"})
     mock_check_capacity_summary_search.assert_not_called()
