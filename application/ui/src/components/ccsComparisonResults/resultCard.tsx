@@ -11,7 +11,12 @@ type ResultsCardProps = {
 };
 
 function ResultsCard(Props: ResultsCardProps) {
-	// const resultsIcon = Props.equalResults ? <Icons.Tick /> : <Icons.Cross />;
+	const ranking_colour_class = Props.equalResults
+		? "results-card__ranking__green"
+		: "results-card__ranking__amber";
+	const ranking_text = Props.equalResults
+		? "Ranking Same"
+		: "Ranking Different";
 
 	return (
 		<div className="results_card">
@@ -20,6 +25,10 @@ function ResultsCard(Props: ResultsCardProps) {
 				{/* <Fragment>{resultsIcon}</Fragment> */}
 			</div>
 			<SummaryList className="results-card__summary_list">
+				<SummaryList.Row className={ranking_colour_class}>
+					<SummaryList.Key>Ranking</SummaryList.Key>
+					<SummaryList.Value>{ranking_text}</SummaryList.Value>
+				</SummaryList.Row>
 				<SummaryList.Row>
 					<SummaryList.Key>Distance Away</SummaryList.Key>
 					<SummaryList.Value>{Props.distance}</SummaryList.Value>

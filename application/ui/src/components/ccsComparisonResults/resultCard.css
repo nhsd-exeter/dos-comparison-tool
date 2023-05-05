@@ -10,25 +10,34 @@
 .results-card__header {
   display: flex;
   flex-direction: row;
-
   font-size: 30px;
-  /* margin-bottom: 5; */
 }
-
-/* .results-card__header__title {
-  font-weight: 600;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-bottom: 0;
-  margin-right: 0;
-  padding: 0;
-} */
 
 .results-card__summary_list {
   list-style: none;
-  padding: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin-top: 0px;
   margin-left: 5px;
   margin-bottom: 0;
   margin-right: 0;
+}
+
+.results-card__ranking__green {
+  background-color: lightgreen;
+}
+
+.results-card__ranking__amber {
+  background-color: orange;
+}
+
+.nhsuk-summary-list__key,
+.nhsuk-summary-list__value,
+.nhsuk-summary-list__actions {
+  border-bottom: 1px solid #d8dde0;
+  display: table-cell;
+  padding-bottom: 6px;
+  padding-right: 24px;
+  padding-top: 4px;
+  padding-left: 4px;
 }

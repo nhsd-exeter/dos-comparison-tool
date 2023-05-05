@@ -40,7 +40,7 @@ function CCSComparisonResults() {
 					serviceUid={searchResultObject.uid}
 					serviceAddress={searchResultObject.address}
 					distance={searchResultObject.distance}
-					equalResults={true}
+					equalResults={false}
 				/>
 			);
 		});
@@ -48,33 +48,30 @@ function CCSComparisonResults() {
 	};
 
 	const resultsPage = (
-		<div id={CCS_COMPARISON_RESULTS_PAGE}>
-			<h1>Search Results</h1>
-			<div>
-				<Container>
-					<Row>
-						<Col width="one-half" label="left-column">
-							<h2>Search 1 - {searchOneEnvironment}</h2>
-							{handleResultsFromSearch(searchOne)}
-						</Col>
-						<Col width="one-half" label="right-column">
-							<h2>Search 2 - {searchTwoEnvironment}</h2>
-							{handleResultsFromSearch(searchTwo)}
-						</Col>
-					</Row>
-				</Container>
-				<Pagination>
-					<Pagination.Link
-						previous
-						onClick={() => {
-							dispatch(resetCCSComparisonSearch());
-							navigate(CCS_COMPARISON_SEARCH_PATH, { replace: true });
-						}}
-					>
-						Search
-					</Pagination.Link>
-				</Pagination>
-			</div>
+		<div>
+			<Container>
+				<Row>
+					<Col width="one-half" label="left-column">
+						<h2>Search 1 - {searchOneEnvironment}</h2>
+						{handleResultsFromSearch(searchOne)}
+					</Col>
+					<Col width="one-half" label="right-column">
+						<h2>Search 2 - {searchTwoEnvironment}</h2>
+						{handleResultsFromSearch(searchTwo)}
+					</Col>
+				</Row>
+			</Container>
+			<Pagination>
+				<Pagination.Link
+					previous
+					onClick={() => {
+						dispatch(resetCCSComparisonSearch());
+						navigate(CCS_COMPARISON_SEARCH_PATH, { replace: true });
+					}}
+				>
+					Search
+				</Pagination.Link>
+			</Pagination>
 		</div>
 	);
 
@@ -91,7 +88,14 @@ function CCSComparisonResults() {
 		/>
 	);
 
-	return <Layout>{requestSuccess ? resultsPage : pageLoading}</Layout>;
+	return (
+		<Layout>
+			<div id={CCS_COMPARISON_RESULTS_PAGE}>
+				<h1>Search Results</h1>
+				{requestSuccess ? resultsPage : pageLoading}
+			</div>
+		</Layout>
+	);
 }
 
 export default CCSComparisonResults;
