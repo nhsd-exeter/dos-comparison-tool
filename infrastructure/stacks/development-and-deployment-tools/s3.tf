@@ -51,6 +51,7 @@ module "development_pipeline_artefact_bucket" {
 # tfsec:ignore:aws-s3-specify-public-access-block
 # tfsec:ignore:aws-s3-block-public-acls
 # tfsec:ignore:aws-s3-block-public-policy
+# tfsec:ignore:aws-s3-enable-bucket-logging
 module "development_pipeline_log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.10.1"
