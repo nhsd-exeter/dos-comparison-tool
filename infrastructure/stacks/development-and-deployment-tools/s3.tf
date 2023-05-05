@@ -8,7 +8,7 @@
 # tfsec:ignore:aws-s3-block-public-policy
 module "development_pipeline_artefact_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.9.0"
+  version = "3.10.1"
 
   bucket        = var.development_pipeline_bucket
   acl           = "private"
@@ -53,7 +53,7 @@ module "development_pipeline_artefact_bucket" {
 # tfsec:ignore:aws-s3-block-public-policy
 module "development_pipeline_log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.9.0"
+  version = "3.10.1"
 
   bucket        = var.development_pipeline_log_bucket
   acl           = "log-delivery-write"
