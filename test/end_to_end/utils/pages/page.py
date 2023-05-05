@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
+from end_to_end.utils.elements import click_next_button
 
 
 class Page:
@@ -22,8 +23,3 @@ class Page:
         """Assert that the page is the current page."""
         WebDriverWait(CHROME_DRIVER, 5).until(expected_conditions.presence_of_element_located((By.ID, self.page_id)))
         assert CHROME_DRIVER.current_url.endswith(self.url_subdirectory)
-
-
-def click_next_button() -> None:
-    """Click the next button."""
-    CHROME_DRIVER.find_element(By.CLASS_NAME, "nhsuk-button").click()

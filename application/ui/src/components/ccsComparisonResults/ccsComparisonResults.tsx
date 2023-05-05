@@ -2,7 +2,10 @@ import { Col, Container, Label, Pagination, Row } from "nhsuk-react-components";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CCS_COMPARISON_RESULTS_PAGE } from "../../constants/componentIds";
+import {
+	CCS_COMPARISON_RESULTS_PAGE,
+	PREVIOUS_BUTTON,
+} from "../../constants/componentIds";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 import {
 	resetCCSComparisonSearch,

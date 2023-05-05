@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
+from end_to_end.utils.elements import click_previous_button
 
 from .login_page import LoginPage
 from .menu_page import MenuPage
@@ -37,6 +38,10 @@ class CCSComparisonSearchPage(Page):
         self.input_default_values_for_shared_search_criteria()
         self.input_default_values_for_specific_search_criteria(search_prefix="SearchOne")
         self.input_default_values_for_specific_search_criteria(search_prefix="SearchTwo")
+
+    def navigate_to_previous_page(self: Self) -> None:
+        """Navigate to the previous page."""
+        click_previous_button()
 
     def run_search(self: Self) -> None:
         """Run a CCS Comparison Search."""

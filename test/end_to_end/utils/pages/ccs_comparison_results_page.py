@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
+from end_to_end.utils.elements import click_previous_button
 
 from .page import Page
 
@@ -19,3 +20,7 @@ class CCSComparisonResultsPage(Page):
     def assert_on_page(self: Self) -> None:
         """Assert that the user is on the CCS Comparison Search page."""
         WebDriverWait(CHROME_DRIVER, 20).until(expected_conditions.presence_of_element_located((By.ID, self.page_id)))
+
+    def click_previous_page(self: Self) -> None:
+        """Click the previous page button."""
+        click_previous_button()
