@@ -1,3 +1,5 @@
+from json import load
+
 from pytest_bdd import given, scenarios, then, when
 from requests.models import Response
 
@@ -28,11 +30,14 @@ def _(response: Response) -> None:
         response (Response): response to check.
     """
     json_response = response.json()
+    with open("resources/default_ccs_comparison_search_response.json") as json_file:
+        expected_json_response_body = load(json_file)
     assert json_response["search_one"] is not None, "Expected search_one to be not None"
-    assert isinstance(json_response["search_one"][0], dict), "Expected search_one to be a list of dicts"
+    assert (
+        json_response["search_one"] == expected_json_response_body
+    ), "Expected search_one to be the same as expected_json_response_body"
     assert json_response["search_one_environment"] == "test", "Expected search_one_environment to be 'test'"
     assert json_response["search_two"] is not None, "Expected search_two to be not None"
-    assert isinstance(json_response["search_two"][0], dict), "Expected search_two to be a list of dicts"
     assert json_response["search_two_environment"] == "test", "Expected search_two_environment to be 'test'"
 
 

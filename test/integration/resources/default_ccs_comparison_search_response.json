@@ -1,0 +1,66 @@
+[
+  {
+    "uid": "137015",
+    "name": "GP - Surrey Southview Medical Practice (Southview Surgery) - Woking",
+    "address": "Southview Medical Practice , Southview Surgery, Southview Court, Guildford Road, Surrey, GU22 7RR",
+    "service_type": "GP in hours",
+    "distance": "0.2",
+    "equal_results": true
+  },
+  {
+    "uid": "1488810895",
+    "name": "WIC - Surrey Woking Walk-in Centre (Nurse Led) - Woking",
+    "address": "WIC (Nurse-led) , Woking Walk-in Centre, Woking Community Hospital, Heathside Road, Woking, SURREY, GU22 7HS",
+    "service_type": "WIC",
+    "distance": "0.4",
+    "equal_results": true
+  },
+  {
+    "uid": "137102",
+    "name": "CHOICE - Surrey Maybury Surgery - Woking",
+    "address": "Dr S Parveen, Alpha Road, Woking, Surrey, GU22 8HF",
+    "service_type": "GP Choice",
+    "distance": "1.4",
+    "equal_results": true
+  },
+  {
+    "uid": "137054",
+    "name": "CHOICE - Surrey The Medical Centre - East Horsley",
+    "address": "Dr Cliff Gosden and Partners, Kingston Avenue, East Horsley, Surrey, KT24 6QT",
+    "service_type": "GP Choice",
+    "distance": "5.8",
+    "equal_results": true
+  },
+  {
+    "uid": "1488811185",
+    "name": "WIC - Surrey Ashford Walk-in Centre (Nurse Led) - Ashford",
+    "address": "WIC (Nurse-led), GROUND FLOOR Ashford Hospital , London Road, Ashford, SURREY, TW15 3FE",
+    "service_type": "WIC",
+    "distance": "10.0",
+    "equal_results": true
+  },
+  {
+    "uid": "1396609273",
+    "name": "Urgent Care Centre Bracknell Berkshire",
+    "address": "Royal Berkshire Bracknell Clinic, Eastern Gate, Brants Bridge, Bracknell, Berkshire, RG12 9BG",
+    "service_type": "UCC",
+    "distance": "10.4",
+    "equal_results": true
+  },
+  {
+    "uid": "1384162616",
+    "name": "Urgent Care Paediatric Clinic Bracknell Berkshire",
+    "address": "Royal Berkshire Bracknell Clinic, Eastern Gate, Brants Bridge, Bracknell, Berkshire, RG12 9BG",
+    "service_type": "UCC",
+    "distance": "10.4",
+    "equal_results": true
+  },
+  {
+    "uid": "1311848220",
+    "name": "Emergency Department: West Middlesex Hospital, Hounslow, London",
+    "address": "West Middlesex Hospital, Twickenham Road, Isleworth, Middlesex, TW7 6AF",
+    "service_type": "Emergency Department",
+    "distance": "15.2",
+    "equal_results": true
+  }
+]
