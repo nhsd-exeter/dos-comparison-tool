@@ -80,6 +80,7 @@ function CCSComparisonSearch() {
 				search_environment: searchOneEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],
 				symptom_group: parseInt(symptomGroup),
+				search_date_time: "2018-01-01T00:00:00.000Z",
 			},
 			search_two: {
 				age: parseInt(searchTwoAge),
@@ -91,6 +92,7 @@ function CCSComparisonSearch() {
 				search_environment: searchTwoEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],
 				symptom_group: parseInt(symptomGroup),
+				search_date_time: "2018-01-01T00:00:00.000Z",
 			},
 		};
 		await dispatch(search(searchData));

@@ -49,4 +49,5 @@ export interface Search {
 	search_environment: string;
 	symptom_discriminator_list: number[];
 	symptom_group: number;
+	search_date_time: string;
 }
