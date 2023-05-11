@@ -4,7 +4,7 @@ const ErrorBox = (
 	message: string,
 	title = "There is a problem",
 	id = "error-summary"
-): JSX.Element => {
+): React.JSX.Element => {
 	return (
 		<ErrorSummary
 			id={id}

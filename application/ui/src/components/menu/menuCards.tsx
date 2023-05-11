@@ -2,7 +2,7 @@ import { Card } from "nhsuk-react-components";
 import { useNavigate } from "react-router-dom";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 
-const MenuCards = (): JSX.Element => {
+const MenuCards = (): React.JSX.Element => {
 	const navigate = useNavigate();
 	return (
 		<Card.Group>

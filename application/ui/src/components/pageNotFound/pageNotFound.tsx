@@ -3,7 +3,7 @@ import { BASE_PATH } from "../../constants/paths";
 import Layout from "../common/Layout";
 
 export class PageNotFound extends React.Component {
-	render(): JSX.Element {
+	render(): React.JSX.Element {
 		return (
 			<Layout hideFooter={true}>
 				<h2>Page Not Found</h2>

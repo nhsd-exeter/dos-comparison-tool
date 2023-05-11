@@ -22,12 +22,12 @@ import {
 } from "./constants/paths";
 import { selectLoggedIn } from "./slices/authSlice";
 export class App extends React.Component {
-	render(): JSX.Element {
+	render(): React.JSX.Element {
 		return <ApplicationRouting />;
 	}
 }
 
-function ApplicationRouting(): JSX.Element {
+function ApplicationRouting(): React.JSX.Element {
 	const isLoggedIn = useAppSelector(selectLoggedIn);
 
 	const publicRoutes = (

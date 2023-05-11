@@ -4,7 +4,7 @@ import { RootState } from "../app/store";
 import { ErrorBox } from "../components/common";
 
 export interface LoginErrorState {
-	error?: JSX.Element;
+	error?: React.JSX.Element;
 }
 
 export const initialState = { isError: undefined } as LoginErrorState;

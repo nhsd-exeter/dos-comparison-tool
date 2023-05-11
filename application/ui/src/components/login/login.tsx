@@ -9,7 +9,7 @@ import { selectError } from "../../slices/loginErrorSlice";
 import { Layout } from "../common";
 import LoginForm from "./loginForm";
 
-function Login(): JSX.Element {
+function Login(): React.JSX.Element {
 	const error = useAppSelector(selectError);
 	return (
 		<Layout>

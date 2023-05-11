@@ -4,7 +4,7 @@ import Layout from "../common/Layout";
 import MenuCards from "./menuCards";
 
 export class Menu extends React.Component {
-	render(): JSX.Element {
+	render(): React.JSX.Element {
 		return (
 			<Layout>
 				<div id={MENU_PAGE}>
