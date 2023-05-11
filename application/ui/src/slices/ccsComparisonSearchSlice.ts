@@ -31,7 +31,7 @@ export const search = createAsyncThunk(
 				search_two: requestData.search_two,
 			},
 			{
-				timeout: 1000,
+				timeout: 7000,
 			}
 		);
 		return response.data;

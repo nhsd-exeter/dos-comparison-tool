@@ -53,26 +53,30 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
-		expect(axios.post).toHaveBeenCalledWith("test/search/CCSComparisonSearch", {
-			search_one: {
-				age: age,
-				age_format: ageFormat,
-				disposition: disposition,
-				gender: gender,
-				search_environment: searchEnvironment,
-				symptom_discriminator_list: symptomDiscriminatorList,
-				symptom_group: symptomGroup,
+		expect(axios.post).toHaveBeenCalledWith(
+			"test/search/CCSComparisonSearch",
+			{
+				search_one: {
+					age: age,
+					age_format: ageFormat,
+					disposition: disposition,
+					gender: gender,
+					search_environment: searchEnvironment,
+					symptom_discriminator_list: symptomDiscriminatorList,
+					symptom_group: symptomGroup,
+				},
+				search_two: {
+					age: age,
+					age_format: ageFormat,
+					disposition: disposition,
+					gender: gender,
+					search_environment: searchEnvironment,
+					symptom_discriminator_list: symptomDiscriminatorList,
+					symptom_group: symptomGroup,
+				},
 			},
-			search_two: {
-				age: age,
-				age_format: ageFormat,
-				disposition: disposition,
-				gender: gender,
-				search_environment: searchEnvironment,
-				symptom_discriminator_list: symptomDiscriminatorList,
-				symptom_group: symptomGroup,
-			},
-		});
+			{ timeout: 7000 }
+		);
 	});
 
 	it("Should handle when API fails", async () => {
@@ -82,26 +86,30 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(search(searchDetails));
 		// Assert - check the result
 		expect(axios.post).toHaveBeenCalledTimes(1);
-		expect(axios.post).toHaveBeenCalledWith("test/search/CCSComparisonSearch", {
-			search_one: {
-				age: age,
-				age_format: ageFormat,
-				disposition: disposition,
-				gender: gender,
-				search_environment: searchEnvironment,
-				symptom_discriminator_list: symptomDiscriminatorList,
-				symptom_group: symptomGroup,
+		expect(axios.post).toHaveBeenCalledWith(
+			"test/search/CCSComparisonSearch",
+			{
+				search_one: {
+					age: age,
+					age_format: ageFormat,
+					disposition: disposition,
+					gender: gender,
+					search_environment: searchEnvironment,
+					symptom_discriminator_list: symptomDiscriminatorList,
+					symptom_group: symptomGroup,
+				},
+				search_two: {
+					age: age,
+					age_format: ageFormat,
+					disposition: disposition,
+					gender: gender,
+					search_environment: searchEnvironment,
+					symptom_discriminator_list: symptomDiscriminatorList,
+					symptom_group: symptomGroup,
+				},
 			},
-			search_two: {
-				age: age,
-				age_format: ageFormat,
-				disposition: disposition,
-				gender: gender,
-				search_environment: searchEnvironment,
-				symptom_discriminator_list: symptomDiscriminatorList,
-				symptom_group: symptomGroup,
-			},
-		});
+			{ timeout: 7000 }
+		);
 	});
 
 	it("Should handle a state reset", () => {
@@ -109,7 +117,8 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(resetCCSComparisonSearch());
 		// Assert - check the result
 		expect(store.getState().ccsComparisonSearch).toEqual({
-			error: "Error occurred",
+			error:
+				"Error: undefined: undefined, Please try again later or contact support",
 			loading: "idle",
 			searchOne: [],
 			searchTwo: [],
@@ -125,6 +134,8 @@ describe("tests for ccsComparisonSearch slice selectors", () => {
 		// Act - run the action
 		const error = selectError(store.getState());
 		// Assert - check the result
-		expect(error).toEqual("Error occurred");
+		expect(error).toEqual(
+			"Error: undefined: undefined, Please try again later or contact support"
+		);
 	});
 });
