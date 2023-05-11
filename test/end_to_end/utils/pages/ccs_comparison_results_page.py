@@ -53,6 +53,16 @@ class CCSComparisonResultsPage(Page):
         values = [header.text for header in headers]
         assert values == default_search_results, f"Expected {default_search_results}, got {values}"
 
+    def assert_all_ranking_results_are_equal(self: Self) -> None:
+        """Assert that all ranking results are equal."""
+        WebDriverWait(CHROME_DRIVER, 20).until(
+            expected_conditions.presence_of_element_located((By.ID, "RankingValue")),
+        )
+        elements = CHROME_DRIVER.find_elements(by=By.ID, value="RankingValue")
+        values = [element.text for element in elements]
+        ranking_values = [value for value in values if value == "Service/Ranking Same"]
+        assert len(ranking_values) == 4, f"Expected 4 equal ranking values, got {len(ranking_values)}"  # noqa: PLR2004
+
     def navigate_to_previous_page(self: Self) -> None:
         """Navigate to the previous page."""
         click_previous_button()

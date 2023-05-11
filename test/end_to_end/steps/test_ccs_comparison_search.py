@@ -58,3 +58,9 @@ def _() -> None:
 def _() -> None:
     """I should see the CCS Comparison Search page."""
     CCSComparisonSearchPage().assert_on_page()
+
+
+@then("Results should have the same ranking")
+def _() -> None:
+    """Results should have the same ranking."""
+    CCSComparisonResultsPage().assert_all_ranking_results_are_equal()

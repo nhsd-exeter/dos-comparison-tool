@@ -30,7 +30,7 @@ export const AUTH_RESET_PASSWORD_CONFIRM_CODE_INPUT =
 	"authResetPasswordConfirmCode";
 export const AUTH_RESET_PASSWORD_NEW_PASSWORD_INPUT =
 	"authResetPasswordPasswordInput";
-// CCS Search Elements
+// CCS Comparison Search Elements
 export const SEARCH_BUTTON = NEXT_BUTTON;
 export const POSTCODE_INPUT = "PostcodeInput";
 export const SYMPTOM_GROUP_DROP_DOWN = "SymptomGroupDropDown";
@@ -41,3 +41,6 @@ export const AGE_INPUT_SUFFIX = "AgeInput";
 export const AGE_UNITS_DROP_DOWN_SUFFIX = "AgeUnitsDropDown";
 export const ENVIRONMENT_DROP_DOWN_SUFFIX = "EnvironmentDropDown";
 export const ROLE_DROP_DOWN_SUFFIX = "RoleDropDown";
+//CCS Comparison Search Results Page Elements
+export const RESULTS_TABLE = "CCSComparisonResultsTable";
+export const RANKING_VALUE = "RankingValue";

@@ -1,4 +1,5 @@
 import { SummaryList } from "nhsuk-react-components";
+import { RANKING_VALUE } from "../../constants/componentIds";
 import "./resultCard.css";
 
 type ResultsCardProps = {
@@ -26,7 +27,9 @@ function ResultsCard(Props: ResultsCardProps) {
 			<SummaryList className="results-card__summary_list">
 				<SummaryList.Row className={ranking_colour_class}>
 					<SummaryList.Key>Ranking</SummaryList.Key>
-					<SummaryList.Value>{ranking_text}</SummaryList.Value>
+					<SummaryList.Value id={RANKING_VALUE}>
+						{ranking_text}
+					</SummaryList.Value>
 				</SummaryList.Row>
 				<SummaryList.Row>
 					<SummaryList.Key>Distance Away</SummaryList.Key>
