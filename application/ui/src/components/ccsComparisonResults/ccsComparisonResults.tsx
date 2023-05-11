@@ -52,7 +52,7 @@ function CCSComparisonResults() {
 
 	const resultsPage = (
 		<div>
-			<Container>
+			<Container id="CCSComparisonResultsTable">
 				<Row>
 					<Col width="one-half" label="left-column">
 						<h2>Search 1 - {searchOneEnvironment}</h2>
@@ -105,7 +105,7 @@ function CCSComparisonResults() {
 				<h1>Search Results</h1>
 				{requestSuccess ? resultsPage : pageLoading}
 			</div>
-			<Pagination>
+			<Pagination id={PREVIOUS_BUTTON}>
 				<Pagination.Link
 					previous
 					onClick={() => {

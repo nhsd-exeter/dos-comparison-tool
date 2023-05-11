@@ -9,6 +9,19 @@ from end_to_end.utils.elements import click_previous_button
 
 from .page import Page
 
+DEFAULT_SEARCH_ONE_RESULTS = [
+    "ED - Royal Devon and Exeter Hospital - Exeter (CATCH ALL)",
+    "ED - Torbay Hospital - Torquay (CATCH ALL)",
+    "ED - Royal Devon and Exeter Hospital - Exeter (CATCH ALL)",
+    "ED - Torbay Hospital - Torquay (CATCH ALL)",
+]
+DEFAULT_SEARCH_TWO_RESULTS = [
+    "Emergency Department - Leeds, West Yorkshire (General Infirmary) (CATCH ALL)",
+    "Emergency Department - Leeds, West Yorkshire (St James University Hospital) (CATCH ALL)",
+    "Emergency Department - Leeds, West Yorkshire (General Infirmary) (CATCH ALL)",
+    "Emergency Department - Leeds, West Yorkshire (St James University Hospital) (CATCH ALL)",
+]
+
 
 class CCSComparisonResultsPage(Page):
     """Actions and checks for the CCS Comparison Results page."""
@@ -21,6 +34,25 @@ class CCSComparisonResultsPage(Page):
         """Assert that the user is on the CCS Comparison Search page."""
         WebDriverWait(CHROME_DRIVER, 20).until(expected_conditions.presence_of_element_located((By.ID, self.page_id)))
 
-    def click_previous_page(self: Self) -> None:
-        """Click the previous page button."""
+    def assert_results_table_are_displayed(self: Self) -> None:
+        """Assert that the results are displayed."""
+        WebDriverWait(CHROME_DRIVER, 20).until(
+            expected_conditions.presence_of_element_located((By.ID, "CCSComparisonResultsTable")),
+        )
+
+    def assert_results_table_has_values(self: Self, default_search_results: list[str]) -> None:
+        """Assert that the results table has values.
+
+        Args:
+            default_search_results (list[str]): The expected results.
+        """
+        WebDriverWait(CHROME_DRIVER, 20).until(
+            expected_conditions.presence_of_element_located((By.CLASS_NAME, "results-card__header__title")),
+        )
+        headers = CHROME_DRIVER.find_elements(by=By.CLASS_NAME, value="results-card__header__title")
+        values = [header.text for header in headers]
+        assert values == default_search_results, f"Expected {default_search_results}, got {values}"
+
+    def navigate_to_previous_page(self: Self) -> None:
+        """Navigate to the previous page."""
         click_previous_button()
