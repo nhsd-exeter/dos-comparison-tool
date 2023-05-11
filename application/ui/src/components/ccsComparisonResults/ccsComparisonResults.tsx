@@ -1,4 +1,4 @@
-import { Col, Container, Pagination, Row } from "nhsuk-react-components";
+import { Col, Container, Label, Pagination, Row } from "nhsuk-react-components";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -61,6 +61,47 @@ function CCSComparisonResults() {
 					</Col>
 				</Row>
 			</Container>
+		</div>
+	);
+
+	const pageLoading = (
+		<div>
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<Oval
+					height={80}
+					width={80}
+					color="#005eb8"
+					secondaryColor="#005eb8"
+					visible={true}
+					ariaLabel="oval-loading"
+					strokeWidth={5}
+					strokeWidthSecondary={4}
+				/>
+			</div>
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<Label size="l">Loading Results...</Label>
+			</div>
+		</div>
+	);
+
+	return (
+		<Layout>
+			<div id={CCS_COMPARISON_RESULTS_PAGE}>
+				<h1>Search Results</h1>
+				{requestSuccess ? resultsPage : pageLoading}
+			</div>
 			<Pagination>
 				<Pagination.Link
 					previous
@@ -72,28 +113,6 @@ function CCSComparisonResults() {
 					Search
 				</Pagination.Link>
 			</Pagination>
-		</div>
-	);
-
-	const pageLoading = (
-		<Oval
-			height={80}
-			width={80}
-			color="#005eb8"
-			secondaryColor="#005eb8"
-			visible={true}
-			ariaLabel="oval-loading"
-			strokeWidth={4}
-			strokeWidthSecondary={3}
-		/>
-	);
-
-	return (
-		<Layout>
-			<div id={CCS_COMPARISON_RESULTS_PAGE}>
-				<h1>Search Results</h1>
-				{requestSuccess ? resultsPage : pageLoading}
-			</div>
 		</Layout>
 	);
 }
