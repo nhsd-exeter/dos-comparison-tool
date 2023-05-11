@@ -14,7 +14,7 @@ import { ErrorBox, Layout } from "../common";
 
 type RegisterPageProps = Record<string, never>;
 type RegisterPageState = {
-	error?: JSX.Element;
+	error?: React.JSX.Element;
 	registered?: boolean;
 	accountConfirmed?: boolean;
 	username?: string;

@@ -35,7 +35,7 @@ function CCSComparisonResults() {
 	);
 
 	const handleResultsFromSearch = (search: string[]) => {
-		const ResultsListOne: JSX.Element[] = [];
+		const ResultsListOne: React.JSX.Element[] = [];
 		search?.map((searchResult: string) => {
 			const searchResultObject = Object(searchResult);
 			ResultsListOne.push(

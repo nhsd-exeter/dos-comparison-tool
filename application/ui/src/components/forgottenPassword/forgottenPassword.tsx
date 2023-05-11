@@ -15,7 +15,7 @@ import { ErrorBox, Layout } from "../common";
 
 type ForgottenPasswordProps = Record<string, never>;
 type ForgottenPasswordState = {
-	error?: JSX.Element;
+	error?: React.JSX.Element;
 	requested_reset: boolean;
 	password_reset: boolean;
 	username?: string;
