@@ -15,13 +15,15 @@ import {
 	selectCCSComparisonSearchOneEnvironment,
 	selectCCSComparisonSearchTwo,
 	selectCCSComparisonSearchTwoEnvironment,
+	selectError,
 } from "../../slices/ccsComparisonSearchSlice";
-import { Layout } from "../common";
+import { ErrorBox, Layout } from "../common";
 import ResultsCard from "./resultCard";
 
 function CCSComparisonResults() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+	const error = useAppSelector(selectError);
 	const requestSuccess = useAppSelector(selectCCSAPIResponseSuccessStatus);
 	const searchOne = useAppSelector(selectCCSComparisonSearchOne);
 	const searchTwo = useAppSelector(selectCCSComparisonSearchTwo);
@@ -100,11 +102,14 @@ function CCSComparisonResults() {
 		</div>
 	);
 
+	const searchError = error ? ErrorBox(error, "Search Failed") : null;
+
 	return (
 		<Layout>
 			<div id={CCS_COMPARISON_RESULTS_PAGE}>
 				<h1>Search Results</h1>
-				{requestSuccess ? resultsPage : pageLoading}
+				{searchError}
+				{!searchError ? (requestSuccess ? resultsPage : pageLoading) : null}
 			</div>
 			<Pagination id={PREVIOUS_BUTTON}>
 				<Pagination.Link

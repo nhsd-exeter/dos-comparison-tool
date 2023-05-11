@@ -29,6 +29,9 @@ export const search = createAsyncThunk(
 			{
 				search_one: requestData.search_one,
 				search_two: requestData.search_two,
+			},
+			{
+				timeout: 1000,
 			}
 		);
 		return response.data;
@@ -53,22 +56,20 @@ export const ccsComparisonSearchSlice = createSlice({
 		});
 		builder.addCase(search.fulfilled, (state, action) => {
 			if (state.loading === "pending") {
-				state.searchOne = Object(action.payload)["search_one"];
-				state.searchTwo = Object(action.payload)["search_two"];
-				state.searchOneEnvironment = Object(action.payload)[
-					"search_one_environment"
-				];
-				state.searchTwoEnvironment = Object(action.payload)[
-					"search_two_environment"
-				];
+				state.error = undefined;
+				const response = Object(action.payload);
+				state.searchOne = response["search_one"];
+				state.searchTwo = response["search_two"];
+				state.searchOneEnvironment = response["search_one_environment"];
+				state.searchTwoEnvironment = response["search_two_environment"];
 				state.successStatus = true;
 				state.loading = "idle";
 			}
 		});
-		builder.addCase(search.rejected, (state) => {
+		builder.addCase(search.rejected, (state, action) => {
 			if (state.loading === "pending") {
 				state.loading = "idle";
-				state.error = "Error occurred";
+				state.error = `Error: ${action.error.code}: ${action.error.message}, Please try again later or contact support`;
 			}
 		});
 	},
@@ -78,12 +79,10 @@ export const selectError = (state: RootState) =>
 	state.ccsComparisonSearch.error;
 export const selectCCSAPIResponseSuccessStatus = (state: RootState) =>
 	state.ccsComparisonSearch.successStatus;
-
 export const selectCCSComparisonSearchOne = (state: RootState) =>
 	state.ccsComparisonSearch.searchOne;
 export const selectCCSComparisonSearchTwo = (state: RootState) =>
 	state.ccsComparisonSearch.searchTwo;
-
 export const selectCCSComparisonSearchOneEnvironment = (state: RootState) =>
 	state.ccsComparisonSearch.searchOneEnvironment;
 export const selectCCSComparisonSearchTwoEnvironment = (state: RootState) =>
