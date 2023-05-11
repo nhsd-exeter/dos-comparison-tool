@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
 	CCS_COMPARISON_RESULTS_PAGE,
 	PREVIOUS_BUTTON,
+	RESULTS_TABLE,
 } from "../../constants/componentIds";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 import {
@@ -52,7 +53,7 @@ function CCSComparisonResults() {
 
 	const resultsPage = (
 		<div>
-			<Container id="CCSComparisonResultsTable">
+			<Container id={RESULTS_TABLE}>
 				<Row>
 					<Col width="one-half" label="left-column">
 						<h2>Search 1 - {searchOneEnvironment}</h2>
