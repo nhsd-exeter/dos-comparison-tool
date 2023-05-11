@@ -2,7 +2,10 @@ import { Col, Container, Label, Pagination, Row } from "nhsuk-react-components";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CCS_COMPARISON_RESULTS_PAGE } from "../../constants/componentIds";
+import {
+	CCS_COMPARISON_RESULTS_PAGE,
+	PREVIOUS_BUTTON,
+} from "../../constants/componentIds";
 import { CCS_COMPARISON_SEARCH_PATH } from "../../constants/paths";
 import {
 	resetCCSComparisonSearch,
@@ -49,7 +52,7 @@ function CCSComparisonResults() {
 
 	const resultsPage = (
 		<div>
-			<Container>
+			<Container id="CCSComparisonResultsTable">
 				<Row>
 					<Col width="one-half" label="left-column">
 						<h2>Search 1 - {searchOneEnvironment}</h2>
@@ -102,7 +105,7 @@ function CCSComparisonResults() {
 				<h1>Search Results</h1>
 				{requestSuccess ? resultsPage : pageLoading}
 			</div>
-			<Pagination>
+			<Pagination id={PREVIOUS_BUTTON}>
 				<Pagination.Link
 					previous
 					onClick={() => {

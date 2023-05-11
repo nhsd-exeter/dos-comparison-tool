@@ -4,16 +4,31 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
+from end_to_end.utils.elements import click_previous_button
 
 from .login_page import LoginPage
 from .menu_page import MenuPage
 from .page import Page
 
-DEFAULT_POSTCODE = "EX2 5SE"
-DEFAULT_SYMPTOM_GROUP = "Arm, Pain or Swelling"
-DEFAULT_SYMPTOM_DISCRIMINATOR = "AMB Bleeding"
-DEFAULT_DISPOSITION = "To contact a Primary Care Service with 2 hours"
-DEFAULT_SEX = "Male"
+DEFAULT_POSTCODE_ONE = "EX2 5SE"
+DEFAULT_SYMPTOM_GROUP_ONE = "Arm, Pain or Swelling"
+DEFAULT_SYMPTOM_DISCRIMINATOR_ONE = "AMB Bleeding"
+DEFAULT_DISPOSITION_ONE = "To contact a Primary Care Service with 2 hours"
+DEFAULT_SEX_ONE = "Male"
+DEFAULT_ENVIRONMENT_ONE = "Regression DI"
+DEFAULT_ROLE_ONE = "111 Telephony"
+DEFAULT_AGE_ONE = "2"
+
+DEFAULT_POSTCODE_TWO = "LS1 4AP"
+DEFAULT_SYMPTOM_GROUP_TWO = "Arm, Pain or Swelling"
+DEFAULT_SYMPTOM_DISCRIMINATOR_TWO = "AMB Bleeding"
+DEFAULT_DISPOSITION_TWO = "To contact a Primary Care Service with 2 hours"
+DEFAULT_SEX_TWO = "Female"
+DEFAULT_ENVIRONMENT_TWO = "Regression DI"
+DEFAULT_ROLE_TWO = "999"
+DEFAULT_AGE_TWO = "99"
+
+DEFAULT_AGE_UNITS = "Years"
 
 
 class CCSComparisonSearchPage(Page):
@@ -32,34 +47,103 @@ class CCSComparisonSearchPage(Page):
         MenuPage().select_ccs_comparison_search()
         self.assert_on_page()
 
-    def build_search(self: Self) -> None:
+    def build_default_search_one(self: Self) -> None:
         """Build a CCS Comparison Search."""
-        self.input_default_values_for_shared_search_criteria()
-        self.input_default_values_for_specific_search_criteria(search_prefix="SearchOne")
-        self.input_default_values_for_specific_search_criteria(search_prefix="SearchTwo")
+        self.input_default_values_for_shared_search_criteria(
+            postcode=DEFAULT_POSTCODE_ONE,
+            symptom_group=DEFAULT_SYMPTOM_GROUP_ONE,
+            symptom_discriminator=DEFAULT_SYMPTOM_DISCRIMINATOR_ONE,
+            disposition=DEFAULT_DISPOSITION_ONE,
+            sex=DEFAULT_SEX_ONE,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix="SearchOne",
+            environment=DEFAULT_ENVIRONMENT_ONE,
+            role=DEFAULT_ROLE_ONE,
+            age=DEFAULT_AGE_ONE,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix="SearchTwo",
+            environment=DEFAULT_ENVIRONMENT_ONE,
+            role=DEFAULT_ROLE_ONE,
+            age=DEFAULT_AGE_ONE,
+        )
+
+    def build_default_search_two(self: Self) -> None:
+        """Build a CCS Comparison Search."""
+        self.input_default_values_for_shared_search_criteria(
+            postcode=DEFAULT_POSTCODE_TWO,
+            symptom_group=DEFAULT_SYMPTOM_GROUP_TWO,
+            symptom_discriminator=DEFAULT_SYMPTOM_DISCRIMINATOR_TWO,
+            disposition=DEFAULT_DISPOSITION_TWO,
+            sex=DEFAULT_SEX_TWO,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix="SearchOne",
+            environment=DEFAULT_ENVIRONMENT_TWO,
+            role=DEFAULT_ROLE_TWO,
+            age=DEFAULT_AGE_TWO,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix="SearchTwo",
+            environment=DEFAULT_ENVIRONMENT_TWO,
+            role=DEFAULT_ROLE_TWO,
+            age=DEFAULT_AGE_TWO,
+        )
+
+    def navigate_to_previous_page(self: Self) -> None:
+        """Navigate to the previous page."""
+        click_previous_button()
 
     def run_search(self: Self) -> None:
         """Run a CCS Comparison Search."""
         self.navigate_to_next_page()
 
-    def input_default_values_for_shared_search_criteria(self: Self) -> None:
-        """Input default values for shared search criteria."""
-        self.input_text_into_field("PostcodeInput", DEFAULT_POSTCODE)
-        self.select_from_dropdown("SymptomGroupDropDown", DEFAULT_SYMPTOM_GROUP)
-        self.select_from_dropdown("SymptomDiscriminatorDropDown", DEFAULT_SYMPTOM_DISCRIMINATOR)
-        self.select_from_dropdown("DispositionDropDown", DEFAULT_DISPOSITION)
-        self.select_from_dropdown("SexDropDown", DEFAULT_SEX)
+    def input_default_values_for_shared_search_criteria(  # noqa: PLR0913
+        self: Self,
+        postcode: str,
+        symptom_group: str,
+        symptom_discriminator: str,
+        disposition: str,
+        sex: str,
+    ) -> None:
+        """Input default values for shared search criteria.
 
-    def input_default_values_for_specific_search_criteria(self: Self, search_prefix: str) -> None:
+        Args:
+            postcode (str): Postcode to search for.
+            symptom_group (str): Symptom group to search for.
+            symptom_discriminator (str): Symptom discriminator to search for.
+            disposition (str): Disposition to search for.
+            sex (str): Sex to search for.
+        """
+        self.input_text_into_field("PostcodeInput", postcode)
+        self.select_from_dropdown("SymptomGroupDropDown", symptom_group)
+        self.select_from_dropdown("SymptomDiscriminatorDropDown", symptom_discriminator)
+        self.select_from_dropdown("DispositionDropDown", disposition)
+        self.select_from_dropdown("SexDropDown", sex)
+
+    def input_default_values_for_specific_search_criteria(
+        self: Self,
+        search_prefix: str,
+        environment: str,
+        role: str,
+        age: str,
+    ) -> None:
         """Input default values for specific search criteria.
 
         Args:
             search_prefix (str): Prefix for the search.
+            environment (str): Environment to search for.
+            role (str): Role to search for.
+            age (str): Age to search for.
         """
-        self.select_from_dropdown(drop_down_name=f"{search_prefix}EnvironmentDropDown", drop_down_text="Regression DI")
-        self.select_from_dropdown(drop_down_name=f"{search_prefix}RoleDropDown", drop_down_text="111 Telephony")
-        self.input_text_into_field(field_name=f"{search_prefix}AgeInput", text="2")
-        self.select_from_dropdown(drop_down_name=f"{search_prefix}AgeUnitsDropDown", drop_down_text="Years")
+        self.select_from_dropdown(
+            drop_down_name=f"{search_prefix}EnvironmentDropDown",
+            drop_down_text=environment,
+        )
+        self.select_from_dropdown(drop_down_name=f"{search_prefix}RoleDropDown", drop_down_text=role)
+        self.input_text_into_field(field_name=f"{search_prefix}AgeInput", text=age)
+        self.select_from_dropdown(drop_down_name=f"{search_prefix}AgeUnitsDropDown", drop_down_text=DEFAULT_AGE_UNITS)
 
     def input_text_into_field(self: Self, field_name: str, text: str) -> None:
         """Input text into a field.

@@ -39,3 +39,13 @@ def input_textbox(element_id: str, text: str) -> None:
         text (str): The text to input
     """
     CHROME_DRIVER.find_element("id", element_id).send_keys(text)
+
+
+def click_next_button() -> None:
+    """Click the next button."""
+    CHROME_DRIVER.find_element(By.CLASS_NAME, "nhsuk-button").click()
+
+
+def click_previous_button() -> None:
+    """Click the previous button."""
+    CHROME_DRIVER.find_element(By.ID, "previous-button").click()

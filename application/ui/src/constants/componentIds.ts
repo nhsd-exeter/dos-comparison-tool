@@ -8,7 +8,9 @@ export const CCS_COMPARISON_RESULTS_PAGE = "CCSComparisonResultsPage";
 export const HEADER_ID = "DoSComparisonToolHeader";
 export const FOOTER_ID = "DoSComparisonToolFooter";
 export const MAIN_ID = "DoSComparisonToolMain";
+// Common Elements
 export const NEXT_BUTTON = "next-button";
+export const PREVIOUS_BUTTON = "previous-button";
 // Auth Login Elements
 export const AUTH_USERNAME_INPUT = "authUsernameInput";
 export const AUTH_PASSWORD_INPUT = "authPasswordInput";

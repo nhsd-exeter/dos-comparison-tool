@@ -9,6 +9,7 @@ import {
 	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
 	POSTCODE_INPUT,
+	PREVIOUS_BUTTON,
 	ROLE_DROP_DOWN_SUFFIX,
 	SEARCH_BUTTON,
 	SEX_DROP_DOWN,
@@ -114,7 +115,7 @@ function CCSComparisonSearch() {
 					<EnvironmentSearchForm searchName={SEARCH_TWO} />
 					<br />
 					<Button id={SEARCH_BUTTON}>{"Search"}</Button>
-					<Pagination>
+					<Pagination id={PREVIOUS_BUTTON}>
 						<Pagination.Link
 							previous
 							onClick={() => {

@@ -14,7 +14,7 @@ def _() -> dict:
     Returns:
         dict: CCS Comparison Search request.
     """
-    with open("resources/ccs_comparison_search_one.json") as file:
+    with open("resources/default_ccs_comparison_search.json") as file:
         return load(file)
 
 
