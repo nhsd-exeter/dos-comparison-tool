@@ -1,4 +1,5 @@
 SELECT
+  d.id "DispositionId",
   d.dxcode "DispositionCode",
   d."name" "DispositionName"
 FROM dispositions d
