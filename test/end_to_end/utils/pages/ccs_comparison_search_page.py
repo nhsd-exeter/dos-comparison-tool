@@ -18,7 +18,7 @@ DEFAULT_SYMPTOM_DISCRIMINATOR_ONE = "AMB Bleeding"
 DEFAULT_DISPOSITION_ONE = "To contact a Primary Care Service within 2 hours"
 DEFAULT_SEX_ONE = "Male"
 DEFAULT_ENVIRONMENT_ONE = "Regression DI"
-DEFAULT_ROLE_ONE = "111 Telephony"
+DEFAULT_ROLE_ONE = "111 Telephony Referral"
 DEFAULT_AGE_ONE = "2"
 
 DEFAULT_POSTCODE_TWO = "LS1 4AP"
@@ -27,7 +27,7 @@ DEFAULT_SYMPTOM_DISCRIMINATOR_TWO = "AMB Bleeding"
 DEFAULT_DISPOSITION_TWO = "To contact a Primary Care Service within 2 hours"
 DEFAULT_SEX_TWO = "Female"
 DEFAULT_ENVIRONMENT_TWO = "Regression DI"
-DEFAULT_ROLE_TWO = "999"
+DEFAULT_ROLE_TWO = "999 Referral"
 DEFAULT_AGE_TWO = "99"
 
 DEFAULT_AGE_UNITS = "Years"
@@ -181,5 +181,17 @@ class CCSComparisonSearchPage(Page):
             expected_conditions.text_to_be_present_in_element(
                 (By.ID, "DispositionDropDown"),
                 DEFAULT_DISPOSITION_ONE,
+            ),
+        )
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, "SearchOneRoleDropDown"),
+                DEFAULT_ROLE_ONE,
+            ),
+        )
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, "SearchOneRoleDropDown"),
+                DEFAULT_ROLE_TWO,
             ),
         )

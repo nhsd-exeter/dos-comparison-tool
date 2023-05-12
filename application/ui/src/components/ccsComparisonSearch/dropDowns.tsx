@@ -8,7 +8,7 @@ import {
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
 	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
-import { Disposition, SymptomGroup } from "../../interfaces/dtos";
+import { Disposition, Role, SymptomGroup } from "../../interfaces/dtos";
 
 export function SymptomGroupDropDown({
 	symptomGroups,
@@ -101,20 +101,24 @@ export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 	);
 }
 
-export function RoleDropDown({ searchName }: { searchName: string }) {
+export function RoleDropDown({
+	searchName,
+	roles,
+}: {
+	searchName: string;
+	roles: Role[];
+}) {
 	return (
 		<Select label="Role" id={`${searchName}${ROLE_DROP_DOWN_SUFFIX}`}>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">Digital Referral</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">999</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">ED Streaming Referral</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">CAS Referral</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony DHU</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony IOW</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony LAS</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony NWAS</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony WMAS</Select.Option>
-			<Select.Option value="TTOOL_IOW_WS">111 Telephony SCAS</Select.Option>
+			{GenerateRoleOptions(roles)}
 		</Select>
 	);
+}
+
+export function GenerateRoleOptions(roles: Role[]) {
+	return roles.map((role) => (
+		<Select.Option key={role.RoleUserName} value={role.RoleUserName}>
+			{role.ReferralRoleName}
+		</Select.Option>
+	));
 }

@@ -4,13 +4,13 @@ Feature: CCS Comparison Seach
     Given I am on the CCS Comparison Search page
     When I run a CCS Comparison search with default values one
     Then I should see the CCS Comparison Search results page with expected results one
-    And Results should have the same ranking for "10" services
+    And Results should have the same ranking for "8" services
 
   Scenario: Mutiple CCS Comparison Searches
     Given I am on the CCS Comparison Search page
     When I run a CCS Comparison search with default values one
     Then I should see the CCS Comparison Search results page with expected results one
-    And Results should have the same ranking for "10" services
+    And Results should have the same ranking for "8" services
     When I return to the CCS Comparison Search page
     Then I should see the CCS Comparison Search page
     When I run a CCS Comparison search with default values two
