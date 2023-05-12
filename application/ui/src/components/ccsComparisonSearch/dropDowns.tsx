@@ -36,17 +36,20 @@ export function DispositionDropDown({
 }) {
 	return (
 		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
-			{dispositions.length > 0 &&
-				dispositions.map((disposition) => (
-					<Select.Option
-						value={disposition.DispositionId}
-						key={disposition.DispositionCode}
-					>
-						{disposition.DispositionName}
-					</Select.Option>
-				))}
+			{GenerateDispositionOptions(dispositions)}
 		</Select>
 	);
+}
+
+export function GenerateDispositionOptions(dispositions: disposition[]) {
+	return dispositions.map((disposition) => (
+		<Select.Option
+			key={disposition.DispositionCode}
+			value={disposition.DispositionId}
+		>
+			{disposition.DispositionName}
+		</Select.Option>
+	));
 }
 
 export function SexDropDown() {

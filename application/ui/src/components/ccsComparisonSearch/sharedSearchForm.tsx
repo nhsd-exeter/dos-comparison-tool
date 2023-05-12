@@ -15,7 +15,13 @@ import {
 
 function SharedSearchForm() {
 	const idToken = useAppSelector(selectToken) as string;
-	const [dispositions, setDispositions] = useState([] as disposition[]);
+	const [dispositions, setDispositions] = useState([
+		{
+			DispositionCode: "0",
+			DispositionId: "0",
+			DispositionName: "Unable to find dispositions",
+		},
+	] as disposition[]);
 
 	const fetchDispositions = async () => {
 		try {
