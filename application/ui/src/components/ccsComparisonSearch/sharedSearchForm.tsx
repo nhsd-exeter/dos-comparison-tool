@@ -3,7 +3,7 @@ import { Hint, Input } from "nhsuk-react-components";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { POSTCODE_INPUT } from "../../constants/componentIds";
-import { disposition } from "../../interfaces/dtos";
+import { Disposition, SymptomGroup } from "../../interfaces/dtos";
 import { selectToken } from "../../slices/authSlice";
 import { DataLambda, SetupDefaultHeaders } from "../../utils/api";
 import {
@@ -21,16 +21,36 @@ function SharedSearchForm() {
 			DispositionId: "0",
 			DispositionName: "Unable to find dispositions",
 		},
-	] as disposition[]);
+	] as Disposition[]);
+	const [symptomGroups, setSymptomGroups] = useState([
+		{
+			SymptomGroupId: "0",
+			SymptomGroupName: "Unable to find symptom groups",
+		},
+	]);
 
 	const fetchDispositions = async () => {
 		try {
 			SetupDefaultHeaders(idToken);
 			const response = await axios.post(`${DataLambda}/dispositions`);
-			setDispositions(response.data as disposition[]);
+			setDispositions(response.data as Disposition[]);
 			return {
 				success: true,
-				data: response.data as disposition[],
+				data: response.data as Disposition[],
+			};
+		} catch (error) {
+			return;
+		}
+	};
+
+	const fetchSymptomGroups = async () => {
+		try {
+			SetupDefaultHeaders(idToken);
+			const response = await axios.post(`${DataLambda}/symptom_groups`);
+			setSymptomGroups(response.data as SymptomGroup[]);
+			return {
+				success: true,
+				data: response.data as SymptomGroup[],
 			};
 		} catch (error) {
 			return;
@@ -40,6 +60,7 @@ function SharedSearchForm() {
 	useEffect(() => {
 		(async () => {
 			await fetchDispositions();
+			await fetchSymptomGroups();
 		})();
 	}, []);
 
@@ -54,7 +75,7 @@ function SharedSearchForm() {
 				id={POSTCODE_INPUT}
 				width="10"
 			/>
-			<SymptomGroupDropDown />
+			<SymptomGroupDropDown symptomGroups={symptomGroups} />
 			<SymptomDiscriminatorDropDown />
 			<DispositionDropDown dispositions={dispositions} />
 			<SexDropDown />

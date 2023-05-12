@@ -1,4 +1,5 @@
 from pytest_bdd import given, scenarios, then, when
+from pytest_bdd.parsers import parse
 
 from end_to_end.utils.pages.ccs_comparison_results_page import (
     DEFAULT_SEARCH_ONE_RESULTS,
@@ -60,7 +61,7 @@ def _() -> None:
     CCSComparisonSearchPage().assert_on_page()
 
 
-@then("Results should have the same ranking")
-def _() -> None:
+@then(parse('Results should have the same ranking for "{search_ranking_number}" services'))
+def _(search_ranking_number: str) -> None:
     """Results should have the same ranking."""
-    CCSComparisonResultsPage().assert_all_ranking_results_are_equal()
+    CCSComparisonResultsPage().assert_all_ranking_results_are_equal(search_ranking_number=int(search_ranking_number))
