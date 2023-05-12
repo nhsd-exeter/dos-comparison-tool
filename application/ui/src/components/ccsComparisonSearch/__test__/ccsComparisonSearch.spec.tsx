@@ -13,6 +13,22 @@ jest.mock("axios");
 
 test("It renders the expected CCSComparisonSearch layout", () => {
 	// Arrange
+	// axios.post.mockImplementationOnce(() =>
+	// 	Promise.resolve({
+	// 		data: [
+	// 			{
+	// 				DispositionCode: "1",
+	// 				DispositionName: "Disposition 1",
+	// 				DispositionId: 1,
+	// 			},
+	// 			{
+	// 				DispositionCode: "2",
+	// 				DispositionName: "Disposition 2",
+	// 				DispositionId: 2,
+	// 			},
+	// 		] as unknown as disposition[],
+	// 	})
+	// );
 	renderWithProvidersAndRouter(<CCSComparisonSearch />);
 	// Act: Get the elements.
 	const header = document.getElementById(HEADER_ID);
@@ -25,12 +41,28 @@ test("It renders the expected CCSComparisonSearch layout", () => {
 describe("CCSComparisonSearch works as expected", () => {
 	it("On submit it sends a ccsComparisonSearchRequest", () => {
 		// Arrange
-		axios.post.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+		// axios.post.mockImplementationOnce(() =>
+		// 	Promise.resolve({
+		// 		data: [
+		// 			{
+		// 				DispositionCode: "1",
+		// 				DispositionName: "Disposition 1",
+		// 				DispositionId: 1,
+		// 			},
+		// 			{
+		// 				DispositionCode: "2",
+		// 				DispositionName: "Disposition 2",
+		// 				DispositionId: 2,
+		// 			},
+		// 		] as unknown as disposition[],
+		// 	})
+		// );
+
 		// Act
 		renderWithProvidersAndRouter(<CCSComparisonSearch />);
 		const submitButton = document.getElementById(SEARCH_BUTTON) as HTMLElement;
 		fireEvent(submitButton, new MouseEvent("click"));
 		// Assert
-		expect(axios.post).toHaveBeenCalledTimes(1);
+		expect(axios.post).toHaveBeenCalledTimes(2);
 	});
 });

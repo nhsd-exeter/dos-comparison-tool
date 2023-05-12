@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../app/store";
-import { ApiEndpoint } from "../config";
 import { CCSSearchData } from "../interfaces/dtos";
+import { SearchLambda, SetupDefaultHeaders } from "../utils/api";
 export interface CCSComparisonSearchState {
 	loading: "pending" | "fulfilled" | "rejected" | "idle";
 	searchOne: Array<string>;
@@ -21,11 +21,9 @@ export const initialState = {
 export const search = createAsyncThunk(
 	"ccsComparisonSearch/search",
 	async (requestData: CCSSearchData) => {
-		axios.defaults.headers.common["Authorization"] = requestData.authToken;
-		axios.defaults.headers.common["Content-Type"] =
-			"application/json;charset=utf-8";
+		SetupDefaultHeaders(requestData.authToken);
 		const response = await axios.post(
-			ApiEndpoint + "/search/CCSComparisonSearch",
+			`${SearchLambda}/CCSComparisonSearch`,
 			{
 				search_one: requestData.search_one,
 				search_two: requestData.search_two,

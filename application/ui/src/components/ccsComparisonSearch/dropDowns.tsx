@@ -8,6 +8,7 @@ import {
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
 	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
+import { disposition } from "../../interfaces/dtos";
 
 export function SymptomGroupDropDown() {
 	return (
@@ -28,20 +29,27 @@ export function SymptomDiscriminatorDropDown() {
 	);
 }
 
-export function DispositionDropDown() {
+export function DispositionDropDown({
+	dispositions,
+}: {
+	dispositions: disposition[];
+}) {
 	return (
 		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
-			<Select.Option value="9001">
-				To contact a Primary Care Service with 2 hours
-			</Select.Option>
-			<Select.Option value="9001">
-				To contact a Primary Care Service with 6 hours
-			</Select.Option>
-			<Select.Option value="9001">
-				To contact a Primary Care Service with 12 hours
-			</Select.Option>
+			{GenerateDispositionOptions(dispositions)}
 		</Select>
 	);
+}
+
+export function GenerateDispositionOptions(dispositions: disposition[]) {
+	return dispositions.map((disposition) => (
+		<Select.Option
+			key={disposition.DispositionCode}
+			value={disposition.DispositionId}
+		>
+			{disposition.DispositionName}
+		</Select.Option>
+	));
 }
 
 export function SexDropDown() {

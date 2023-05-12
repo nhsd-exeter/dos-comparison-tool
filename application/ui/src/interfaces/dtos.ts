@@ -51,3 +51,9 @@ export interface Search {
 	symptom_group: number;
 	search_date_time: string;
 }
+
+export type disposition = {
+	DispositionId: string;
+	DispositionCode: string;
+	DispositionName: string;
+};
