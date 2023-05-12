@@ -33,20 +33,13 @@ function SharedSearchForm() {
 				data: response.data as disposition[],
 			};
 		} catch (error) {
-			console.log(error);
-			return {
-				success: false,
-				data: error,
-			};
+			return;
 		}
 	};
 
 	useEffect(() => {
 		(async () => {
-			const dispositionResponse = await fetchDispositions();
-			if (!dispositionResponse.success) {
-				console.log("Failed to fetch dispositions");
-			}
+			await fetchDispositions();
 		})();
 	}, []);
 
