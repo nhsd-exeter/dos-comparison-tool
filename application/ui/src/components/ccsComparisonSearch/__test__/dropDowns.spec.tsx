@@ -13,7 +13,15 @@ import {
 
 test("It renders the expected SymptomGroupDropDown component", () => {
 	// Arrange
-	renderWithProvidersAndRouter(<SymptomGroupDropDown />);
+	const symptomGroups = [
+		{
+			SymptomGroupId: 1,
+			SymptomGroupName: "Symptom Group 1",
+		},
+	] as unknown as SymptomGroup[];
+	renderWithProvidersAndRouter(
+		<SymptomGroupDropDown symptomGroups={symptomGroups} />
+	);
 	// Act: Get the elements.
 	const SymptomGroup = screen.getByLabelText("Symptom Group");
 	// Assert: Elements are present.
