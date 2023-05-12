@@ -62,3 +62,8 @@ export type SymptomGroup = {
 	SymptomGroupId: string;
 	SymptomGroupName: string;
 };
+
+export type Role = {
+	ReferralRoleName: string;
+	RoleUserName: string;
+};
