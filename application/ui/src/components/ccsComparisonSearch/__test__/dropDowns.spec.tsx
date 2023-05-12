@@ -1,6 +1,7 @@
 import { expect, test } from "@jest/globals";
 import { screen } from "@testing-library/react";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
+import { disposition } from "../../../interfaces/dtos";
 import {
 	AgeUnitsDropDown,
 	DispositionDropDown,
@@ -30,7 +31,21 @@ test("It renders the expected SymptomDiscriminatorDropDown component", () => {
 
 test("It renders the expected DispositionDropDown component", () => {
 	// Arrange
-	renderWithProvidersAndRouter(<DispositionDropDown />);
+	const dispositions = [
+		{
+			DispositionCode: "1",
+			DispositionName: "Disposition 1",
+			DispositionId: 1,
+		},
+		{
+			DispositionCode: "2",
+			DispositionName: "Disposition 2",
+			DispositionId: 2,
+		},
+	] as unknown as disposition[];
+	renderWithProvidersAndRouter(
+		<DispositionDropDown dispositions={dispositions} />
+	);
 	// Act: Get the elements.
 	const Disposition = screen.getByLabelText("Disposition");
 	// Assert: Elements are present.
