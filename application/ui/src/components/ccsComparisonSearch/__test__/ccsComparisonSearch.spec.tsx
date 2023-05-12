@@ -28,6 +28,6 @@ describe("CCSComparisonSearch works as expected", () => {
 		const submitButton = document.getElementById(SEARCH_BUTTON) as HTMLElement;
 		fireEvent(submitButton, new MouseEvent("click"));
 		// Assert
-		expect(axios.post).toHaveBeenCalledTimes(2);
+		expect(axios.post).toHaveBeenCalledTimes(4);
 	});
 });
