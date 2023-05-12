@@ -1,7 +1,9 @@
 from typing import Self
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.wait import WebDriverWait
 
 from end_to_end.utils.drivers.chrome_driver import CHROME_DRIVER
 from end_to_end.utils.elements import click_previous_button
@@ -11,18 +13,18 @@ from .menu_page import MenuPage
 from .page import Page
 
 DEFAULT_POSTCODE_ONE = "EX2 5SE"
-DEFAULT_SYMPTOM_GROUP_ONE = "Arm, Pain or Swelling"
+DEFAULT_SYMPTOM_GROUP_ONE = "Abdominal or Flank Injury, Blunt"
 DEFAULT_SYMPTOM_DISCRIMINATOR_ONE = "AMB Bleeding"
-DEFAULT_DISPOSITION_ONE = "To contact a Primary Care Service with 2 hours"
+DEFAULT_DISPOSITION_ONE = "To contact a Primary Care Service within 2 hours"
 DEFAULT_SEX_ONE = "Male"
 DEFAULT_ENVIRONMENT_ONE = "Regression DI"
 DEFAULT_ROLE_ONE = "111 Telephony"
 DEFAULT_AGE_ONE = "2"
 
 DEFAULT_POSTCODE_TWO = "LS1 4AP"
-DEFAULT_SYMPTOM_GROUP_TWO = "Arm, Pain or Swelling"
+DEFAULT_SYMPTOM_GROUP_TWO = "Abdominal or Flank Injury, Blunt"
 DEFAULT_SYMPTOM_DISCRIMINATOR_TWO = "AMB Bleeding"
-DEFAULT_DISPOSITION_TWO = "To contact a Primary Care Service with 2 hours"
+DEFAULT_DISPOSITION_TWO = "To contact a Primary Care Service within 2 hours"
 DEFAULT_SEX_TWO = "Female"
 DEFAULT_ENVIRONMENT_TWO = "Regression DI"
 DEFAULT_ROLE_TWO = "999"
@@ -46,9 +48,11 @@ class CCSComparisonSearchPage(Page):
         login_page.navigate_to_next_page()
         MenuPage().select_ccs_comparison_search()
         self.assert_on_page()
+        self.wait_for_drop_downs_to_load()
 
     def build_default_search_one(self: Self) -> None:
         """Build a CCS Comparison Search."""
+        self.wait_for_drop_downs_to_load()
         self.input_default_values_for_shared_search_criteria(
             postcode=DEFAULT_POSTCODE_ONE,
             symptom_group=DEFAULT_SYMPTOM_GROUP_ONE,
@@ -71,6 +75,7 @@ class CCSComparisonSearchPage(Page):
 
     def build_default_search_two(self: Self) -> None:
         """Build a CCS Comparison Search."""
+        self.wait_for_drop_downs_to_load()
         self.input_default_values_for_shared_search_criteria(
             postcode=DEFAULT_POSTCODE_TWO,
             symptom_group=DEFAULT_SYMPTOM_GROUP_TWO,
@@ -163,3 +168,18 @@ class CCSComparisonSearchPage(Page):
         """
         select = Select(CHROME_DRIVER.find_element(By.ID, drop_down_name))
         select.select_by_visible_text(drop_down_text)
+
+    def wait_for_drop_downs_to_load(self: Self) -> None:
+        """Wait for the dropdowns to load data from the data lambda."""
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, "SymptomGroupDropDown"),
+                DEFAULT_SYMPTOM_GROUP_ONE,
+            ),
+        )
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, "DispositionDropDown"),
+                DEFAULT_DISPOSITION_ONE,
+            ),
+        )

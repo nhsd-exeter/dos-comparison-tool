@@ -52,8 +52,13 @@ export interface Search {
 	search_date_time: string;
 }
 
-export type disposition = {
+export type Disposition = {
 	DispositionId: string;
 	DispositionCode: string;
 	DispositionName: string;
+};
+
+export type SymptomGroup = {
+	SymptomGroupId: string;
+	SymptomGroupName: string;
 };

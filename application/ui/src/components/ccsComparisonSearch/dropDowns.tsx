@@ -8,23 +8,36 @@ import {
 	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
 	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
-import { disposition } from "../../interfaces/dtos";
+import { Disposition, SymptomGroup } from "../../interfaces/dtos";
 
-export function SymptomGroupDropDown() {
+export function SymptomGroupDropDown({
+	symptomGroups,
+}: {
+	symptomGroups: SymptomGroup[];
+}) {
 	return (
 		<Select label="Symptom Group" id={SYMPTOM_GROUP_DROP_DOWN}>
-			<Select.Option value="1004">Abdominal Pain</Select.Option>
-			<Select.Option value="1004">Acne, Spots and Pimples</Select.Option>
-			<Select.Option value="1004">Arm, Pain or Swelling</Select.Option>
+			{GenerateSymptomGroupOptions(symptomGroups)}
 		</Select>
 	);
+}
+
+export function GenerateSymptomGroupOptions(symptomGroups: SymptomGroup[]) {
+	return symptomGroups.map((symptomGroup) => (
+		<Select.Option
+			key={symptomGroup.SymptomGroupName}
+			value={symptomGroup.SymptomGroupId}
+		>
+			{symptomGroup.SymptomGroupName}
+		</Select.Option>
+	));
 }
 
 export function SymptomDiscriminatorDropDown() {
 	return (
 		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
-			<Select.Option value="4153">AMB Bleeding, significant</Select.Option>
-			<Select.Option value="4153">AMB Bleeding</Select.Option>
+			<Select.Option value="4003">AMB Bleeding, significant</Select.Option>
+			<Select.Option value="4003">AMB Bleeding</Select.Option>
 		</Select>
 	);
 }
@@ -32,7 +45,7 @@ export function SymptomDiscriminatorDropDown() {
 export function DispositionDropDown({
 	dispositions,
 }: {
-	dispositions: disposition[];
+	dispositions: Disposition[];
 }) {
 	return (
 		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
@@ -41,7 +54,7 @@ export function DispositionDropDown({
 	);
 }
 
-export function GenerateDispositionOptions(dispositions: disposition[]) {
+export function GenerateDispositionOptions(dispositions: Disposition[]) {
 	return dispositions.map((disposition) => (
 		<Select.Option
 			key={disposition.DispositionCode}

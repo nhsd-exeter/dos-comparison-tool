@@ -9,18 +9,30 @@ from end_to_end.utils.elements import click_previous_button
 
 from .page import Page
 
-DEFAULT_SEARCH_ONE_RESULTS = [
-    "ED - Royal Devon and Exeter Hospital - Exeter (CATCH ALL)",
-    "ED - Torbay Hospital - Torquay (CATCH ALL)",
-    "ED - Royal Devon and Exeter Hospital - Exeter (CATCH ALL)",
-    "ED - Torbay Hospital - Torquay (CATCH ALL)",
+DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH = [
+    "Choice - GP - Wonford Green Surgery - Exeter",
+    "GP - Wonford Green Surgery - Exeter",
+    "WIC - RDE Hospital - Exeter",
+    "Choice - GP - Whipton Surgery - Exeter",
+    "WIC - Sidwell Street - Exeter",
 ]
-DEFAULT_SEARCH_TWO_RESULTS = [
-    "Emergency Department - Leeds, West Yorkshire (General Infirmary) (CATCH ALL)",
-    "Emergency Department - Leeds, West Yorkshire (St James University Hospital) (CATCH ALL)",
-    "Emergency Department - Leeds, West Yorkshire (General Infirmary) (CATCH ALL)",
-    "Emergency Department - Leeds, West Yorkshire (St James University Hospital) (CATCH ALL)",
+
+DEFAULT_SEARCH_ONE_RESULTS = DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH + DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH
+
+DEFAULT_SEARCH_TWO_RESULTS_INDIVIDUAL_SEARCH = [
+    "GP - Leeds, West Yorkshire (Dr P Earnshaw & Partners)",
+    "GP Choice - Leeds, West Yorkshire (Priory View Medical Centre)",
+    "York Street Health Practice",
+    "GP Out of Hours - Leeds, West Yorkshire (Lexicon House) WYUC",
+    "GP Choice - Leeds, West Yorkshire (Lincoln Green Medical Centre)",
+    "GP Out of Hours - Leeds, West Yorkshire (St Georges) WYUC",
+    "Minor Injuries Unit - Leeds, West Yorkshire (St Georges Centre)",
+    "Walk In Centre - Wakefield, West Yorkshire (King Street Health Centre)",
+    "Minor Injuries Unit - Leeds, West Yorkshire (Wharfedale)",
+    "Walk in Centre - Leeds, West Yorkshire (Shakespeare Medical Practice)",
 ]
+
+DEFAULT_SEARCH_TWO_RESULTS = DEFAULT_SEARCH_TWO_RESULTS_INDIVIDUAL_SEARCH + DEFAULT_SEARCH_TWO_RESULTS_INDIVIDUAL_SEARCH
 
 
 class CCSComparisonResultsPage(Page):
@@ -53,15 +65,21 @@ class CCSComparisonResultsPage(Page):
         values = [header.text for header in headers]
         assert values == default_search_results, f"Expected {default_search_results}, got {values}"
 
-    def assert_all_ranking_results_are_equal(self: Self) -> None:
-        """Assert that all ranking results are equal."""
+    def assert_all_ranking_results_are_equal(self: Self, search_ranking_number: int) -> None:
+        """Assert that all ranking results are equal.
+
+        Args:
+        search_ranking_number (int): The number of results to expect.
+        """
         WebDriverWait(CHROME_DRIVER, 20).until(
             expected_conditions.presence_of_element_located((By.ID, "RankingValue")),
         )
         elements = CHROME_DRIVER.find_elements(by=By.ID, value="RankingValue")
         values = [element.text for element in elements]
         ranking_values = [value for value in values if value == "Service/Ranking Same"]
-        assert len(ranking_values) == 4, f"Expected 4 equal ranking values, got {len(ranking_values)}"  # noqa: PLR2004
+        assert (
+            len(ranking_values) == search_ranking_number
+        ), f"Expected {search_ranking_number} equal ranking values, got {len(ranking_values)}"
 
     def navigate_to_previous_page(self: Self) -> None:
         """Navigate to the previous page."""
