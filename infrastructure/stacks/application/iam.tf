@@ -10,12 +10,12 @@ resource "aws_iam_role" "kubernetes_service_account_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated" : "arn:aws:iam::${var.aws_account_id}:oidc-provider/${trimprefix(data.terraform_remote_state.eks.outputs.eks_oidc_issuer_url, "https://")}"
+        "Federated" : "arn:aws:iam::${var.aws_account_id}:oidc-provider/${trimprefix(data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer, "https://")}"
         },
         "Action": ["sts:AssumeRoleWithWebIdentity","sts:AssumeRole"],
         "Condition": {
           "StringLike": {
-            "${trimprefix(data.terraform_remote_state.eks.outputs.eks_oidc_issuer_url, "https://")}:sub": "system:serviceaccount:${var.project_id}*:${var.application_service_account_name}"
+            "${trimprefix(data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer, "https://")}:sub": "system:serviceaccount:${var.project_id}*:${var.application_service_account_name}"
         }
       }
     }
