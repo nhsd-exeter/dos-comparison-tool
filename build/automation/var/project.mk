@@ -51,6 +51,7 @@ TF_VAR_application_service_account_name := $(K8S_SERVICE_ACCOUNT_NAME)
 TF_VAR_kubernetes_service_account_role_name := $(K8S_SERVICE_ACCOUNT_NAME)-role
 TF_VAR_kubernetes_service_account_role_policy_name := $(K8S_SERVICE_ACCOUNT_NAME)-policy
 TEXAS_CERTIFICATE_ARN := arn:aws:acm:$(AWS_REGION):$(AWS_ACCOUNT_ID):certificate/$(TEXAS_CERTIFICATE_ID)
+TF_VAR_eks_cluster := live-leks-cluster
 # Cognito
 TF_VAR_cognito_user_pool_name := $(PROJECT_ID)-$(ENVIRONMENT)-user-pool
 TF_VAR_cognito_user_pool_client_name := $(PROJECT_ID)-$(ENVIRONMENT)-user-pool-client

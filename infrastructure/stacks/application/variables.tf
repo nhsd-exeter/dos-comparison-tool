@@ -2,6 +2,11 @@
 # K8S Service Role
 # ############################
 
+variable "eks_cluster" {
+  type        = string
+  description = "The name of the EKS cluster"
+}
+
 variable "application_service_account_name" {
   type        = string
   description = "The name of the service account to use for the application"
