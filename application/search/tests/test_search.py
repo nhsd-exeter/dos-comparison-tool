@@ -104,7 +104,9 @@ def test_lambda_handler_with_invalid_request(
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["body"] == SERIALIZER({"statusCode": 400, "message": "search_one and search_two are required"})
+    assert response["body"] == SERIALIZER(
+        {"message": "Bad Request Error: search_one and search_two are required"},
+    )
     mock_check_capacity_summary_search.assert_not_called()
 
 

@@ -90,7 +90,8 @@ class TestCheckCapacitySummarySearch:
         environ["PROFILE"] = "dev"
         username = "username"
         password = "password"
-        environment_url = "https://test.com"
+        environ["DEFAULT_ENVIRONMENT_URL"] = environment_url = "https://test.com"
+        environ["CCS_SEARCH_PATH"] = url_path = "/app/api/webservices"
         status_code = 200
         mock__get_non_prod_username_and_password.return_value = (username, password)
         mock__build_request_data.return_value = return_data = "<xml></xml>"
@@ -102,11 +103,11 @@ class TestCheckCapacitySummarySearch:
         assert search_details == expected_return, "Search details should be parsed xml"
         mock__get_non_prod_username_and_password.assert_called_once()
         mock__build_request_data.assert_called_with(username, password)
-        mock_post(
-            url=f"{environment_url}/app/api/webservices",
+        mock_post.assert_called_once_with(
+            url=f"{environment_url}{url_path}",
             headers={"content-type": "text/xml"},
             data=return_data,
-            timeout=2,
+            timeout=3,
         )
         mock__parse_xml_response.assert_called_with(mock_post.return_value.text)
         mock_logger.info.assert_has_calls(
@@ -127,7 +128,7 @@ class TestCheckCapacitySummarySearch:
                 call(
                     f"CCS Request for environment {self.search_environment}",
                     data="<xml></xml>",
-                    environment_url=None,
+                    environment_url=environment_url,
                 ),
                 call(
                     f"{self.search_environment} CCS Response {status_code}",
@@ -138,50 +139,59 @@ class TestCheckCapacitySummarySearch:
         )
         # Clean up
         del environ["PROFILE"]
+        del environ["DEFAULT_ENVIRONMENT_URL"]
+        del environ["CCS_SEARCH_PATH"]
 
     @patch(f"{FILE_PATH}.logger")
+    @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._parse_error_xml_response")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._parse_xml_response")
     @patch(f"{FILE_PATH}.post")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._build_request_data")
     @patch(f"{FILE_PATH}.CheckCapacitySummarySearch._get_non_prod_username_and_password")
-    def test_search_error(
+    def test_search_bad_response(
         self,
         mock__get_non_prod_username_and_password: MagicMock,
         mock__build_request_data: MagicMock,
         mock_post: MagicMock,
         mock__parse_xml_response: MagicMock,
+        mock__parse_error_xml_response: MagicMock,
         mock_logger: MagicMock,
     ) -> None:
         """Test the search method."""
         # Arrange
         username = "username"
         password = "password"
-        environment_url = "https://test.com"
+        environ["DEFAULT_ENVIRONMENT_URL"] = environment_url = "https://test.com"
+        environ["CCS_SEARCH_PATH"] = url_path = "app/api/webservices"
+        error_message = "error message"
         status_code = 500
         mock__get_non_prod_username_and_password.return_value = (username, password)
         mock__build_request_data.return_value = return_data = "<xml></xml>"
-        mock_post.return_value = MagicMock(status_code=status_code)
+        mock_post.return_value = MagicMock(status_code=status_code, text=error_message)
+        mock__parse_error_xml_response.return_value = status_code, error_message
         # Act
-        with pytest.raises(CCSAPIResponseError) as exception:  # noqa: PT012
-            response = self.default_ccs_search.search()
-            assert exception == f"CCS Response {status_code}"
-            assert response is None, "No expected response"
+        with pytest.raises(CCSAPIResponseError):
+            self.default_ccs_search.search()
         # Assert
         mock__get_non_prod_username_and_password.assert_called_once()
         mock__build_request_data.assert_called_with(username, password)
-        mock_post(
-            url=f"{environment_url}/app/api/webservices",
+        mock_post.assert_called_once_with(
+            url=f"{environment_url}{url_path}",
             headers={"content-type": "text/xml"},
             data=return_data,
-            timeout=2,
+            timeout=3,
         )
         mock__parse_xml_response.assert_not_called()
+        mock__parse_error_xml_response.assert_called_once_with(error_message)
         mock_logger.error.assert_called_once_with(
             f"{self.search_environment} CCS Response {status_code}",
             status_code=status_code,
             search_environment=self.search_environment,
             error_message=mock_post.return_value.text,
         )
+        # Clean up
+        del environ["DEFAULT_ENVIRONMENT_URL"]
+        del environ["CCS_SEARCH_PATH"]
 
     @patch(f"{FILE_PATH}.client")
     def test_get_non_prod_username_and_password(self, mock_client: MagicMock) -> None:
