@@ -81,6 +81,7 @@ class CheckCapacitySummarySearch:
             )
             return self._parse_xml_response(response.text)
 
+        error_code, error_message = self._parse_error_xml_response(response.text)
         logger.error(
             f"{self.search_environment} CCS Response {response.status_code}",
             status_code=response.status_code,
@@ -89,7 +90,8 @@ class CheckCapacitySummarySearch:
         )
         raise CCSAPIResponseError(
             status_code=response.status_code,
-            message=f"CCS Response {response.status_code}",
+            error_code=error_code,
+            message=error_message,
         )
 
     def _get_non_prod_username_and_password(self) -> tuple[str, str]:
@@ -197,6 +199,21 @@ class CheckCapacitySummarySearch:
             api_response.append(dos_service.__dict__)
             logger.debug("CCS Service", service=dos_service, search_environment=self.search_environment)
         return api_response
+
+    def _parse_error_xml_response(self, response_xml: str) -> tuple[str, str]:
+        """Parses the error response from the CCS API.
+
+        Args:
+            response_xml (str): XML response from the CCS API
+
+        Returns:
+            tuple[str, str]: Error code and message from the CCS API
+        """
+        response_dict: dict[str, Any] = parse(response_xml)
+        body = response_dict.get("env:Envelope", {}).get("env:Body", {})
+        error_code = body.get("env:Fault", {}).get("env:Code", {}).get("env:Value", {})
+        error_message = body.get("env:Fault", {}).get("env:Reason", {}).get("env:Text", {})
+        return error_code, error_message
 
 
 def compare_search_responses(

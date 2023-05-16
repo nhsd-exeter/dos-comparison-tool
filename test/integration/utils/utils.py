@@ -1,10 +1,20 @@
-from json import dumps
+from json import dumps, load
 
 from requests import post
 from requests.models import Response
 
 from .auth import get_authentication_token
 from .environment_variables import API_GATEWAY_ENDPOINT
+
+
+def load_default_ccs_comparison_search_request() -> dict:
+    """Load the default CCS Comparison Search request.
+
+    Returns:
+        dict: The default CCS Comparison Search request.
+    """
+    with open("resources/default_ccs_comparison_search.json") as file:
+        return load(file)
 
 
 def api_gateway_request(path: str, payload: dict = None, *, auth: bool = True) -> Response:

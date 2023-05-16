@@ -6,6 +6,7 @@ from aws_lambda_powertools.logging import Logger
 from aws_lambda_powertools.tracing import Tracer
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
+from .ccs_comparison_search.ccs_exceptions import CCSAPIResponseError
 from .ccs_comparison_search.check_capacity_summary_search import CheckCapacitySummarySearch, compare_search_responses
 
 logger = Logger()
@@ -48,13 +49,16 @@ def ccs_comparison_search() -> tuple:
             "search_one_environment": search_one["search_environment"],
             "search_two_environment": search_two["search_environment"],
         }
-    except BadRequestError:
+    except BadRequestError as error:
         logger.exception("Bad Request Error")
-        raise
-    except Exception as e:
+        return {"message": f"Bad Request Error: {error.msg}"}, 400
+    except CCSAPIResponseError as error:
+        logger.exception("CCS API Response Error")
+        return {"message": f"CCS API Response Error: {error.message}"}, 400
+    except Exception as error:
         logger.exception("Internal Server Error")
         error_message = "Internal Server Error"
-        raise InternalServerError(error_message) from e
+        raise InternalServerError(error_message) from error
     return response_body, 200
 
 
