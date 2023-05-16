@@ -45,6 +45,9 @@ Feature: CCS Comparison Seach
       | disposition | Attend Emergency Treatment Centre within 4 hours  |
       | disposition | To contact a Primary Care Service within 2 hours  |
       | disposition | To contact a Primary Care Service within 24 hours |
+      | sex         | Male                                              |
+      | sex         | Female                                            |
+      | sex         | Unknown                                           |
 
   Scenario Outline: CCS Comparison Search produces errors
     Given I am on the CCS Comparison Search page
