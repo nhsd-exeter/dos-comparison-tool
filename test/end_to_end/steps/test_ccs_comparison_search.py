@@ -44,8 +44,9 @@ def _(key: str, value: str) -> None:
     match key:
         case "postcode":
             ccs_comparison_search.enter_search_details(postcode=value)
+        case "role":
+            ccs_comparison_search.enter_search_details(role=value)
     ccs_comparison_search.run_search()
-    # _:
 
 
 @then("I should see the CCS Comparison Search results page with expected results one")
