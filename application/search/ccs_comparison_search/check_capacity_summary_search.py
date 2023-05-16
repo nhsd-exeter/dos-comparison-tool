@@ -76,6 +76,7 @@ class CheckCapacitySummarySearch:
         if response.status_code == CCS_SUCCESS_STATUS_CODE:
             logger.info(
                 f"{self.search_environment} CCS Response {response.status_code}",
+                response=response.text,
                 status_code=response.status_code,
                 search_environment=self.search_environment,
             )
