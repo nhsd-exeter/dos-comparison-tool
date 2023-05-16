@@ -21,7 +21,8 @@ Feature: CCS Comparison Search
     And I should receive a CCS Search error response with message "<response_message>"
 
     Examples:
-      | parameter             | response_message                                                             |
-      | symptom_group         | CCS API Response Error: Parameter Validation: SG not found                   |
-      | symptom_discriminator | CCS API Response Error: Parameter Validation: No valid discriminators passed |
-      | disposition           | CCS API Response Error: Parameter Validation: Disposition not found          |
+      | parameter             | response_message                                                                                                                                      |
+      | symptom_group         | CCS API Response Error: Parameter Validation: SG not found                                                                                            |
+      | symptom_discriminator | CCS API Response Error: Parameter Validation: No valid discriminators passed                                                                          |
+      | disposition           | CCS API Response Error: Parameter Validation: Disposition not found                                                                                   |
+      | age                   | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129 |

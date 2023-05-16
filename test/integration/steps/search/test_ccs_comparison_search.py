@@ -35,6 +35,8 @@ def _(parameter: str) -> dict:
             payload["search_one"]["symptom_discriminator_list"] = [1]
         case "disposition":
             payload["search_one"]["disposition"] = 0
+        case "age":
+            payload["search_one"]["age"] = 0
         case _:
             msg = f"Invalid parameter {parameter}"
             raise ValueError(msg)
