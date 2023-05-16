@@ -17,14 +17,16 @@ Feature: CCS Comparison Seach
     Then I should see the CCS Comparison Search results page with expected results two
     And Results should have the same ranking for "16" services
 
-  Scenario Outline: CCS Comparison Search with different postcode combinations
+  Scenario Outline: CCS Comparison Search with different combinations
     Given I am on the CCS Comparison Search page
-    When I run a CCS Comparison search with "postcode" "<postcode_value>"
+    When I run a CCS Comparison search with "<key>" "<value>"
     Then I should see the CCS Comparison Search results page
 
     Examples:
-      | postcode_value |
-      | SW1A 2AA       |
-      | EX2 5SE        |
-      | E14 4PU        |
-      | PR8 2HH        |
+      | key      | value    |
+      | postcode | SW1A 2AA |
+      | postcode | EX2 5SE  |
+      | postcode | E14 4PU  |
+      | postcode | PR8 2HH  |
+      | postcode | EX25SE   |
+      | postcode | EX2  5SE |
