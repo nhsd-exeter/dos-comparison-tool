@@ -32,9 +32,16 @@ DEFAULT_AGE_TWO = "99"
 
 DEFAULT_AGE_UNITS = "Years"
 
+SEARCH_ONE_PREFIX = "SearchOne"
+SEARCH_TWO_PREFIX = "SearchTwo"
+
 
 class CCSComparisonSearchPage(Page):
-    """Actions and checks for the CCS Comparison Search page."""
+    """Actions and checks for the CCS Comparison Search page.
+
+    Greek alphabet: is used to define searches for the CCS Comparison Search. E.g ALPHA, BETA, GAMMA, DELTA, EPSILON.
+    Search Numbers: is used to define the components of the search. E.g SearchOne, SearchTwo
+    """
 
     url_subdirectory = "/ccs-comparison-search"
     page_number = 4
@@ -61,13 +68,13 @@ class CCSComparisonSearchPage(Page):
             sex=DEFAULT_SEX_ONE,
         )
         self.input_default_values_for_specific_search_criteria(
-            search_prefix="SearchOne",
+            search_prefix=SEARCH_ONE_PREFIX,
             environment=DEFAULT_ENVIRONMENT_ONE,
             role=DEFAULT_ROLE_ONE,
             age=DEFAULT_AGE_ONE,
         )
         self.input_default_values_for_specific_search_criteria(
-            search_prefix="SearchTwo",
+            search_prefix=SEARCH_TWO_PREFIX,
             environment=DEFAULT_ENVIRONMENT_ONE,
             role=DEFAULT_ROLE_ONE,
             age=DEFAULT_AGE_ONE,
@@ -84,13 +91,13 @@ class CCSComparisonSearchPage(Page):
             sex=DEFAULT_SEX_TWO,
         )
         self.input_default_values_for_specific_search_criteria(
-            search_prefix="SearchOne",
+            search_prefix=SEARCH_ONE_PREFIX,
             environment=DEFAULT_ENVIRONMENT_TWO,
             role=DEFAULT_ROLE_TWO,
             age=DEFAULT_AGE_TWO,
         )
         self.input_default_values_for_specific_search_criteria(
-            search_prefix="SearchTwo",
+            search_prefix=SEARCH_TWO_PREFIX,
             environment=DEFAULT_ENVIRONMENT_TWO,
             role=DEFAULT_ROLE_TWO,
             age=DEFAULT_AGE_TWO,
@@ -149,6 +156,50 @@ class CCSComparisonSearchPage(Page):
         self.select_from_dropdown(drop_down_name=f"{search_prefix}RoleDropDown", drop_down_text=role)
         self.input_text_into_field(field_name=f"{search_prefix}AgeInput", text=age)
         self.select_from_dropdown(drop_down_name=f"{search_prefix}AgeUnitsDropDown", drop_down_text=DEFAULT_AGE_UNITS)
+
+    def enter_search_details(  # noqa: PLR0913
+        self: Self,
+        postcode: str = DEFAULT_POSTCODE_ONE,
+        symptom_group: str = DEFAULT_SYMPTOM_GROUP_ONE,
+        symptom_discriminator: str = DEFAULT_SYMPTOM_DISCRIMINATOR_ONE,
+        disposition: str = DEFAULT_DISPOSITION_ONE,
+        sex: str = DEFAULT_SEX_ONE,
+        environment: str = DEFAULT_ENVIRONMENT_ONE,
+        role: str = DEFAULT_ROLE_ONE,
+        age: str = DEFAULT_AGE_ONE,
+    ) -> None:
+        """Enter all search details.
+
+        Args:
+            postcode (str): Postcode to search for.
+            symptom_group (str): Symptom group to search for.
+            symptom_discriminator (str): Symptom discriminator to search for.
+            disposition (str): Disposition to search for.
+            sex (str): Sex to search for.
+            environment (str): Environment to search for.
+            role (str): Role to search for.
+            age (str): Age to search for.
+        """
+        self.wait_for_drop_downs_to_load()
+        self.input_default_values_for_shared_search_criteria(
+            postcode=postcode,
+            symptom_group=symptom_group,
+            symptom_discriminator=symptom_discriminator,
+            disposition=disposition,
+            sex=sex,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix=SEARCH_ONE_PREFIX,
+            environment=environment,
+            role=role,
+            age=DEFAULT_AGE_ONE,
+        )
+        self.input_default_values_for_specific_search_criteria(
+            search_prefix=SEARCH_TWO_PREFIX,
+            environment=environment,
+            role=role,
+            age=age,
+        )
 
     def input_text_into_field(self: Self, field_name: str, text: str) -> None:
         """Input text into a field.
