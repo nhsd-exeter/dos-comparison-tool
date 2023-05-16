@@ -21,7 +21,7 @@ class Page:
 
     def assert_on_page(self: Self) -> None:
         """Assert that the page is the current page."""
-        WebDriverWait(CHROME_DRIVER, 5).until(
+        WebDriverWait(CHROME_DRIVER, 10).until(
             method=expected_conditions.presence_of_element_located((By.ID, self.page_id)),
             message=f"{self.page_id} not found",
         )

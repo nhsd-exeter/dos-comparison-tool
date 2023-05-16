@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, call, patch
 from aws_lambda_powertools.shared.json_encoder import Encoder
 from aws_lambda_powertools.utilities.typing.lambda_context import LambdaContext
 
+from application.search.ccs_comparison_search.ccs_exceptions import CCSAPIResponseError
 from application.search.search import lambda_handler
 
 # Fixtures that can't be found in this file are in the conftest.py file
@@ -104,8 +105,34 @@ def test_lambda_handler_with_invalid_request(
     # Act
     response = lambda_handler(event, lambda_context)
     # Assert
-    assert response["body"] == SERIALIZER({"statusCode": 400, "message": "search_one and search_two are required"})
+    assert response["body"] == SERIALIZER(
+        {"message": "Bad Request Error: search_one and search_two are required"},
+    )
     mock_check_capacity_summary_search.assert_not_called()
+
+
+@patch(f"{FILE_PATH}.CheckCapacitySummarySearch")
+def test_lambda_handler_ccs_request_error(
+    mock_check_capacity_summary_search: MagicMock,
+    search_request: dict,
+    lambda_context: LambdaContext,
+) -> None:
+    """Test lambda handler with an internal server error.
+
+    Args:
+        mock_check_capacity_summary_search (MagicMock): Mocked CheckCapacitySummarySearch.
+        search_request (dict): Search request.
+        lambda_context (LambdaContext): Lambda context for search lambda.
+    """
+    # Arrange
+    search_request["path"] = URL_PATH
+    search_request["httpMethod"] = HTTP_METHOD
+    error_message = "test"
+    mock_check_capacity_summary_search.side_effect = CCSAPIResponseError(500, error_code="120", message=error_message)
+    # Act
+    response = lambda_handler(search_request, lambda_context)
+    # Assert
+    assert response["body"] == SERIALIZER({"message": f"CCS API Response Error: {error_message}"})
 
 
 @patch(f"{FILE_PATH}.CheckCapacitySummarySearch")

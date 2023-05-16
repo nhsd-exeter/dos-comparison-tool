@@ -1,8 +1,8 @@
-from json import load
-
 from pytest_bdd import given, then
 from pytest_bdd.parsers import parse
 from requests.models import Response
+
+from integration.utils.utils import load_default_ccs_comparison_search_request
 
 # Use this file for common steps that are used across multiple feature files.
 
@@ -14,8 +14,7 @@ def _() -> dict:
     Returns:
         dict: CCS Comparison Search request.
     """
-    with open("resources/default_ccs_comparison_search.json") as file:
-        return load(file)
+    return load_default_ccs_comparison_search_request()
 
 
 @then(parse('the response should have status code "{status_code:d}"'), target_fixture="response")

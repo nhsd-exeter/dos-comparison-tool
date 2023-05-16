@@ -10,11 +10,10 @@ from end_to_end.utils.elements import click_previous_button
 from .page import Page
 
 DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH = [
-    "Choice - GP - Wonford Green Surgery - Exeter",
     "GP - Wonford Green Surgery - Exeter",
+    "Choice - GP - Wonford Green Surgery - Exeter",
     "WIC - RDE Hospital - Exeter",
     "Choice - GP - Whipton Surgery - Exeter",
-    "WIC - Sidwell Street - Exeter",
 ]
 
 DEFAULT_SEARCH_ONE_RESULTS = DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH + DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH
@@ -23,7 +22,9 @@ DEFAULT_SEARCH_TWO_RESULTS_INDIVIDUAL_SEARCH = [
     "GP - Leeds, West Yorkshire (Dr P Earnshaw & Partners)",
     "GP Choice - Leeds, West Yorkshire (Priory View Medical Centre)",
     "York Street Health Practice",
+    "GP Out of Hours - Leeds, West Yorkshire (Lexicon House) WYUC",
     "GP Choice - Leeds, West Yorkshire (Lincoln Green Medical Centre)",
+    "GP Out of Hours - Leeds, West Yorkshire (St Georges) WYUC",
     "Minor Injuries Unit - Leeds, West Yorkshire (St Georges Centre)",
     "Walk In Centre - Wakefield, West Yorkshire (King Street Health Centre)",
     "Minor Injuries Unit - Leeds, West Yorkshire (Wharfedale)",

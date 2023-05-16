@@ -6,12 +6,18 @@ class CCSAPIResponseError(Exception):
         message -- explanation of the error
     """
 
-    def __init__(self, status_code: int, message: str) -> None:
+    def __init__(self, status_code: int, error_code: str, message: str) -> None:
         """Initialise CCSAPIResponseError.
 
         Args:
             status_code (int): HTTP status code
+            error_code (str): CCS error code
             message (str): explanation of the error
         """
         self.status_code = status_code
+        self.error_code = error_code
         self.message = message
+
+    def __repr__(self) -> str:
+        """Return a string representation of the exception."""
+        return self.message
