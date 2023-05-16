@@ -272,6 +272,20 @@ docker-hub-sign-in: # Sign into Docker hub
 	export DOCKER_PASSWORD=$$($(AWSCLI) secretsmanager get-secret-value --secret-id $(DEPLOYMENT_SECRETS) --version-stage AWSCURRENT --region $(AWS_REGION) --query '{SecretString: SecretString}' | jq --raw-output '.SecretString' | jq -r .DOCKER_HUB_PASS)
 	make docker-login
 
+get-task-environment: # Get environment name, error if not true task branch - mandatory: ENVIRONMENT
+	make check-for-environment
+	echo $(ENVIRONMENT)
+
+get-build-tag: # Get build version - mandatory: ENVIRONMENT
+	make check-for-environment
+	echo $(BUILD_TAG)
+
+check-for-environment: # Check if environment exists - mandatory: ENVIRONMENT
+	if [[ "$(ENVIRONMENT)" == "unknown" ]]; then
+		echo "Environment name $(ENVIRONMENT) does not match task branch $(TASK_BRANCH)";
+		exit 1;
+	fi
+
 # ==============================================================================
 # Environment Clean up
 
@@ -344,5 +358,6 @@ undeploy-development-and-deployment-tools: ## Deploy development and deployment 
 	make terraform-destroy-auto-approve STACKS=development-and-deployment-tools PROFILE=tools ENVIRONMENT=tools
 
 # ==============================================================================
-.SILENT:
-	project-config
+.SILENT: \
+	project-config \
+	get-task-environment

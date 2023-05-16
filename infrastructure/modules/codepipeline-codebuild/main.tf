@@ -6,7 +6,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   service_role   = var.codebuild_service_role
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "CODEPIPELINE"
   }
 
   cache {
@@ -43,10 +43,8 @@ resource "aws_codebuild_project" "codebuild_project" {
     }
   }
   source {
-    type            = "GITHUB"
-    git_clone_depth = 0
-    location        = var.github_repsitory_url
-    buildspec       = var.buildspec_rendered
+    type      = "CODEPIPELINE"
+    buildspec = var.buildspec_rendered
   }
 
 }
