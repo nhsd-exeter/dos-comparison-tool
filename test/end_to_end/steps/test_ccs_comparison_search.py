@@ -46,6 +46,8 @@ def _(key: str, value: str) -> None:
             ccs_comparison_search.enter_search_details(postcode=value)
         case "role":
             ccs_comparison_search.enter_search_details(role=value)
+        case "disposition":
+            ccs_comparison_search.enter_search_details(disposition=value)
     ccs_comparison_search.run_search()
 
 
