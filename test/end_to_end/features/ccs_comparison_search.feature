@@ -23,10 +23,21 @@ Feature: CCS Comparison Seach
     Then I should see the CCS Comparison Search results page
 
     Examples:
-      | key      | value    |
-      | postcode | SW1A 2AA |
-      | postcode | EX2 5SE  |
-      | postcode | E14 4PU  |
-      | postcode | PR8 2HH  |
-      | postcode | EX25SE   |
-      | postcode | EX2  5SE |
+      | key      | value                       |
+      | postcode | SW1A 2AA                    |
+      | postcode | EX2 5SE                     |
+      | postcode | E14 4PU                     |
+      | postcode | PR8 2HH                     |
+      | postcode | EX25SE                      |
+      | postcode | EX2  5SE                    |
+      | role     | 111 Telephony Referral      |
+      | role     | 111 Telephony Referral DHU  |
+      | role     | 111 Telephony Referral IOW  |
+      | role     | 111 Telephony Referral LAS  |
+      | role     | 111 Telephony Referral NWAS |
+      | role     | 111 Telephony Referral SCAS |
+      | role     | 111 Telephony Referral WMAS |
+      | role     | 999 Referral                |
+      | role     | CAS Referral                |
+      | role     | Digital Referral            |
+      | role     | ED Streaming Referral       |
