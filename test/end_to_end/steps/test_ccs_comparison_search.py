@@ -48,6 +48,9 @@ def _(key: str, value: str) -> None:
             ccs_comparison_search.enter_search_details(role=value)
         case "disposition":
             ccs_comparison_search.enter_search_details(disposition=value)
+        case _:
+            msg = f"Unexpected key: {key}"
+            raise ValueError(msg)
     ccs_comparison_search.run_search()
 
 

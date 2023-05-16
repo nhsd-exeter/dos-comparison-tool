@@ -42,13 +42,17 @@ class CCSComparisonResultsPage(Page):
     page_id = "CCSComparisonResultsPage"
 
     def assert_on_page(self: Self) -> None:
-        """Assert that the user is on the CCS Comparison Search page."""
-        WebDriverWait(CHROME_DRIVER, 20).until(expected_conditions.presence_of_element_located((By.ID, self.page_id)))
+        """Assert that the user is on the CCS Comparison Results page."""
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            method=expected_conditions.presence_of_element_located((By.ID, self.page_id)),
+            message="Results page not found",
+        )
 
     def assert_results_table_are_displayed(self: Self) -> None:
         """Assert that the results are displayed."""
-        WebDriverWait(CHROME_DRIVER, 20).until(
-            expected_conditions.presence_of_element_located((By.ID, "CCSComparisonResultsTable")),
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            method=expected_conditions.presence_of_element_located((By.ID, "CCSComparisonResultsTable")),
+            message="Results table not found",
         )
 
     def assert_results_table_has_values(self: Self, default_search_results: list[str]) -> None:
@@ -57,7 +61,7 @@ class CCSComparisonResultsPage(Page):
         Args:
             default_search_results (list[str]): The expected results.
         """
-        WebDriverWait(CHROME_DRIVER, 20).until(
+        WebDriverWait(CHROME_DRIVER, 2).until(
             expected_conditions.presence_of_element_located((By.CLASS_NAME, "results-card__header__title")),
         )
         headers = CHROME_DRIVER.find_elements(by=By.CLASS_NAME, value="results-card__header__title")
@@ -70,8 +74,9 @@ class CCSComparisonResultsPage(Page):
         Args:
         search_ranking_number (int): The number of results to expect.
         """
-        WebDriverWait(CHROME_DRIVER, 20).until(
-            expected_conditions.presence_of_element_located((By.ID, "RankingValue")),
+        WebDriverWait(CHROME_DRIVER, 2).until(
+            method=expected_conditions.presence_of_element_located((By.ID, "RankingValue")),
+            message="Ranking values not found",
         )
         elements = CHROME_DRIVER.find_elements(by=By.ID, value="RankingValue")
         values = [element.text for element in elements]
