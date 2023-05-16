@@ -11,7 +11,10 @@ scenarios("../features/menu.feature")
 @when("I select CCS Comparison Search")
 def _() -> None:
     """I select CCS Comparison Search."""
-    WebDriverWait(CHROME_DRIVER, 5).until(expected_conditions.presence_of_element_located((By.ID, "MenuPage")))
+    WebDriverWait(CHROME_DRIVER, 5).until(
+        method=expected_conditions.presence_of_element_located((By.ID, "MenuPage")),
+        message="Menu page not found",
+    )
     CHROME_DRIVER.find_element(By.ID, "ccsSearchCard").click()
 
 
@@ -19,5 +22,6 @@ def _() -> None:
 def _() -> None:
     """I am on the CCS Comparison Search page."""
     WebDriverWait(CHROME_DRIVER, 5).until(
-        expected_conditions.presence_of_element_located((By.ID, "CCSComparisonSearchPage")),
+        method=expected_conditions.presence_of_element_located((By.ID, "CCSComparisonSearchPage")),
+        message="Search page not found",
     )

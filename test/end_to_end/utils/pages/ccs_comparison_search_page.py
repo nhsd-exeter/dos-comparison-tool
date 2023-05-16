@@ -223,26 +223,30 @@ class CCSComparisonSearchPage(Page):
     def wait_for_drop_downs_to_load(self: Self) -> None:
         """Wait for the dropdowns to load data from the data lambda."""
         WebDriverWait(CHROME_DRIVER, 15).until(
-            expected_conditions.text_to_be_present_in_element(
+            method=expected_conditions.text_to_be_present_in_element(
                 (By.ID, "SymptomGroupDropDown"),
                 DEFAULT_SYMPTOM_GROUP_ONE,
             ),
+            message="Symptom group dropdown did not load values.",
         )
         WebDriverWait(CHROME_DRIVER, 5).until(
-            expected_conditions.text_to_be_present_in_element(
+            method=expected_conditions.text_to_be_present_in_element(
                 (By.ID, "DispositionDropDown"),
                 DEFAULT_DISPOSITION_ONE,
             ),
+            message="Disposition dropdown did not load values.",
         )
         WebDriverWait(CHROME_DRIVER, 5).until(
-            expected_conditions.text_to_be_present_in_element(
+            method=expected_conditions.text_to_be_present_in_element(
                 (By.ID, "SearchOneRoleDropDown"),
                 DEFAULT_ROLE_ONE,
             ),
+            message="Search one role dropdown did not load values.",
         )
         WebDriverWait(CHROME_DRIVER, 5).until(
-            expected_conditions.text_to_be_present_in_element(
+            method=expected_conditions.text_to_be_present_in_element(
                 (By.ID, "SearchOneRoleDropDown"),
                 DEFAULT_ROLE_TWO,
             ),
+            message="Search two role dropdown did not load values.",
         )
