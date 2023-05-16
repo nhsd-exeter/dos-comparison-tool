@@ -76,6 +76,7 @@ class CheckCapacitySummarySearch:
         if response.status_code == CCS_SUCCESS_STATUS_CODE:
             logger.info(
                 f"{self.search_environment} CCS Response {response.status_code}",
+                response=response.text,
                 status_code=response.status_code,
                 search_environment=self.search_environment,
             )
@@ -153,7 +154,7 @@ class CheckCapacitySummarySearch:
         add_basic_element("symptomGroup", str(self.symptom_group), c)
         add_basic_element("searchDistance", str(self.search_distance), c)
         add_basic_element("gender", self.gender, c)
-        add_basic_element("SearchDateTime", self.search_date_time, c)
+        add_basic_element("searchDateTime", self.search_date_time, c)
         symptom_discriminator_list = root.createElement("web:symptomDiscriminatorList")
         c.appendChild(symptom_discriminator_list)
         for symptom_discriminator in self.symptom_discriminator_list:

@@ -90,3 +90,11 @@ def _() -> None:
 def _(search_ranking_number: str) -> None:
     """Results should have the same ranking."""
     CCSComparisonResultsPage().assert_all_ranking_results_are_equal(search_ranking_number=int(search_ranking_number))
+
+
+@then(parse('I should see the CCS Comparison Search results with error message "{error_message}"'))
+def _(error_message: str) -> None:
+    """I should see the CCS Comparison Search results page."""
+    ccs_comparison_results_page = CCSComparisonResultsPage()
+    ccs_comparison_results_page.assert_on_page()
+    ccs_comparison_results_page.assert_error_message_is_displayed(error_message=error_message)

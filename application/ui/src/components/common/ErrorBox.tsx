@@ -1,19 +1,19 @@
 import { ErrorSummary } from "nhsuk-react-components";
+import {
+	ERROR_SUMMARY,
+	ERROR_SUMMARY_TITLE,
+	ERROR_SUMMARY_VALUE,
+} from "../../constants/componentIds";
 
 const ErrorBox = (
 	message: string,
 	title = "There is a problem",
-	id = "error-summary"
+	id = ERROR_SUMMARY
 ): React.JSX.Element => {
 	return (
-		<ErrorSummary
-			id={id}
-			aria-labelledby="error-summary-title"
-			role="alert"
-			tabIndex={-1}
-		>
-			<ErrorSummary.Title id="error-summary-title">{title}</ErrorSummary.Title>
-			<ErrorSummary.Body>{message}</ErrorSummary.Body>
+		<ErrorSummary id={id} role="alert" tabIndex={-1}>
+			<ErrorSummary.Title id={ERROR_SUMMARY_TITLE}>{title}</ErrorSummary.Title>
+			<ErrorSummary.Body id={ERROR_SUMMARY_VALUE}>{message}</ErrorSummary.Body>
 		</ErrorSummary>
 	);
 };
