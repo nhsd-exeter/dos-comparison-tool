@@ -24,10 +24,9 @@ phases:
       - echo Branch = $BUILD_BRANCH
       - make get-task-environment PROFILE=$PROFILE BUILD_BRANCH=$BUILD_BRANCH
       - ENVIRONMENT=$(make -s get-task-environment PROFILE=$PROFILE BUILD_BRANCH=$BUILD_BRANCH)
-      - BUILD_TAG=$(make -s get-build-tag PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT)
       # Build certificates
       - make ssl-generate-certificate-project
   build:
     commands:
       # Build and Deploy the application
-      - make build-and-deploy PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT VERSION=$BUILD_TAG
+      - make build-and-deploy PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT
