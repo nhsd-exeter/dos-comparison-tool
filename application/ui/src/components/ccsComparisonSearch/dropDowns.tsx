@@ -17,6 +17,7 @@ export function SymptomGroupDropDown({
 }) {
 	return (
 		<Select label="Symptom Group" id={SYMPTOM_GROUP_DROP_DOWN}>
+			<Select.Option value="0"></Select.Option>
 			{GenerateSymptomGroupOptions(symptomGroups)}
 		</Select>
 	);
@@ -36,6 +37,7 @@ export function GenerateSymptomGroupOptions(symptomGroups: SymptomGroup[]) {
 export function SymptomDiscriminatorDropDown() {
 	return (
 		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
+			<Select.Option value="0"></Select.Option>
 			<Select.Option value="4003">AMB Bleeding, significant</Select.Option>
 			<Select.Option value="4003">AMB Bleeding</Select.Option>
 		</Select>
@@ -49,6 +51,7 @@ export function DispositionDropDown({
 }) {
 	return (
 		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
+			<Select.Option value="0"></Select.Option>
 			{GenerateDispositionOptions(dispositions)}
 		</Select>
 	);
@@ -68,9 +71,9 @@ export function GenerateDispositionOptions(dispositions: Disposition[]) {
 export function SexDropDown() {
 	return (
 		<Select label="Sex" id={SEX_DROP_DOWN}>
+			<Select.Option value="I">Unknown</Select.Option>
 			<Select.Option value="M">Male</Select.Option>
 			<Select.Option value="F">Female</Select.Option>
-			<Select.Option value="I">Unknown</Select.Option>
 		</Select>
 	);
 }
@@ -110,6 +113,7 @@ export function RoleDropDown({
 }) {
 	return (
 		<Select label="Role" id={`${searchName}${ROLE_DROP_DOWN_SUFFIX}`}>
+			<Select.Option value="0"></Select.Option>
 			{GenerateRoleOptions(roles)}
 		</Select>
 	);
