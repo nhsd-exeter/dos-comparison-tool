@@ -6,8 +6,8 @@ phases:
     commands:
       - git config --global --add safe.directory $CODEBUILD_SRC_DIR
       # # Install openssl
-      # - yum install -y openssl
-      # - cp /etc/pki/tls/openssl.cnf /etc/ssl/openssl.cnf
+      - yum install -y openssl
+      - cp /etc/pki/tls/openssl.cnf /etc/ssl/openssl.cnf
   pre_build:
     commands:
       - chown -R 999:999 $CODEBUILD_SRC_DIR
@@ -30,4 +30,4 @@ phases:
   build:
     commands:
       # Build and Deploy the application
-      - make build-and-deploy PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT BUILD_TAG=$BUILD_TAG
+      - make build-and-deploy PROFILE=$PROFILE ENVIRONMENT=$ENVIRONMENT VERSION=$BUILD_TAG
