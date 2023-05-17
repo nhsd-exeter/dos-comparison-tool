@@ -19,17 +19,24 @@ import { SexDropDown } from "./dropDowns";
 
 function SharedSearchForm() {
 	const idToken = useAppSelector(selectToken) as string;
+	const [dispositions, setDispositions] = useState([
+		{
+			DispositionCode: "0",
+			DispositionId: "0",
+			DispositionName: "Loading Dispositions",
+		},
+	] as Disposition[]);
 	const [symptomGroups, setSymptomGroups] = useState([
 		{
 			SymptomGroupId: "0",
 			SymptomGroupName: "Loading Symptom Groups",
-		},
+		} as SymptomGroup,
 	]);
 	const [symptomDiscriminators, setSymptomDiscriminators] = useState([
 		{
 			SymptomDiscriminatorId: "0",
 			SymptomDiscriminatorName: "Loading Symptom Discriminators",
-		},
+		} as SymptomDiscriminator,
 	]);
 	const [dispositions, setDispositions] = useState([
 		{
@@ -38,6 +45,7 @@ function SharedSearchForm() {
 			DispositionName: "Loading Dispositions",
 		},
 	] as Disposition[]);
+	const [isSymptomGroupSelected, setIsSymptomGroupSelected] = useState(false);
 
 	const fetchSymptomGroups = async () => {
 		SetupDefaultHeaders(idToken);
@@ -96,7 +104,9 @@ function SharedSearchForm() {
 
 	const symptomDiscriminatorsDropDown = (
 		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
-			<Select.Option value="0">Select a Symptom Discriminator</Select.Option>
+			{isSymptomGroupSelected ? (
+				<Select.Option value="0">Select a Symptom Discriminator</Select.Option>
+			) : null}
 			{GenerateSymptomDiscriminatorOptions(symptomDiscriminators)}
 		</Select>
 	);

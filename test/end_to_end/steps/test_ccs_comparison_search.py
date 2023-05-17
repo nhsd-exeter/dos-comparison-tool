@@ -39,7 +39,12 @@ def _() -> None:
 
 @when(parse('I run a CCS Comparison search with "{key}" "{value}"'))
 def _(key: str, value: str) -> None:
-    """I return to the CCS Comparison Search page."""
+    """I return to the CCS Comparison Search page.
+
+    Args:
+        key (str): The key to search for.
+        value (str): The value to search for.
+    """
     ccs_comparison_search = CCSComparisonSearchPage()
     match key:
         case "postcode":
@@ -53,6 +58,29 @@ def _(key: str, value: str) -> None:
         case _:
             msg = f"Unexpected key: {key}"
             raise ValueError(msg)
+    ccs_comparison_search.run_search()
+
+
+@when(
+    parse(
+        'I run a CCS Comparison search with symptom group "{symptom_group}" and '
+        'symptom discriminator "{symptom_discriminator}" and disposition "{disposition}"',
+    ),
+)
+def _(symptom_group: str, symptom_discriminator: str, disposition: str) -> None:
+    """I run a specific CCS Comparison search.
+
+    Args:
+        symptom_group (str): The symptom group to search for.
+        symptom_discriminator (str): The symptom discriminator to search for.
+        disposition (str): The disposition to search for.
+    """
+    ccs_comparison_search = CCSComparisonSearchPage()
+    ccs_comparison_search.enter_search_details(
+        symptom_group=symptom_group,
+        symptom_discriminator=symptom_discriminator,
+        disposition=disposition,
+    )
     ccs_comparison_search.run_search()
 
 
@@ -90,13 +118,21 @@ def _() -> None:
 
 @then(parse('Results should have the same ranking for "{search_ranking_number}" services'))
 def _(search_ranking_number: str) -> None:
-    """Results should have the same ranking."""
+    """Results should have the same ranking.
+
+    Args:
+        search_ranking_number (str): The number of results to check.
+    """
     CCSComparisonResultsPage().assert_all_ranking_results_are_equal(search_ranking_number=int(search_ranking_number))
 
 
 @then(parse('I should see the CCS Comparison Search results with error message "{error_message}"'))
 def _(error_message: str) -> None:
-    """I should see the CCS Comparison Search results page."""
+    """I should see the CCS Comparison Search results page.
+
+    Args:
+        error_message (str): The error message to check for.
+    """
     ccs_comparison_results_page = CCSComparisonResultsPage()
     ccs_comparison_results_page.assert_on_page()
     ccs_comparison_results_page.assert_error_message_is_displayed(error_message=error_message)
