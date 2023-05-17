@@ -10,7 +10,7 @@ module "data_lambda" {
   timeout                           = 5
   maximum_retry_attempts            = 0
   tracing_mode                      = "Active"
-  cloudwatch_logs_retention_in_days = 30
+  cloudwatch_logs_retention_in_days = 7
 
   create_package = false
   package_type   = "Image"
