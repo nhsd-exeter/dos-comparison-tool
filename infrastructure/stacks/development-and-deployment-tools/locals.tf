@@ -27,6 +27,11 @@ locals {
       name  = "AWS_ACCOUNT_ID_IDENTITIES"
       type  = "PLAINTEXT"
       value = var.aws_account_id_identities
+    },
+    {
+      name  = "BUILD_ROLE"
+      type  = "PLAINTEXT"
+      value = "UECDoSCTPipelineBuildRole"
     }
   ]
 

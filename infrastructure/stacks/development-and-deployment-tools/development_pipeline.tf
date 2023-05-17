@@ -89,36 +89,36 @@ resource "aws_codepipeline" "development_pipeline" {
   }
   stage {
     name = "Deploy_and_Test_Nonprod_Environments"
-    # action {
+    action {
 
-    #   name            = "Deploy_Dev"
-    #   category        = "Build"
-    #   owner           = "AWS"
-    #   run_order       = 1
-    #   provider        = "CodeBuild"
-    #   input_artifacts = ["source_output"]
-    #   version         = "1"
-    #   configuration = {
-    #     ProjectName = var.deploy_codebuild_project
-    #     EnvironmentVariables = jsonencode([
-    #       {
-    #         name  = "PROFILE"
-    #         value = "dev"
-    #         type  = "PLAINTEXT"
-    #       },
-    #       {
-    #         name  = "ENVIRONMENT"
-    #         value = "dev"
-    #         type  = "PLAINTEXT"
-    #       }
-    #     ])
-    #   }
-    # }
+      name            = "Deploy_Dev"
+      category        = "Build"
+      owner           = "AWS"
+      run_order       = 1
+      provider        = "CodeBuild"
+      input_artifacts = ["source_output"]
+      version         = "1"
+      configuration = {
+        ProjectName = var.deploy_codebuild_project
+        EnvironmentVariables = jsonencode([
+          {
+            name  = "PROFILE"
+            value = "dev"
+            type  = "PLAINTEXT"
+          },
+          {
+            name  = "ENVIRONMENT"
+            value = "dev"
+            type  = "PLAINTEXT"
+          }
+        ])
+      }
+    }
     action {
       name            = "End_To_End_Tests"
       category        = "Build"
       owner           = "AWS"
-      run_order       = 1
+      run_order       = 2
       provider        = "CodeBuild"
       input_artifacts = ["source_output"]
       version         = "1"
@@ -142,7 +142,7 @@ resource "aws_codepipeline" "development_pipeline" {
       name            = "API_Integration_Tests"
       category        = "Build"
       owner           = "AWS"
-      run_order       = 1
+      run_order       = 2
       provider        = "CodeBuild"
       input_artifacts = ["source_output"]
       version         = "1"

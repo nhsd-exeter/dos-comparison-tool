@@ -59,3 +59,13 @@ variable "codebuild_environment_variables" {
   }))
   description = "The environment variables for the CodeBuild project"
 }
+
+variable "filters" {
+  type = list(object(
+    {
+      type                    = string
+      pattern                 = string
+      exclude_matched_pattern = bool
+  }))
+  description = "The filter group for the CodeBuild project"
+}

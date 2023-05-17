@@ -27,7 +27,7 @@ variable "development_pipeline" {
 }
 
 # ############################
-# CODE BUILD
+# CODEBUILD PIPELINE PROJECTS
 # ############################
 
 variable "python_unit_tests_codebuild_project" {
@@ -63,6 +63,15 @@ variable "end_to_end_tests_codebuild_project" {
 variable "api_integration_tests_codebuild_project" {
   type        = string
   description = "The name of the api integration tests codebuild project"
+}
+
+# ############################
+# CODEBUILD STANDALONE PROJECTS
+# ############################
+
+variable "build_and_deploy_environment_codebuild_project" {
+  type        = string
+  description = "The name of the build and deploy environment codebuild project"
 }
 
 variable "clean_up_resources_codebuild_project" {
