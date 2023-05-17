@@ -22,7 +22,9 @@ def file_to_dataframe(file_name: str) -> DataFrame:
     local_file_name = f"/tmp/{file_name}"  # noqa: S108 - This is a local file path in lambda
     logger.info(
         f"Getting file {file_name} from S3",
-        extra={"file_name": file_name, "bucket_name": bucket_name, "local_file_name": local_file_name},
+        file_name=file_name,
+        bucket_name=bucket_name,
+        local_file_name=local_file_name,
     )
     s3.download_file(bucket_name, file_name, local_file_name)
     return read_csv(local_file_name)
