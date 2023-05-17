@@ -40,31 +40,19 @@ function SharedSearchForm() {
 	]);
 
 	const fetchDispositions = async () => {
-		try {
-			SetupDefaultHeaders(idToken);
-			const response = await axios.post(`${DataLambda}/dispositions`);
-			setDispositions(response.data as Disposition[]);
-			return {
-				success: true,
-				data: response.data as Disposition[],
-			};
-		} catch (error) {
-			return;
-		}
+		SetupDefaultHeaders(idToken);
+		await axios
+			.post(`${DataLambda}/dispositions`)
+			.then((response) => setDispositions(response.data as Disposition[]))
+			.catch((error) => error);
 	};
 
 	const fetchSymptomGroups = async () => {
-		try {
-			SetupDefaultHeaders(idToken);
-			const response = await axios.post(`${DataLambda}/symptom_groups`);
-			setSymptomGroups(response.data as SymptomGroup[]);
-			return {
-				success: true,
-				data: response.data as SymptomGroup[],
-			};
-		} catch (error) {
-			return;
-		}
+		SetupDefaultHeaders(idToken);
+		await axios
+			.post(`${DataLambda}/symptom_groups`)
+			.then((response) => setSymptomGroups(response.data as SymptomGroup[]))
+			.catch((error) => error);
 	};
 
 	const handleSymptomGroupChange = async (
@@ -73,20 +61,15 @@ function SharedSearchForm() {
 		const selectedSymptomGroupId = parseInt(event.target.value);
 		await fetchSymptomDiscriminators(selectedSymptomGroupId);
 	};
+
 	const fetchSymptomDiscriminators = async (symptomGroupId: number) => {
-		try {
-			SetupDefaultHeaders(idToken);
-			const response = await axios.post(
-				`${DataLambda}/symptom_discriminators/${symptomGroupId}`
-			);
-			setSymptomDiscriminators(response.data as SymptomDiscriminator[]);
-			return {
-				success: true,
-				data: response.data as SymptomDiscriminator[],
-			};
-		} catch (error) {
-			return;
-		}
+		SetupDefaultHeaders(idToken);
+		await axios
+			.post(`${DataLambda}/symptom_discriminators/${symptomGroupId}`)
+			.then((response) =>
+				setSymptomDiscriminators(response.data as SymptomDiscriminator[])
+			)
+			.catch((error) => error);
 	};
 
 	useEffect(() => {
