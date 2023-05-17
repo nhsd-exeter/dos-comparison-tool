@@ -32,9 +32,7 @@ function CCSComparisonSearch() {
 
 	const handleSearchForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		function getElementById(inputName: string) {
-			const value = (document.getElementById(inputName) as HTMLInputElement)
-				.value;
-			return value;
+			return (document.getElementById(inputName) as HTMLInputElement).value;
 		}
 		event.preventDefault();
 		navigate(CCS_COMPARISON_RESULTS_PATH);
@@ -81,7 +79,7 @@ function CCSComparisonSearch() {
 				search_environment: searchOneEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],
 				symptom_group: parseInt(symptomGroup),
-				search_date_time: "2025-01-01T00:01:00+00:00",
+				search_date_time: "2024-01-31T10:00:00+00:00",
 			},
 			search_two: {
 				age: parseInt(searchTwoAge),
@@ -93,7 +91,7 @@ function CCSComparisonSearch() {
 				search_environment: searchTwoEnvironment,
 				symptom_discriminator_list: [parseInt(symptomDiscriminator)],
 				symptom_group: parseInt(symptomGroup),
-				search_date_time: "2025-01-01T00:01:00+00:00",
+				search_date_time: "2024-01-31T10:00:00+00:00",
 			},
 		};
 		await dispatch(search(searchData));

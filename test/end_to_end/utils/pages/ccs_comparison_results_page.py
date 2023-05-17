@@ -10,10 +10,11 @@ from end_to_end.utils.elements import click_previous_button
 from .page import Page
 
 DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH = [
-    "GP - Wonford Green Surgery - Exeter",
     "Choice - GP - Wonford Green Surgery - Exeter",
+    "GP - Wonford Green Surgery - Exeter",
     "WIC - RDE Hospital - Exeter",
     "Choice - GP - Whipton Surgery - Exeter",
+    "WIC - Sidwell Street - Exeter",
 ]
 
 DEFAULT_SEARCH_ONE_RESULTS = DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH + DEFAULT_SEARCH_ONE_RESULTS_INDIVIDUAL_SEARCH
@@ -22,9 +23,7 @@ DEFAULT_SEARCH_TWO_RESULTS_INDIVIDUAL_SEARCH = [
     "GP - Leeds, West Yorkshire (Dr P Earnshaw & Partners)",
     "GP Choice - Leeds, West Yorkshire (Priory View Medical Centre)",
     "York Street Health Practice",
-    "GP Out of Hours - Leeds, West Yorkshire (Lexicon House) WYUC",
     "GP Choice - Leeds, West Yorkshire (Lincoln Green Medical Centre)",
-    "GP Out of Hours - Leeds, West Yorkshire (St Georges) WYUC",
     "Minor Injuries Unit - Leeds, West Yorkshire (St Georges Centre)",
     "Walk In Centre - Wakefield, West Yorkshire (King Street Health Centre)",
     "Minor Injuries Unit - Leeds, West Yorkshire (Wharfedale)",
@@ -89,3 +88,18 @@ class CCSComparisonResultsPage(Page):
     def navigate_to_previous_page(self: Self) -> None:
         """Navigate to the previous page."""
         click_previous_button()
+
+    def assert_error_message_is_displayed(self: Self, error_message: str) -> None:
+        """Assert that the error message is displayed.
+
+        Args:
+        error_message (str): The error message to expect.
+        """
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            method=expected_conditions.presence_of_element_located((By.ID, "error-summary")),
+            message="Error message not found",
+        )
+        error_box_header = CHROME_DRIVER.find_element(by=By.ID, value="error-summary-title")
+        assert error_box_header.text == "Search Failed", f"Expected 'Search Failed', got {error_box_header.text}"
+        error_box_header = CHROME_DRIVER.find_element(by=By.ID, value="error-summary-value")
+        assert error_box_header.text == error_message, f"Expected {error_message}, got {error_box_header.text}"

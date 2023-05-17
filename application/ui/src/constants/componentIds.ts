@@ -11,6 +11,10 @@ export const MAIN_ID = "DoSComparisonToolMain";
 // Common Elements
 export const NEXT_BUTTON = "next-button";
 export const PREVIOUS_BUTTON = "previous-button";
+// Error Elements
+export const ERROR_SUMMARY = "error-summary";
+export const ERROR_SUMMARY_TITLE = "error-summary-title";
+export const ERROR_SUMMARY_VALUE = "error-summary-value";
 // Auth Login Elements
 export const AUTH_USERNAME_INPUT = "authUsernameInput";
 export const AUTH_PASSWORD_INPUT = "authPasswordInput";

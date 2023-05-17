@@ -40,16 +40,16 @@
     "equal_results": true
   },
   {
-    "uid": "1396609273",
-    "name": "Urgent Care Centre Bracknell Berkshire",
+    "uid": "1384162616",
+    "name": "Urgent Care Paediatric Clinic Bracknell Berkshire",
     "address": "Royal Berkshire Bracknell Clinic, Eastern Gate, Brants Bridge, Bracknell, Berkshire, RG12 9BG",
     "service_type": "UCC",
     "distance": "10.4",
     "equal_results": true
   },
   {
-    "uid": "1384162616",
-    "name": "Urgent Care Paediatric Clinic Bracknell Berkshire",
+    "uid": "1396609273",
+    "name": "Urgent Care Centre Bracknell Berkshire",
     "address": "Royal Berkshire Bracknell Clinic, Eastern Gate, Brants Bridge, Bracknell, Berkshire, RG12 9BG",
     "service_type": "UCC",
     "distance": "10.4",

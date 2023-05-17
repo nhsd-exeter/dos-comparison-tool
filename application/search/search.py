@@ -41,7 +41,8 @@ def ccs_comparison_search() -> tuple:
         search_one_response, search_two_response = compare_search_responses(search_one_response, search_two_response)
         logger.debug(
             "CCS Comparison Search Responses",
-            extra={"search_one_response": search_one_response, "search_two_response": search_two_response},
+            search_one_response=search_one_response,
+            search_two_response=search_two_response,
         )
         response_body = {
             "search_one": search_one_response,

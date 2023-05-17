@@ -15,7 +15,7 @@ setup: # Set up project for development - mandatory: PROFILE=[name]
 	make pip-install
 # Set up local virtual environment and download dependencies
 
-build: project-config # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
+build: # Build project - mandatory: PROFILE=[name], ENVIRONMENT=[name]
 	make search-build
 	make data-build
 	make ui-build

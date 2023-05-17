@@ -153,7 +153,7 @@ class CheckCapacitySummarySearch:
         add_basic_element("symptomGroup", str(self.symptom_group), c)
         add_basic_element("searchDistance", str(self.search_distance), c)
         add_basic_element("gender", self.gender, c)
-        add_basic_element("SearchDateTime", self.search_date_time, c)
+        add_basic_element("searchDateTime", self.search_date_time, c)
         symptom_discriminator_list = root.createElement("web:symptomDiscriminatorList")
         c.appendChild(symptom_discriminator_list)
         for symptom_discriminator in self.symptom_discriminator_list:
