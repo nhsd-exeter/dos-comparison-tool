@@ -39,34 +39,41 @@ function SharedSearchForm() {
 		},
 	] as Disposition[]);
 	const [isSymptomGroupSelected, setIsSymptomGroupSelected] = useState(false);
+	const [disableSymptomGroupDropDown, setDisableSymptomGroupDropDown] =
+		useState(true);
+	const [disableDispositionDropDown, setDisableDispositionDropDown] =
+		useState(true);
 
 	const fetchSymptomGroups = async () => {
 		SetupDefaultHeaders(idToken);
+		setDisableSymptomGroupDropDown(true);
 		await axios
 			.post(`${DataLambda}/symptom_groups`, {}, { timeout: 10000 })
 			.then((response) => setSymptomGroups(response.data as SymptomGroup[]))
 			.catch((error) => error);
+		setDisableSymptomGroupDropDown(false);
 	};
 
 	const fetchDispositions = async () => {
 		SetupDefaultHeaders(idToken);
+		setDisableDispositionDropDown(true);
 		await axios
 			.post(`${DataLambda}/dispositions`, {}, { timeout: 10000 })
 			.then((response) => setDispositions(response.data as Disposition[]))
 			.catch((error) => error);
+		setDisableDispositionDropDown(false);
 	};
 
 	const handleSymptomGroupChange = async (
 		event: React.ChangeEvent<HTMLSelectElement>
 	) => {
-		setIsSymptomGroupSelected(false);
 		const selectedSymptomGroupId = parseInt(event.target.value);
 		await fetchSymptomDiscriminators(selectedSymptomGroupId);
-		setIsSymptomGroupSelected(true);
 	};
 
 	const fetchSymptomDiscriminators = async (symptomGroupId: number) => {
 		SetupDefaultHeaders(idToken);
+		setIsSymptomGroupSelected(false);
 		await axios
 			.post(
 				`${DataLambda}/symptom_discriminators/${symptomGroupId}`,
@@ -77,6 +84,7 @@ function SharedSearchForm() {
 				setSymptomDiscriminators(response.data as SymptomDiscriminator[])
 			)
 			.catch((error) => error);
+		setDisableSymptomGroupDropDown(true);
 	};
 
 	useEffect(() => {
@@ -91,6 +99,7 @@ function SharedSearchForm() {
 			label="Symptom Group"
 			id={SYMPTOM_GROUP_DROP_DOWN}
 			onChange={handleSymptomGroupChange}
+			disabled={disableSymptomGroupDropDown}
 		>
 			<Select.Option value="0">Select a Symptom Group</Select.Option>
 			{GenerateSymptomGroupOptions(symptomGroups)}
@@ -98,7 +107,12 @@ function SharedSearchForm() {
 	);
 
 	const symptomDiscriminatorsDropDown = (
-		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
+		<Select
+			label="Symptom Discriminator"
+			id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}
+			disabled={!isSymptomGroupSelected}
+			hint="Select a Symptom Group to enable Symptom Discriminator"
+		>
 			{isSymptomGroupSelected ? (
 				<Select.Option value="0">Select a Symptom Discriminator</Select.Option>
 			) : null}
@@ -107,7 +121,11 @@ function SharedSearchForm() {
 	);
 
 	const dispositionsDropDown = (
-		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
+		<Select
+			label="Disposition"
+			id={DISPOSITION_DROP_DOWN}
+			disabled={disableDispositionDropDown}
+		>
 			<Select.Option value="0">Select a Disposition</Select.Option>
 			{GenerateDispositionOptions(dispositions)}
 		</Select>
