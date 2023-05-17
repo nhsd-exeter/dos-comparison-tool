@@ -59,11 +59,12 @@ Feature: CCS Comparison Seach
       | postcode    | SW1A               | Error: ERR_BAD_REQUEST: Request failed with status code 400, Please try again later or contact support |
       | disposition | Medication Enquiry | Error: ERR_BAD_REQUEST: Request failed with status code 400, Please try again later or contact support |
 
-  Scenario Outline: CCS Comparison Search with different SG,SD, DX combinations
+  Scenario Outline: CCS Comparison Search with different SG, SD, DX combinations
     Given I am on the CCS Comparison Search page
     When I run a CCS Comparison search with symptom group "<symptom_group>" and symptom discriminator "<symptom_discriminator>" and disposition "<disposition>"
     Then I should see the CCS Comparison Search results page
 
     Examples:
-      | symptom_group | symptom_discriminator | disposition                                     |
-      |               | Value 2               | Attend Emergency Treatment Centre within 1 hour |
+      | symptom_group                    | symptom_discriminator                                      | disposition                                      |
+      | Abdominal or Flank Injury, Blunt | PC full Primary Care assessment and prescribing capability | To contact a Primary Care Service within 2 hours |
+      | Bites, Human                     | ED full ED assessment and management capability            | Attend Emergency Treatment Centre within 1 hour  |

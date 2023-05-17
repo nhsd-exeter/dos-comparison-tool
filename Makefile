@@ -232,18 +232,24 @@ tester-build: # Build tester image which is used for end-to-end testing
 test-install: # Install test dependencies
 	python -m pip install -r test/requirements-test.txt
 
-api-integration-tests: # Run API integration tests - mandatory: PROFILE, ENVIRONMENT
+api-integration-tests: # Run API integration tests - mandatory: PROFILE, ENVIRONMENT - optional: TAGS
+	if [[ ! -z "$(TAGS)" ]]; then
+		TAGS_ARG="-k $(TAGS)"
+	fi
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/integration \
-	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto --cucumberjson=./testresults.json" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter -n auto --cucumberjson=./testresults.json $$TAGS_ARG" \
 	ARGS="--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk)"
 
-end-to-end-tests: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT
+end-to-end-tests: # Run end-to-end tests - mandatory: PROFILE, ENVIRONMENT - optional: TAGS
+	if [[ ! -z "$(TAGS)" ]]; then
+		TAGS_ARG="-k $(TAGS)"
+	fi
 	make -s docker-run \
 	IMAGE=$(DOCKER_REGISTRY)/tester \
 	DIR=test/end_to_end \
-	CMD="pytest -vvvv --gherkin-terminal-reporter --cucumberjson=./testresults.json" \
+	CMD="pytest -vvvv --gherkin-terminal-reporter --cucumberjson=./testresults.json $$TAGS_ARG" \
 	ARGS="--env-file <(make _docker-get-variables-from-file VARS_FILE=$(VAR_DIR)/project.mk)"
 
 # ==============================================================================
