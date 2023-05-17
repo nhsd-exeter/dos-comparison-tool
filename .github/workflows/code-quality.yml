@@ -65,7 +65,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -108,7 +108,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: application/ui/yarn.lock
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -126,7 +126,7 @@ jobs:
             application/requirements-dev.txt
             application/*/requirements.txt
       - name: Cache Python dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
