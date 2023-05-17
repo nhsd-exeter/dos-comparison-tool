@@ -96,21 +96,6 @@ jobs:
         run: |
           make terraform-security
 
-  CodeQL-Analysis:
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: typescript, python
-          queries: security-and-quality
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
   sonarcloud-analysis:
     runs-on: ubuntu-latest
     steps:
@@ -140,6 +125,13 @@ jobs:
           cache-dependency-path: |
             application/requirements-dev.txt
             application/*/requirements.txt
+      - name: Cache Python dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Python Install Requirements
         run: make pip-install
       - name: Run Python Unit Tests
