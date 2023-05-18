@@ -22,6 +22,9 @@ TF_VAR_aws_vpc_name = $(AWS_VPC_NAME)
 
 CONFIGURATION_BUCKET = $(PROJECT_ID)-configuration-bucket
 TF_VAR_developer_role_name := Developer
+
+ECR_REPOSITORY_PREFIX := $(PROJECT_GROUP_SHORT)/$(PROJECT_NAME_SHORT)
+ECR_REPOSITORIES := search,data,ui
 # ==============================================================================
 # Pipeline
 

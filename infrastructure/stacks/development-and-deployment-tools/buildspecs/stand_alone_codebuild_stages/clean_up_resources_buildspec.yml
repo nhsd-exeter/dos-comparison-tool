@@ -17,4 +17,4 @@ phases:
       # Clean up resources from non-prod environments
       - make clean-up-environments PROFILE=$PROFILE
       # Clean up ECR repositories with old images
-      # - make clean-up-ecr-repositories PROFILE=$PROFILE
+      - make clean-up-ecr-repositories PROFILE=$PROFILE
