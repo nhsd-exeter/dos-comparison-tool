@@ -19,13 +19,6 @@ import { SexDropDown } from "./dropDowns";
 
 function SharedSearchForm() {
 	const idToken = useAppSelector(selectToken) as string;
-	const [dispositions, setDispositions] = useState([
-		{
-			DispositionCode: "0",
-			DispositionId: "0",
-			DispositionName: "Loading Dispositions",
-		},
-	] as Disposition[]);
 	const [symptomGroups, setSymptomGroups] = useState([
 		{
 			SymptomGroupId: "0",
@@ -66,8 +59,10 @@ function SharedSearchForm() {
 	const handleSymptomGroupChange = async (
 		event: React.ChangeEvent<HTMLSelectElement>
 	) => {
+		setIsSymptomGroupSelected(false);
 		const selectedSymptomGroupId = parseInt(event.target.value);
 		await fetchSymptomDiscriminators(selectedSymptomGroupId);
+		setIsSymptomGroupSelected(true);
 	};
 
 	const fetchSymptomDiscriminators = async (symptomGroupId: number) => {
