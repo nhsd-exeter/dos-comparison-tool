@@ -60,7 +60,14 @@ variable "codebuild_environment_variables" {
   description = "The environment variables for the CodeBuild project"
 }
 
+variable "codebuild_webhook_enabled" {
+  type        = bool
+  description = "Whether to enable the webhook for the CodeBuild project"
+  default     = false
+}
+
 variable "filters" {
+  default = []
   type = list(object(
     {
       type                    = string
@@ -68,4 +75,16 @@ variable "filters" {
       exclude_matched_pattern = bool
   }))
   description = "The filter group for the CodeBuild project"
+}
+
+variable "codebuild_schedule_enabled" {
+  type        = bool
+  description = "Whether to enable a cron for the CodeBuild project"
+  default     = false
+}
+
+variable "codebuild_schedule_expression" {
+  type        = string
+  description = "The cron schedule expression for the CodeBuild project"
+  default     = ""
 }

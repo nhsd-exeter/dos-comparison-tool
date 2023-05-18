@@ -13,7 +13,7 @@ module "build_and_deploy_environment_codebuild_project" {
       value = "dev"
       type  = "PLAINTEXT"
   }])
-
+  codebuild_webhook_enabled = true
   filters = [
     {
       type                    = "EVENT"
@@ -28,14 +28,20 @@ module "build_and_deploy_environment_codebuild_project" {
   ]
 }
 
-
-# This job is used to clean up non production resources when a PR is merged
-# module "clean_up_resources_codebuild_project" {
-#   source                          = "../../modules/standalone-codebuild"
-#   codebuild_project_name          = var.clean_up_resources_codebuild_project
-#   codebuild_project_description   = "Clean up non production resources"
-#   codebuild_service_role          = data.aws_iam_role.pipeline_role.arn
-#   github_repsitory_url            = var.github_repository_url
-#   buildspec_rendered              = file("${local.standalone_path}/clean_up_resources_buildspec.yml")
-#   codebuild_environment_variables = local.codebuild_standard_environment_variables
-# }
+module "clean_up_resources_codebuild_project" {
+  source                        = "../../modules/standalone-codebuild"
+  codebuild_project_name        = var.clean_up_resources_codebuild_project
+  codebuild_project_description = "Clean up non production resources"
+  codebuild_build_timeout       = "480"
+  codebuild_service_role        = data.aws_iam_role.pipeline_role.arn
+  github_repsitory_url          = var.github_repository_url
+  buildspec_rendered            = file("${local.standalone_path}/clean_up_resources_buildspec.yml")
+  codebuild_environment_variables = concat(
+    local.codebuild_standard_environment_variables, [{
+      name  = "PROFILE"
+      value = "dev"
+      type  = "PLAINTEXT"
+  }])
+  codebuild_schedule_enabled    = true
+  codebuild_schedule_expression = "cron(0 0 * * ? *)"
+}
