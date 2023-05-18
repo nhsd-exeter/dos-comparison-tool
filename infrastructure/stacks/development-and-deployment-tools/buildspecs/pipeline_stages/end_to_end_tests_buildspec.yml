@@ -23,7 +23,7 @@ phases:
       - make docker-hub-sign-in PROFILE=dev
       # Build the tester image
       - make -s tester-build
-      - make -s docker-pull NAME=ui
+      - make -s docker-pull NAME=ui VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
       - echo "[Testing]"
