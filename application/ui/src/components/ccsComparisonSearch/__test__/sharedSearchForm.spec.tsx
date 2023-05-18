@@ -92,4 +92,23 @@ describe("tests for ccsComparisonSearch slice", () => {
 		expect(sexLabel).toBeDefined();
 		expect(sexLabel).toHaveProperty("innerHTML", "Sex");
 	});
+
+	test("It renders the expected SharedSearchForm layout when errors are returned", () => {
+		// Arrange
+		jest
+			.spyOn(axios, "post")
+			.mockRejectedValueOnce({ response: { status: 500 } })
+			.mockRejectedValueOnce({ response: { status: 500 } });
+
+		// Act
+		renderWithProvidersAndRouter(<SharedSearchForm />, { store: store });
+		// Assert: Elements are present.
+		waitFor(
+			() =>
+				getByTestId(
+					document.documentElement,
+					SYMPTOM_GROUP_DROP_DOWN
+				) as HTMLElement
+		);
+	});
 });
