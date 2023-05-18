@@ -19,13 +19,6 @@ import { SexDropDown } from "./dropDowns";
 
 function SharedSearchForm() {
 	const idToken = useAppSelector(selectToken) as string;
-	const [dispositions, setDispositions] = useState([
-		{
-			DispositionCode: "0",
-			DispositionId: "0",
-			DispositionName: "Loading Dispositions",
-		},
-	] as Disposition[]);
 	const [symptomGroups, setSymptomGroups] = useState([
 		{
 			SymptomGroupId: "0",
@@ -38,20 +31,27 @@ function SharedSearchForm() {
 			SymptomDiscriminatorName: "Loading Symptom Discriminators",
 		},
 	]);
-
-	const fetchDispositions = async () => {
-		SetupDefaultHeaders(idToken);
-		await axios
-			.post(`${DataLambda}/dispositions`)
-			.then((response) => setDispositions(response.data as Disposition[]))
-			.catch((error) => error);
-	};
+	const [dispositions, setDispositions] = useState([
+		{
+			DispositionCode: "0",
+			DispositionId: "0",
+			DispositionName: "Loading Dispositions",
+		},
+	] as Disposition[]);
 
 	const fetchSymptomGroups = async () => {
 		SetupDefaultHeaders(idToken);
 		await axios
 			.post(`${DataLambda}/symptom_groups`)
 			.then((response) => setSymptomGroups(response.data as SymptomGroup[]))
+			.catch((error) => error);
+	};
+
+	const fetchDispositions = async () => {
+		SetupDefaultHeaders(idToken);
+		await axios
+			.post(`${DataLambda}/dispositions`)
+			.then((response) => setDispositions(response.data as Disposition[]))
 			.catch((error) => error);
 	};
 
@@ -74,8 +74,8 @@ function SharedSearchForm() {
 
 	useEffect(() => {
 		(async () => {
-			await fetchDispositions();
 			await fetchSymptomGroups();
+			await fetchDispositions();
 		})();
 	}, []);
 
