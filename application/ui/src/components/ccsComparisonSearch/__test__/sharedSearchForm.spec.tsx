@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { getByTestId, waitFor } from "@testing-library/react";
+import { fireEvent, getByTestId, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import { store } from "../../../app/store";
@@ -97,8 +97,14 @@ describe("tests for ccsComparisonSearch slice", () => {
 		// Arrange
 		jest
 			.spyOn(axios, "post")
-			.mockRejectedValueOnce({ response: { status: 500 } })
-			.mockRejectedValueOnce({ response: { status: 500 } });
+			.mockRejectedValueOnce({
+				response: { status: 500 },
+				error: { message: "Error" },
+			})
+			.mockRejectedValueOnce({
+				response: { status: 500 },
+				error: { message: "Error" },
+			});
 
 		// Act
 		renderWithProvidersAndRouter(<SharedSearchForm />, { store: store });
@@ -110,5 +116,62 @@ describe("tests for ccsComparisonSearch slice", () => {
 					SYMPTOM_GROUP_DROP_DOWN
 				) as HTMLElement
 		);
+		const error = document.getElementById("Error");
+		expect(error).toBeDefined();
+	});
+
+	test("It renders the expected SharedSearchForm layout after symptom_group set", () => {
+		// Arrange
+		const symptomGroups = [
+			{ SymptomGroupId: 1, SymptomGroupName: "Symptom Group 1" },
+			{ SymptomGroupId: 2, SymptomGroupName: "Symptom Group 2" },
+		];
+		const dispositions = [
+			{
+				DispositionId: 1,
+				DispositionName: "Disposition 1",
+				DispositionCode: "1",
+			},
+			{
+				DispositionId: 2,
+				DispositionName: "Disposition 2",
+				DispositionCode: "2",
+			},
+		];
+		const symptomDiscriminators = [
+			{
+				SymptomDiscriminatorId: 1,
+				SymptomDiscriminatorName: "Symptom Discriminator 1",
+			},
+		];
+		jest
+			.spyOn(axios, "post")
+			.mockResolvedValueOnce({ data: symptomGroups })
+			.mockResolvedValueOnce({ data: dispositions })
+			.mockResolvedValueOnce({ data: symptomDiscriminators });
+		renderWithProvidersAndRouter(<SharedSearchForm />, { store: store });
+		waitFor(
+			() =>
+				getByTestId(
+					document.documentElement,
+					SYMPTOM_GROUP_DROP_DOWN
+				) as HTMLElement
+		);
+		// Act: Get the elements.
+		fireEvent.change(document.getElementById(SYMPTOM_GROUP_DROP_DOWN), {
+			target: { value: "0" },
+		});
+		waitFor(
+			() =>
+				getByTestId(
+					document.documentElement,
+					SYMPTOM_DISCRIMINATOR_DROP_DOWN
+				) as HTMLElement
+		);
+		// Assert: Elements are present.
+		const symptomDiscriminatorDropDown = document.getElementById(
+			SYMPTOM_DISCRIMINATOR_DROP_DOWN
+		);
+		expect(symptomDiscriminatorDropDown).toBeDefined();
 	});
 });
