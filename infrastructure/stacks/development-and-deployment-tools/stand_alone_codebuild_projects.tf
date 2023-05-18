@@ -41,5 +41,7 @@ module "clean_up_resources_codebuild_project" {
       value = "dev"
       type  = "PLAINTEXT"
   }])
-  codebuild_cron_enabled = true
+  codebuild_schedule_enabled    = true
+  codebuild_schedule_expression = "cron(15 6 * * ? *)"
+  # codebuild_schedule_expression = "rate(1 day)"
 }

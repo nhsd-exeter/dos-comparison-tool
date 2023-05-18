@@ -77,8 +77,14 @@ variable "filters" {
   description = "The filter group for the CodeBuild project"
 }
 
-variable "codebuild_cron_enabled" {
+variable "codebuild_schedule_enabled" {
   type        = bool
   description = "Whether to enable a cron for the CodeBuild project"
   default     = false
+}
+
+variable "codebuild_schedule_expression" {
+  type        = string
+  description = "The cron schedule expression for the CodeBuild project"
+  default     = ""
 }
