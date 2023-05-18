@@ -42,7 +42,7 @@ function SharedSearchForm() {
 	const fetchSymptomGroups = async () => {
 		SetupDefaultHeaders(idToken);
 		await axios
-			.post(`${DataLambda}/symptom_groups`)
+			.post(`${DataLambda}/symptom_groups`, {}, { timeout: 10000 })
 			.then((response) => setSymptomGroups(response.data as SymptomGroup[]))
 			.catch((error) => error);
 	};
@@ -50,7 +50,7 @@ function SharedSearchForm() {
 	const fetchDispositions = async () => {
 		SetupDefaultHeaders(idToken);
 		await axios
-			.post(`${DataLambda}/dispositions`)
+			.post(`${DataLambda}/dispositions`, {}, { timeout: 10000 })
 			.then((response) => setDispositions(response.data as Disposition[]))
 			.catch((error) => error);
 	};
@@ -65,7 +65,11 @@ function SharedSearchForm() {
 	const fetchSymptomDiscriminators = async (symptomGroupId: number) => {
 		SetupDefaultHeaders(idToken);
 		await axios
-			.post(`${DataLambda}/symptom_discriminators/${symptomGroupId}`)
+			.post(
+				`${DataLambda}/symptom_discriminators/${symptomGroupId}`,
+				{},
+				{ timeout: 10000 }
+			)
 			.then((response) =>
 				setSymptomDiscriminators(response.data as SymptomDiscriminator[])
 			)

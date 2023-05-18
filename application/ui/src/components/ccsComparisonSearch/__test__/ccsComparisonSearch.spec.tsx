@@ -47,14 +47,3 @@ test("It renders the expected CCSComparisonSearch layout", () => {
 	expect(footer).toBeTruthy();
 	expect(header).toBeTruthy();
 });
-
-// describe("CCSComparisonSearch works as expected", () => {
-// 	it("On submit it sends a ccsComparisonSearchRequest", () => {
-// 		// Act
-// 		renderWithProvidersAndRouter(<CCSComparisonSearch />);
-// 		const submitButton = document.getElementById(SEARCH_BUTTON) as HTMLElement;
-// 		fireEvent(submitButton, new MouseEvent("click"));
-// 		// Assert
-// 		expect(axios.post).toHaveBeenCalledTimes(4);
-// 	});
-// });
