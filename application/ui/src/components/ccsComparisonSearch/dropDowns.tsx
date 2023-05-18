@@ -1,72 +1,11 @@
 import { Select } from "nhsuk-react-components";
 import {
 	AGE_UNITS_DROP_DOWN_SUFFIX,
-	DISPOSITION_DROP_DOWN,
 	ENVIRONMENT_DROP_DOWN_SUFFIX,
 	ROLE_DROP_DOWN_SUFFIX,
 	SEX_DROP_DOWN,
-	SYMPTOM_DISCRIMINATOR_DROP_DOWN,
-	SYMPTOM_GROUP_DROP_DOWN,
 } from "../../constants/componentIds";
-import { Disposition, Role, SymptomGroup } from "../../interfaces/dtos";
-
-export function SymptomGroupDropDown({
-	symptomGroups,
-}: {
-	symptomGroups: SymptomGroup[];
-}) {
-	return (
-		<Select label="Symptom Group" id={SYMPTOM_GROUP_DROP_DOWN}>
-			<Select.Option value="0"></Select.Option>
-			{GenerateSymptomGroupOptions(symptomGroups)}
-		</Select>
-	);
-}
-
-export function GenerateSymptomGroupOptions(symptomGroups: SymptomGroup[]) {
-	return symptomGroups.map((symptomGroup) => (
-		<Select.Option
-			key={symptomGroup.SymptomGroupName}
-			value={symptomGroup.SymptomGroupId}
-		>
-			{symptomGroup.SymptomGroupName}
-		</Select.Option>
-	));
-}
-
-export function SymptomDiscriminatorDropDown() {
-	return (
-		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
-			<Select.Option value="0"></Select.Option>
-			<Select.Option value="4003">AMB Bleeding, significant</Select.Option>
-			<Select.Option value="4003">AMB Bleeding</Select.Option>
-		</Select>
-	);
-}
-
-export function DispositionDropDown({
-	dispositions,
-}: {
-	dispositions: Disposition[];
-}) {
-	return (
-		<Select label="Disposition" id={DISPOSITION_DROP_DOWN}>
-			<Select.Option value="0"></Select.Option>
-			{GenerateDispositionOptions(dispositions)}
-		</Select>
-	);
-}
-
-export function GenerateDispositionOptions(dispositions: Disposition[]) {
-	return dispositions.map((disposition) => (
-		<Select.Option
-			key={disposition.DispositionCode}
-			value={disposition.DispositionId}
-		>
-			{disposition.DispositionName}
-		</Select.Option>
-	));
-}
+import { Role } from "../../interfaces/dtos";
 
 export function SexDropDown() {
 	return (
