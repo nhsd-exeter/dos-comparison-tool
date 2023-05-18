@@ -1,7 +1,7 @@
 # tfsec:ignore:aws-iam-no-policy-wildcards
 module "data_lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "4.17.0"
+  version = "4.18.0"
 
   function_name = var.data_lambda_function_name
   description   = "Data lambda function for the DoS Comparison Tool"
