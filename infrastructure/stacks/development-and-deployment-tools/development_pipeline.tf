@@ -22,7 +22,6 @@ resource "aws_codepipeline" "development_pipeline" {
         ConnectionArn    = aws_codestarconnections_connection.github.arn
         FullRepositoryId = var.github_repository
         BranchName       = var.development_pipeline_integration_branch
-        DetectChanges    = true
       }
     }
   }
