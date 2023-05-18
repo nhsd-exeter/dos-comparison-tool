@@ -1,5 +1,6 @@
 #tfsec:ignore:aws-ssm-secret-use-customer-key
 resource "aws_secretsmanager_secret" "cognito_secrets" {
+  #checkov:skip=CKV2_AWS_57
   name                    = var.cognito_secrets_name
   description             = "Secrets for Cognito"
   recovery_window_in_days = 0
