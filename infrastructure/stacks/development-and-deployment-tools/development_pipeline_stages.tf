@@ -49,6 +49,7 @@ module "end_to_end_tests_codebuild_project" {
   codebuild_project_name          = var.end_to_end_tests_codebuild_project
   codebuild_project_description   = "DoS Comparison Tool - End To End Tests"
   codebuild_linux_image           = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
+  codebuild_compute_type          = "BUILD_GENERAL1_MEDIUM"
   codebuild_service_role          = data.aws_iam_role.pipeline_role.arn
   buildspec_rendered              = file("${local.pipeline_stages_path}/end_to_end_tests_buildspec.yml")
   codebuild_environment_variables = local.codebuild_standard_environment_variables
