@@ -23,13 +23,13 @@ function SharedSearchForm() {
 		{
 			SymptomGroupId: "0",
 			SymptomGroupName: "Loading Symptom Groups",
-		},
+		} as SymptomGroup,
 	]);
 	const [symptomDiscriminators, setSymptomDiscriminators] = useState([
 		{
 			SymptomDiscriminatorId: "0",
 			SymptomDiscriminatorName: "Loading Symptom Discriminators",
-		},
+		} as SymptomDiscriminator,
 	]);
 	const [dispositions, setDispositions] = useState([
 		{
@@ -38,6 +38,7 @@ function SharedSearchForm() {
 			DispositionName: "Loading Dispositions",
 		},
 	] as Disposition[]);
+	const [isSymptomGroupSelected, setIsSymptomGroupSelected] = useState(false);
 
 	const fetchSymptomGroups = async () => {
 		SetupDefaultHeaders(idToken);
@@ -58,8 +59,10 @@ function SharedSearchForm() {
 	const handleSymptomGroupChange = async (
 		event: React.ChangeEvent<HTMLSelectElement>
 	) => {
+		setIsSymptomGroupSelected(false);
 		const selectedSymptomGroupId = parseInt(event.target.value);
 		await fetchSymptomDiscriminators(selectedSymptomGroupId);
+		setIsSymptomGroupSelected(true);
 	};
 
 	const fetchSymptomDiscriminators = async (symptomGroupId: number) => {
@@ -96,7 +99,9 @@ function SharedSearchForm() {
 
 	const symptomDiscriminatorsDropDown = (
 		<Select label="Symptom Discriminator" id={SYMPTOM_DISCRIMINATOR_DROP_DOWN}>
-			<Select.Option value="0">Select a Symptom Discriminator</Select.Option>
+			{isSymptomGroupSelected ? (
+				<Select.Option value="0">Select a Symptom Discriminator</Select.Option>
+			) : null}
 			{GenerateSymptomDiscriminatorOptions(symptomDiscriminators)}
 		</Select>
 	);
