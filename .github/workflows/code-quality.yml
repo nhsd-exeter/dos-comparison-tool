@@ -24,6 +24,10 @@ jobs:
         run: |
           build/automation/etc/githooks/scripts/editorconfig-pre-commit.sh
 
+      - name: Markdown Format Check
+        run: |
+          build/automation/etc/githooks/scripts/markdown-pre-commit.sh
+
       - name: GitHub Actions - Check best practices
         run: |
           make github-actions-best-practices

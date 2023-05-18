@@ -60,7 +60,13 @@ updates:
     target-branch: "main"
 
   - package-ecosystem: "terraform"
-    directory: "/infrastructure/modules/codebuild"
+    directory: "/infrastructure/modules/codepipeline-codebuild"
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
+
+  - package-ecosystem: "terraform"
+    directory: "/infrastructure/modules/standalone-codebuild"
     schedule:
       interval: "monthly"
     target-branch: "main"
