@@ -52,6 +52,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 }
 
 resource "aws_codebuild_webhook" "codebuild_webhook" {
+  count        = var.codebuild_webhook_enabled ? 1 : 0
   project_name = aws_codebuild_project.codebuild_project.name
   build_type   = "BUILD"
   filter_group {
