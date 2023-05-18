@@ -1,25 +1,25 @@
-name: "Check code for secrets"
+name: Code Quality
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, ready_for_review, synchronize, reopened]
 
 permissions:
-  checks: write
-  contents: read
-  pull-requests: write
-  statuses: write
+  security-events: write
 
 jobs:
-  check-code-security:
+  CodeQL-Analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
         with:
-          fetch-depth: 0
-      - name: Check if code contains any secrets
-        run: |
-          make \
-            git-config \
-            git-secrets-scan-repo-files
-      - name: Checkov Secret Scan
-        run: |
-          make checkov-secret-scanning
+          languages: typescript, python
+          queries: security-and-quality
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
