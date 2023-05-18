@@ -45,7 +45,7 @@ def delete_untagged_images(repository: str) -> None:
 
         image_digests = [{"imageDigest": image["imageDigest"]} for image in images]
         delete_ecr_images(repository, image_digests)
-        print(f"Deleting {len(image_digests)} images")
+        print(f"Deleting {len(image_digests)} untagged images")
 
 
 def delete_old_task_images(repository: str) -> None:
@@ -81,8 +81,8 @@ def delete_old_task_images(repository: str) -> None:
             for image in images
             if image["imagePushedAt"] < date and "2023" in image["imageTags"][0]
         ]
-        print(image_digests)
-        print(f"Deleting {len(image_digests)} images")
+        delete_ecr_images(repository, image_digests)
+        print(f"Deleting {len(image_digests)} old development images")
 
 
 if __name__ == "__main__":
