@@ -51,7 +51,7 @@
     "@yarnpkg/core": "^4.0.0-rc.43",
     "@yarnpkg/plugin-essentials": "^4.0.0-rc.43",
     "@yarnpkg/plugin-git": "^3.0.0-rc.43",
-    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.43",
+    "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.44",
     "aws-sdk-mock": "^5.8.0",
     "depcheck": "^1.4.3",
     "eslint": "^8.40.0",
