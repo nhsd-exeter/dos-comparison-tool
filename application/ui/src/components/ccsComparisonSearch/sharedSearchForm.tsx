@@ -84,7 +84,7 @@ function SharedSearchForm() {
 				setSymptomDiscriminators(response.data as SymptomDiscriminator[])
 			)
 			.catch((error) => error);
-		setDisableSymptomGroupDropDown(true);
+		setIsSymptomGroupSelected(true);
 	};
 
 	useEffect(() => {
