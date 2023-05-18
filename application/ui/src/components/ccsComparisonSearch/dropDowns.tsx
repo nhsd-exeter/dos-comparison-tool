@@ -52,7 +52,7 @@ export function RoleDropDown({
 }) {
 	return (
 		<Select label="Role" id={`${searchName}${ROLE_DROP_DOWN_SUFFIX}`}>
-			<Select.Option value="0"></Select.Option>
+			<Select.Option value="0">Select a Role</Select.Option>
 			{GenerateRoleOptions(roles)}
 		</Select>
 	);

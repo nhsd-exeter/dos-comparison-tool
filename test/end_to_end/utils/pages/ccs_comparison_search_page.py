@@ -135,13 +135,7 @@ class CCSComparisonSearchPage(Page):
         """
         self.input_text_into_field("PostcodeInput", postcode)
         self.select_from_dropdown("SymptomGroupDropDown", symptom_group)
-        WebDriverWait(CHROME_DRIVER, 15).until_not(
-            method=expected_conditions.text_to_be_present_in_element(
-                (By.ID, "SymptomDiscriminatorDropDown"),
-                SYMPTOM_DISCRIMINATOR_LOADING_MESSAGE,
-            ),
-            message="Symptom Discriminator dropdown did not load values.",
-        )
+        self.wait_for_symptom_discriminators_to_load()
         self.select_from_dropdown("SymptomDiscriminatorDropDown", symptom_discriminator)
         self.select_from_dropdown("DispositionDropDown", disposition)
         self.select_from_dropdown("SexDropDown", sex)
@@ -261,4 +255,18 @@ class CCSComparisonSearchPage(Page):
                 DEFAULT_ROLE_TWO,
             ),
             message="Search two role dropdown did not load values.",
+        )
+
+    def wait_for_symptom_discriminators_to_load(self: Self) -> None:
+        """Wait for the symptom discriminators to load data from the data lambda."""
+        WebDriverWait(CHROME_DRIVER, 15).until_not(
+            method=expected_conditions.text_to_be_present_in_element(
+                (By.ID, "SymptomDiscriminatorDropDown"),
+                SYMPTOM_DISCRIMINATOR_LOADING_MESSAGE,
+            ),
+            message="Symptom Discriminator dropdown did not load values.",
+        )
+        WebDriverWait(CHROME_DRIVER, 10).until(
+            method=expected_conditions.element_to_be_clickable((By.ID, "SymptomDiscriminatorDropDown")),
+            message="Symptom Discriminator dropdown is not clickable.",
         )
