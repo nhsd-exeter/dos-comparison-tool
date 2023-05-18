@@ -32,6 +32,7 @@ module "clean_up_resources_codebuild_project" {
   source                        = "../../modules/standalone-codebuild"
   codebuild_project_name        = var.clean_up_resources_codebuild_project
   codebuild_project_description = "Clean up non production resources"
+  codebuild_build_timeout       = "480"
   codebuild_service_role        = data.aws_iam_role.pipeline_role.arn
   github_repsitory_url          = var.github_repository_url
   buildspec_rendered            = file("${local.standalone_path}/clean_up_resources_buildspec.yml")
@@ -42,6 +43,5 @@ module "clean_up_resources_codebuild_project" {
       type  = "PLAINTEXT"
   }])
   codebuild_schedule_enabled    = true
-  codebuild_schedule_expression = "cron(15 6 * * ? *)"
-  # codebuild_schedule_expression = "rate(1 day)"
+  codebuild_schedule_expression = "cron(0 0 * * ? *)"
 }
