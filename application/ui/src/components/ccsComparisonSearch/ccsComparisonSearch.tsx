@@ -25,12 +25,21 @@ import { Layout } from "../common";
 import EnvironmentSearchForm from "./environmentSearchForm";
 import SharedSearchForm from "./sharedSearchForm";
 
-function CCSComparisonSearch() {
+/**
+ * The CCS comparison search component.
+ * @returns A CCS comparison search component.
+ */
+export default function CCSComparisonSearch() {
 	const dispatch = useAppDispatch();
 	const idToken = useAppSelector(selectToken) as string;
 	const navigate = useNavigate();
 
 	const handleSearchForm = async (event: React.FormEvent<HTMLFormElement>) => {
+		/**
+		 * Gets the value of an input element.
+		 * @param inputName The name of the input element.
+		 * @returns The value of the input element.
+		 */
 		function getElementById(inputName: string) {
 			return (document.getElementById(inputName) as HTMLInputElement).value;
 		}
@@ -128,5 +137,3 @@ function CCSComparisonSearch() {
 		</Layout>
 	);
 }
-
-export default CCSComparisonSearch;

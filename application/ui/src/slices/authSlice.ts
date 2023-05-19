@@ -2,14 +2,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 import { RootState } from "../app/store";
 
+/**
+ * The auth state.
+ * isLoggedIn Whether the user is logged in.
+ * session The session.
+ */
 export interface AuthState {
 	isLoggedIn: boolean;
 	session: CognitoUserSession | null;
 }
 
+/**
+ * The initial state.
+ */
 export const initialState = { isLoggedIn: false, session: null } as AuthState;
 
-// Slice to handle user authentication
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,

@@ -3,12 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 import { ErrorBox } from "../components/common";
 
+/**
+ * The login error state.
+ */
 export interface LoginErrorState {
 	error?: React.JSX.Element;
 }
 
+/**
+ * The initial state of the login error slice.
+ */
 export const initialState = { isError: undefined } as LoginErrorState;
-// Slice to handle errors during login
+
+/**
+ * The login error slice.
+ */
 export const loginErrorSlice = createSlice({
 	name: "loginError",
 	initialState,
@@ -22,6 +31,11 @@ export const loginErrorSlice = createSlice({
 	},
 });
 
+/**
+ * Selects the error from the login error state.
+ * @param state The login error state.
+ * @returns The error.
+ */
 export const selectError = (state: RootState) => state.loginError.error;
 
 export const { clearError, setError } = loginErrorSlice.actions;

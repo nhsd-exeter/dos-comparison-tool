@@ -20,7 +20,11 @@ import {
 import { ErrorBox, Layout } from "../common";
 import ResultsCard from "./resultCard";
 
-function CCSComparisonResults() {
+/**
+ * The CCS comparison results component.
+ * @returns A CCS comparison results component.
+ */
+export default function CCSComparisonResults() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const error = useAppSelector(selectError);
@@ -125,5 +129,3 @@ function CCSComparisonResults() {
 		</Layout>
 	);
 }
-
-export default CCSComparisonResults;

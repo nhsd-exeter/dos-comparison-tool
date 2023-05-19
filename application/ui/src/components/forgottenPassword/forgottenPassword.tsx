@@ -21,7 +21,7 @@ type ForgottenPasswordState = {
 	username?: string;
 };
 
-class ForgottenPassword extends React.Component<
+export default class ForgottenPassword extends React.Component<
 	ForgottenPasswordProps,
 	ForgottenPasswordState
 > {
@@ -164,4 +164,3 @@ class ForgottenPassword extends React.Component<
 		);
 	}
 }
-export default ForgottenPassword;

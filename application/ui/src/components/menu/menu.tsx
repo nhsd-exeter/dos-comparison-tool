@@ -3,7 +3,7 @@ import { MENU_PAGE } from "../../constants/componentIds";
 import Layout from "../common/Layout";
 import MenuCards from "./menuCards";
 
-export class Menu extends React.Component {
+export default class Menu extends React.Component {
 	render(): React.JSX.Element {
 		return (
 			<Layout>
@@ -16,5 +16,3 @@ export class Menu extends React.Component {
 		);
 	}
 }
-
-export default Menu;

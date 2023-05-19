@@ -7,6 +7,10 @@ import {
 } from "../../constants/componentIds";
 import { Role } from "../../interfaces/dtos";
 
+/**
+ * The sex drop down component.
+ * @returns The sex drop down component.
+ */
 export function SexDropDown() {
 	return (
 		<Select label="Sex" id={SEX_DROP_DOWN}>
@@ -17,6 +21,12 @@ export function SexDropDown() {
 	);
 }
 
+/**
+ * The age units drop down component.
+ * @param root0 - The props.
+ * @param root0.searchName - The name of the search.
+ * @returns The age units drop down component.
+ */
 export function AgeUnitsDropDown({ searchName }: { searchName: string }) {
 	return (
 		<Select
@@ -30,6 +40,12 @@ export function AgeUnitsDropDown({ searchName }: { searchName: string }) {
 	);
 }
 
+/**
+ * Generates the role options.
+ * @param root0 - The props.
+ * @param root0.searchName - The name of the search.
+ * @returns The role options.
+ */
 export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 	return (
 		<Select
@@ -43,6 +59,13 @@ export function EnvironmentDropDown({ searchName }: { searchName: string }) {
 	);
 }
 
+/**
+ * The role drop down component.
+ * @param root0 - The props.
+ * @param root0.searchName - The name of the search.
+ * @param root0.roles - The roles.
+ * @returns The role drop down component.
+ */
 export function RoleDropDown({
 	searchName,
 	roles,
@@ -58,6 +81,11 @@ export function RoleDropDown({
 	);
 }
 
+/**
+ * Generates the role options.
+ * @param roles - The roles.
+ * @returns The role options.
+ */
 export function GenerateRoleOptions(roles: Role[]) {
 	return roles.map((role) => (
 		<Select.Option key={role.RoleUserName} value={role.RoleUserName}>

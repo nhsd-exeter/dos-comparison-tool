@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import { screen } from "@testing-library/react";
-import { App } from "../App";
+import App from "../App";
 import { expectedPageText } from "../components/home/__test__/home.spec";
 import { renderWithProvidersAndRouter } from "./utils-for-tests";
 

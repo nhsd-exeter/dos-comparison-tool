@@ -13,7 +13,17 @@ import {
 } from "./dropDowns";
 import "./search.css";
 
-function EnvironmentSearchForm({ searchName }: { searchName: string }) {
+/**
+ * The environment search form component.
+ * @param root0 - The props.
+ * @param root0.searchName - The name of the search.
+ * @returns An environment search form.
+ */
+export default function EnvironmentSearchForm({
+	searchName,
+}: {
+	searchName: string;
+}) {
 	const idToken = useAppSelector(selectToken) as string;
 	const [roles, setsRoles] = useState([
 		{
@@ -57,5 +67,3 @@ function EnvironmentSearchForm({ searchName }: { searchName: string }) {
 		</div>
 	);
 }
-
-export default EnvironmentSearchForm;

@@ -4,6 +4,10 @@ import { LOGIN_PATH, MENU_PATH } from "../../constants/paths";
 import { selectLoggedIn } from "../../slices/authSlice";
 import Layout from "../common/Layout";
 
+/**
+ * The home page.
+ * @returns A home page.
+ */
 const Home = () => {
 	const loggedIn = useAppSelector(selectLoggedIn);
 
@@ -18,6 +22,11 @@ const Home = () => {
 	);
 };
 
+/**
+ * Renders the next step button.
+ * @param launched - Whether the tool has been launched.
+ * @returns A next step button.
+ */
 function renderNextStepButton(launched: boolean | null) {
 	const text = launched ? "Start now" : "Log in";
 	const path = launched ? MENU_PATH : LOGIN_PATH;
