@@ -1,4 +1,5 @@
 import { expect, test } from "@jest/globals";
+import { fireEvent } from "@testing-library/react";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
 import { FOOTER_ID, HEADER_ID } from "../../../constants/componentIds";
 import Menu from "../menu";
@@ -31,4 +32,13 @@ test("It renders the Menu Content", () => {
 	expect(ccsSearchCardDescriptionText).toStrictEqual(
 		"Compare results from multiple Check Capacity Summary (CCS) searches across Directory of Services environments"
 	);
+});
+
+test("The Menu Content links to the CCS Comparison Search page", () => {
+	// Arrange
+	renderWithProvidersAndRouter(<Menu />);
+	// Act
+	fireEvent.click(document.getElementById("ccsSearchCardLink") as HTMLElement);
+	// Assert
+	expect(window.location.pathname).toStrictEqual("/ccs-comparison-search");
 });
