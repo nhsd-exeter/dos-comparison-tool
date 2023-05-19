@@ -11,6 +11,7 @@ const MenuCards = (): React.JSX.Element => {
 					<Card.Content>
 						<Card.Heading id="ccsSearchCardHeading" className="nhsuk-heading-m">
 							<Card.Link
+								id="ccsSearchCardLink"
 								onClick={() =>
 									navigate(CCS_COMPARISON_SEARCH_PATH, { replace: true })
 								}

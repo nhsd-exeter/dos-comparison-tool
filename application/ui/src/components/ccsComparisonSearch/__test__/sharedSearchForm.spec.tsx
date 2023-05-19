@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "@jest/globals";
+import { afterEach, describe, expect, test } from "@jest/globals";
 import { fireEvent, getByTestId, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
@@ -15,7 +15,7 @@ import SharedSearchForm from "../sharedSearchForm";
 jest.mock("axios");
 
 describe("tests for ccsComparisonSearch slice", () => {
-	beforeEach(() => {
+	afterEach(() => {
 		jest.resetAllMocks();
 	});
 
@@ -160,6 +160,49 @@ describe("tests for ccsComparisonSearch slice", () => {
 		// Act: Get the elements.
 		fireEvent.change(document.getElementById(SYMPTOM_GROUP_DROP_DOWN), {
 			target: { value: "0" },
+		});
+		waitFor(
+			() =>
+				getByTestId(
+					document.documentElement,
+					SYMPTOM_DISCRIMINATOR_DROP_DOWN
+				) as HTMLElement
+		);
+		// Assert: Elements are present.
+		const symptomDiscriminatorDropDown = document.getElementById(
+			SYMPTOM_DISCRIMINATOR_DROP_DOWN
+		);
+		expect(symptomDiscriminatorDropDown).toBeDefined();
+	});
+
+	test("It renders the expected SharedSearchForm layout after symptom_discriminators request fails", () => {
+		// Arrange
+		const symptomGroups = [
+			{ SymptomGroupId: 1, SymptomGroupName: "Symptom Group 1" },
+			{ SymptomGroupId: 2, SymptomGroupName: "Symptom Group 2" },
+		];
+		jest
+			.spyOn(axios, "post")
+			.mockResolvedValueOnce({ data: symptomGroups })
+			.mockRejectedValueOnce({
+				response: { status: 500 },
+				error: { message: "Error" },
+			})
+			.mockRejectedValueOnce({
+				response: { status: 500 },
+				error: { message: "Error" },
+			});
+		renderWithProvidersAndRouter(<SharedSearchForm />, { store: store });
+		waitFor(
+			() =>
+				getByTestId(
+					document.documentElement,
+					SYMPTOM_GROUP_DROP_DOWN
+				) as HTMLElement
+		);
+		// Act: Get the elements.
+		fireEvent.change(document.getElementById(SYMPTOM_GROUP_DROP_DOWN), {
+			target: { value: 1 },
 		});
 		waitFor(
 			() =>
