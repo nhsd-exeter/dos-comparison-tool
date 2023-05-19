@@ -55,9 +55,11 @@ Feature: CCS Comparison Seach
     Then I should see the CCS Comparison Search results with error message "<error_message>"
 
     Examples:
-      | key         | value              | error_message                                                                                          |
-      | postcode    | SW1A               | Error: ERR_BAD_REQUEST: Request failed with status code 400, Please try again later or contact support |
-      | disposition | Medication Enquiry | Error: ERR_BAD_REQUEST: Request failed with status code 400, Please try again later or contact support |
+      | key         | value              | error_message                                                                                                                                                                                    |
+      | postcode    | SW1A               | CCS API Response Error: Postcode Validation: Postcode not found, Please try again later or contact support                                                                                       |
+      | disposition | Medication Enquiry | CCS API Response Error: Parameter Validation: Disposition not found, Please try again later or contact support                                                                                   |
+      | age         | 0                  | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | age         | 130                | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
 
   Scenario Outline: CCS Comparison Search with different SG, SD, DX combinations
     Given I am on the CCS Comparison Search page

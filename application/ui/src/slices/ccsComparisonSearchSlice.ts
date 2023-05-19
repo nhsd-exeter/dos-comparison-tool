@@ -22,16 +22,20 @@ export const search = createAsyncThunk(
 	"ccsComparisonSearch/search",
 	async (requestData: CCSSearchData) => {
 		SetupDefaultHeaders(requestData.authToken);
-		const response = await axios.post(
-			`${SearchLambda}/CCSComparisonSearch`,
-			{
-				search_one: requestData.search_one,
-				search_two: requestData.search_two,
-			},
-			{
-				timeout: 7000,
-			}
-		);
+		const response = await axios
+			.post(
+				`${SearchLambda}/CCSComparisonSearch`,
+				{
+					search_one: requestData.search_one,
+					search_two: requestData.search_two,
+				},
+				{
+					timeout: 7000,
+				}
+			)
+			.catch((error) => {
+				return Promise.reject(error.response.data);
+			});
 		return response.data;
 	}
 );
@@ -46,6 +50,10 @@ export const ccsComparisonSearchSlice = createSlice({
 			state.searchOneEnvironment = "";
 			state.searchTwoEnvironment = "";
 			state.successStatus = false;
+			state.error = undefined;
+		},
+		setCCSComparisonSearchError: (state, action) => {
+			state.error = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -67,7 +75,7 @@ export const ccsComparisonSearchSlice = createSlice({
 		builder.addCase(search.rejected, (state, action) => {
 			if (state.loading === "pending") {
 				state.loading = "idle";
-				state.error = `Error: ${action.error.code}: ${action.error.message}, Please try again later or contact support`;
+				state.error = `${action.error.message}, Please try again later or contact support`;
 			}
 		});
 	},
@@ -86,5 +94,6 @@ export const selectCCSComparisonSearchOneEnvironment = (state: RootState) =>
 export const selectCCSComparisonSearchTwoEnvironment = (state: RootState) =>
 	state.ccsComparisonSearch.searchTwoEnvironment;
 
-export const { resetCCSComparisonSearch } = ccsComparisonSearchSlice.actions;
+export const { setCCSComparisonSearchError, resetCCSComparisonSearch } =
+	ccsComparisonSearchSlice.actions;
 export default ccsComparisonSearchSlice.reducer;
