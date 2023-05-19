@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "@jest/globals";
+import { afterEach, describe, expect, test } from "@jest/globals";
 import { fireEvent, getByTestId, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { renderWithProvidersAndRouter } from "../../../__test__/utils-for-tests";
@@ -15,7 +15,7 @@ import SharedSearchForm from "../sharedSearchForm";
 jest.mock("axios");
 
 describe("tests for ccsComparisonSearch slice", () => {
-	beforeEach(() => {
+	afterEach(() => {
 		jest.resetAllMocks();
 	});
 

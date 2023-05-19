@@ -6,6 +6,7 @@ import {
 	resetCCSComparisonSearch,
 	search,
 	selectError,
+	setCCSComparisonSearchError,
 } from "../ccsComparisonSearchSlice";
 
 jest.mock("axios");
@@ -126,13 +127,13 @@ describe("tests for ccsComparisonSearch slice", () => {
 			successStatus: false,
 		});
 	});
-});
 
-describe("tests for ccsComparisonSearch slice selectors", () => {
-	it("selectError should return the error state", () => {
+	it("Can set an error", () => {
+		// Arrange - set up the initial state
+		const error = "test error";
 		// Act - run the action
-		const error = selectError(store.getState());
+		store.dispatch(setCCSComparisonSearchError(error));
 		// Assert - check the result
-		expect(error).toEqual(undefined);
+		expect(selectError(store.getState())).toEqual(error);
 	});
 });
