@@ -50,6 +50,7 @@ export const ccsComparisonSearchSlice = createSlice({
 			state.searchOneEnvironment = "";
 			state.searchTwoEnvironment = "";
 			state.successStatus = false;
+			state.error = undefined;
 		},
 		setCCSComparisonSearchError: (state, action) => {
 			state.error = action.payload;

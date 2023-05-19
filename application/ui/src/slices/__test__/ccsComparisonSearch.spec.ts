@@ -117,8 +117,7 @@ describe("tests for ccsComparisonSearch slice", () => {
 		store.dispatch(resetCCSComparisonSearch());
 		// Assert - check the result
 		expect(store.getState().ccsComparisonSearch).toEqual({
-			error:
-				"Error: undefined: undefined, Please try again later or contact support",
+			error: undefined,
 			loading: "idle",
 			searchOne: [],
 			searchTwo: [],
@@ -134,8 +133,6 @@ describe("tests for ccsComparisonSearch slice selectors", () => {
 		// Act - run the action
 		const error = selectError(store.getState());
 		// Assert - check the result
-		expect(error).toEqual(
-			"Error: undefined: undefined, Please try again later or contact support"
-		);
+		expect(error).toEqual(undefined);
 	});
 });
