@@ -86,6 +86,26 @@ def _(symptom_group: str, symptom_discriminator: str, disposition: str) -> None:
     ccs_comparison_search.run_search()
 
 
+@when(
+    parse(
+        'I run a CCS Comparison search with age "{age}" and age unit "{age_group}"',
+    ),
+)
+def _(age: str, age_group: str) -> None:
+    """I run a specific CCS Comparison search.
+
+    Args:
+        age (str): The age to search for.
+        age_group (str): The age group to search for.
+    """
+    ccs_comparison_search = CCSComparisonSearchPage()
+    ccs_comparison_search.enter_search_details(
+        age=age,
+        age_unit=age_group,
+    )
+    ccs_comparison_search.run_search()
+
+
 @then("I should see the CCS Comparison Search results page with expected results one")
 def _() -> None:
     """I should see the CCS Comparison Search results page."""

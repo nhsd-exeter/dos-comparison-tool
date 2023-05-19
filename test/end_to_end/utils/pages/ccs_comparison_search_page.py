@@ -30,7 +30,7 @@ DEFAULT_ENVIRONMENT_TWO = "Regression DI"
 DEFAULT_ROLE_TWO = "999 Referral"
 DEFAULT_AGE_TWO = "99"
 
-DEFAULT_AGE_UNITS = "Years"
+DEFAULT_AGE_UNIT = "Years"
 
 SEARCH_ONE_PREFIX = "SearchOne"
 SEARCH_TWO_PREFIX = "SearchTwo"
@@ -77,12 +77,14 @@ class CCSComparisonSearchPage(Page):
             environment=DEFAULT_ENVIRONMENT_ONE,
             role=DEFAULT_ROLE_ONE,
             age=DEFAULT_AGE_ONE,
+            age_unit=DEFAULT_AGE_UNIT,
         )
         self.input_values_for_specific_search_criteria(
             search_prefix=SEARCH_TWO_PREFIX,
             environment=DEFAULT_ENVIRONMENT_ONE,
             role=DEFAULT_ROLE_ONE,
             age=DEFAULT_AGE_ONE,
+            age_unit=DEFAULT_AGE_UNIT,
         )
 
     def build_default_search_two(self: Self) -> None:
@@ -100,12 +102,14 @@ class CCSComparisonSearchPage(Page):
             environment=DEFAULT_ENVIRONMENT_TWO,
             role=DEFAULT_ROLE_TWO,
             age=DEFAULT_AGE_TWO,
+            age_unit=DEFAULT_AGE_UNIT,
         )
         self.input_values_for_specific_search_criteria(
             search_prefix=SEARCH_TWO_PREFIX,
             environment=DEFAULT_ENVIRONMENT_TWO,
             role=DEFAULT_ROLE_TWO,
             age=DEFAULT_AGE_TWO,
+            age_unit=DEFAULT_AGE_UNIT,
         )
 
     def navigate_to_previous_page(self: Self) -> None:
@@ -140,12 +144,13 @@ class CCSComparisonSearchPage(Page):
         self.select_from_dropdown("DispositionDropDown", disposition)
         self.select_from_dropdown("SexDropDown", sex)
 
-    def input_values_for_specific_search_criteria(
+    def input_values_for_specific_search_criteria(  # noqa: PLR0913
         self: Self,
         search_prefix: str,
         environment: str,
         role: str,
         age: str,
+        age_unit: str,
     ) -> None:
         """Input default values for specific search criteria.
 
@@ -154,6 +159,7 @@ class CCSComparisonSearchPage(Page):
             environment (str): Environment to search for.
             role (str): Role to search for.
             age (str): Age to search for.
+            age_unit (str): Age unit to search for.
         """
         self.select_from_dropdown(
             drop_down_name=f"{search_prefix}EnvironmentDropDown",
@@ -161,7 +167,7 @@ class CCSComparisonSearchPage(Page):
         )
         self.select_from_dropdown(drop_down_name=f"{search_prefix}RoleDropDown", drop_down_text=role)
         self.input_text_into_field(field_name=f"{search_prefix}AgeInput", text=age)
-        self.select_from_dropdown(drop_down_name=f"{search_prefix}AgeUnitsDropDown", drop_down_text=DEFAULT_AGE_UNITS)
+        self.select_from_dropdown(drop_down_name=f"{search_prefix}AgeUnitsDropDown", drop_down_text=age_unit)
 
     def enter_search_details(  # noqa: PLR0913
         self: Self,
@@ -173,6 +179,7 @@ class CCSComparisonSearchPage(Page):
         environment: str = DEFAULT_ENVIRONMENT_ONE,
         role: str = DEFAULT_ROLE_ONE,
         age: str = DEFAULT_AGE_ONE,
+        age_unit: str = DEFAULT_AGE_UNIT,
     ) -> None:
         """Enter all search details.
 
@@ -185,6 +192,7 @@ class CCSComparisonSearchPage(Page):
             environment (str): Environment to search for.
             role (str): Role to search for.
             age (str): Age to search for.
+            age_unit (str): Age unit to search for.
         """
         self.wait_for_drop_downs_to_load()
         self.input_values_for_shared_search_criteria(
@@ -198,13 +206,15 @@ class CCSComparisonSearchPage(Page):
             search_prefix=SEARCH_ONE_PREFIX,
             environment=environment,
             role=role,
-            age=DEFAULT_AGE_ONE,
+            age=age,
+            age_unit=age_unit,
         )
         self.input_values_for_specific_search_criteria(
             search_prefix=SEARCH_TWO_PREFIX,
             environment=environment,
             role=role,
             age=age,
+            age_unit=age_unit,
         )
 
     def input_text_into_field(self: Self, field_name: str, text: str) -> None:

@@ -55,11 +55,9 @@ Feature: CCS Comparison Seach
     Then I should see the CCS Comparison Search results with error message "<error_message>"
 
     Examples:
-      | key         | value              | error_message                                                                                                                                                                                    |
-      | postcode    | SW1A               | CCS API Response Error: Postcode Validation: Postcode not found, Please try again later or contact support                                                                                       |
-      | disposition | Medication Enquiry | CCS API Response Error: Parameter Validation: Disposition not found, Please try again later or contact support                                                                                   |
-      | age         | 0                  | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
-      | age         | 130                | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | key         | value              | error_message                                                                                                  |
+      | postcode    | SW1A               | CCS API Response Error: Postcode Validation: Postcode not found, Please try again later or contact support     |
+      | disposition | Medication Enquiry | CCS API Response Error: Parameter Validation: Disposition not found, Please try again later or contact support |
 
   Scenario Outline: CCS Comparison Search with different SG, SD, DX combinations
     Given I am on the CCS Comparison Search page
@@ -70,3 +68,33 @@ Feature: CCS Comparison Seach
       | symptom_group                    | symptom_discriminator                                      | disposition                                      |
       | Abdominal or Flank Injury, Blunt | PC full Primary Care assessment and prescribing capability | To contact a Primary Care Service within 2 hours |
       | Bites, Human                     | ED full ED assessment and management capability            | Attend Emergency Treatment Centre within 1 hour  |
+
+  Scenario Outline: CCS Comparison Search with different Age and Age Group combinations
+    Given I am on the CCS Comparison Search page
+    When I run a CCS Comparison search with age "<age>" and age unit "<age_unit>"
+    Then I should see the CCS Comparison Search results page
+
+    Examples:
+      | age | age_unit |
+      | 2   | Years    |
+      | 129 | Years    |
+      | 1   | Months   |
+      | 12  | Months   |
+      | 23  | Months   |
+      | 1   | Days     |
+      | 31  | Days     |
+
+  Scenario Outline: CCS Comparison Search with different Age and Age Group combinations to produce errors
+    Given I am on the CCS Comparison Search page
+    When I run a CCS Comparison search with age "<age>" and age unit "<age_unit>"
+    Then I should see the CCS Comparison Search results with error message "<error_message>"
+
+    Examples:
+      | age | age_unit | error_message                                                                                                                                                                                    |
+      | 0   | Years    | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 1   | Years    | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 130 | Years    | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 24  | Months   | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 0   | Months   | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 0   | Days     | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
+      | 32  | Days     | CCS API Response Error: Parameter Validation: Invalid age value supplied. Supported values where Years format is used are whole numbers between 2-129, Please try again later or contact support |
