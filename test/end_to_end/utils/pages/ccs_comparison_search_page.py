@@ -58,7 +58,9 @@ class CCSComparisonSearchPage(Page):
         login_page.navigate_to_page()
         login_page.login()
         login_page.navigate_to_next_page()
-        MenuPage().select_ccs_comparison_search()
+        menu_page = MenuPage()
+        menu_page.assert_on_page()
+        menu_page.select_ccs_comparison_search()
         self.assert_on_page()
         self.wait_for_drop_downs_to_load()
 
@@ -280,3 +282,11 @@ class CCSComparisonSearchPage(Page):
             method=expected_conditions.element_to_be_clickable((By.ID, "SymptomDiscriminatorDropDown")),
             message="Symptom Discriminator dropdown is not clickable.",
         )
+
+    def assert_on_page(self: Self) -> None:
+        """Assert that the page is the current page."""
+        WebDriverWait(CHROME_DRIVER, 15).until(
+            method=expected_conditions.presence_of_element_located((By.ID, self.page_id)),
+            message=f"{self.page_id} not found",
+        )
+        assert CHROME_DRIVER.current_url.endswith(self.url_subdirectory), f"{self.url_subdirectory} not found in URL"
