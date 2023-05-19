@@ -51,7 +51,14 @@ build-and-deploy: # Build, push and deploy application - mandatory: PROFILE=[nam
 build-and-start: # Build and start application - mandatory: PROFILE=[name]
 	make build-and-push provision-infrastructure start VERSION=$(BUILD_TAG)
 
+build-deploy-start-test: # Build, push, deploy, start and test application - mandatory: PROFILE=[name]
+	make build-and-deploy
+	make start
+	make end-to-end-tests
+	make api-integration-tests
+
 provision-infrastructure: # Provision infrastructure - mandatory: PROFILE=[name], optional: ENVIRONMENT=[name]
+	make terraform-clean
 	make terraform-apply-auto-approve STACKS=application
 	if [ "$(PROFILE)" == "dev" ]; then
 		aws s3 cp s3://$(CONFIGURATION_BUCKET)/dispositions.csv s3://$(APPLICATION_BUCKET)/dispositions.csv --sse AES256
@@ -194,8 +201,7 @@ pip-install: # Install Python dependencies
 	python -m pip install -r $(APPLICATION_DIR)/development-requirements.txt --upgrade pip
 
 python-unit-test: # Run Python unit tests
-	python -m pytest application \
-		--ignore=application/ui --cov=. --cov-report xml --cov-report term-missing --junitxml=./testresults.xml
+	python -m pytest application --ignore=application/ui --cov=. --cov-report xml --cov-report term-missing --junitxml=./testresults.xml
 
 python-lint: # Run Python linting (ruff)
 	python -m ruff check . --fix
@@ -281,10 +287,6 @@ docker-hub-sign-in: # Sign into Docker hub
 get-task-environment: # Get environment name, error if not true task branch - mandatory: ENVIRONMENT
 	make check-for-environment
 	echo $(ENVIRONMENT)
-
-get-build-tag: # Get build version - mandatory: ENVIRONMENT
-	make check-for-environment
-	echo $(BUILD_TAG)
 
 check-for-environment: # Check if environment exists - mandatory: ENVIRONMENT
 	if [[ "$(ENVIRONMENT)" == "unknown" ]]; then

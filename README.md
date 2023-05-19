@@ -66,8 +66,8 @@ This is a tool to compare the output of two DoS environments. It is primarily in
 
 Clone the repository
 
-    git clone [project-url]
-    cd ./[project-dir]
+    git clone https://github.com/nhsd-exeter/dos-comparison-tool.git
+    cd ./dos-comparison-tool
 
 The following is equivalent to the `curl -L bit.ly/make-devops-macos-setup | bash` command. If that step has already been done it can be omitted at this point
 
@@ -88,8 +88,8 @@ Generate and trust a self-signed certificate that will be used locally to enable
 ### Local Project Setup
 
     make setup
-    make build
-    make start log
+    make build-and-start PROFILE=dev
+    make log
     open https://localhost:8081
 
 ## Contributing
@@ -155,7 +155,8 @@ Unit testing is a software testing method by which individual units of source co
 
 Unit Tests are written in Typescript and run using Jest. They are located in the `__test__` subdirectory of the code it's testing.
 
-    make ui-test
+    make typescript-unit-test // Run unit tests locally
+    make ui-test // Run unit tests in docker
 
 ### End to End tests
 
