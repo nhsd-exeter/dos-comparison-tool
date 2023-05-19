@@ -2,7 +2,7 @@ import React from "react";
 import { BASE_PATH } from "../../constants/paths";
 import Layout from "../common/Layout";
 
-export class PageNotFound extends React.Component {
+export default class PageNotFound extends React.Component {
 	render(): React.JSX.Element {
 		return (
 			<Layout hideFooter={true}>
@@ -14,5 +14,3 @@ export class PageNotFound extends React.Component {
 		);
 	}
 }
-
-export default PageNotFound;

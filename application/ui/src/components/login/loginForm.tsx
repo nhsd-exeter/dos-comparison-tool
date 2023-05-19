@@ -17,7 +17,11 @@ import { signIn } from "../../slices/authSlice";
 import { setError } from "../../slices/loginErrorSlice";
 import { userPool } from "../../utils/auth";
 
-function LoginForm() {
+/**
+ * The login form component.
+ * @returns A login form.
+ */
+export default function LoginForm() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
@@ -75,5 +79,3 @@ function LoginForm() {
 		</Form>
 	);
 }
-
-export default LoginForm;

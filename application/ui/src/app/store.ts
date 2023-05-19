@@ -3,8 +3,12 @@ import authReducer from "../slices/authSlice";
 import ccsComparisonSearchReducer from "../slices/ccsComparisonSearchSlice";
 import loginErrorReducer from "../slices/loginErrorSlice";
 
+/**
+ * Returns true if the application is running in development mode.
+ * @returns True if the application is running in development mode.
+ */
 export function devTools(): boolean {
-	return process.env.NODE_ENV === "development" ? true : false;
+	return process.env.NODE_ENV === "development";
 }
 export const rootReducer = {
 	auth: authReducer,

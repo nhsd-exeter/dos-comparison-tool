@@ -11,7 +11,12 @@ type ResultsCardProps = {
 	equalResults: boolean;
 };
 
-function ResultsCard(Props: ResultsCardProps) {
+/**
+ * The results card component.
+ * @param Props The properties of the results card.
+ * @returns The results card.
+ */
+export default function ResultsCard(Props: ResultsCardProps) {
 	const ranking_colour_class = Props.equalResults
 		? "results-card__ranking__green"
 		: "results-card__ranking__amber";
@@ -51,5 +56,3 @@ function ResultsCard(Props: ResultsCardProps) {
 		</div>
 	);
 }
-
-export default ResultsCard;

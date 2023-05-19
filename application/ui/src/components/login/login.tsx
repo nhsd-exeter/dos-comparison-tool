@@ -9,7 +9,11 @@ import { selectError } from "../../slices/loginErrorSlice";
 import { Layout } from "../common";
 import LoginForm from "./loginForm";
 
-function Login(): React.JSX.Element {
+/**
+ * Login page
+ * @returns A login page.
+ */
+export default function Login(): React.JSX.Element {
 	const error = useAppSelector(selectError);
 	return (
 		<Layout>
@@ -31,5 +35,3 @@ function Login(): React.JSX.Element {
 		</Layout>
 	);
 }
-
-export default Login;

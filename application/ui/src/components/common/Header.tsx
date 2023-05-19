@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { HEADER_ID } from "../../constants/componentIds";
 import { BASE_PATH } from "../../constants/paths";
 
+/**
+ * The header component.
+ * @returns The default NHS header.
+ */
 function Header() {
 	const navigate = useNavigate();
 	return (

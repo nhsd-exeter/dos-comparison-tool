@@ -17,7 +17,11 @@ import { selectToken } from "../../slices/authSlice";
 import { DataLambda, SetupDefaultHeaders } from "../../utils/api";
 import { SexDropDown } from "./dropDowns";
 
-function SharedSearchForm() {
+/**
+ * The shared search form component.
+ * @returns A shared search form.
+ */
+export default function SharedSearchForm() {
 	const idToken = useAppSelector(selectToken) as string;
 	const [symptomGroups, setSymptomGroups] = useState([
 		{
@@ -150,6 +154,11 @@ function SharedSearchForm() {
 	);
 }
 
+/**
+ * Generate the options for the disposition drop down.
+ * @param symptomGroups The symptom groups to generate the options for.
+ * @returns The options for the disposition drop down.
+ */
 export function GenerateSymptomGroupOptions(symptomGroups: SymptomGroup[]) {
 	return symptomGroups.map((symptomGroup) => (
 		<Select.Option
@@ -161,6 +170,11 @@ export function GenerateSymptomGroupOptions(symptomGroups: SymptomGroup[]) {
 	));
 }
 
+/**
+ * Generate the options for the symptom discriminator drop down.
+ * @param symptomDiscriminators The symptom discriminators to generate the options for.
+ * @returns The options for the symptom discriminator drop down.
+ */
 export function GenerateSymptomDiscriminatorOptions(
 	symptomDiscriminators: SymptomDiscriminator[]
 ) {
@@ -174,6 +188,11 @@ export function GenerateSymptomDiscriminatorOptions(
 	));
 }
 
+/**
+ * Generate the options for the disposition drop down.
+ * @param dispositions The dispositions to generate the options for.
+ * @returns The options for the disposition drop down.
+ */
 export function GenerateDispositionOptions(dispositions: Disposition[]) {
 	return dispositions.map((disposition) => (
 		<Select.Option
@@ -184,5 +203,3 @@ export function GenerateDispositionOptions(dispositions: Disposition[]) {
 		</Select.Option>
 	));
 }
-
-export default SharedSearchForm;

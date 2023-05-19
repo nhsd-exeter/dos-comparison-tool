@@ -20,7 +20,7 @@ type RegisterPageState = {
 	username?: string;
 };
 
-class RegisterPage extends React.Component<
+export default class RegisterPage extends React.Component<
 	RegisterPageProps,
 	RegisterPageState
 > {
@@ -165,4 +165,3 @@ class RegisterPage extends React.Component<
 		);
 	}
 }
-export default RegisterPage;

@@ -21,12 +21,24 @@ import {
 	REGISTER_PATH,
 } from "./constants/paths";
 import { selectLoggedIn } from "./slices/authSlice";
-export class App extends React.Component {
+
+/**
+ * The main application component.
+ */
+export default class App extends React.Component {
+	/**
+	 * Renders the application.
+	 * @returns The rendered application.
+	 */
 	render(): React.JSX.Element {
 		return <ApplicationRouting />;
 	}
 }
 
+/**
+ * The routing component for the application.
+ * @returns The rendered routes.
+ */
 function ApplicationRouting(): React.JSX.Element {
 	const isLoggedIn = useAppSelector(selectLoggedIn);
 
@@ -59,4 +71,3 @@ function ApplicationRouting(): React.JSX.Element {
 	);
 	return isLoggedIn ? privateRoutes : publicRoutes;
 }
-export default App;
