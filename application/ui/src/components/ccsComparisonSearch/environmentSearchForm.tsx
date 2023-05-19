@@ -23,17 +23,13 @@ function EnvironmentSearchForm({ searchName }: { searchName: string }) {
 	] as Role[]);
 
 	const fetchRoles = async () => {
-		try {
-			SetupDefaultHeaders(idToken);
-			const response = await axios.post(`${DataLambda}/roles`);
-			setsRoles(response.data as Role[]);
-			return {
-				success: true,
-				data: response.data as Role[],
-			};
-		} catch (error) {
-			return;
-		}
+		SetupDefaultHeaders(idToken);
+		await axios
+			.post(`${DataLambda}/roles`)
+			.then((response) => {
+				setsRoles(response.data as Role[]);
+			})
+			.catch((error) => error);
 	};
 
 	useEffect(() => {
