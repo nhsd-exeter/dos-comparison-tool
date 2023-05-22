@@ -295,7 +295,7 @@ check-for-environment: # Check if environment exists - mandatory: ENVIRONMENT
 	fi
 
 # ==============================================================================
-# Environment Clean up
+# Environment & ECR Image Clean up
 
 get-environment-list: # Gets a full list of all DCT environments - mandatory: PROFILE=[name]
 	eval "$$(make aws-assume-role-export-variables)"
@@ -313,6 +313,10 @@ clean-up-environments: # Cleans up all DCT environments - mandatory: PROFILE=[na
 		make terraform-clean
 		make undeploy ENVIRONMENT=$$env
 	done
+
+clean-up-ecr-repositories: # Cleans up all ECR repositories - mandatory: PROFILE=[name]
+	python -m pip install -r scripts/clean_up_ecr_repositories/requirements.txt
+	python scripts/clean_up_ecr_repositories/clean_up_ecr_repositories.py
 
 # ==============================================================================
 # Checkov (Code Security Best Practices)
