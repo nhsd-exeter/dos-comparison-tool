@@ -8,7 +8,7 @@
 # tfsec:ignore:aws-s3-block-public-policy
 module "application_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.10.1"
+  version = "3.14.0"
 
   bucket        = var.application_bucket_name
   force_destroy = true
@@ -53,7 +53,7 @@ module "application_bucket" {
 # tfsec:ignore:aws-s3-enable-bucket-logging
 module "log_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.10.1"
+  version = "3.14.0"
 
   bucket        = var.log_bucket_name
   force_destroy = true
