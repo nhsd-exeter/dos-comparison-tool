@@ -54,7 +54,7 @@
     "@yarnpkg/plugin-interactive-tools": "^4.0.0-rc.44",
     "aws-sdk-mock": "^5.8.0",
     "depcheck": "^1.4.3",
-    "eslint": "^8.40.0",
+    "eslint": "^8.46.0",
     "eslint-plugin-jsdoc": "^44.2.4",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.17",
